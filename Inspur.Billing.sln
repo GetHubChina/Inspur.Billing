@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inspur.Billing", "Inspur.Billing\Inspur.Billing.csproj", "{EA1051BF-826C-47AF-857A-161FF0622943}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inspur.TaxModel", "Inspur.TaxModel\Inspur.TaxModel.csproj", "{125F3A8A-DD95-412A-939B-EC533DD2487E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLib", "CommonLib\CommonLib.csproj", "{76CCA2FB-6F61-4ED7-8799-601782BFBFB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLib.Sqlite", "CommonLib.Sqlite\CommonLib.Sqlite.csproj", "{E6234D00-11D9-4AC1-AEFA-1B99CB2C758C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resource", "Resource\Resource.csproj", "{75B28F11-1A84-48E4-B997-79CF0611095F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "db", "db", "{2B557ABE-BC1A-4E6D-9545-EC7C2799271A}"
+	ProjectSection(SolutionItems) = preProject
+		Billing.db = Billing.db
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA1051BF-826C-47AF-857A-161FF0622943}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA1051BF-826C-47AF-857A-161FF0622943}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA1051BF-826C-47AF-857A-161FF0622943}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA1051BF-826C-47AF-857A-161FF0622943}.Release|Any CPU.Build.0 = Release|Any CPU
+		{125F3A8A-DD95-412A-939B-EC533DD2487E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{125F3A8A-DD95-412A-939B-EC533DD2487E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{125F3A8A-DD95-412A-939B-EC533DD2487E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{125F3A8A-DD95-412A-939B-EC533DD2487E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76CCA2FB-6F61-4ED7-8799-601782BFBFB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76CCA2FB-6F61-4ED7-8799-601782BFBFB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76CCA2FB-6F61-4ED7-8799-601782BFBFB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76CCA2FB-6F61-4ED7-8799-601782BFBFB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6234D00-11D9-4AC1-AEFA-1B99CB2C758C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6234D00-11D9-4AC1-AEFA-1B99CB2C758C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6234D00-11D9-4AC1-AEFA-1B99CB2C758C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6234D00-11D9-4AC1-AEFA-1B99CB2C758C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75B28F11-1A84-48E4-B997-79CF0611095F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75B28F11-1A84-48E4-B997-79CF0611095F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75B28F11-1A84-48E4-B997-79CF0611095F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75B28F11-1A84-48E4-B997-79CF0611095F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B56B0668-760B-411D-A54D-638456FA994B}
+	EndGlobalSection
+EndGlobal
