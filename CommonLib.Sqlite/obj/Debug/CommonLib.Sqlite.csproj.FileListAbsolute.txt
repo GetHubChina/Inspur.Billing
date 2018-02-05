@@ -9,8 +9,10 @@ D:\GitHub\Inspur.Billing\CommonLib.Sqlite\bin\Debug\System.Data.SQLite.Linq.dll
 D:\GitHub\Inspur.Billing\CommonLib.Sqlite\bin\Debug\EntityFramework.xml
 D:\GitHub\Inspur.Billing\CommonLib.Sqlite\bin\Debug\EntityFramework.SqlServer.xml
 D:\GitHub\Inspur.Billing\CommonLib.Sqlite\bin\Debug\System.Data.SQLite.xml
+D:\GitHub\Inspur.Billing\CommonLib.Sqlite\bin\Debug\System.Data.SQLite.dll.config
 D:\GitHub\Inspur.Billing\CommonLib.Sqlite\obj\Debug\CommonLib.Sqlite.csprojResolveAssemblyReference.cache
 D:\GitHub\Inspur.Billing\CommonLib.Sqlite\obj\Debug\CommonLib.Sqlite.Properties.Resources.resources
 D:\GitHub\Inspur.Billing\CommonLib.Sqlite\obj\Debug\CommonLib.Sqlite.csproj.GenerateResource.Cache
+D:\GitHub\Inspur.Billing\CommonLib.Sqlite\obj\Debug\CommonLib.Sqlite.csproj.CoreCompileInputs.cache
 D:\GitHub\Inspur.Billing\CommonLib.Sqlite\obj\Debug\CommonLib.Sqlite.dll
 D:\GitHub\Inspur.Billing\CommonLib.Sqlite\obj\Debug\CommonLib.Sqlite.pdb
