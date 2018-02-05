@@ -39,6 +39,6 @@ D:\GitHub\Inspur.Billing\Resource\obj\Debug\Style\ButtonStyle.baml
 D:\GitHub\Inspur.Billing\Resource\obj\Debug\Style\TextBoxStyle.baml
 D:\GitHub\Inspur.Billing\Resource\obj\Debug\Style\TextBlockStyle.baml
 D:\GitHub\Inspur.Billing\Resource\obj\Debug\Resource.g.resources
-D:\GitHub\Inspur.Billing\Resource\obj\Debug\Resource.csproj.CoreCompileInputs.cache
 D:\GitHub\Inspur.Billing\Resource\obj\Debug\Resource.dll
 D:\GitHub\Inspur.Billing\Resource\obj\Debug\Resource.pdb
+D:\GitHub\Inspur.Billing\Resource\obj\Debug\Style\LineStyle.baml

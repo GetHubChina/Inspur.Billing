@@ -14,6 +14,7 @@
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using Inspur.Billing.ViewModel.Issue;
 using Inspur.Billing.ViewModel.Login;
 using Inspur.Billing.ViewModel.Setting;
 using Microsoft.Practices.ServiceLocation;
@@ -47,6 +48,7 @@ namespace Inspur.Billing.ViewModel
             SimpleIoc.Default.Register<LoginViewModel>();
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<BasicViewModel>();
+            SimpleIoc.Default.Register<CreditViewModel>();
         }
         public LoginViewModel Login
         {
@@ -67,6 +69,13 @@ namespace Inspur.Billing.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<BasicViewModel>();
+            }
+        }
+        public CreditViewModel Credit
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<CreditViewModel>();
             }
         }
         public static void Cleanup()

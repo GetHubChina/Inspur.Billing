@@ -38,15 +38,15 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="3*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Text="TIN:" Style="{StaticResource H_R_ContentTbkStyle}" />
+                    <TextBlock Grid.Row="0" Text="TIN:" Style="{StaticResource H_R_M10_ContentTbkStyle}" />
                     <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TaxPayerInfo.Tin}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Row="1" Text="Company Name:" Style="{StaticResource H_R_ContentTbkStyle}"/>
+                    <TextBlock Grid.Row="1" Text="Company Name:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
                     <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TaxPayerInfo.Name}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Row="2" Text="Address:" Style="{StaticResource H_R_ContentTbkStyle}"/>
+                    <TextBlock Grid.Row="2" Text="Address:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
                     <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding TaxPayerInfo.Adress}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Row="3" Text="Contact Number:" Style="{StaticResource H_R_ContentTbkStyle}"/>
+                    <TextBlock Grid.Row="3" Text="Contact Number:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
                     <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding TaxPayerInfo.Telphone}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Row="4" Text="Bank and Account Number:" Style="{StaticResource H_R_ContentTbkStyle}"/>
+                    <TextBlock Grid.Row="4" Text="Bank and Account Number:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
                     <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding TaxPayerInfo.BankAccount}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center"/>
                     <StackPanel Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal" Margin="0,60,0,0">
                         <Button Width="100" Content="Edit" Command="{Binding Command}" CommandParameter="TaxPayerEdit"/>
@@ -67,10 +67,10 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="E-SDC URL:" Style="{StaticResource H_R_ContentTbkStyle}"/>
+                    <TextBlock Text="E-SDC URL:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
                     <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SdcUrl}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center"/>
                     <Button Content="Test" Grid.Column="2" Width="100" Margin="0,3" Command="{Binding Command}" CommandParameter="SDCTest"/>
-                    <TextBlock Grid.Row="1" Text="Printer Serial Port:" Style="{StaticResource H_R_ContentTbkStyle}"/>
+                    <TextBlock Grid.Row="1" Text="Printer Serial Port:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
                     <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Port}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center"/>
                     <Button Content="Test" Grid.Row="1" Grid.Column="2" Width="100" Command="{Binding Command}" CommandParameter="PrinterPortTest" Margin="0,3"/>
                     <StackPanel Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal" Margin="0,60,0,0">
@@ -93,13 +93,13 @@
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="100"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Make:" Style="{StaticResource H_R_ContentTbkStyle}"/>
+                    <TextBlock Text="Make:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
                     <TextBlock Grid.Column="1" Text="{Binding Make}" Style="{StaticResource BaseContentTbkStyle}"/>
-                    <TextBlock Grid.Row="1" Text="Model:" Style="{StaticResource H_R_ContentTbkStyle}"/>
+                    <TextBlock Grid.Row="1" Text="Model:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
                     <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Model}" Style="{StaticResource BaseContentTbkStyle}"/>
-                    <TextBlock Grid.Row="2" Text="Software Version:" Style="{StaticResource H_R_ContentTbkStyle}"/>
+                    <TextBlock Grid.Row="2" Text="Software Version:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
                     <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Version}" Style="{StaticResource BaseContentTbkStyle}"/>
-                    <TextBlock Grid.Row="3" Text="Release Time:" Style="{StaticResource H_R_ContentTbkStyle}"/>
+                    <TextBlock Grid.Row="3" Text="Release Time:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
                     <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding ReleaseTime}" Style="{StaticResource BaseContentTbkStyle}"/>
                     <Button Grid.Row="4" Grid.ColumnSpan="2" Width="100" Height="30" Content="Cancel" VerticalAlignment="Center"
                              Command="{Binding Command}" CommandParameter="SoftwareCancel"/>

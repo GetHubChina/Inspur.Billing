@@ -38,11 +38,11 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Column="1" Text="POS Invoice Issue System" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource H_C_TitleTbkStyle}"/>
         <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-            <TextBlock Text="User Name:" Style="{StaticResource H_R_ContentTbkStyle}"/>
+            <TextBlock Text="User Name:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
             <TextBox Text="{Binding UserName}" Width="200" Style="{Binding M_3_P_3_TbStyle}" VerticalAlignment="Center" Padding="0,3"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" >
-            <TextBlock Text="Password:  " Style="{StaticResource H_R_ContentTbkStyle}"/>
+            <TextBlock Text="Password:  " Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
             <PasswordBox Width="200" helper:PasswordBoxAttach.IsPasswordBindingEnabled="True"  VerticalAlignment="Center" Padding="0,3"
                          helper:PasswordBoxAttach.BindedPassword="{Binding Password,Mode=TwoWay}"/>
         </StackPanel>

@@ -88,12 +88,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commom\Const.cs" />
+    <Compile Include="Model\CodeTable.cs" />
+    <Compile Include="ViewModel\Issue\CreditViewModel.cs" />
     <Compile Include="ViewModel\Login\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\Setting\BasicViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\Issue\CreditView.xaml.cs">
       <DependentUpon>CreditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Issue\PrintView.xaml.cs">
+      <DependentUpon>PrintView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Login\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
@@ -102,6 +108,10 @@
       <DependentUpon>BasicView.xaml</DependentUpon>
     </Compile>
     <Page Include="View\Issue\CreditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Issue\PrintView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -153,9 +163,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\CommonLib.Sqlite\CommonLib.Sqlite.csproj">
       <Project>{e6234d00-11d9-4ac1-aefa-1b99cb2c758c}</Project>

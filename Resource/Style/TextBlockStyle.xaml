@@ -20,6 +20,10 @@
     <!--水平居右的文本样式-->
     <Style x:Key="H_R_ContentTbkStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseContentTbkStyle}">
         <Setter Property="HorizontalAlignment" Value="Right"/>
+    </Style>
+    <!--水平居右的文本样式-->
+    <Style x:Key="H_R_M10_ContentTbkStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseContentTbkStyle}">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
         <Setter Property="Margin" Value="0,0,10,0"/>
     </Style>
     <!--水平居中的文本样式-->
