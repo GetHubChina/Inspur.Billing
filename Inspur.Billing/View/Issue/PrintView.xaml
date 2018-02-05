@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Inspur.Billing.View.Issue"
         xmlns:date="clr-namespace:System;assembly=mscorlib"
-        mc:Ignorable="d"
-        Title="PrintView" Height="800" Width="600">
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="PrintView" Height="800" Width="550">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -17,8 +17,10 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
+    <Grid Margin="10,0">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -62,12 +64,73 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <TextBlock Text="Particular Of Items" Style="{StaticResource H_C_ContentTbkStyle}"/>
-            <DataGrid Grid.Row="1" Style="{StaticResource DataGridPrintStyle}">
+            <DataGrid Grid.Row="1" Style="{StaticResource DataGridPrintStyle}" Margin="0,10">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="GTN"/>
+                    <DataGridTextColumn Header="GTN" Width="*"/>
+                    <DataGridTextColumn Header="Item Name" Width="*"/>
+                    <DataGridTextColumn Header="Price" Width="*"/>
+                    <DataGridTextColumn Header="Qty" Width="*"/>
+                    <DataGridTextColumn Header="Value" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
-            
+            <TextBlock Grid.Row="2" Text="Total Value:" Style="{StaticResource BaseContentTbkStyle}"/>
+            <TextBlock Grid.Row="2" Text="{Binding BuyerContact}" Style="{StaticResource H_R_ContentTbkStyle}"/>
         </Grid>
+        <Line Grid.Row="5" Style="{StaticResource DotLineStyle}" Margin="0,5"/>
+        <Grid Grid.Row="6">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Particular Of Items" Style="{StaticResource H_C_ContentTbkStyle}"/>
+            <DataGrid Grid.Row="1" Style="{StaticResource DataGridPrintStyle}" Margin="0,10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Label" Width="*"/>
+                    <DataGridTextColumn Header="Name" Width="*"/>
+                    <DataGridTextColumn Header="Rate(%)" Width="*"/>
+                    <DataGridTextColumn Header="Tax Amount" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <TextBlock Grid.Row="2" Text="Total Tax Amount:" Style="{StaticResource BaseContentTbkStyle}"/>
+            <TextBlock Grid.Row="2" Text="{Binding BuyerContact}" Style="{StaticResource H_R_ContentTbkStyle}"/>
+        </Grid>
+        <Line Grid.Row="7" Style="{StaticResource DotLineStyle}" Margin="0,5"/>
+        <Grid Grid.Row="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="Grand Total:" Style="{StaticResource BaseContentTbkStyle}"/>
+            <TextBlock Grid.Row="0" Text="{Binding BuyerTin}" Style="{StaticResource H_R_ContentTbkStyle}"/>
+            <TextBlock Grid.Row="1" Text="Payment Model:" Style="{StaticResource BaseContentTbkStyle}"/>
+            <TextBlock Grid.Row="1" Text="{Binding BuyerName}" Style="{StaticResource H_R_ContentTbkStyle}"/>
+            <TextBlock Grid.Row="2" Text="Actual Payment:" Style="{StaticResource BaseContentTbkStyle}"/>
+            <TextBlock Grid.Row="2" Text="{Binding BuyerAdress}" Style="{StaticResource H_R_ContentTbkStyle}"/>
+            <TextBlock Grid.Row="3" Text="Change:" Style="{StaticResource BaseContentTbkStyle}"/>
+            <TextBlock Grid.Row="3" Text="{Binding BuyerContact}" Style="{StaticResource H_R_ContentTbkStyle}"/>
+        </Grid>
+        <Line Grid.Row="9" Style="{StaticResource DotLineStyle}" Margin="0,10"/>
+        <Grid Grid.Row="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="TIN:" Style="{StaticResource BaseContentTbkStyle}"/>
+            <TextBlock Grid.Row="0" Text="{Binding BuyerTin}" Style="{StaticResource H_R_ContentTbkStyle}"/>
+            <TextBlock Grid.Row="1" Text="Name:" Style="{StaticResource BaseContentTbkStyle}"/>
+            <TextBlock Grid.Row="1" Text="{Binding BuyerName}" Style="{StaticResource H_R_ContentTbkStyle}"/>
+            <TextBlock Grid.Row="2" Text="Address:" Style="{StaticResource BaseContentTbkStyle}"/>
+            <TextBlock Grid.Row="2" Text="{Binding BuyerAdress}" Style="{StaticResource H_R_ContentTbkStyle}"/>
+            <TextBlock Grid.Row="3" Text="Contact:" Style="{StaticResource BaseContentTbkStyle}"/>
+            <TextBlock Grid.Row="3" Text="{Binding BuyerContact}" Style="{StaticResource H_R_ContentTbkStyle}"/>
+        </Grid>
+        <Line Grid.Row="11" Style="{StaticResource DotLineStyle}" Margin="0,10"/>
+        <TextBlock Grid.Row="12" Text="Dear sir madam,please keep the invoice properly so as to refunds &amp; replaces" TextWrapping="Wrap" Style="{StaticResource BaseContentTbkStyle}"/>
+        <TextBlock Grid.Row="13" Text="Thank You &amp; Please Come Again" Style="{StaticResource H_C_ContentTbkStyle}" Margin="0,10,0,0"/>
     </Grid>
 </Window>

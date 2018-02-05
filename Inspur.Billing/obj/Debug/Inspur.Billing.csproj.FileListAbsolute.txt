@@ -16,6 +16,7 @@ D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\System.Data.SQLite.EF6.dll
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\System.Data.SQLite.Linq.dll
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\System.Windows.Interactivity.dll
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\CommonLib.Sqlite.pdb
+D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\CommonLib.Sqlite.dll.config
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\CommonLib.pdb
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\Inspur.TaxModel.pdb
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\Resource.pdb
@@ -30,8 +31,10 @@ D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\GalaSoft.MvvmLight.Platform.xm
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\Microsoft.Practices.ServiceLocation.xml
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\System.Data.SQLite.xml
+D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\System.Data.SQLite.dll.config
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\Inspur.Billing.csprojResolveAssemblyReference.cache
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\View\Issue\CreditView.g.cs
+D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\View\Issue\PrintView.g.cs
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\View\MainWindow.g.cs
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\View\Login\LoginView.g.cs
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\View\Setting\BasicView.g.cs
@@ -41,13 +44,13 @@ D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\Inspur.Billing_MarkupCompile.c
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\Inspur.Billing_MarkupCompile.lref
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\App.baml
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\View\Issue\CreditView.baml
+D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\View\Issue\PrintView.baml
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\View\MainWindow.baml
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\View\Login\LoginView.baml
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\View\Setting\BasicView.baml
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\Inspur.Billing.g.resources
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\Inspur.Billing.Properties.Resources.resources
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\Inspur.Billing.csproj.GenerateResource.Cache
+D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\Inspur.Billing.csproj.CoreCompileInputs.cache
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\Inspur.Billing.exe
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\Inspur.Billing.pdb
-D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\View\Issue\PrintView.g.cs
-D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\View\Issue\PrintView.baml

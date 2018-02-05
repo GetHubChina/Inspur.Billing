@@ -31,22 +31,27 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="2*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Column="1" Text="POS Invoice Issue System" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource H_C_TitleTbkStyle}"/>
-        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-            <TextBlock Text="User Name:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
-            <TextBox Text="{Binding UserName}" Width="200" Style="{Binding M_3_P_3_TbStyle}" VerticalAlignment="Center" Padding="0,3"/>
-        </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" >
-            <TextBlock Text="Password:  " Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
-            <PasswordBox Width="200" helper:PasswordBoxAttach.IsPasswordBindingEnabled="True"  VerticalAlignment="Center" Padding="0,3"
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="User Name:" Style="{StaticResource BaseContentTbkStyle}"/>
+            <TextBox Grid.Column="1" Text="{Binding UserName}" Width="200" Style="{Binding M_3_P_3_TbStyle}" VerticalAlignment="Center" Padding="0,3"/>
+            <TextBlock Grid.Row="1" Text="Password:" Style="{StaticResource BaseContentTbkStyle}"/>
+            <PasswordBox Grid.Row="1" Grid.Column="1" Width="200" helper:PasswordBoxAttach.IsPasswordBindingEnabled="True"  VerticalAlignment="Center" Padding="0,3"
                          helper:PasswordBoxAttach.BindedPassword="{Binding Password,Mode=TwoWay}"/>
-        </StackPanel>
-        <Button Content="Login" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Command="{Binding LoginCommand}"/>
-        <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4" Grid.ColumnSpan="3" Text="V1.1" Margin="0,0,80,0"/>
+        </Grid>
+        <Button Content="Login" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Command="{Binding LoginCommand}"/>
+        <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="3" Text="V1.1" Margin="0,0,80,0"/>
     </Grid>
 </Window>

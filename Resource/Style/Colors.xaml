@@ -11,4 +11,7 @@
     <SolidColorBrush x:Key="Button.BorderBrush.Normal" Color="#FF114D6D"/>
     <!--按钮正常背景色-->
     <SolidColorBrush x:Key="Button.Background.Normal" Color="{StaticResource LightBlueForground.Color}"/>
+
+    <!--按钮正常背景色-->
+    <SolidColorBrush x:Key="DataGrid.Print.BorderThickness" Color="#FFA6A6A6"/>
 </ResourceDictionary>

@@ -12,6 +12,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resource;component/Style/TextBlockStyle.xaml"/>
                 <ResourceDictionary Source="/Resource;component/Style/TextBoxStyle.xaml"/>
+                <ResourceDictionary Source="/Resource;component/Style/DataGridStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -73,7 +74,7 @@
                     <Button Width="100" Height="30" Content="Copy" VerticalAlignment="Center" HorizontalAlignment="Right"
                              Command="{Binding Command}" CommandParameter="ProductCopy"/>
                 </StackPanel>
-                <DataGrid Grid.Row="1" ItemsSource="{Binding Productes}" SelectedItem="{Binding SelectedItem}" CanUserAddRows="False" AutoGenerateColumns="False">
+                <DataGrid Grid.Row="1" ItemsSource="{Binding Productes}" SelectedItem="{Binding SelectedItem}" Style="{StaticResource DataGridPrintStyle}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="GTIN" Binding="{Binding No}" Width="*"/>
                         <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
