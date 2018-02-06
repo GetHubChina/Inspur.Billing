@@ -7,16 +7,6 @@
         xmlns:date="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="PrintView" Height="800" Width="550">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Resource;component/Style/TextBlockStyle.xaml"/>
-                <ResourceDictionary Source="/Resource;component/Style/TextBoxStyle.xaml"/>
-                <ResourceDictionary Source="/Resource;component/Style/LineStyle.xaml"/>
-                <ResourceDictionary Source="/Resource;component/Style/DataGridStyle.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
     <Grid Margin="10,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

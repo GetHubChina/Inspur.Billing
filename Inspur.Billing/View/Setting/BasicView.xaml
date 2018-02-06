@@ -9,10 +9,6 @@
              DataContext="{Binding Path=Basic, Source={StaticResource Locator}}">
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Resource;component/Style/TextBlockStyle.xaml"/>
-                <ResourceDictionary Source="/Resource;component/Style/TextBoxStyle.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
             <!--TabItem 中grid样式-->
             <Style x:Key="GridTabItemStyle" TargetType="Grid">
                 <Setter Property="HorizontalAlignment" Value="Center"/>

@@ -43,3 +43,4 @@ D:\GitHub\Inspur.Billing\Resource\obj\Debug\Resource.csproj.CoreCompileInputs.ca
 D:\GitHub\Inspur.Billing\Resource\obj\Debug\Resource.dll
 D:\GitHub\Inspur.Billing\Resource\obj\Debug\Resource.pdb
 D:\GitHub\Inspur.Billing\Resource\obj\Debug\Resource.csprojResolveAssemblyReference.cache
+D:\GitHub\Inspur.Billing\Resource\obj\Debug\Style\Styles.baml

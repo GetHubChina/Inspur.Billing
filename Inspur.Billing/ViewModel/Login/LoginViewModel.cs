@@ -80,6 +80,11 @@ namespace Inspur.Billing.ViewModel.Login
             {
                 return _loginCommand ?? (_loginCommand = new RelayCommand(() =>
                 {
+                    if (string.IsNullOrEmpty(_userName))
+                    {
+                        MessageBox.Show("用户名称不能为空。");
+                        return;
+                    }
                     MainWindow mainWindow = new MainWindow();
                     Application.Current.MainWindow = mainWindow;
                     if (_loginView != null)

@@ -9,14 +9,6 @@
         mc:Ignorable="d" Name="login"
         Title="LoginView" Height="300" Width="500" WindowStartupLocation="CenterScreen"
         DataContext="{Binding Path=Login, Source={StaticResource Locator}}" ResizeMode="CanMinimize">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Resource;component/Style/TextBlockStyle.xaml"/>
-                <ResourceDictionary Source="/Resource;component/Style/TextBoxStyle.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadedCommand}" 
@@ -51,7 +43,7 @@
             <PasswordBox Grid.Row="1" Grid.Column="1" Width="200" helper:PasswordBoxAttach.IsPasswordBindingEnabled="True"  VerticalAlignment="Center" Padding="0,3"
                          helper:PasswordBoxAttach.BindedPassword="{Binding Password,Mode=TwoWay}"/>
         </Grid>
-        <Button Content="Login" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Command="{Binding LoginCommand}"/>
+        <Button Content="Login" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Command="{Binding LoginCommand}" Style="{StaticResource MetroFlatButton}"/>
         <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="3" Text="V1.1" Margin="0,0,80,0"/>
     </Grid>
 </Window>
