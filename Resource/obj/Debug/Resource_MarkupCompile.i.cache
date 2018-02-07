@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 
-8-1526418002
+9955887754
 
-5780809754
+51897293310
 141237720010
-Style\Styles.xaml;Style\LineStyle.xaml;Style\DataGridStyle.xaml;Style\Colors.xaml;Style\FontSizeStyle.xaml;Style\ButtonStyle.xaml;Style\TextBoxStyle.xaml;Style\TextBlockStyle.xaml;
+Style\MessageDialogStyle.xaml;Style\Styles.xaml;Style\LineStyle.xaml;Style\DataGridStyle.xaml;Style\Colors.xaml;Style\FontSizeStyle.xaml;Style\ButtonStyle.xaml;Style\TextBoxStyle.xaml;Style\TextBlockStyle.xaml;
 
-True
+False
 
