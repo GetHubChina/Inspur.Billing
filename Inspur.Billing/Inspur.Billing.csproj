@@ -172,13 +172,13 @@
       <Project>{76cca2fb-6f61-4ed7-8799-601782bfbfb6}</Project>
       <Name>CommonLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ControlLib\ControlLib.csproj">
+      <Project>{baad91d9-8a2b-4540-bfdc-05d6ae602b20}</Project>
+      <Name>ControlLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Inspur.TaxModel\Inspur.TaxModel.csproj">
       <Project>{125f3a8a-dd95-412a-939b-ec533dd2487e}</Project>
       <Name>Inspur.TaxModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Resource\Resource.csproj">
-      <Project>{75b28f11-1a84-48e4-b997-79cf0611095f}</Project>
-      <Name>Resource</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

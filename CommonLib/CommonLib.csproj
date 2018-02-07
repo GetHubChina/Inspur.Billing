@@ -47,7 +47,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\Dialogs\MessageDialog.cs" />
     <Compile Include="Crypt\Md5Crypt.cs" />
     <Compile Include="Helper\PasswordBoxAttach.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

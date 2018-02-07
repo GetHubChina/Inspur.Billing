@@ -2,12 +2,5 @@ D:\GitHub\Inspur.Billing\CommonLib\bin\Debug\CommonLib.dll
 D:\GitHub\Inspur.Billing\CommonLib\bin\Debug\CommonLib.pdb
 D:\GitHub\Inspur.Billing\CommonLib\obj\Debug\CommonLib.Properties.Resources.resources
 D:\GitHub\Inspur.Billing\CommonLib\obj\Debug\CommonLib.csproj.GenerateResource.Cache
-D:\GitHub\Inspur.Billing\CommonLib\obj\Debug\CommonLib.csproj.CoreCompileInputs.cache
 D:\GitHub\Inspur.Billing\CommonLib\obj\Debug\CommonLib.dll
 D:\GitHub\Inspur.Billing\CommonLib\obj\Debug\CommonLib.pdb
-D:\GitHub\Inspur.Billing\CommonLib\obj\Debug\CommonLib.csprojResolveAssemblyReference.cache
-D:\GitHub\Inspur.Billing\CommonLib\obj\Debug\Controls\Dialogs\MessageDialog.g.cs
-D:\GitHub\Inspur.Billing\CommonLib\obj\Debug\CommonLib_MarkupCompile.cache
-D:\GitHub\Inspur.Billing\CommonLib\obj\Debug\CommonLib_MarkupCompile.lref
-D:\GitHub\Inspur.Billing\CommonLib\obj\Debug\Controls\Dialogs\MessageDialog.baml
-D:\GitHub\Inspur.Billing\CommonLib\obj\Debug\CommonLib.g.resources

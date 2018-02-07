@@ -1,8 +1,13 @@
-﻿using GalaSoft.MvvmLight;
+﻿using CommonLib.Crypt;
+using CommonLib.Helper;
+using ControlLib.Controls.Dialogs;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Inspur.Billing.Commom;
 using Inspur.Billing.View;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -82,7 +87,29 @@ namespace Inspur.Billing.ViewModel.Login
                 {
                     if (string.IsNullOrEmpty(_userName))
                     {
-                        MessageBox.Show("用户名称不能为空。");
+                        MessageBoxEx.Show("用户名称不能为空。", MessageBoxButton.OK);
+                        return;
+                    }
+                    if (string.IsNullOrWhiteSpace(_password))
+                    {
+                        MessageBoxEx.Show("用户密码不能为空。", MessageBoxButton.OK);
+                        return;
+                    }
+                    string sql = string.Format("SELECT * FROM cashier t WHERE t.name='{0}';",_userName);
+                    DataSet ds = SQLiteHelper.ExecuteDataSet(Const.ConnectString, sql, null);
+                    if (ds != null && ds.Tables != null && ds.Tables.Count > 0 && ds.Tables[0].Rows != null && ds.Tables[0].Rows.Count > 0)
+                    {
+                        string password = ds.Tables[0].Rows[0]["password"].ToString();
+                        string p = Md5Crypt.MD5Encrypt32(_password);
+                        if (!Md5Crypt.MD5Encrypt32(_password).ToLower().Equals(password))
+                        {
+                            MessageBoxEx.Show("密码不正确。", MessageBoxButton.OK);
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        MessageBoxEx.Show("用户不存在。", MessageBoxButton.OK);
                         return;
                     }
                     MainWindow mainWindow = new MainWindow();
