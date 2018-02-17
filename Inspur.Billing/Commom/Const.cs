@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,9 @@ namespace Inspur.Billing.Commom
         /// sqlite连接字符串
         /// </summary>
         public static string ConnectString = "Data Source=" + AppDomain.CurrentDomain.BaseDirectory + "/Billing.db";
+        /// <summary>
+        /// 数据库对象
+        /// </summary>
+        public static BillingDB dB = new BillingDB();
     }
 }

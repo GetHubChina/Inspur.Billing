@@ -26,7 +26,7 @@ namespace Inspur.Billing.ViewModel.Login
         /// <summary>
         /// 获取或设置
         /// </summary>
-        private string _userName;
+        private string _userName = "admin";
         /// <summary>
         /// 获取或设置
         /// </summary>
@@ -38,7 +38,7 @@ namespace Inspur.Billing.ViewModel.Login
         /// <summary>
         /// 获取或设置
         /// </summary>
-        private string _password;
+        private string _password = "111111";
         /// <summary>
         /// 获取或设置
         /// </summary>
@@ -95,13 +95,12 @@ namespace Inspur.Billing.ViewModel.Login
                         MessageBoxEx.Show("用户密码不能为空。", MessageBoxButton.OK);
                         return;
                     }
-                    string sql = string.Format("SELECT * FROM cashier t WHERE t.name='{0}';",_userName);
-                    DataSet ds = SQLiteHelper.ExecuteDataSet(Const.ConnectString, sql, null);
-                    if (ds != null && ds.Tables != null && ds.Tables.Count > 0 && ds.Tables[0].Rows != null && ds.Tables[0].Rows.Count > 0)
+                    var cashierInfo = (from a in Const.dB.Cashiers
+                                       where a.Name == _userName
+                                       select a).ToList();
+                    if (cashierInfo != null && cashierInfo.Count > 0)
                     {
-                        string password = ds.Tables[0].Rows[0]["password"].ToString();
-                        string p = Md5Crypt.MD5Encrypt32(_password);
-                        if (!Md5Crypt.MD5Encrypt32(_password).ToLower().Equals(password))
+                        if (!Md5Crypt.MD5Encrypt32(_password).ToLower().Equals(cashierInfo[0].Password))
                         {
                             MessageBoxEx.Show("密码不正确。", MessageBoxButton.OK);
                             return;

@@ -123,7 +123,8 @@
                 <Setter Property="Background" Value="{DynamicResource Button.Background.Pressed}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="{DynamicResource GrayBrush2}" />
+                <Setter Property="Foreground" Value="{DynamicResource Button.Foreground.UnEnable}" />
+                <Setter Property="Background" Value="{DynamicResource Button.Background.UnEnable}" />
             </Trigger>
         </Style.Triggers>
     </Style>

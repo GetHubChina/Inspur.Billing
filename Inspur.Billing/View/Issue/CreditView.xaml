@@ -4,9 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Inspur.Billing.View.Issue"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              DataContext="{Binding Path=Credit, Source={StaticResource Locator}}"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="800">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding Command}" CommandParameter="Loaded"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid Margin="0,20,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -33,19 +39,25 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Text="Buyer TIN:" Style="{StaticResource H_R_M10_ContentTbkStyle}" />
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding BuyerTin}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Buyer.Tin}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="LostFocus">
+                        <i:InvokeCommandAction Command="{Binding Command}" CommandParameter="BuyerTinLostFocus"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
             <TextBlock Grid.Row="0" Grid.Column="2" Text="Buyer Name:" Style="{StaticResource H_R_M10_ContentTbkStyle}" />
-            <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding BuyerName}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding Buyer.Name}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center"/>
             <TextBlock Grid.Row="1" Text="Buyer Address:" Style="{StaticResource H_R_M10_ContentTbkStyle}" />
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding BuyerAdress}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Buyer.Address}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center"/>
             <TextBlock Grid.Row="1" Grid.Column="2" Text="Buyer Contact:" Style="{StaticResource H_R_M10_ContentTbkStyle}" />
-            <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding BuyerContact}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Buyer.TelPhone}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center"/>
             <TextBlock Grid.Row="2" Text="Transaction Type:" Style="{StaticResource H_R_M10_ContentTbkStyle}" />
             <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding TransactionType}" DisplayMemberPath="Name" SelectedValuePath="Code" 
                       Margin="0,3" VerticalAlignment="Center"/>
             <TextBlock Grid.Row="2" Grid.Column="2" Text="Payment Type:" Style="{StaticResource H_R_M10_ContentTbkStyle}" />
             <ComboBox Grid.Row="2" Grid.Column="3" ItemsSource="{Binding PaymentType}" DisplayMemberPath="Name" SelectedValuePath="Code"
-                      Margin="0,3" VerticalAlignment="Center"/>
+                      Margin="0,3" VerticalAlignment="Center" SelectedIndex="1"/>
             <CheckBox Grid.Row="3" Grid.Column="1" Content="Omit QR Code Gen"/>
             <CheckBox Grid.Row="3" Grid.Column="3" Content="Omit Textual Representation"/>
         </Grid>
@@ -67,7 +79,8 @@
                 </StackPanel>
                 <DataGrid Grid.Row="1" ItemsSource="{Binding Productes}" SelectedItem="{Binding SelectedItem}" Style="{StaticResource DataGridPrintStyle}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="GTIN" Binding="{Binding No}" Width="*"/>
+                        <!--<DataGridTextColumn Header="GTIN" Binding="{Binding No}" Width="*"/>-->
+                        <DataGridComboBoxColumn Header="GTIN" ItemsSource="{Binding Goods,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=DataGrid}}" Width="*"/>
                         <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
                         <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="*"/>
                         <DataGridTextColumn Header="Quantity" Binding="{Binding Count}" Width="*"/>
@@ -75,7 +88,7 @@
                         <DataGridTextColumn Header="Total Amount" Binding="{Binding Amount}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Border Grid.Row="2">
+                <Border Grid.Row="2" BorderBrush="Black" BorderThickness="0,1,0,0">
                     <TextBlock Text="Grand Total:" Style="{Binding BaseContentTbkStyle}" VerticalAlignment="Center" Margin="20,0,0,0"/>
                 </Border>
                 <TextBlock Grid.Row="2" Text="{Binding GrandTotal}" Style="{Binding BaseContentTbkStyle}" 
@@ -92,7 +105,7 @@
             <TextBlock Grid.Row="0" Text="POS Number:" Style="{StaticResource H_R_M10_ContentTbkStyle}" />
             <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding PosNumber}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center"/>
             <TextBlock Grid.Row="0" Grid.Column="2" Text="Cashier:" Style="{StaticResource H_R_M10_ContentTbkStyle}" />
-            <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding Casher}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding Cashier}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center"/>
         </Grid>
     </Grid>
 </UserControl>

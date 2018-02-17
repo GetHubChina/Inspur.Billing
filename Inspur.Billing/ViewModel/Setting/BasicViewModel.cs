@@ -1,22 +1,38 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+﻿using CommonLib.Helper;
+using ControlLib.Controls.Dialogs;
+using DataModels;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
+using Inspur.Billing.Commom;
 using Inspur.TaxModel;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Linq;
+using System.Data.Linq.Mapping;
+using System.Data.SQLite;
+using System.Data.SQLite.Linq;
 using System.Linq;
+using LinqToDB;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using System.IO.Ports;
 
 namespace Inspur.Billing.ViewModel.Setting
 {
     public class BasicViewModel : ViewModelBase
     {
+        #region 字段
+        private string _sdcId = null;
+        #endregion
+
         #region 属性
         /// <summary>
         /// 获取或设置
         /// </summary>
-        private TaxPayer _taxPayerInfo;
+        private TaxPayer _taxPayerInfo = new TaxPayer();
         /// <summary>
         /// 获取或设置
         /// </summary>
@@ -49,53 +65,66 @@ namespace Inspur.Billing.ViewModel.Setting
             get { return _port; }
             set { Set<string>(ref _port, value, "Port"); }
         }
+
         /// <summary>
-        /// 获取或设置软件制造商
+        /// 获取或设置pos软件信息
         /// </summary>
-        private string _make;
+        private PosInfo _posInfo;
         /// <summary>
-        /// 获取或设置软件制造商
+        /// 获取或设置pos软件信息
         /// </summary>
-        public string Make
+        public PosInfo PosInfo
         {
-            get { return _make; }
-            set { Set<string>(ref _make, value, "Make"); }
+            get { return _posInfo; }
+            set { Set<PosInfo>(ref _posInfo, value, "PosInfo"); }
         }
         /// <summary>
-        /// 获取或设置软件名称
+        /// 获取或设置参数设置是否可用
         /// </summary>
-        private string _model;
+        private bool _isParameterEnable = false;
         /// <summary>
-        /// 获取或设置软件名称
+        /// 获取或设置参数设置是否可用
         /// </summary>
-        public string Model
+        public bool IsParameterEnable
         {
-            get { return _model; }
-            set { Set<string>(ref _model, value, "Model"); }
+            get { return _isParameterEnable; }
+            set { Set<bool>(ref _isParameterEnable, value, "IsParameterEnable"); }
         }
         /// <summary>
-        /// 获取或设置软件版本
+        /// 获取或设置纳税人信息是否可以编辑
         /// </summary>
-        private string _version;
+        private bool _isTaxPayerEnable = false;
         /// <summary>
-        /// 获取或设置软件版本
+        /// 获取或设置纳税人信息是否可以编辑
         /// </summary>
-        public string Version
+        public bool IsTaxPayerEnable
         {
-            get { return _version; }
-            set { Set<string>(ref _version, value, "Version"); }
+            get { return _isTaxPayerEnable; }
+            set { Set<bool>(ref _isTaxPayerEnable, value, "IsTaxPayerEnable"); }
         }
         /// <summary>
-        /// 获取或设置软件发布时间
+        /// 获取或设置串口列表
         /// </summary>
-        private string _releaseTime;
+        private List<string> _serialPorts;
         /// <summary>
-        /// 获取或设置软件发布时间
+        /// 获取或设置串口列表
         /// </summary>
-        public string ReleaseTime
+        public List<string> SerialPorts
         {
-            get { return _releaseTime; }
-            set { Set<string>(ref _releaseTime, value, "ReleaseTime"); }
+            get { return _serialPorts; }
+            set { Set<List<string>>(ref _serialPorts, value, "SerialPorts"); }
+        }
+        /// <summary>
+        /// 获取或设置选中的打印串口
+        /// </summary>
+        private string _selectedPort;
+        /// <summary>
+        /// 获取或设置选中的打印串口
+        /// </summary>
+        public string SelectedPort
+        {
+            get { return _selectedPort; }
+            set { Set<string>(ref _selectedPort, value, "SelectedPort"); }
         }
 
         #endregion
@@ -114,28 +143,29 @@ namespace Inspur.Billing.ViewModel.Setting
             {
                 return _command ?? (_command = new RelayCommand<string>(p =>
                 {
-                    switch (p)
+                    try
                     {
-                        case "TaxPayerEdit":
-                            break;
-                        case "TaxPayerSave":
-                            break;
-                        case "TaxPayerCancel":
-                            break;
-                        case "SDCTest":
-                            break;
-                        case "PrinterPortTest":
-                            break;
-                        case "NetSettingEdit":
-                            break;
-                        case "NetSettingSave":
-                            break;
-                        case "NetSettingCancel":
-                            break;
-                        case "SoftwareCancel":
-                            break;
-                        default:
-                            break;
+                        switch (p)
+                        {
+                            case "Loaded":
+                                LoadTaxpayerInfo();
+                                LoadSDCInfo();
+                                LoadSoftwareInfo();
+                                LoadPrinterSerial();
+                                break;
+                            case "SDCTest":
+                                break;
+                            case "PrinterPortTest":
+                                break;
+                            case "SoftwareCancel":
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBoxEx.Show(ex.Message, MessageBoxButton.OK);
                     }
                 }, a =>
                 {
@@ -143,7 +173,246 @@ namespace Inspur.Billing.ViewModel.Setting
                 }));
             }
         }
+        /// <summary>
+        /// 获取或设置纳税人信息编辑命令
+        /// </summary>
+        private ICommand _taxPayerEditCommand;
+        /// <summary>
+        /// 获取或设置纳税人信息编辑命令
+        /// </summary>
+        public ICommand TaxPayerEditCommand
+        {
+            get
+            {
+                return _taxPayerEditCommand ?? (_taxPayerEditCommand = new RelayCommand(() =>
+                {
+                    IsTaxPayerEnable = true;
+                }, () =>
+                {
+                    return !IsTaxPayerEnable;
+                }));
+            }
+        }
+        /// <summary>
+        /// 获取或设置纳税人信息保存命令
+        /// </summary>
+        private ICommand taxPayerSaveCommand;
+        /// <summary>
+        /// 获取或设置纳税人信息保存命令
+        /// </summary>
+        public ICommand TaxPayerSaveCommand
+        {
+            get
+            {
+                return taxPayerSaveCommand ?? (taxPayerSaveCommand = new RelayCommand(() =>
+                {
+                    TaxPayerSave();
+                }, () =>
+                {
+                    return IsTaxPayerEnable;
+                }));
+            }
+        }
+        /// <summary>
+        /// 获取或设置纳税人信息设置取消命令
+        /// </summary>
+        private ICommand taxPayerCancelCommand;
+        /// <summary>
+        /// 获取或设置纳税人信息设置取消命令
+        /// </summary>
+        public ICommand TaxPayerCancelCommand
+        {
+            get
+            {
+                return taxPayerCancelCommand ?? (taxPayerCancelCommand = new RelayCommand(() =>
+                {
+                    LoadTaxpayerInfo();
+                }, () =>
+                {
+                    return IsTaxPayerEnable;
+                }));
+            }
+        }
+        /// <summary>
+        /// 获取或设置网络设置编辑命令
+        /// </summary>
+        private ICommand _netSettingEditCommand;
+        /// <summary>
+        /// 获取或设置网络设置编辑命令
+        /// </summary>
+        public ICommand NetSettingEditCommand
+        {
+            get
+            {
+                return _netSettingEditCommand ?? (_netSettingEditCommand = new RelayCommand(() =>
+                {
+                    IsParameterEnable = true;
+                }, () =>
+                {
+                    return !IsParameterEnable;
+                }));
+            }
+        }
+        /// <summary>
+        /// 获取或设置网络设置保存命令
+        /// </summary>
+        private ICommand _netSettingSaveCommand;
+        /// <summary>
+        /// 获取或设置网络设置保存命令
+        /// </summary>
+        public ICommand NetSettingSaveCommand
+        {
+            get
+            {
+                return _netSettingSaveCommand ?? (_netSettingSaveCommand = new RelayCommand(() =>
+                {
+                    if (string.IsNullOrEmpty(SdcUrl))
+                    {
+                        MessageBoxEx.Show("E-SDC URL can not null.", MessageBoxButton.OK);
+                        return;
+                    }
+                    string[] sdc = SdcUrl.Split(':');
+                    if (sdc != null && sdc.Count() != 2)
+                    {
+                        MessageBoxEx.Show("E-SDC URL is not in the right format.", MessageBoxButton.OK);
+                        return;
+                    }
+                    if (string.IsNullOrEmpty(_sdcId))
+                    {
+                        //insert
+                        Const.dB.Insert<SdcInfo>(new SdcInfo
+                        {
+                            SdcIp = sdc[0],
+                            SdcPort = sdc[1]
+                        });
+                        LoadSDCInfo();
+                    }
+                    else
+                    {
+                        //updata
+                        long id;
+                        long.TryParse(_sdcId, out id);
+                        Const.dB.Update<SdcInfo>(new SdcInfo
+                        {
+                            SdcId = id,
+                            SdcIp = sdc[0],
+                            SdcPort = sdc[1]
+                        });
+                        IsParameterEnable = false;
+                    }
+                }, () =>
+                {
+                    return IsParameterEnable;
+                }));
+            }
+        }
+        /// <summary>
+        /// 获取或设置网络设置取消命令
+        /// </summary>
+        private ICommand _netSettingCancelCommand;
+        /// <summary>
+        /// 获取或设置网络设置取消命令
+        /// </summary>
+        public ICommand NetSettingCancelCommand
+        {
+            get
+            {
+                return _netSettingCancelCommand ?? (_netSettingCancelCommand = new RelayCommand(() =>
+                {
+                    LoadSDCInfo();
+                }, () =>
+                {
+                    return IsParameterEnable;
+                }));
+            }
+        }
+        #endregion
 
+        #region 方法
+        private void LoadTaxpayerInfo()
+        {
+            var taxpayer = (from b in Const.dB.TaxpayerJnfo
+                            select b).ToList();
+            if (taxpayer != null && taxpayer.Count > 0)
+            {
+                EntityAdapter.TaxpayerJnfo2TaxPayer(taxpayer[0], TaxPayerInfo);
+            }
+            IsTaxPayerEnable = false;
+        }
+        private void LoadSDCInfo()
+        {
+            var sdcInfoes = (from a in Const.dB.SdcInfo
+                             select a).ToList();
+            if (sdcInfoes != null && sdcInfoes.Count() > 0)
+            {
+                _sdcId = sdcInfoes[0].SdcId.ToString();
+                SdcUrl = string.Format("{0}:{1}", sdcInfoes[0].SdcIp, sdcInfoes[0].SdcPort);
+            }
+            IsParameterEnable = false;
+        }
+        private void LoadSoftwareInfo()
+        {
+            var posInfoes = (from a in Const.dB.PosInfo
+                             select a).ToList();
+            if (posInfoes != null && posInfoes.Count() > 0)
+            {
+                PosInfo = posInfoes[0];
+            }
+        }
+        private void LoadPrinterSerial()
+        {
+            SerialPorts = SerialPort.GetPortNames().ToList();
+        }
+        private void TaxPayerSave()
+        {
+            if (_taxPayerInfo != null)
+            {
+                if (string.IsNullOrWhiteSpace(_taxPayerInfo.Tin))
+                {
+                    MessageBoxEx.Show("请输入纳税人识别号。", MessageBoxButton.OK);
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(_taxPayerInfo.Name))
+                {
+                    MessageBoxEx.Show("请输入纳税人名称。", MessageBoxButton.OK);
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(_taxPayerInfo.Adress))
+                {
+                    MessageBoxEx.Show("请输入纳税人地址。", MessageBoxButton.OK);
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(_taxPayerInfo.Telphone))
+                {
+                    MessageBoxEx.Show("请输入纳税人联系电话。", MessageBoxButton.OK);
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(_taxPayerInfo.BankAccount))
+                {
+                    MessageBoxEx.Show("请输入纳税人银行账号。", MessageBoxButton.OK);
+                    return;
+                }
+                int result;
+                if (string.IsNullOrWhiteSpace(TaxPayerInfo.Id))
+                {
+                    //insert
+                    result = Const.dB.Insert<TaxpayerJnfo>(EntityAdapter.TaxPayer2TaxpayerJnfo(TaxPayerInfo));
+                }
+                else
+                {
+                    //update
+                    int id = 0;
+                    int.TryParse(TaxPayerInfo.Id, out id);
+                    TaxpayerJnfo info = EntityAdapter.TaxPayer2TaxpayerJnfo(TaxPayerInfo);
+                    info.TaxpayerId = id;
+                    result = Const.dB.Update<TaxpayerJnfo>(info);
+                }
+                if (result > 0)
+                {
+                    IsTaxPayerEnable = false;
+                }
+            }
+        }
         #endregion
     }
 }

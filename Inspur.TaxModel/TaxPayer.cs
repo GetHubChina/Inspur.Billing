@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
+using System.Data.Linq.Mapping;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,8 +14,13 @@ namespace Inspur.TaxModel
     /// 作者：丁纪名
     /// 编写日期：2018-01-22
     /// </summary>
+    [Table(Name = "taxpayer_jnfo")]
     public class TaxPayer : ViewModelBase
     {
+        /// <summary>
+        /// 获取或设置商户id
+        /// </summary>
+        public string Id { get; set; }
         /// <summary>
         /// 获取或设置商户纳税人识别号
         /// </summary>
@@ -22,6 +28,7 @@ namespace Inspur.TaxModel
         /// <summary>
         /// 获取或设置商户纳税人识别号
         /// </summary>
+        [Column(Name = "taxpayer_tin")]
         public string Tin
         {
             get { return _tin; }

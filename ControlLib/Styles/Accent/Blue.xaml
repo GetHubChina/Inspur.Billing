@@ -27,4 +27,6 @@
     <SolidColorBrush x:Key="Button.Foreground.Mousover" Color="White" options:Freeze="True" />
     <SolidColorBrush x:Key="Button.Background.Pressed" Color="{StaticResource AccentColor2}" options:Freeze="True" />
     <SolidColorBrush x:Key="Button.Foreground.Pressed" Color="White" options:Freeze="True" />
+    <SolidColorBrush x:Key="Button.Background.UnEnable" Color="Gray" options:Freeze="True" />
+    <SolidColorBrush x:Key="Button.Foreground.UnEnable" Color="White" options:Freeze="True" />
 </ResourceDictionary>
