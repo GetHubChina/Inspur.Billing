@@ -21,3 +21,4 @@ D:\GitHub\Inspur.Billing\ControlLib\obj\Debug\ControlLib.g.resources
 D:\GitHub\Inspur.Billing\ControlLib\obj\Debug\ControlLib.csproj.CoreCompileInputs.cache
 D:\GitHub\Inspur.Billing\ControlLib\obj\Debug\ControlLib.dll
 D:\GitHub\Inspur.Billing\ControlLib\obj\Debug\ControlLib.pdb
+D:\GitHub\Inspur.Billing\ControlLib\obj\Debug\Styles\MenuStyle.baml

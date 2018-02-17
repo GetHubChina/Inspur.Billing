@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 
-12-1284584611
+131492850990
 
 321987215
 14-436968847
-Controls\Dialogs\MessageBoxEx.xaml;Styles\Accent\Blue.xaml;Styles\ButtonStyle.xaml;Styles\Colors.xaml;Styles\DataGridStyle.xaml;Styles\FontSizeStyle.xaml;Styles\LineStyle.xaml;Styles\Styles.xaml;Styles\TextBlockStyle.xaml;Styles\TextBoxStyle.xaml;Themes\MessageDialogStyle.xaml;Themes\Generic.xaml;
+Controls\Dialogs\MessageBoxEx.xaml;Styles\Accent\Blue.xaml;Styles\ButtonStyle.xaml;Styles\MenuStyle.xaml;Styles\Colors.xaml;Styles\DataGridStyle.xaml;Styles\FontSizeStyle.xaml;Styles\LineStyle.xaml;Styles\Styles.xaml;Styles\TextBlockStyle.xaml;Styles\TextBoxStyle.xaml;Themes\MessageDialogStyle.xaml;Themes\Generic.xaml;
 
 False
 

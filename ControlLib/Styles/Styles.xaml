@@ -7,7 +7,10 @@
         <ResourceDictionary Source="/ControlLib;component/Styles/LineStyle.xaml"/>
         <ResourceDictionary Source="/ControlLib;component/Styles/DataGridStyle.xaml"/>
         <ResourceDictionary Source="/ControlLib;component/Styles/ButtonStyle.xaml"/>
+        <ResourceDictionary Source="/ControlLib;component/Styles/MenuStyle.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     
     <Style BasedOn="{StaticResource MetroFlatButton}" TargetType="Button"/>
+    <Style BasedOn="{StaticResource MetroMenuItem}" TargetType="MenuItem"/>
+    <Style BasedOn="{StaticResource MetroMenu}" TargetType="Menu"/>
 </ResourceDictionary>
