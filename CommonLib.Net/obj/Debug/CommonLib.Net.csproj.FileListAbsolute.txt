@@ -1,0 +1,5 @@
+D:\GitHub\Inspur.Billing\CommonLib.Net\bin\Debug\CommonLib.Net.dll
+D:\GitHub\Inspur.Billing\CommonLib.Net\bin\Debug\CommonLib.Net.pdb
+D:\GitHub\Inspur.Billing\CommonLib.Net\obj\Debug\CommonLib.Net.csproj.CoreCompileInputs.cache
+D:\GitHub\Inspur.Billing\CommonLib.Net\obj\Debug\CommonLib.Net.dll
+D:\GitHub\Inspur.Billing\CommonLib.Net\obj\Debug\CommonLib.Net.pdb

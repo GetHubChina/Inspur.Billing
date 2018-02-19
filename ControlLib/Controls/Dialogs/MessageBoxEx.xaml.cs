@@ -67,7 +67,10 @@ namespace ControlLib.Controls.Dialogs
         {
             return Show("System Prompt", content, messageBoxButton);
         }
-
+        public static bool? Show(string content)
+        {
+            return Show("System Prompt", content, MessageBoxButton.OK);
+        }
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;

@@ -11,7 +11,6 @@ D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\GalaSoft.MvvmLight.Extras.dll
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\GalaSoft.MvvmLight.Platform.dll
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\Inspur.TaxModel.dll
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\linq2db.dll
-D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\Microsoft.Practices.ServiceLocation.dll
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\System.Data.SQLite.dll
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\System.Data.SQLite.EF6.dll
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\System.Data.SQLite.Linq.dll
@@ -31,8 +30,6 @@ D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\GalaSoft.MvvmLight.Platform.pd
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\GalaSoft.MvvmLight.Platform.xml
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\linq2db.pdb
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\linq2db.xml
-D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
-D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\Microsoft.Practices.ServiceLocation.xml
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\System.Data.SQLite.xml
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\System.Data.SQLite.dll.config
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\Inspur.Billing.csprojResolveAssemblyReference.cache
@@ -58,5 +55,5 @@ D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\Inspur.Billing.csproj.Generate
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\Inspur.Billing.csproj.CoreCompileInputs.cache
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\Inspur.Billing.exe
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\Inspur.Billing.pdb
-D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\Newtonsoft.Json.dll
-D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\Newtonsoft.Json.xml
+D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\CommonServiceLocator.dll
+D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\Inspur.TaxModel.dll.config

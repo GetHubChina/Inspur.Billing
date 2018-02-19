@@ -1,4 +1,5 @@
-﻿using DataModels;
+﻿using ControlLib.Controls.Dialogs;
+using DataModels;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Inspur.Billing.Commom;
@@ -20,10 +21,13 @@ namespace Inspur.Billing.ViewModel.Issue
     {
         public CreditViewModel()
         {
-            ViewModelLocator locator = (ViewModelLocator)Application.Current.Resources["Locator"];
-            if (locator != null)
+            if (Const.Locator != null)
             {
-                Cashier = locator.Login.UserName;
+                Cashier = Const.Locator.Login.UserName;
+            }
+            if (string.IsNullOrWhiteSpace(Printer.Instance.PrintPort))
+            {
+                Printer.Instance.PrintPort = Const.Locator.Basic.PrintPort;
             }
         }
 
@@ -159,6 +163,18 @@ namespace Inspur.Billing.ViewModel.Issue
             get { return _goods; }
             set { Set<List<GoodsInfo>>(ref _goods, value, "Goods"); }
         }
+        /// <summary>
+        /// 获取或设置税率集合
+        /// </summary>
+        private List<CodeTaxtype> _taxRates;
+        /// <summary>
+        /// 获取或设置税率集合
+        /// </summary>
+        public List<CodeTaxtype> TaxRates
+        {
+            get { return _taxRates; }
+            set { Set<List<CodeTaxtype>>(ref _taxRates, value, "TaxRates"); }
+        }
 
         #endregion
 
@@ -176,38 +192,63 @@ namespace Inspur.Billing.ViewModel.Issue
             {
                 return _command ?? (_command = new RelayCommand<string>(p =>
                 {
-                    switch (p)
+                    try
                     {
-                        case "Loaded":
-                            Goods = (from a in Const.dB.GoodsInfo
-                                     select a).ToList();
-                            break;
-                        case "OrderNumberCopy":
-                            break;
-                        case "Print":
-                            PrintView printView = new PrintView();
-                            printView.ShowDialog();
-                            break;
-                        case "BuyerTinLostFocus":
-                            LoadBuyerInfo();
-                            break;
-                        case "ProductAdd":
-                            Productes.Add(new ProductItem());
-                            break;
-                        case "ProductDelete":
-                            if (_selectedItem == null)
-                            {
-                                System.Windows.MessageBox.Show("请选择删除行。");
-                            }
-                            else
-                            {
-                                Productes.Remove(SelectedItem);
-                            }
-                            break;
-                        case "ProductCopy":
-                            break;
-                        default:
-                            break;
+                        switch (p)
+                        {
+                            case "Loaded":
+                                LoadGoods();
+                                LoadTaxRate();
+                                break;
+                            case "OrderNumberCopy":
+                                break;
+                            case "Print":
+                                PrintView printView = new PrintView();
+                                Const.Locator.Print.Credit = this;
+                                printView.ShowDialog();
+                                break;
+                            case "BuyerTinLostFocus":
+                                LoadBuyerInfo();
+                                break;
+                            case "ProductAdd":
+                                Productes.Add(new ProductItem());
+                                break;
+                            case "ProductDelete":
+                                if (_selectedItem == null)
+                                {
+                                    System.Windows.MessageBox.Show("请选择删除行。");
+                                }
+                                else
+                                {
+                                    Productes.Remove(SelectedItem);
+                                }
+                                break;
+                            case "ProductCopy":
+                                break;
+                            case "ProductSelectionChanged":
+                                if (SelectedItem != null)
+                                {
+                                    GoodsInfo goodsInfo = Goods.FirstOrDefault(a => a.Barcode == SelectedItem.BarCode);
+                                    if (goodsInfo != null)
+                                    {
+                                        EntityAdapter.GoodsInfo2ProductItem(goodsInfo, SelectedItem);
+                                    }
+                                }
+                                break;
+                            case "TaxRateSelectionChanged":
+
+                                break;
+                            case "TotalAmountTextChanged":
+                                GrandTotal = (from a in Productes
+                                              select a.Amount).Sum();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBoxEx.Show(ex.Message);
                     }
                 }, a =>
                 {
@@ -215,6 +256,10 @@ namespace Inspur.Billing.ViewModel.Issue
                 }));
             }
         }
+
+        #endregion
+
+        #region 方法
 
         private void LoadBuyerInfo()
         {
@@ -229,7 +274,24 @@ namespace Inspur.Billing.ViewModel.Issue
                 }
             }
         }
+        /// <summary>
+        /// 加载商品
+        /// </summary>
+        private void LoadGoods()
+        {
+            Goods = (from a in Const.dB.GoodsInfo
+                     select a).ToList();
 
+        }
+        /// <summary>
+        /// 加载税率
+        /// </summary>
+        private void LoadTaxRate()
+        {
+            TaxRates = (from a in Const.dB.CodeTaxtype
+                        select a).ToList();
+
+        }
         #endregion
     }
 }

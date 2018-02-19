@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inspur.Billing", "Inspur.Billing\Inspur.Billing.csproj", "{EA1051BF-826C-47AF-857A-161FF0622943}"
 EndProject
@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "db", "db", "{2B557ABE-BC1A-
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlLib", "ControlLib\ControlLib.csproj", "{BAAD91D9-8A2B-4540-BFDC-05D6AE602B20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLib.Net", "CommonLib.Net\CommonLib.Net.csproj", "{54C98BE9-3C0A-42F0-A54C-C73AC03BDAC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,10 @@ Global
 		{BAAD91D9-8A2B-4540-BFDC-05D6AE602B20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAAD91D9-8A2B-4540-BFDC-05D6AE602B20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAAD91D9-8A2B-4540-BFDC-05D6AE602B20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54C98BE9-3C0A-42F0-A54C-C73AC03BDAC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54C98BE9-3C0A-42F0-A54C-C73AC03BDAC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54C98BE9-3C0A-42F0-A54C-C73AC03BDAC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54C98BE9-3C0A-42F0-A54C-C73AC03BDAC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

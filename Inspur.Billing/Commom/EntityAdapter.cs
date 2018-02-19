@@ -54,11 +54,11 @@ namespace Inspur.Billing.Commom
         }
         public static void BuyerInfo2Buyer(BuyerInfo source, Buyer target)
         {
-            if (source==null)
+            if (source == null)
             {
                 throw new ArgumentNullException("source can not null.");
             }
-            if (target==null)
+            if (target == null)
             {
                 target = new Buyer();
             }
@@ -67,6 +67,22 @@ namespace Inspur.Billing.Commom
             target.Name = source.BuyerName;
             target.Address = source.BuyerAddress;
             target.TelPhone = source.BuyerTel;
+        }
+        public static void GoodsInfo2ProductItem(GoodsInfo source, ProductItem target)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException("source can not null.");
+            }
+            if (target == null)
+            {
+                target = new ProductItem();
+            }
+            target.BarCode = source.Barcode;
+            target.Name = source.Description;
+            target.Price = source.Price == null ? 0 : source.Price.Value;
+            target.Count = source.Quantity == null ? 0 : source.Quantity.Value;
+            //target.Rate = source.text;
         }
     }
 }

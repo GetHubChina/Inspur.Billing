@@ -12,12 +12,12 @@
   See http://www.galasoft.ch/mvvm
 */
 
+using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Inspur.Billing.ViewModel.Issue;
 using Inspur.Billing.ViewModel.Login;
 using Inspur.Billing.ViewModel.Setting;
-using Microsoft.Practices.ServiceLocation;
 
 namespace Inspur.Billing.ViewModel
 {
@@ -49,6 +49,7 @@ namespace Inspur.Billing.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<BasicViewModel>();
             SimpleIoc.Default.Register<CreditViewModel>();
+            SimpleIoc.Default.Register<PrintViewModel>();
         }
         public LoginViewModel Login
         {
@@ -76,6 +77,13 @@ namespace Inspur.Billing.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<CreditViewModel>();
+            }
+        }
+        public PrintViewModel Print
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<PrintViewModel>();
             }
         }
         public static void Cleanup()

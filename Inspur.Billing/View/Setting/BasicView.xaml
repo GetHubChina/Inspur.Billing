@@ -73,8 +73,7 @@
                     <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SdcUrl}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center" IsEnabled="{Binding IsParameterEnable}"/>
                     <Button Content="Test" Grid.Column="2" Width="100" Margin="0,3" Command="{Binding Command}" CommandParameter="SDCTest"/>
                     <TextBlock Grid.Row="1" Text="Printer Serial Port:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
-                    <!--<TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Port}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center" IsEnabled="{Binding IsParameterEnable}"/>-->
-                    <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding SerialPorts}" SelectedItem="{Binding SelectedPort}"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding PrintPort}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center" IsEnabled="{Binding IsParameterEnable}"/>
                     <Button Content="Test" Grid.Row="1" Grid.Column="2" Width="100" Command="{Binding Command}" CommandParameter="PrinterPortTest" Margin="0,3"/>
                     <StackPanel Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal" Margin="0,60,0,0">
                         <Button Width="100" Content="Edit" Command="{Binding NetSettingEditCommand}"/>

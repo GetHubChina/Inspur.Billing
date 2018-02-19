@@ -13,4 +13,5 @@ D:\GitHub\Inspur.Billing\Inspur.TaxModel\bin\Debug\GalaSoft.MvvmLight.Platform.x
 D:\GitHub\Inspur.Billing\Inspur.TaxModel\obj\Debug\Inspur.TaxModel.csproj.CoreCompileInputs.cache
 D:\GitHub\Inspur.Billing\Inspur.TaxModel\obj\Debug\Inspur.TaxModel.dll
 D:\GitHub\Inspur.Billing\Inspur.TaxModel\obj\Debug\Inspur.TaxModel.pdb
-D:\GitHub\Inspur.Billing\Inspur.TaxModel\obj\Debug\Inspur.TaxModel.csprojResolveAssemblyReference.cache
+D:\GitHub\Inspur.Billing\Inspur.TaxModel\bin\Debug\Inspur.TaxModel.dll.config
+D:\GitHub\Inspur.Billing\Inspur.TaxModel\bin\Debug\CommonServiceLocator.dll

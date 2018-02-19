@@ -19,11 +19,20 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.IO.Ports;
+//using EasyHttp.Http;
+using Inspur.Billing.Model.Service.Status;
 
 namespace Inspur.Billing.ViewModel.Setting
 {
     public class BasicViewModel : ViewModelBase
     {
+        #region 构造函数
+        public BasicViewModel()
+        {
+            Printer.Instance.PrintPort = PrintPort;
+        }
+        #endregion
+
         #region 字段
         private string _sdcId = null;
         #endregion
@@ -54,16 +63,16 @@ namespace Inspur.Billing.ViewModel.Setting
             set { Set<string>(ref _sdcUrl, value, "SdcUrl"); }
         }
         /// <summary>
-        /// 获取或设置输出端口
+        /// 获取或设置打印端口
         /// </summary>
-        private string _port;
+        private string _printPort = "SP-USB1";
         /// <summary>
-        /// 获取或设置输出端口
+        /// 获取或设置打印端口
         /// </summary>
-        public string Port
+        public string PrintPort
         {
-            get { return _port; }
-            set { Set<string>(ref _port, value, "Port"); }
+            get { return _printPort; }
+            set { Set<string>(ref _printPort, value, "Port"); }
         }
 
         /// <summary>
@@ -102,30 +111,6 @@ namespace Inspur.Billing.ViewModel.Setting
             get { return _isTaxPayerEnable; }
             set { Set<bool>(ref _isTaxPayerEnable, value, "IsTaxPayerEnable"); }
         }
-        /// <summary>
-        /// 获取或设置串口列表
-        /// </summary>
-        private List<string> _serialPorts;
-        /// <summary>
-        /// 获取或设置串口列表
-        /// </summary>
-        public List<string> SerialPorts
-        {
-            get { return _serialPorts; }
-            set { Set<List<string>>(ref _serialPorts, value, "SerialPorts"); }
-        }
-        /// <summary>
-        /// 获取或设置选中的打印串口
-        /// </summary>
-        private string _selectedPort;
-        /// <summary>
-        /// 获取或设置选中的打印串口
-        /// </summary>
-        public string SelectedPort
-        {
-            get { return _selectedPort; }
-            set { Set<string>(ref _selectedPort, value, "SelectedPort"); }
-        }
 
         #endregion
 
@@ -151,11 +136,14 @@ namespace Inspur.Billing.ViewModel.Setting
                                 LoadTaxpayerInfo();
                                 LoadSDCInfo();
                                 LoadSoftwareInfo();
-                                LoadPrinterSerial();
                                 break;
                             case "SDCTest":
+                                //EasyHttp.Http.HttpClient httpClient = new EasyHttp.Http.HttpClient();
+                                //httpClient.Post("http://127.0.0.1:8085", new StatusRequest { Gs = "GetStatus" }, HttpContentTypes.ApplicationJson);
                                 break;
                             case "PrinterPortTest":
+                                Printer.Instance.PrintPort = PrintPort;
+                                Printer.Instance.PrintTestPaper();
                                 break;
                             case "SoftwareCancel":
                                 break;
@@ -299,6 +287,7 @@ namespace Inspur.Billing.ViewModel.Setting
                             SdcPort = sdc[1]
                         });
                         IsParameterEnable = false;
+                        Printer.Instance.PrintPort = PrintPort;
                     }
                 }, () =>
                 {
@@ -358,10 +347,6 @@ namespace Inspur.Billing.ViewModel.Setting
             {
                 PosInfo = posInfoes[0];
             }
-        }
-        private void LoadPrinterSerial()
-        {
-            SerialPorts = SerialPort.GetPortNames().ToList();
         }
         private void TaxPayerSave()
         {

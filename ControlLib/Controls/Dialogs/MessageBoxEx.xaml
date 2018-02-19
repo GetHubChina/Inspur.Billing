@@ -23,7 +23,7 @@
                 <Button Click="Button_Click" Style="{DynamicResource CloseButtonStyle}"/>
             </Grid>
         </Border>
-        <TextBlock Name="tbkContent" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="{DynamicResource ContentFontSize}"/>
+        <TextBlock Name="tbkContent" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="{DynamicResource ContentFontSize}" TextWrapping="Wrap"/>
         <Button Name="btnOk" Grid.Row="2" Content="Ok" Click="btnOk_Click" Style="{DynamicResource MetroFlatButton}" Height="40"/>
         <Grid Name="gdOkCancel" Grid.Row="3" Height="40">
             <Grid.ColumnDefinitions>

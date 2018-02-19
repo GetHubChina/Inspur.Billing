@@ -36,13 +36,30 @@ namespace Inspur.TaxModel
         /// </summary>
         public string CategroyName { get; set; }
         /// <summary>
-        /// 商品名称
+        /// 获取或设置商品名称
         /// </summary>
-        public string Name { get; set; }
+        private string _name;
         /// <summary>
-        /// 条形码
+        /// 获取或设置商品名称
         /// </summary>
-        public string BarCode { get; set; }
+        public string Name
+        {
+            get { return _name; }
+            set { Set<string>(ref _name, value, "Name"); }
+        }
+
+        /// <summary>
+        /// 获取或设置条形码
+        /// </summary>
+        private string _barCode;
+        /// <summary>
+        /// 获取或设置条形码
+        /// </summary>
+        public string BarCode
+        {
+            get { return _barCode; }
+            set { Set<string>(ref _barCode, value, "BarCode"); }
+        }
         /// <summary>
         /// 获取或设置商品数量
         /// </summary>
@@ -53,8 +70,17 @@ namespace Inspur.TaxModel
         public double Count
         {
             get { return _count; }
-            set { Set<double>(ref _count, value, "Count"); }
+            set
+            {
+                if (value != _count)
+                {
+                    _count = value;
+                    RaisePropertyChanged(() => this.Count);
+                    RaisePropertyChanged(() => this.Amount);
+                }
+            }
         }
+
         /// <summary>
         /// 获取或设置支付金额
         /// </summary>
@@ -64,7 +90,11 @@ namespace Inspur.TaxModel
         /// </summary>
         public double Amount
         {
-            get { return _amount; }
+            get
+            {
+                _amount = Price * Count;
+                return _amount;
+            }
             set { Set<double>(ref _amount, value, "Amount"); }
         }
         /// <summary>
@@ -89,8 +119,17 @@ namespace Inspur.TaxModel
         public double Price
         {
             get { return _price; }
-            set { Set<double>(ref _price, value, "Price"); }
+            set
+            {
+                if (value != _price)
+                {
+                    _price = value;
+                    RaisePropertyChanged(() => this.Price);
+                    RaisePropertyChanged(() => this.Amount);
+                }
+            }
         }
+
         /// <summary>
         /// 获取或设置税率
         /// </summary>
