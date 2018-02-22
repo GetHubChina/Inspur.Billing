@@ -1,5 +1,6 @@
 D:\GitHub\Inspur.Billing\CommonLib\bin\Debug\CommonLib.dll
 D:\GitHub\Inspur.Billing\CommonLib\bin\Debug\CommonLib.pdb
+D:\GitHub\Inspur.Billing\CommonLib\obj\Debug\CommonLib.csprojResolveAssemblyReference.cache
 D:\GitHub\Inspur.Billing\CommonLib\obj\Debug\CommonLib.Properties.Resources.resources
 D:\GitHub\Inspur.Billing\CommonLib\obj\Debug\CommonLib.csproj.GenerateResource.Cache
 D:\GitHub\Inspur.Billing\CommonLib\obj\Debug\CommonLib.csproj.CoreCompileInputs.cache

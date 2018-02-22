@@ -34,6 +34,33 @@ namespace Inspur.Billing.Commom
                 return _locator;
             }
         }
+        public static long CashierId;
 
+        public static string BaseUri
+        {
+            get { return string.Format("http://{0}", Locator.Basic.SdcUrl); }
+        }
+        public static string GetStatusUri
+        {
+            get { return string.Format("{0}/api/Status/GetStatus", BaseUri); }
+        }
+        public static string VerifyPinUri
+        {
+            get { return string.Format("{0}/api/Status/VerifyPin", BaseUri); }
+        }
+        public static string AttentionUri
+        {
+            get { return string.Format("{0}/api/Status/Attention", BaseUri); }
+        }
+        public static string SignUri
+        {
+            get { return string.Format("{0}/api/Sign/SignInvoice", BaseUri); }
+        }
+        public static string GetLastSignedUri
+        {
+            get { return string.Format("{0}/api/Sign/GetSignedInvoice", BaseUri); }
+        }
+
+        public static List<SystemStatu> Statues { get; set; }
     }
 }

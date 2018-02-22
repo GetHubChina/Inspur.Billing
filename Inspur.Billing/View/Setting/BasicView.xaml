@@ -45,7 +45,7 @@
                     <TextBlock Grid.Row="1" Text="Company Name:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
                     <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TaxPayerInfo.Name}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center" IsEnabled="{Binding IsTaxPayerEnable}"/>
                     <TextBlock Grid.Row="2" Text="Address:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
-                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding TaxPayerInfo.Adress}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center" IsEnabled="{Binding IsTaxPayerEnable}"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding TaxPayerInfo.Address}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center" IsEnabled="{Binding IsTaxPayerEnable}"/>
                     <TextBlock Grid.Row="3" Text="Contact Number:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
                     <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding TaxPayerInfo.Telphone}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center" IsEnabled="{Binding IsTaxPayerEnable}"/>
                     <TextBlock Grid.Row="4" Text="Bank and Account Number:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>

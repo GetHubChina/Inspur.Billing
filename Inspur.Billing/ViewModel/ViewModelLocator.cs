@@ -50,6 +50,7 @@ namespace Inspur.Billing.ViewModel
             SimpleIoc.Default.Register<BasicViewModel>();
             SimpleIoc.Default.Register<CreditViewModel>();
             SimpleIoc.Default.Register<PrintViewModel>();
+            SimpleIoc.Default.Register<PinViewModel>();
         }
         public LoginViewModel Login
         {
@@ -84,6 +85,13 @@ namespace Inspur.Billing.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<PrintViewModel>();
+            }
+        }
+        public PinViewModel Pin
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<PinViewModel>();
             }
         }
         public static void Cleanup()

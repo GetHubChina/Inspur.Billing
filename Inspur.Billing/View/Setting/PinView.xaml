@@ -1,0 +1,18 @@
+﻿<Window x:Class="Inspur.Billing.View.Setting.PinView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Inspur.Billing.View.Setting"
+        mc:Ignorable="d" WindowStyle="ToolWindow"
+        DataContext="{Binding Path=Pin, Source={StaticResource Locator}}"
+        Title="Please Input PIN" Height="100" Width="300" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <TextBox Height="30" Style="{StaticResource M_3_P_3_TbStyle}" Text="{Binding Pin}" VerticalAlignment="Center" Margin="10,0"/>
+        <Button Grid.Column="1" Content="Confirm" Height="30" Margin="0,0,10,0" Command="{Binding ConfirmCommand}"/>
+    </Grid>
+</Window>

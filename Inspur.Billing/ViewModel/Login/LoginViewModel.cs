@@ -111,6 +111,9 @@ namespace Inspur.Billing.ViewModel.Login
                         MessageBoxEx.Show("用户不存在。", MessageBoxButton.OK);
                         return;
                     }
+                    Const.CashierId = cashierInfo[0].CashierId;
+                    Const.Statues = (from a in Const.dB.SystemStatu
+                                     select a).ToList();
                     MainWindow mainWindow = new MainWindow();
                     Application.Current.MainWindow = mainWindow;
                     if (_loginView != null)

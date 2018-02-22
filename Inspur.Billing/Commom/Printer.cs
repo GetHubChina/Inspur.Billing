@@ -489,7 +489,10 @@ namespace Inspur.Billing.Commom
         /// </summary>
         public void Print(Action action)
         {
-            CheckPrint();
+            if (!CheckPrint())
+            {
+                return;
+            }
             Int32 ret = POS_Control_ReSet(m_hPrinter);
             if (!StatusError(ret))
             {

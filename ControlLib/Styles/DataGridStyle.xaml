@@ -9,6 +9,16 @@
         <Setter Property="HeadersVisibility" Value="Column"/>
         <Setter Property="GridLinesVisibility" Value="All"/>
     </Style>-->
+    <!--列居中-->
+    <Style x:Key="DataGridColumnCenter" TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+    <!--列居右-->
+    <Style x:Key="DataGridColumnRight" TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+    </Style>
     <Style x:Key="DataGridColumnHeaderPrintStyle" TargetType="{x:Type DataGridColumnHeader}">
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>

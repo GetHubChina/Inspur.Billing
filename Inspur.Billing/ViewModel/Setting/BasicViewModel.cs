@@ -21,6 +21,11 @@ using System.Windows.Input;
 using System.IO.Ports;
 //using EasyHttp.Http;
 using Inspur.Billing.Model.Service.Status;
+using Inspur.Billing.Model.Service.Attention;
+using Newtonsoft.Json;
+using CommonLib.Net;
+using System.Net;
+using Inspur.Billing.View.Setting;
 
 namespace Inspur.Billing.ViewModel.Setting
 {
@@ -135,11 +140,24 @@ namespace Inspur.Billing.ViewModel.Setting
                             case "Loaded":
                                 LoadTaxpayerInfo();
                                 LoadSDCInfo();
-                                LoadSoftwareInfo();
+                                //验证sdc
+                                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                                {
+                                    ServiceHelper.CheckStatue();
+                                    //防止请求报错，软件信息为空
+                                    LoadSoftwareInfo();
+                                }));
                                 break;
                             case "SDCTest":
-                                //EasyHttp.Http.HttpClient httpClient = new EasyHttp.Http.HttpClient();
-                                //httpClient.Post("http://127.0.0.1:8085", new StatusRequest { Gs = "GetStatus" }, HttpContentTypes.ApplicationJson);
+                                AttentionResponse attentionResponse = ServiceHelper.AttentionRequest();
+                                if (attentionResponse.ATT_GSC == "0000")
+                                {
+                                    MessageBoxEx.Show("E-SDC is available");
+                                }
+                                else
+                                {
+                                    MessageBoxEx.Show("E-SDC is not available");
+                                }
                                 break;
                             case "PrinterPortTest":
                                 Printer.Instance.PrintPort = PrintPort;
@@ -153,6 +171,15 @@ namespace Inspur.Billing.ViewModel.Setting
                     }
                     catch (Exception ex)
                     {
+                        switch (p)
+                        {
+                            case "Loaded":
+                                LoadSoftwareInfo();
+                                break;
+                            default:
+                                break;
+                        }
+
                         MessageBoxEx.Show(ex.Message, MessageBoxButton.OK);
                     }
                 }, a =>
@@ -362,7 +389,7 @@ namespace Inspur.Billing.ViewModel.Setting
                     MessageBoxEx.Show("请输入纳税人名称。", MessageBoxButton.OK);
                     return;
                 }
-                if (string.IsNullOrWhiteSpace(_taxPayerInfo.Adress))
+                if (string.IsNullOrWhiteSpace(_taxPayerInfo.Address))
                 {
                     MessageBoxEx.Show("请输入纳税人地址。", MessageBoxButton.OK);
                     return;

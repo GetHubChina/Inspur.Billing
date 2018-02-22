@@ -38,6 +38,24 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.2.0.2\lib\net45\CommonServiceLocator.dll</HintPath>
@@ -57,8 +75,14 @@
     <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
     </Reference>
+    <Reference Include="JumpKick.HttpLib, Version=2.0.16.74, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HttpLib.2.0.16.74\lib\net45\JumpKick.HttpLib.dll</HintPath>
+    </Reference>
     <Reference Include="linq2db, Version=1.10.0.0, Culture=neutral, PublicKeyToken=f19f8aed7feff67e, processorArchitecture=MSIL">
       <HintPath>..\packages\linq2db.1.10.0\lib\net40\linq2db.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -74,7 +98,8 @@
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.106.0\lib\net45\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\MvvmLightLibs.5.4.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Reference\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -96,12 +121,23 @@
     <Compile Include="Commom\Const.cs" />
     <Compile Include="Commom\EntityAdapter.cs" />
     <Compile Include="Commom\Printer.cs" />
+    <Compile Include="Commom\ServiceHelper.cs" />
+    <Compile Include="Commom\TaxCalculation.cs" />
     <Compile Include="LinqToDB.Templates\CopyMe.SQLite1.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CopyMe.SQLite.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\CodeTable.cs" />
+    <Compile Include="Model\Service\Attention\AttentionRequest.cs" />
+    <Compile Include="Model\Service\Attention\AttentionResponse.cs" />
+    <Compile Include="Model\Service\LastSign\LastSignRequest.cs" />
+    <Compile Include="Model\Service\Pin\PinRequest.cs" />
+    <Compile Include="Model\Service\Pin\PinResponse.cs" />
+    <Compile Include="Model\Service\Sign\SignGoodItem.cs" />
+    <Compile Include="Model\Service\Sign\SignRequest.cs" />
+    <Compile Include="Model\Service\Sign\SignResponse.cs" />
+    <Compile Include="Model\Service\Sign\TaxItem.cs" />
     <Compile Include="Model\Service\Status\StatusRequest.cs" />
     <Compile Include="Model\Service\Status\StatusResponse.cs" />
     <Compile Include="ViewModel\Issue\CreditViewModel.cs" />
@@ -109,6 +145,7 @@
     <Compile Include="ViewModel\Login\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\Setting\BasicViewModel.cs" />
+    <Compile Include="ViewModel\Setting\PinViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\Issue\CreditView.xaml.cs">
       <DependentUpon>CreditView.xaml</DependentUpon>
@@ -121,6 +158,9 @@
     </Compile>
     <Compile Include="View\Setting\BasicView.xaml.cs">
       <DependentUpon>BasicView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Setting\PinView.xaml.cs">
+      <DependentUpon>PinView.xaml</DependentUpon>
     </Compile>
     <Page Include="View\Issue\CreditView.xaml">
       <SubType>Designer</SubType>
@@ -147,6 +187,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Setting\BasicView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Setting\PinView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -216,6 +260,10 @@
     <Resource Include="LinqToDB.Templates\CopyMe.SQLite.tt.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CommonLib.Net\CommonLib.Net.csproj">
+      <Project>{54c98be9-3c0a-42f0-a54c-c73ac03bdac4}</Project>
+      <Name>CommonLib.Net</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CommonLib.Sqlite\CommonLib.Sqlite.csproj">
       <Project>{e6234d00-11d9-4ac1-aefa-1b99cb2c758c}</Project>
       <Name>CommonLib.Sqlite</Name>

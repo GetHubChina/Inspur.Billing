@@ -78,10 +78,10 @@ namespace Inspur.TaxModel
         /// <summary>
         /// 获取或设置纳税人地址
         /// </summary>
-        public string Adress
+        public string Address
         {
             get { return _address; }
-            set { Set<string>(ref _address, value, "Adress"); }
+            set { Set<string>(ref _address, value, "Address"); }
         }
         /// <summary>
         /// 获取或设置纳税人电话

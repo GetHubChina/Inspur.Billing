@@ -17,7 +17,7 @@ namespace Inspur.Billing.Commom
                 Tin = taxpayerJnfo.TaxpayerTin,
                 Id = taxpayerJnfo.TaxpayerId.ToString(),
                 Name = taxpayerJnfo.ShopName,
-                Adress = taxpayerJnfo.TaxpayerAddress,
+                Address = taxpayerJnfo.TaxpayerAddress,
                 Telphone = taxpayerJnfo.TaxpayerTel,
                 BankAccount = taxpayerJnfo.TaxpayerAccount,
             };
@@ -36,7 +36,7 @@ namespace Inspur.Billing.Commom
             target.Tin = source.TaxpayerTin;
             target.Id = source.TaxpayerId.ToString();
             target.Name = source.ShopName;
-            target.Adress = source.TaxpayerAddress;
+            target.Address = source.TaxpayerAddress;
             target.Telphone = source.TaxpayerTel;
             target.BankAccount = source.TaxpayerAccount;
         }
@@ -46,7 +46,7 @@ namespace Inspur.Billing.Commom
             {
                 TaxpayerTin = taxPayer.Tin,
                 ShopName = taxPayer.Name,
-                TaxpayerAddress = taxPayer.Adress,
+                TaxpayerAddress = taxPayer.Address,
                 TaxpayerTel = taxPayer.Telphone,
                 TaxpayerAccount = taxPayer.BankAccount,
             };
@@ -78,11 +78,29 @@ namespace Inspur.Billing.Commom
             {
                 target = new ProductItem();
             }
+            target.No = source.GoodsId;
             target.BarCode = source.Barcode;
             target.Name = source.Description;
             target.Price = source.Price == null ? 0 : source.Price.Value;
             target.Count = source.Quantity == null ? 0 : source.Quantity.Value;
-            //target.Rate = source.text;
+            target.TaxInclusive = source.TaxInclusive;
+        }
+        public static void CodeTaxtype2TaxType(CodeTaxtype source, TaxType target)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException("source can not null.");
+            }
+            if (target == null)
+            {
+                target = new TaxType();
+            }
+            target.Id = source.TaxtypeId;
+            target.FixTaxAmount = source.FixedTaxAmount == null ? 0 : source.FixedTaxAmount.Value;
+            target.CalculationMode = source.CalculationMode;
+            target.Rate = source.TaxRate == null ? 0 : source.TaxRate.Value;
+            target.Label = source.TaxItemLable;
+            target.Name = source.TaxTypeCode;
         }
     }
 }

@@ -37,7 +37,7 @@ namespace Inspur.Billing.ViewModel
         /// <summary>
         /// 获取或设置
         /// </summary>
-        private string _uri;
+        private string _uri= "Setting/BasicView.xaml";
         /// <summary>
         /// 获取或设置
         /// </summary>

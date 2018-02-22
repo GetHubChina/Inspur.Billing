@@ -18,7 +18,7 @@ namespace Inspur.TaxModel
         /// <summary>
         /// 条目序列号
         /// </summary>
-        public string No { get; set; }
+        public long No { get; set; }
         /// <summary>
         /// 获取或设置税种税目代码
         /// </summary>
@@ -92,7 +92,25 @@ namespace Inspur.TaxModel
         {
             get
             {
-                _amount = Price * Count;
+                //含税
+                if (TaxInclusive == "0")
+                {
+                    _amount = Price * Count;
+                }
+                else
+                {
+                    //不含税 价格+税款
+                    if (TaxType.CalculationMode == "1")
+                    {
+                        //固定税额
+                        _amount = Price * Count + Count * TaxType.FixTaxAmount;
+                    }
+                    else
+                    {
+                        //税率
+                        _amount = Price * Count * (1 + TaxType.Rate);
+                    }
+                }
                 return _amount;
             }
             set { Set<double>(ref _amount, value, "Amount"); }
@@ -129,18 +147,26 @@ namespace Inspur.TaxModel
                 }
             }
         }
-
         /// <summary>
-        /// 获取或设置税率
+        /// 获取或设置商品是否含税
         /// </summary>
-        private string _rate;
+        public string TaxInclusive { get; set; }
         /// <summary>
-        /// 获取或设置税率
+        /// 获取或设置商品的税信息
         /// </summary>
-        public string Rate
+        private TaxType taxType = new TaxType();
+        /// <summary>
+        /// 获取或设置商品的税信息
+        /// </summary>
+        public TaxType TaxType
         {
-            get { return _rate; }
-            set { Set<string>(ref _rate, value, "Rate"); }
+            get { return taxType; }
+            set { Set<TaxType>(ref taxType, value, "TaxType"); }
+        }
+
+        public void CalculateTax()
+        {
+            this.RaisePropertyChanged(() => this.Amount);
         }
     }
 }
