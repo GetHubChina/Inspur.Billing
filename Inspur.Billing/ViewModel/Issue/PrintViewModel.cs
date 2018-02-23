@@ -271,7 +271,7 @@ namespace Inspur.Billing.ViewModel.Issue
                             }
 
                             SignResponse signResponse = ServiceHelper.SignRequest(signRequest);
-                            if (!string.IsNullOrEmpty(signResponse.Message))
+                            if (signResponse.Message != "Success")
                             {
                                 foreach (var item in signResponse.ModelState.Values)
                                 {
@@ -285,40 +285,18 @@ namespace Inspur.Billing.ViewModel.Issue
                                 }
                                 MessageBoxEx.Show("E-SDC is not available.ATT_GSC=" + attentionResponse.ATT_GSC);
                             }
+                            else
+                            {
+                                //保存数据库
+                                //Print();
+                                //保存数据
+                                Save(signResponse);
+                            }
                         }
                         else
                         {
                             MessageBoxEx.Show("E-SDC is not available.ATT_GSC=" + attentionResponse.ATT_GSC);
                         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        //Print();
-                        //保存数据
-                        //Save();
                     }
                     catch (Exception ex)
                     {

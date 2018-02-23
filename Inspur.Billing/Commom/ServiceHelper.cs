@@ -115,64 +115,72 @@ namespace Inspur.Billing.Commom
         public static bool CheckStatue()
         {
             bool result = false;
-            StatusResponse statusResponse = StatueRequest();
-            if (statusResponse.GSC.Contains("0000") && statusResponse.MSSC.Contains("0000"))
+            try
             {
-                //保存软件信息--此处处理未分开（每次都保存），正式使用的时候请
-                var info = (from a in Const.dB.PosInfo
-                            select a).FirstOrDefault();
-                if (info != null)
+                StatusResponse statusResponse = StatueRequest();
+                if (statusResponse.GSC.Contains("0000") && statusResponse.MSSC.Contains("0000"))
                 {
-                    Const.dB.Update<PosInfo>(new PosInfo { Id = info.Id, CompanyName = statusResponse.Make, Desc = statusResponse.Model, Version = statusResponse.SoftwareVersion, IssueDate = info.IssueDate });
-                }
-                if (statusResponse.IsPinRequired)
-                {
-                    //Attention
-                    AttentionResponse attentionResponse = ServiceHelper.AttentionRequest();
-                    if (attentionResponse.ATT_GSC == "0000")
+                    //保存软件信息--此处处理未分开（每次都保存），正式使用的时候请
+                    var info = (from a in Const.dB.PosInfo
+                                select a).FirstOrDefault();
+                    if (info != null)
                     {
-                        //校验pin
-                        PinView pinView = new PinView();
-                        result = pinView.ShowDialog().Value;
+                        Const.dB.Update<PosInfo>(new PosInfo { Id = info.Id, CompanyName = statusResponse.Make, Desc = statusResponse.Model, Version = statusResponse.SoftwareVersion, IssueDate = info.IssueDate });
+                    }
+                    if (statusResponse.IsPinRequired)
+                    {
+                        //Attention
+                        AttentionResponse attentionResponse = ServiceHelper.AttentionRequest();
+                        if (attentionResponse.ATT_GSC == "0000")
+                        {
+                            //校验pin
+                            PinView pinView = new PinView();
+                            result = pinView.ShowDialog().Value;
+                        }
+                        else
+                        {
+                            ShowMessageBegin("E-SDC is not available");
+                        }
                     }
                     else
                     {
-                        ShowMessageBegin("E-SDC is not available");
+                        result = true;
                     }
                 }
                 else
                 {
-                    result = true;
-                }
-            }
-            else
-            {
-                List<string> list = new List<string>();
-                if (!statusResponse.GSC.Contains("0000"))
-                {
-                    foreach (var item in statusResponse.GSC)
+                    List<string> list = new List<string>();
+                    if (!statusResponse.GSC.Contains("0000"))
                     {
-                        if (Const.Statues != null)
+                        foreach (var item in statusResponse.GSC)
                         {
-                            SystemStatu statu = Const.Statues.FirstOrDefault(a => a.Code == item);
-                            if (statu != null)
+                            if (Const.Statues != null)
                             {
-                                list.Add(statu.Name);
+                                SystemStatu statu = Const.Statues.FirstOrDefault(a => a.Code == item);
+                                if (statu != null)
+                                {
+                                    list.Add(statu.Name);
+                                }
                             }
                         }
                     }
-                }
-                if (!statusResponse.MSSC.Contains("0000"))
-                {
-                    foreach (var item in statusResponse.MSSC)
+                    if (!statusResponse.MSSC.Contains("0000"))
                     {
-                        list.Add(item);
+                        foreach (var item in statusResponse.MSSC)
+                        {
+                            list.Add(item);
+                        }
+                    }
+                    if (list.Count > 0)
+                    {
+                        ShowMessageBegin(string.Join(",", list.ToArray()));
                     }
                 }
-                if (list.Count > 0)
-                {
-                    ShowMessageBegin(string.Join(",", list.ToArray()));
-                }
+            }
+            catch (Exception ex)
+            {
+                ShowMessageBegin(ex.Message);
+                result = false;
             }
             return result;
         }
