@@ -82,7 +82,7 @@ namespace Inspur.Billing.Commom
             target.BarCode = source.Barcode;
             target.Name = source.Description;
             target.Price = source.Price == null ? 0 : source.Price.Value;
-            target.Count = source.Quantity == null ? 0 : source.Quantity.Value;
+            //target.Count = source.Quantity == null ? 0 : source.Quantity.Value;
             target.TaxInclusive = source.TaxInclusive;
         }
         public static void CodeTaxtype2TaxType(CodeTaxtype source, TaxType target)

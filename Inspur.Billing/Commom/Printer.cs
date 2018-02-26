@@ -1,6 +1,7 @@
 ﻿using ControlLib.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -25,6 +26,7 @@ namespace Inspur.Billing.Commom
             }
             catch (Exception ex)
             {
+                MessageBoxEx.Show(ex.Message);
             }
         }
 
@@ -222,7 +224,34 @@ namespace Inspur.Billing.Commom
         /// <returns></returns>
         [DllImport("POS_SDK.dll", CharSet = CharSet.Ansi, EntryPoint = "POS_Control_CutPaper")]
         static extern Int32 POS_Control_CutPaper(Int32 printID, Int32 type, Int32 len);
-
+        /// <summary>
+        /// 二维码打印
+        /// </summary>
+        /// <param name="printID"></param>
+        /// <param name="iType"></param>
+        /// <param name="parameter1"></param>
+        /// <param name="parameter2"></param>
+        /// <param name="parameter3"></param>
+        /// <param name="lpString"></param>
+        /// <returns></returns>
+        [DllImport("POS_SDK.dll", CharSet = CharSet.Ansi, EntryPoint = "POS_Output_PrintTwoDimensionalBarcodeA")]
+        static extern Int32 POS_Output_PrintTwoDimensionalBarcodeA(Int32 printID, Int32 iType, Int32 parameter1, Int32 parameter2, Int32 parameter3, String lpString);
+        /// <summary>
+        /// 图片打印
+        /// </summary>
+        /// <param name="printID"></param>
+        /// <param name="strPath"></param>
+        /// <returns></returns>
+        [DllImport("POS_SDK.dll", CharSet = CharSet.Ansi, EntryPoint = "POS_Output_PrintBmpDirectA")]
+        static extern Int32 POS_Output_PrintBmpDirectA(Int32 printID, String strPath);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="printID"></param>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        [DllImport("POS_SDK.dll", CharSet = CharSet.Ansi, EntryPoint = "POS_Output_PrintRamBmp")]
+        static extern Int32 POS_Output_PrintRamBmp(Int32 printID, Int32 n);
         #endregion
 
         #region 方法
@@ -254,19 +283,19 @@ namespace Inspur.Billing.Commom
             switch (ret)
             {
                 case POS_ES_SUCCESS:
-                    MessageBoxEx.Show("发送成功");
+                    MessageBoxEx.Show("Send success.");
                     break;
                 case POS_ES_INVALIDPARA:
-                    MessageBoxEx.Show("参数错误");
+                    MessageBoxEx.Show("Parameter error.");
                     break;
                 case POS_ES_WRITEFAIL:
-                    MessageBoxEx.Show("写失败");
+                    MessageBoxEx.Show("Write failure.");
                     break;
                 case POS_ES_OVERTIME:
-                    MessageBoxEx.Show("发送超时");
+                    MessageBoxEx.Show("Send Timeout.");
                     break;
                 case POS_ES_OTHERERRORS:
-                    MessageBoxEx.Show("其他错误");
+                    MessageBoxEx.Show("Other mistakes.");
                     break;
             }
         }
@@ -280,19 +309,19 @@ namespace Inspur.Billing.Commom
             switch (errorCode)
             {
                 case POS_ES_INVALIDPARA:
-                    MessageBoxEx.Show("参数错误");
+                    MessageBoxEx.Show("Parameter error.");
                     return false;
                 case POS_ES_WRITEFAIL:
-                    MessageBoxEx.Show("写失败");
+                    MessageBoxEx.Show("Write failure.");
                     return false;
                 case POS_ES_READFAIL:
-                    MessageBoxEx.Show("读失败");
+                    MessageBoxEx.Show("Reading failure.");
                     return false;
                 case POS_ES_OVERTIME:
-                    MessageBoxEx.Show("超时");
+                    MessageBoxEx.Show("Timeout.");
                     return false;
                 case POS_ES_OTHERERRORS:
-                    MessageBoxEx.Show("其他错误");
+                    MessageBoxEx.Show("Other mistakes.");
                     return false;
             }
             return true;
@@ -483,6 +512,76 @@ namespace Inspur.Billing.Commom
         public int CutPaper(int type, int len)
         {
             return POS_Control_CutPaper(m_hPrinter, type, len);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lpString"></param>
+        /// <returns></returns>
+        public int PrintTwoDimensionalBarcodeA(string lpString)
+        {
+            int result = POS_Output_PrintTwoDimensionalBarcodeA(m_hPrinter, POS_BT_QRCODE, 2, 77, 4, lpString);
+
+            switch (result)
+            {
+                case POS_ES_INVALIDPARA:
+                    MessageBox.Show("Parameter error.");
+                    break;
+                case POS_ES_WRITEFAIL:
+                    MessageBox.Show("Fail in send。");
+                    break;
+                case POS_ES_OVERTIME:
+                    MessageBox.Show("Timeout.");
+                    break;
+                case POS_ES_OTHERERRORS:
+                    MessageBox.Show("Other mistakes.");
+                    break;
+            }
+
+            POS_Control_ReSet(m_hPrinter);
+            return result;
+        }
+        /// <summary>
+        /// 打印本地位图
+        /// </summary>
+        /// <param name="path">打印图片的本地路径</param>
+        /// <returns></returns>
+        public int PrintBmpDirect(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                throw new ArgumentNullException("Path can not be null.");
+            }
+            if (!File.Exists(Const.QrPath))
+            {
+                throw new ArgumentNullException("File does not exist.");
+            }
+            int status = POS_Output_PrintBmpDirectA(m_hPrinter, path);
+            switch (status)
+            {
+                case POS_ES_SUCCESS:
+                    //MessageBox.Show("打印成功");
+                    break;
+                case POS_ES_INVALIDPARA:
+                    MessageBoxEx.Show("Parameter error.");
+                    break;
+                case POS_ES_WRITEFAIL:
+                    MessageBoxEx.Show("Write failure.");
+                    break;
+                case POS_ES_NONMONOCHROMEBITMAP:
+                    MessageBoxEx.Show("Non monochromatic bitmap.");
+                    break;
+                case POS_ES_OVERTIME:
+                    MessageBoxEx.Show("Download timeout.");
+                    break;
+                case POS_ES_FILEOPENERROR:
+                    MessageBoxEx.Show("Picture open failure.");
+                    break;
+                default:
+                    MessageBoxEx.Show("Other mistakes.");
+                    break;
+            }
+            return status;
         }
         /// <summary>
         /// 打印

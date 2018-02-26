@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 
-131492850990
+14-1046122396
 
-72011647256
-141237720010
-Controls\Dialogs\MessageBoxEx.xaml;Styles\Accent\Blue.xaml;Styles\ButtonStyle.xaml;Styles\MenuStyle.xaml;Styles\Colors.xaml;Styles\DataGridStyle.xaml;Styles\FontSizeStyle.xaml;Styles\LineStyle.xaml;Styles\Styles.xaml;Styles\TextBlockStyle.xaml;Styles\TextBoxStyle.xaml;Themes\MessageDialogStyle.xaml;Themes\Generic.xaml;
+7-731661465
+15163496753
+Controls\Dialogs\MessageBoxEx.xaml;Styles\Accent\Blue.xaml;Styles\ButtonStyle.xaml;Styles\TabControlStyle.xaml;Styles\MenuStyle.xaml;Styles\Colors.xaml;Styles\DataGridStyle.xaml;Styles\FontSizeStyle.xaml;Styles\LineStyle.xaml;Styles\Styles.xaml;Styles\TextBlockStyle.xaml;Styles\TextBoxStyle.xaml;Themes\MessageDialogStyle.xaml;Themes\Generic.xaml;
 
-False
+True
 

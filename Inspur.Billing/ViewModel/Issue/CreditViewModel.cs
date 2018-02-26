@@ -4,7 +4,10 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Inspur.Billing.Commom;
 using Inspur.Billing.Model;
+using Inspur.Billing.Model.Service.Attention;
+using Inspur.Billing.Model.Service.Sign;
 using Inspur.Billing.View.Issue;
+using Inspur.Billing.View.Setting;
 using Inspur.TaxModel;
 using System;
 using System.Collections.Generic;
@@ -35,14 +38,14 @@ namespace Inspur.Billing.ViewModel.Issue
         /// <summary>
         /// 获取或设置开票编号
         /// </summary>
-        private long _orderNumber;
+        private string _orderNumber;
         /// <summary>
         /// 获取或设置开票编号
         /// </summary>
-        public long OrderNumber
+        public string OrderNumber
         {
             get { return _orderNumber; }
-            set { Set<long>(ref _orderNumber, value, "OrderNumber"); }
+            set { Set<string>(ref _orderNumber, value, "OrderNumber"); }
         }
         /// <summary>
         /// 获取或设置买方信息
@@ -149,7 +152,7 @@ namespace Inspur.Billing.ViewModel.Issue
         /// <summary>
         /// 获取或设置
         /// </summary>
-        private string _posNumber;
+        private string _posNumber = "868491150136";
         /// <summary>
         /// 获取或设置
         /// </summary>
@@ -258,7 +261,11 @@ namespace Inspur.Billing.ViewModel.Issue
                             case "Print":
                                 PrintView printView = new PrintView();
                                 Const.Locator.Print.Credit = this;
-                                printView.ShowDialog();
+                                if (printView.ShowDialog()==true)
+                                {
+                                    //刷新orderNum
+                                    GetOrderNumber();
+                                }
                                 break;
                             case "BuyerTinLostFocus":
                                 LoadBuyerInfo();
@@ -271,7 +278,7 @@ namespace Inspur.Billing.ViewModel.Issue
                             case "ProductDelete":
                                 if (_selectedItem == null)
                                 {
-                                    System.Windows.MessageBox.Show("请选择删除行。");
+                                    MessageBox.Show("Please select the delete item.");
                                 }
                                 else
                                 {
@@ -398,13 +405,16 @@ namespace Inspur.Billing.ViewModel.Issue
                          select a.SalesorderNum;
             if (orders != null && orders.Count() > 0)
             {
-                OrderNumber = orders.Max() + 1;
+                double currentOrder = Convert.ToDouble(orders.Max()) + 1;
+                OrderNumber = string.Format("{0:0000000000}", currentOrder);
             }
             else
             {
-                OrderNumber = 1;
+                OrderNumber = string.Format("{0:0000000000}", 1);
             }
         }
+
+
         #endregion
     }
 }

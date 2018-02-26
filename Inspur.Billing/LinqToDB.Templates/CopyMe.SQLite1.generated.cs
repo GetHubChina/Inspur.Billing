@@ -126,7 +126,7 @@ namespace DataModels
     public partial class InvoiceAbbreviation
     {
         [Column("cashier_id"), Nullable] public long CashierId { get; set; } // integer
-        [Column("salesorder_num"), PrimaryKey, NotNull] public long SalesorderNum { get; set; } // integer
+        [Column("salesorder_num"), PrimaryKey, NotNull] public string SalesorderNum { get; set; } // integer
         [Column("payment_type"), Nullable] public string PaymentType { get; set; } // varchar(2)
         [Column("taxpayer_tin"), Nullable] public string TaxpayerTin { get; set; } // varchar(20)
         [Column("taxpayer_name"), Nullable] public string TaxpayerName { get; set; } // varchar(200)
@@ -140,7 +140,7 @@ namespace DataModels
         [Column("total_amount"), Nullable] public double? TotalAmount { get; set; } // double
         [Column("qrcode_path"), Nullable] public string QrcodePath { get; set; } // varchar(200)
         [Column("verification_url"), Nullable] public string VerificationUrl { get; set; } // varchar(1000)
-        [Column("issue_date"), Nullable] public DateTime? IssueDate { get; set; } // date
+        [Column("issue_date"), Nullable] public string IssueDate { get; set; } // date
         [Column("hash_code"), Nullable] public string HashCode { get; set; } // varchar(100)
         [Column("tender amount"), Nullable] public double? TenderAmount { get; set; } // double
         [Column("change"), Nullable] public double? Change { get; set; } // double
@@ -151,7 +151,7 @@ namespace DataModels
     {
         [Column("taxtype_id"), PrimaryKey, NotNull] public long TaxtypeId { get; set; } // integer
         [Column("goods_id"), Nullable] public long? GoodsId { get; set; } // integer
-        [Column("salesorder_num"), NotNull] public long SalesorderNum { get; set; } // integer
+        [Column("salesorder_num"), NotNull] public string SalesorderNum { get; set; } // integer
         [Column("sn"), NotNull] public long? Sn { get; set; } // integer
         [Column("goods_gin"), Nullable] public string GoodsGin { get; set; } // varchar(20)
         [Column("goods_desc"), Nullable] public string GoodsDesc { get; set; } // varchar(100)
@@ -263,7 +263,7 @@ namespace DataModels
                 t.TaxtypeId == TaxtypeId);
         }
 
-        public static InvoiceAbbreviation Find(this ITable<InvoiceAbbreviation> table, long SalesorderNum)
+        public static InvoiceAbbreviation Find(this ITable<InvoiceAbbreviation> table, string SalesorderNum)
         {
             return table.FirstOrDefault(t =>
                 t.SalesorderNum == SalesorderNum);

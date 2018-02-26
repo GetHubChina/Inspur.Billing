@@ -38,7 +38,7 @@ namespace Inspur.Billing.Commom
 
         public static string BaseUri
         {
-            get { return string.Format("http://{0}", Locator.Basic.SdcUrl); }
+            get { return string.Format("http://{0}", Locator.ParameterSetting.SdcUrl); }
         }
         public static string GetStatusUri
         {
@@ -62,5 +62,13 @@ namespace Inspur.Billing.Commom
         }
 
         public static List<SystemStatu> Statues { get; set; }
+
+        public static string QrPath
+        {
+            get
+            {
+                return AppDomain.CurrentDomain.BaseDirectory + "qr.bmp";
+            }
+        }
     }
 }

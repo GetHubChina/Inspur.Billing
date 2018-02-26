@@ -10,6 +10,11 @@
         <Setter Property="GridLinesVisibility" Value="All"/>
     </Style>-->
     <!--列居中-->
+    <Style x:Key="DataGridColumnLeft" TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+    <!--列居中-->
     <Style x:Key="DataGridColumnCenter" TargetType="TextBlock">
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>

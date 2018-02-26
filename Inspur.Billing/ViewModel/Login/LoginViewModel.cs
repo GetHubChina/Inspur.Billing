@@ -85,42 +85,49 @@ namespace Inspur.Billing.ViewModel.Login
             {
                 return _loginCommand ?? (_loginCommand = new RelayCommand(() =>
                 {
-                    if (string.IsNullOrEmpty(_userName))
+                    try
                     {
-                        MessageBoxEx.Show("用户名称不能为空。", MessageBoxButton.OK);
-                        return;
-                    }
-                    if (string.IsNullOrWhiteSpace(_password))
-                    {
-                        MessageBoxEx.Show("用户密码不能为空。", MessageBoxButton.OK);
-                        return;
-                    }
-                    var cashierInfo = (from a in Const.dB.Cashiers
-                                       where a.Name == _userName
-                                       select a).ToList();
-                    if (cashierInfo != null && cashierInfo.Count > 0)
-                    {
-                        if (!Md5Crypt.MD5Encrypt32(_password).ToLower().Equals(cashierInfo[0].Password))
+                        if (string.IsNullOrEmpty(_userName))
                         {
-                            MessageBoxEx.Show("密码不正确。", MessageBoxButton.OK);
+                            MessageBoxEx.Show("UserName can not be null.", MessageBoxButton.OK);
                             return;
                         }
+                        if (string.IsNullOrWhiteSpace(_password))
+                        {
+                            MessageBoxEx.Show("Password can not be null.", MessageBoxButton.OK);
+                            return;
+                        }
+                        var cashierInfo = (from a in Const.dB.Cashiers
+                                           where a.Name == _userName
+                                           select a).ToList();
+                        if (cashierInfo != null && cashierInfo.Count > 0)
+                        {
+                            if (!Md5Crypt.MD5Encrypt32(_password).ToLower().Equals(cashierInfo[0].Password))
+                            {
+                                MessageBoxEx.Show("Incorrect password.", MessageBoxButton.OK);
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            MessageBoxEx.Show("User does not exist.", MessageBoxButton.OK);
+                            return;
+                        }
+                        Const.CashierId = cashierInfo[0].CashierId;
+                        Const.Statues = (from a in Const.dB.SystemStatu
+                                         select a).ToList();
+                        MainWindow mainWindow = new MainWindow();
+                        Application.Current.MainWindow = mainWindow;
+                        if (_loginView != null)
+                        {
+                            _loginView.Close();
+                        }
+                        mainWindow.ShowDialog();
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        MessageBoxEx.Show("用户不存在。", MessageBoxButton.OK);
-                        return;
+                        MessageBoxEx.Show(ex.Message);
                     }
-                    Const.CashierId = cashierInfo[0].CashierId;
-                    Const.Statues = (from a in Const.dB.SystemStatu
-                                     select a).ToList();
-                    MainWindow mainWindow = new MainWindow();
-                    Application.Current.MainWindow = mainWindow;
-                    if (_loginView != null)
-                    {
-                        _loginView.Close();
-                    }
-                    mainWindow.ShowDialog();
                 }, () =>
                 {
                     return true;

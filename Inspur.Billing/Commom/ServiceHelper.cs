@@ -144,6 +144,7 @@ namespace Inspur.Billing.Commom
                     }
                     else
                     {
+                        ShowMessageBegin("E-SDC is available");
                         result = true;
                     }
                 }

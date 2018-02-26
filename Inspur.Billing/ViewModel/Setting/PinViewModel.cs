@@ -22,7 +22,7 @@ namespace Inspur.Billing.ViewModel.Setting
         /// <summary>
         /// 获取或设置
         /// </summary>
-        private string _pin;
+        private string _pin = "6666";
         /// <summary>
         /// 获取或设置
         /// </summary>

@@ -13,4 +13,8 @@
 
     <!--DataGrid 边框色-->
     <SolidColorBrush x:Key="DataGrid.Print.BorderThickness" Color="#FFA6A6A6"/>
+
+
+    <SolidColorBrush x:Key="TitleBackground" Color="LightBlue"/>
+    <SolidColorBrush x:Key="WindowBackground" Color="LightGray"/>
 </ResourceDictionary>

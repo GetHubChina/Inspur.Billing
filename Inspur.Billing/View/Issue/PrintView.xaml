@@ -7,11 +7,14 @@
         xmlns:date="clr-namespace:System;assembly=mscorlib"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        Title="Print" Height="800" Width="550"
+        Title="Print" Height="700" Width="550"
         DataContext="{Binding Path=Print, Source={StaticResource Locator}}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding Command}" CommandParameter="Loaded"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding Command}" CommandParameter="Unloaded"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
@@ -22,6 +25,7 @@
         <ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <Grid Margin="10,0">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -55,7 +59,7 @@
                     <TextBlock Grid.Row="2" Text="{Binding Credit.Buyer.Name}" Style="{StaticResource H_R_ContentTbkStyle}"/>
                     <TextBlock Grid.Row="3" Text="Buyer Address:" Style="{StaticResource BaseContentTbkStyle}"/>
                     <TextBlock Grid.Row="3" Text="{Binding Credit.Buyer.Address}" Style="{StaticResource H_R_ContentTbkStyle}"/>
-                    <TextBlock Grid.Row="4" Text="Buyer Contact:" Style="{StaticResource BaseContentTbkStyle}"/>
+                    <TextBlock Grid.Row="4" Text="Buyer Tel:" Style="{StaticResource BaseContentTbkStyle}"/>
                     <TextBlock Grid.Row="4" Text="{Binding Credit.Buyer.TelPhone}" Style="{StaticResource H_R_ContentTbkStyle}"/>
                 </Grid>
                 <Line Grid.Row="3" Style="{StaticResource DotLineStyle}" Margin="0,10"/>
@@ -65,21 +69,23 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Particular Of Items" Style="{StaticResource H_C_ContentTbkStyle}"/>
+                    <TextBlock Text="Items" Style="{StaticResource BaseContentTbkStyle}"/>
                     <DataGrid Grid.Row="1" ItemsSource="{Binding Credit.Productes}" Style="{StaticResource DataGridPrintStyle}" CanUserSortColumns="False" IsReadOnly="True" Margin="0,10">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="GTN" Binding="{Binding BarCode}" ElementStyle="{StaticResource DataGridColumnCenter}" Width="*"/>
-                            <DataGridTextColumn Header="Item Name" Binding="{Binding Name}" ElementStyle="{StaticResource DataGridColumnCenter}" Width="*"/>
+                            <!--<DataGridTextColumn Header="GTN" Binding="{Binding BarCode}" ElementStyle="{StaticResource DataGridColumnCenter}" Width="*"/>-->
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" ElementStyle="{StaticResource DataGridColumnLeft}" Width="*"/>
                             <DataGridTextColumn Header="Price" Binding="{Binding Price,StringFormat={}{0:0.00}}" Width="*"
                                                 ElementStyle="{StaticResource DataGridColumnRight}"/>
-                            <DataGridTextColumn Header="Qty" Binding="{Binding Count}" Width="*"
+                            <DataGridTextColumn Header="Qty." Binding="{Binding Count}" Width="*"
                                                 ElementStyle="{StaticResource DataGridColumnRight}"/>
-                            <DataGridTextColumn Header="Value" Binding="{Binding Amount,StringFormat={}{0:0.00}}" Width="*"
+                            <!--<DataGridTextColumn Header="Rate Label" Binding="{Binding TaxType.Label}" Width="*"
+                                                ElementStyle="{StaticResource DataGridColumnCenter}"/>-->
+                            <DataGridTextColumn Header="Amount" Binding="{Binding Amount,StringFormat={}{0:0.00}}" Width="*"
                                                 ElementStyle="{StaticResource DataGridColumnRight}"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <TextBlock Grid.Row="2" Text="Total Value:" Style="{StaticResource BaseContentTbkStyle}"/>
-                    <TextBlock Grid.Row="2" Text="{Binding Credit.GrandTotal,StringFormat={}{0:0.00}}" Style="{StaticResource H_R_ContentTbkStyle}"/>
+                    <!--<TextBlock Grid.Row="2" Text="Total Value:" Style="{StaticResource BaseContentTbkStyle}"/>-->
+                    <!--<TextBlock Grid.Row="2" Text="{Binding Credit.GrandTotal,StringFormat={}{0:0.00}}" Style="{StaticResource H_R_ContentTbkStyle}"/>-->
                 </Grid>
                 <Line Grid.Row="5" Style="{StaticResource DotLineStyle}" Margin="0,5"/>
                 <Grid Grid.Row="6">
@@ -88,17 +94,17 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Tax Amount" Style="{StaticResource H_C_ContentTbkStyle}"/>
+                    <TextBlock Text="Tax Amount" Style="{StaticResource BaseContentTbkStyle}"/>
                     <DataGrid Grid.Row="1" ItemsSource="{Binding TaxList}" Style="{StaticResource DataGridPrintStyle}"
                               CanUserSortColumns="False" Margin="0,10" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Label" Binding="{Binding TaxItemCode}" ElementStyle="{StaticResource DataGridColumnCenter}" Width="*"/>
                             <DataGridTextColumn Header="Name" Binding="{Binding TaxItemDesc}" ElementStyle="{StaticResource DataGridColumnCenter}" Width="*"/>
-                            <DataGridTextColumn Header="Rate(%)" Binding="{Binding TaxRate,StringFormat={}{0:P}}" ElementStyle="{StaticResource DataGridColumnCenter}" Width="*"/>
+                            <DataGridTextColumn Header="Rate(%)" Binding="{Binding TaxRate}" ElementStyle="{StaticResource DataGridColumnCenter}" Width="*"/>
                             <DataGridTextColumn Header="Tax Amount" Binding="{Binding TaxAmount,StringFormat={}{0:0.00}}" ElementStyle="{StaticResource DataGridColumnRight}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <TextBlock Grid.Row="2" Text="Total Tax Amount:" Style="{StaticResource BaseContentTbkStyle}"/>
+                    <TextBlock Grid.Row="2" Text="Total Tax:" Style="{StaticResource BaseContentTbkStyle}"/>
                     <TextBlock Grid.Row="2" Text="{Binding TotalTaxAmount,StringFormat={}{0:0.00}}" Style="{StaticResource H_R_ContentTbkStyle}"/>
                 </Grid>
                 <Line Grid.Row="7" Style="{StaticResource DotLineStyle}" Margin="0,5"/>
@@ -109,9 +115,9 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Text="Grand Total:" Style="{StaticResource BaseContentTbkStyle}"/>
+                    <TextBlock Grid.Row="0" Text="Total Amount:" Style="{StaticResource BaseContentTbkStyle}"/>
                     <TextBlock Grid.Row="0" Text="{Binding Credit.GrandTotal,StringFormat={}{0:0.00}}" Style="{StaticResource H_R_ContentTbkStyle}"/>
-                    <TextBlock Grid.Row="1" Text="Payment Model:" Style="{StaticResource BaseContentTbkStyle}"/>
+                    <TextBlock Grid.Row="1" Text="Payment Mode:" Style="{StaticResource BaseContentTbkStyle}"/>
                     <TextBlock Grid.Row="1" Text="{Binding Credit.SelectedPaymentType.Name}" Style="{StaticResource H_R_ContentTbkStyle}"/>
                     <TextBlock Grid.Row="2" Text="Actual Payment:" Style="{StaticResource BaseContentTbkStyle}"/>
                     <TextBox Grid.Row="2" Text="{Binding ActualPay,StringFormat={}{0:0.00},UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NoStateTbStyle}" 
@@ -133,12 +139,14 @@
                     <TextBlock Grid.Row="1" Text="{Binding TaxPayerInfo.Name}" Style="{StaticResource H_R_ContentTbkStyle}"/>
                     <TextBlock Grid.Row="2" Text="Address:" Style="{StaticResource BaseContentTbkStyle}"/>
                     <TextBlock Grid.Row="2" Text="{Binding TaxPayerInfo.Address}" Style="{StaticResource H_R_ContentTbkStyle}"/>
-                    <TextBlock Grid.Row="3" Text="Contact:" Style="{StaticResource BaseContentTbkStyle}"/>
+                    <TextBlock Grid.Row="3" Text="Tel:" Style="{StaticResource BaseContentTbkStyle}"/>
                     <TextBlock Grid.Row="3" Text="{Binding TaxPayerInfo.Telphone}" Style="{StaticResource H_R_ContentTbkStyle}"/>
                 </Grid>
                 <Line Grid.Row="11" Style="{StaticResource DotLineStyle}" Margin="0,10"/>
-                <TextBlock Grid.Row="12" Text="Dear sir madam,please keep the invoice properly so as to refunds &amp; replaces" TextWrapping="Wrap" Style="{StaticResource BaseContentTbkStyle}"/>
-                <TextBlock Grid.Row="13" Text="Thank You &amp; Please Come Again" Style="{StaticResource H_C_ContentTbkStyle}" Margin="0,10,0,0"/>
+                <Image Grid.Row="12" Source="{Binding QrPath}" Width="200" Margin="0,10"/>
+                <TextBlock Grid.Row="13" Text="Dear sir madam,please keep the invoice properly so as to refunds &amp; replaces" TextWrapping="Wrap" Style="{StaticResource BaseContentTbkStyle}"/>
+                <TextBlock Grid.Row="14" Text="Thank You &amp; Please Come Again" Style="{StaticResource H_C_ContentTbkStyle}" Margin="0,10,0,0"/>
+                
             </Grid>
         </ScrollViewer>
         <Button Grid.Row="14" Content="Print" Margin="10,10" Command="{Binding PrintCommand}"/>

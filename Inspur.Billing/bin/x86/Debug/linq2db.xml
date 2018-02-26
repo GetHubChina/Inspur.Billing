@@ -56,6 +56,74 @@
             <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Asynchronous operation completion task.</returns>
         </member>
+        <member name="M:LinqToDB.AsyncExtensions.ToListAsync``1(System.Linq.IQueryable{``0},System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously loads data from query to a list.
+            </summary>
+            <typeparam name="TSource">Query element type.</typeparam>
+            <param name="source">Source query.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>List with query results.</returns>
+        </member>
+        <member name="M:LinqToDB.AsyncExtensions.ToArrayAsync``1(System.Linq.IQueryable{``0},System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously loads data from query to an array.
+            </summary>
+            <typeparam name="TSource">Query element type.</typeparam>
+            <param name="source">Source query.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Array with query results.</returns>
+        </member>
+        <member name="M:LinqToDB.AsyncExtensions.ToDictionaryAsync``2(System.Linq.IQueryable{``0},System.Func{``0,``1},System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously loads data from query to a dictionary.
+            </summary>
+            <typeparam name="TSource">Query element type.</typeparam>
+            <typeparam name="TKey">Dictionary key type.</typeparam>
+            <param name="source">Source query.</param>
+            <param name="keySelector">Source element key selector.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Dictionary with query results.</returns>
+        </member>
+        <member name="M:LinqToDB.AsyncExtensions.ToDictionaryAsync``2(System.Linq.IQueryable{``0},System.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``1},System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously loads data from query to a dictionary.
+            </summary>
+            <typeparam name="TSource">Query element type.</typeparam>
+            <typeparam name="TKey">Dictionary key type.</typeparam>
+            <param name="source">Source query.</param>
+            <param name="keySelector">Source element key selector.</param>
+            <param name="comparer">Dictionary key comparer.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Dictionary with query results.</returns>
+        </member>
+        <member name="M:LinqToDB.AsyncExtensions.ToDictionaryAsync``3(System.Linq.IQueryable{``0},System.Func{``0,``1},System.Func{``0,``2},System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously loads data from query to a dictionary.
+            </summary>
+            <typeparam name="TSource">Query element type.</typeparam>
+            <typeparam name="TKey">Dictionary key type.</typeparam>
+            <typeparam name="TElement">Dictionary element type.</typeparam>
+            <param name="source">Source query.</param>
+            <param name="keySelector">Source element key selector.</param>
+            <param name="elementSelector">Dictionary element selector.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Dictionary with query results.</returns>
+        </member>
+        <member name="M:LinqToDB.AsyncExtensions.ToDictionaryAsync``3(System.Linq.IQueryable{``0},System.Func{``0,``1},System.Func{``0,``2},System.Collections.Generic.IEqualityComparer{``1},System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously loads data from query to a dictionary.
+            </summary>
+            <typeparam name="TSource">Query element type.</typeparam>
+            <typeparam name="TKey">Dictionary key type.</typeparam>
+            <typeparam name="TElement">Dictionary element type.</typeparam>
+            <param name="source">Source query.</param>
+            <param name="keySelector">Source element key selector.</param>
+            <param name="elementSelector">Dictionary element selector.</param>
+            <param name="comparer">Dictionary key comparer.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Dictionary with query results.</returns>
+        </member>
         <member name="T:LinqToDB.Common.LinqToDBConvertException">
             <summary>
             Defines the base class for the namespace exceptions.
@@ -576,6 +644,27 @@
             </summary>
             <returns>Data reader with query results.</returns>
         </member>
+        <member name="M:LinqToDB.Linq.IQueryRunner.ExecuteNonQueryAsync(System.Threading.CancellationToken)">
+            <summary>
+            Executes query asynchronously and returns number of affected records.
+            </summary>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Number of affected records.</returns>
+        </member>
+        <member name="M:LinqToDB.Linq.IQueryRunner.ExecuteScalarAsync(System.Threading.CancellationToken)">
+            <summary>
+            Executes query asynchronously and returns scalar value.
+            </summary>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Scalar value.</returns>
+        </member>
+        <member name="M:LinqToDB.Linq.IQueryRunner.ExecuteReaderAsync(System.Threading.CancellationToken)">
+            <summary>
+            Executes query asynchronously and returns data reader.
+            </summary>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Data reader with query results.</returns>
+        </member>
         <member name="M:LinqToDB.Linq.IQueryRunner.GetSqlText">
             <summary>
             Returns SQL text for query.
@@ -1059,6 +1148,16 @@
             <param name="merge">Merge command definition.</param>
             <returns>Returns number of target table records, affected by merge comand.</returns>
         </member>
+        <member name="M:LinqToDB.Data.MergeExtensions.MergeAsync``2(LinqToDB.Data.IMergeable{``0,``1},System.Threading.CancellationToken)">
+            <summary>
+            Executes merge command and returns total number of target records, affected by merge operations.
+            </summary>
+            <typeparam name="TTarget">Target record type.</typeparam>
+            <typeparam name="TSource">Source record type.</typeparam>
+            <param name="merge">Merge command definition.</param>
+            <param name="token">Asynchronous operation cancellation token.</param>
+            <returns>Returns number of target table records, affected by merge comand.</returns>
+        </member>
         <member name="T:LinqToDB.Data.IMergeableUsing`1">
             <summary>
             Merge command builder that have only target table configured.
@@ -1100,6 +1199,26 @@
             <typeparam name="TResult"> The return type of <paramref name="operation" />. </typeparam>
             <returns> The result from the operation. </returns>
         </member>
+        <member name="M:LinqToDB.Data.RetryPolicy.IRetryPolicy.ExecuteAsync``1(System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task{``0}},System.Threading.CancellationToken)">
+            <summary>
+                Executes the specified asynchronous operation and returns the result.
+            </summary>
+            <param name="operation">
+                A function that returns a started task of type <typeparamref name="TResult"/>.
+            </param>
+            <param name="cancellationToken">
+                A cancellation token used to cancel the retry operation, but not operations that are already in flight
+                or that already completed successfully.
+            </param>
+            <typeparam name="TResult">
+              The result type of the <see cref="T:System.Threading.Tasks.Task`1"/> returned by <paramref name="operation"/>.
+            </typeparam>
+            <returns>
+                A task that will run to completion if the original task completes successfully (either the
+                first time or after retrying transient failures). If the task fails with a non-transient error or
+                the retry limit is reached, the returned task will become faulted and the exception must be observed.
+            </returns>
+        </member>
         <member name="M:LinqToDB.Data.RetryPolicy.RetryPolicyBase.#ctor(System.Int32,System.TimeSpan)">
             <summary>
             Creates a new instance of <see cref="T:LinqToDB.Data.RetryPolicy.RetryPolicyBase"/>.
@@ -1116,6 +1235,27 @@
             </param>
             <typeparam name="TResult">The return type of <paramref name="operation" />.</typeparam>
             <returns>The result from the operation. </returns>
+        </member>
+        <member name="M:LinqToDB.Data.RetryPolicy.RetryPolicyBase.ExecuteAsync``1(System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task{``0}},System.Threading.CancellationToken)">
+            <summary>
+                Executes the specified asynchronous operation and returns the result.
+            </summary>
+            <param name="operation">
+                A function that returns a started task of type <typeparamref name="TResult"/>.
+            </param>
+            <param name="cancellationToken">
+                A cancellation token used to cancel the retry operation, but not operations that are already in flight
+                or that already completed successfully.
+            </param>
+            <typeparam name="TResult"> The result type of the <see cref="T:System.Threading.Tasks.Task`1"/> returned by <paramref name="operation"/>. </typeparam>
+            <returns>
+                A task that will run to completion if the original task completes successfully (either the
+                first time or after retrying transient failures). If the task fails with a non-transient error or
+                the retry limit is reached, the returned task will become faulted and the exception must be observed.
+            </returns>
+            <exception cref="T:LinqToDB.Data.RetryPolicy.RetryLimitExceededException">
+                Thrown if the operation has not succeeded after the configured number of retries.
+            </exception>
         </member>
         <member name="M:LinqToDB.Data.RetryPolicy.RetryPolicyBase.OnFirstExecution">
             <summary>
@@ -2239,6 +2379,59 @@
             <param name="objectReader">Record mapping function from data reader.</param>
             <returns>Returns collection of query result records.</returns>
         </member>
+        <member name="M:LinqToDB.Data.CommandInfo.QueryToListAsync``1(System.Func{System.Data.IDataReader,``0})">
+            <summary>
+            Executes command asynchronously and returns list of values, mapped using provided mapping function.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="objectReader">Record mapping function from data reader.</param>
+            <returns>Returns task with list of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.CommandInfo.QueryToListAsync``1(System.Func{System.Data.IDataReader,``0},System.Threading.CancellationToken)">
+            <summary>
+            Executes command asynchronously and returns list of values, mapped using provided mapping function.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="objectReader">Record mapping function from data reader.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Returns task with list of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.CommandInfo.QueryToArrayAsync``1(System.Func{System.Data.IDataReader,``0})">
+            <summary>
+            Executes command asynchronously and returns array of values, mapped using provided mapping function.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="objectReader">Record mapping function from data reader.</param>
+            <returns>Returns task with array of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.CommandInfo.QueryToArrayAsync``1(System.Func{System.Data.IDataReader,``0},System.Threading.CancellationToken)">
+            <summary>
+            Executes command asynchronously and returns array of values, mapped using provided mapping function.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="objectReader">Record mapping function from data reader.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Returns task with array of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.CommandInfo.QueryForEachAsync``1(System.Func{System.Data.IDataReader,``0},System.Action{``0})">
+            <summary>
+            Executes command asynchronously and apply provided action to each record, mapped using provided mapping function.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="objectReader">Record mapping function from data reader.</param>
+            <param name="action">Action, applied to each result record.</param>
+            <returns>Returns task.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.CommandInfo.QueryForEachAsync``1(System.Func{System.Data.IDataReader,``0},System.Action{``0},System.Threading.CancellationToken)">
+            <summary>
+            Executes command asynchronously and apply provided action to each record, mapped using provided mapping function.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="objectReader">Record mapping function from data reader.</param>
+            <param name="action">Action, applied to each result record.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Returns task.</returns>
+        </member>
         <member name="M:LinqToDB.Data.CommandInfo.QueryProc``1">
             <summary>
             Executes command using <see cref="!:CommandType.StoredProcedure"/> command type and returns results as collection of values of specified type.
@@ -2252,6 +2445,53 @@
             </summary>
             <typeparam name="T">Result record type.</typeparam>
             <returns>Returns collection of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.CommandInfo.QueryToListAsync``1">
+            <summary>
+            Executes command asynchronously and returns list of values.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <returns>Returns task with list of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.CommandInfo.QueryToListAsync``1(System.Threading.CancellationToken)">
+            <summary>
+            Executes command asynchronously and returns list of values.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Returns task with list of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.CommandInfo.QueryToArrayAsync``1">
+            <summary>
+            Executes command asynchronously and returns array of values.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <returns>Returns task with array of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.CommandInfo.QueryToArrayAsync``1(System.Threading.CancellationToken)">
+            <summary>
+            Executes command asynchronously and returns array of values.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Returns task with array of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.CommandInfo.QueryForEachAsync``1(System.Action{``0})">
+            <summary>
+            Executes command asynchronously and apply provided action to each record.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="action">Action, applied to each result record.</param>
+            <returns>Returns task.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.CommandInfo.QueryForEachAsync``1(System.Action{``0},System.Threading.CancellationToken)">
+            <summary>
+            Executes command asynchronously and apply provided action to each record.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="action">Action, applied to each result record.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Returns task.</returns>
         </member>
         <member name="M:LinqToDB.Data.CommandInfo.Query``1(``0)">
             <summary>
@@ -2281,6 +2521,32 @@
             </summary>
             <returns>Number of records, affected by command execution.</returns>
         </member>
+        <member name="M:LinqToDB.Data.CommandInfo.ExecuteProcAsync">
+            <summary>
+            Executes command using <see cref="!:CommandType.StoredProcedure"/> command type asynchronously and returns number of affected records.
+            </summary>
+            <returns>Task with number of records, affected by command execution.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.CommandInfo.ExecuteProcAsync(System.Threading.CancellationToken)">
+            <summary>
+            Executes command using <see cref="!:CommandType.StoredProcedure"/> command type asynchronously and returns number of affected records.
+            </summary>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Task with number of records, affected by command execution.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.CommandInfo.ExecuteAsync">
+            <summary>
+            Executes command asynchronously and returns number of affected records.
+            </summary>
+            <returns>Task with number of records, affected by command execution.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.CommandInfo.ExecuteAsync(System.Threading.CancellationToken)">
+            <summary>
+            Executes command asynchronously and returns number of affected records.
+            </summary>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Task with number of records, affected by command execution.</returns>
+        </member>
         <member name="M:LinqToDB.Data.CommandInfo.ExecuteProc``1">
             <summary>
             Executes command using <see cref="!:CommandType.StoredProcedure"/> command type and returns single value.
@@ -2295,6 +2561,36 @@
             <typeparam name="T">Resulting value type.</typeparam>
             <returns>Resulting value.</returns>
         </member>
+        <member name="M:LinqToDB.Data.CommandInfo.ExecuteAsync``1">
+            <summary>
+            Executes command asynchronously and returns single value.
+            </summary>
+            <typeparam name="T">Resulting value type.</typeparam>
+            <returns>Task with resulting value.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.CommandInfo.ExecuteProcAsync``1">
+            <summary>
+            Executes command using <see cref="!:CommandType.StoredProcedure"/> command type asynchronously and returns single value.
+            </summary>
+            <typeparam name="T">Resulting value type.</typeparam>
+            <returns>Task with resulting value.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.CommandInfo.ExecuteProcAsync``1(System.Threading.CancellationToken)">
+            <summary>
+            Executes command using <see cref="!:CommandType.StoredProcedure"/> command type asynchronously and returns single value.
+            </summary>
+            <typeparam name="T">Resulting value type.</typeparam>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Task with resulting value.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.CommandInfo.ExecuteAsync``1(System.Threading.CancellationToken)">
+            <summary>
+            Executes command using <see cref="!:CommandType.StoredProcedure"/> command type asynchronously and returns single value.
+            </summary>
+            <typeparam name="T">Resulting value type.</typeparam>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Task with resulting value.</returns>
+        </member>
         <member name="M:LinqToDB.Data.CommandInfo.ExecuteReaderProc">
             <summary>
             Executes command using <see cref="!:CommandType.StoredProcedure"/> command type and returns data reader instance.
@@ -2306,6 +2602,19 @@
             Executes command and returns data reader instance.
             </summary>
             <returns>Data reader object.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.CommandInfo.ExecuteReaderAsync">
+            <summary>
+            Executes command asynchronously and returns data reader instance.
+            </summary>
+            <returns>Task with data reader object.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.CommandInfo.ExecuteReaderAsync(System.Threading.CancellationToken)">
+            <summary>
+            Executes command asynchronously and returns data reader instance.
+            </summary>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Task with data reader object.</returns>
         </member>
         <member name="M:LinqToDB.Data.CommandInfo.ClearObjectReaderCache">
             <summary>
@@ -3851,6 +4160,176 @@
             </param>
             <returns>Returns collection of query result records.</returns>
         </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToListAsync``1(LinqToDB.Data.DataConnection,System.Func{System.Data.IDataReader,``0},System.String)">
+            <summary>
+            Executes command asynchronously and returns list of values, mapped using provided mapping function.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="objectReader">Record mapping function from data reader.</param>
+            <param name="sql">Command text.</param>
+            <returns>Returns task with list of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToListAsync``1(LinqToDB.Data.DataConnection,System.Func{System.Data.IDataReader,``0},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Executes command asynchronously and returns list of values, mapped using provided mapping function.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="objectReader">Record mapping function from data reader.</param>
+            <param name="sql">Command text.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Returns task with list of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToArrayAsync``1(LinqToDB.Data.DataConnection,System.Func{System.Data.IDataReader,``0},System.String)">
+            <summary>
+            Executes command asynchronously and returns array of values, mapped using provided mapping function.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="objectReader">Record mapping function from data reader.</param>
+            <param name="sql">Command text.</param>
+            <returns>Returns task with array of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToArrayAsync``1(LinqToDB.Data.DataConnection,System.Func{System.Data.IDataReader,``0},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Executes command asynchronously and returns array of values, mapped using provided mapping function.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="objectReader">Record mapping function from data reader.</param>
+            <param name="sql">Command text.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Returns task with array of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToListAsync``1(LinqToDB.Data.DataConnection,System.Func{System.Data.IDataReader,``0},System.String,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command asynchronously and returns list of values, mapped using provided mapping function.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="objectReader">Record mapping function from data reader.</param>
+            <param name="sql">Command text.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Returns task with list of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToListAsync``1(LinqToDB.Data.DataConnection,System.Func{System.Data.IDataReader,``0},System.String,System.Threading.CancellationToken,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command asynchronously and returns list of values, mapped using provided mapping function.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="objectReader">Record mapping function from data reader.</param>
+            <param name="sql">Command text.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Returns task with list of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToArrayAsync``1(LinqToDB.Data.DataConnection,System.Func{System.Data.IDataReader,``0},System.String,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command asynchronously and returns array of values, mapped using provided mapping function.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="objectReader">Record mapping function from data reader.</param>
+            <param name="sql">Command text.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Returns task with array of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToArrayAsync``1(LinqToDB.Data.DataConnection,System.Func{System.Data.IDataReader,``0},System.String,System.Threading.CancellationToken,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command asynchronously and returns array of values, mapped using provided mapping function.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="objectReader">Record mapping function from data reader.</param>
+            <param name="sql">Command text.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Returns task with array of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToListAsync``1(LinqToDB.Data.DataConnection,System.Func{System.Data.IDataReader,``0},System.String,System.Object)">
+            <summary>
+            Executes command asynchronously and returns list of values, mapped using provided mapping function.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="objectReader">Record mapping function from data reader.</param>
+            <param name="sql">Command text.</param>
+            <param name="parameters">Command parameters. Supported values:
+            <para> - <c>null</c> for command without parameters;</para>
+            <para> - single <see cref="T:LinqToDB.Data.DataParameter"/> instance;</para>
+            <para> - array of <see cref="T:LinqToDB.Data.DataParameter"/> parameters;</para>
+            <para> - mapping class entity.</para>
+            <para>Last case will convert all mapped columns to <see cref="T:LinqToDB.Data.DataParameter"/> instances using following logic:</para>
+            <para> - if column is of <see cref="T:LinqToDB.Data.DataParameter"/> type, column value will be used. If parameter name (<see cref="P:LinqToDB.Data.DataParameter.Name"/>) is not set, column name will be used;</para>
+            <para> - if converter from column type to <see cref="T:LinqToDB.Data.DataParameter"/> is defined in mapping schema, it will be used to create parameter with colum name passed to converter;</para>
+            <para> - otherwise column value will be converted to <see cref="T:LinqToDB.Data.DataParameter"/> using column name as parameter name and column value will be converted to parameter value using conversion, defined by mapping schema.</para>
+            </param>
+            <returns>Returns task with list of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToListAsync``1(LinqToDB.Data.DataConnection,System.Func{System.Data.IDataReader,``0},System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            Executes command asynchronously and returns list of values, mapped using provided mapping function.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="objectReader">Record mapping function from data reader.</param>
+            <param name="sql">Command text.</param>
+            <param name="parameters">Command parameters. Supported values:
+            <para> - <c>null</c> for command without parameters;</para>
+            <para> - single <see cref="T:LinqToDB.Data.DataParameter"/> instance;</para>
+            <para> - array of <see cref="T:LinqToDB.Data.DataParameter"/> parameters;</para>
+            <para> - mapping class entity.</para>
+            <para>Last case will convert all mapped columns to <see cref="T:LinqToDB.Data.DataParameter"/> instances using following logic:</para>
+            <para> - if column is of <see cref="T:LinqToDB.Data.DataParameter"/> type, column value will be used. If parameter name (<see cref="P:LinqToDB.Data.DataParameter.Name"/>) is not set, column name will be used;</para>
+            <para> - if converter from column type to <see cref="T:LinqToDB.Data.DataParameter"/> is defined in mapping schema, it will be used to create parameter with colum name passed to converter;</para>
+            <para> - otherwise column value will be converted to <see cref="T:LinqToDB.Data.DataParameter"/> using column name as parameter name and column value will be converted to parameter value using conversion, defined by mapping schema.</para>
+            </param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Returns task with list of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToArrayAsync``1(LinqToDB.Data.DataConnection,System.Func{System.Data.IDataReader,``0},System.String,System.Object)">
+            <summary>
+            Executes command asynchronously and returns array of values, mapped using provided mapping function.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="objectReader">Record mapping function from data reader.</param>
+            <param name="sql">Command text.</param>
+            <param name="parameters">Command parameters. Supported values:
+            <para> - <c>null</c> for command without parameters;</para>
+            <para> - single <see cref="T:LinqToDB.Data.DataParameter"/> instance;</para>
+            <para> - array of <see cref="T:LinqToDB.Data.DataParameter"/> parameters;</para>
+            <para> - mapping class entity.</para>
+            <para>Last case will convert all mapped columns to <see cref="T:LinqToDB.Data.DataParameter"/> instances using following logic:</para>
+            <para> - if column is of <see cref="T:LinqToDB.Data.DataParameter"/> type, column value will be used. If parameter name (<see cref="P:LinqToDB.Data.DataParameter.Name"/>) is not set, column name will be used;</para>
+            <para> - if converter from column type to <see cref="T:LinqToDB.Data.DataParameter"/> is defined in mapping schema, it will be used to create parameter with colum name passed to converter;</para>
+            <para> - otherwise column value will be converted to <see cref="T:LinqToDB.Data.DataParameter"/> using column name as parameter name and column value will be converted to parameter value using conversion, defined by mapping schema.</para>
+            </param>
+            <returns>Returns task with array of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToArrayAsync``1(LinqToDB.Data.DataConnection,System.Func{System.Data.IDataReader,``0},System.String,System.Threading.CancellationToken,System.Object)">
+            <summary>
+            Executes command asynchronously and returns array of values, mapped using provided mapping function.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="objectReader">Record mapping function from data reader.</param>
+            <param name="sql">Command text.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <param name="parameters">Command parameters. Supported values:
+            <para> - <c>null</c> for command without parameters;</para>
+            <para> - single <see cref="T:LinqToDB.Data.DataParameter"/> instance;</para>
+            <para> - array of <see cref="T:LinqToDB.Data.DataParameter"/> parameters;</para>
+            <para> - mapping class entity.</para>
+            <para>Last case will convert all mapped columns to <see cref="T:LinqToDB.Data.DataParameter"/> instances using following logic:</para>
+            <para> - if column is of <see cref="T:LinqToDB.Data.DataParameter"/> type, column value will be used. If parameter name (<see cref="P:LinqToDB.Data.DataParameter.Name"/>) is not set, column name will be used;</para>
+            <para> - if converter from column type to <see cref="T:LinqToDB.Data.DataParameter"/> is defined in mapping schema, it will be used to create parameter with colum name passed to converter;</para>
+            <para> - otherwise column value will be converted to <see cref="T:LinqToDB.Data.DataParameter"/> using column name as parameter name and column value will be converted to parameter value using conversion, defined by mapping schema.</para>
+            </param>
+            <returns>Returns task with array of query result records.</returns>
+        </member>
         <member name="M:LinqToDB.Data.DataConnectionExtensions.Query``1(LinqToDB.Data.DataConnection,System.String)">
             <summary>
             Executes command and returns results as collection of values of specified type.
@@ -3909,6 +4388,206 @@
             </param>
             <returns>Returns collection of query result records.</returns>
         </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToListAsync``1(LinqToDB.Data.DataConnection,System.String)">
+            <summary>
+            Executes command asynchronously and returns list of values.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <returns>Returns task with list of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToListAsync``1(LinqToDB.Data.DataConnection,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Executes command asynchronously and returns list of values.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Returns task with list of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToArrayAsync``1(LinqToDB.Data.DataConnection,System.String)">
+            <summary>
+            Executes command asynchronously and returns array of values.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <returns>Returns task with array of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToArrayAsync``1(LinqToDB.Data.DataConnection,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Executes command asynchronously and returns array of values.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Returns task with array of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToListAsync``1(LinqToDB.Data.DataConnection,System.String,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command asynchronously and returns list of values.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Returns task with list of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToListAsync``1(LinqToDB.Data.DataConnection,System.String,System.Threading.CancellationToken,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command asynchronously and returns list of values.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Returns task with list of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToArrayAsync``1(LinqToDB.Data.DataConnection,System.String,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command asynchronously and returns array of values.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Returns task with array of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToArrayAsync``1(LinqToDB.Data.DataConnection,System.String,System.Threading.CancellationToken,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command asynchronously and returns array of values.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Returns task with array of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToListAsync``1(LinqToDB.Data.DataConnection,System.String,LinqToDB.Data.DataParameter)">
+            <summary>
+            Executes command asynchronously and returns list of values.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="parameter">Command parameter.</param>
+            <returns>Returns task with list of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToListAsync``1(LinqToDB.Data.DataConnection,System.String,LinqToDB.Data.DataParameter,System.Threading.CancellationToken)">
+            <summary>
+            Executes command asynchronously and returns list of values.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="parameter">Command parameter.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Returns task with list of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToArrayAsync``1(LinqToDB.Data.DataConnection,System.String,LinqToDB.Data.DataParameter)">
+            <summary>
+            Executes command asynchronously and returns array of values.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="parameter">Command parameter.</param>
+            <returns>Returns task with array of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToArrayAsync``1(LinqToDB.Data.DataConnection,System.String,LinqToDB.Data.DataParameter,System.Threading.CancellationToken)">
+            <summary>
+            Executes command asynchronously and returns array of values.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="parameter">Command parameter.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Returns task with array of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToListAsync``1(LinqToDB.Data.DataConnection,System.String,System.Object)">
+            <summary>
+            Executes command asynchronously and returns list of values.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="parameters">Command parameters. Supported values:
+            <para> - <c>null</c> for command without parameters;</para>
+            <para> - single <see cref="T:LinqToDB.Data.DataParameter"/> instance;</para>
+            <para> - array of <see cref="T:LinqToDB.Data.DataParameter"/> parameters;</para>
+            <para> - mapping class entity.</para>
+            <para>Last case will convert all mapped columns to <see cref="T:LinqToDB.Data.DataParameter"/> instances using following logic:</para>
+            <para> - if column is of <see cref="T:LinqToDB.Data.DataParameter"/> type, column value will be used. If parameter name (<see cref="P:LinqToDB.Data.DataParameter.Name"/>) is not set, column name will be used;</para>
+            <para> - if converter from column type to <see cref="T:LinqToDB.Data.DataParameter"/> is defined in mapping schema, it will be used to create parameter with colum name passed to converter;</para>
+            <para> - otherwise column value will be converted to <see cref="T:LinqToDB.Data.DataParameter"/> using column name as parameter name and column value will be converted to parameter value using conversion, defined by mapping schema.</para>
+            </param>
+            <returns>Returns task with list of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToListAsync``1(LinqToDB.Data.DataConnection,System.String,System.Threading.CancellationToken,System.Object)">
+            <summary>
+            Executes command asynchronously and returns list of values.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <param name="parameters">Command parameters. Supported values:
+            <para> - <c>null</c> for command without parameters;</para>
+            <para> - single <see cref="T:LinqToDB.Data.DataParameter"/> instance;</para>
+            <para> - array of <see cref="T:LinqToDB.Data.DataParameter"/> parameters;</para>
+            <para> - mapping class entity.</para>
+            <para>Last case will convert all mapped columns to <see cref="T:LinqToDB.Data.DataParameter"/> instances using following logic:</para>
+            <para> - if column is of <see cref="T:LinqToDB.Data.DataParameter"/> type, column value will be used. If parameter name (<see cref="P:LinqToDB.Data.DataParameter.Name"/>) is not set, column name will be used;</para>
+            <para> - if converter from column type to <see cref="T:LinqToDB.Data.DataParameter"/> is defined in mapping schema, it will be used to create parameter with colum name passed to converter;</para>
+            <para> - otherwise column value will be converted to <see cref="T:LinqToDB.Data.DataParameter"/> using column name as parameter name and column value will be converted to parameter value using conversion, defined by mapping schema.</para>
+            </param>
+            <returns>Returns task with list of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToArrayAsync``1(LinqToDB.Data.DataConnection,System.String,System.Object)">
+            <summary>
+            Executes command asynchronously and returns array of values.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="parameters">Command parameters. Supported values:
+            <para> - <c>null</c> for command without parameters;</para>
+            <para> - single <see cref="T:LinqToDB.Data.DataParameter"/> instance;</para>
+            <para> - array of <see cref="T:LinqToDB.Data.DataParameter"/> parameters;</para>
+            <para> - mapping class entity.</para>
+            <para>Last case will convert all mapped columns to <see cref="T:LinqToDB.Data.DataParameter"/> instances using following logic:</para>
+            <para> - if column is of <see cref="T:LinqToDB.Data.DataParameter"/> type, column value will be used. If parameter name (<see cref="P:LinqToDB.Data.DataParameter.Name"/>) is not set, column name will be used;</para>
+            <para> - if converter from column type to <see cref="T:LinqToDB.Data.DataParameter"/> is defined in mapping schema, it will be used to create parameter with colum name passed to converter;</para>
+            <para> - otherwise column value will be converted to <see cref="T:LinqToDB.Data.DataParameter"/> using column name as parameter name and column value will be converted to parameter value using conversion, defined by mapping schema.</para>
+            </param>
+            <returns>Returns task with array of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToArrayAsync``1(LinqToDB.Data.DataConnection,System.String,System.Threading.CancellationToken,System.Object)">
+            <summary>
+            Executes command asynchronously and returns array of values.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <param name="parameters">Command parameters. Supported values:
+            <para> - <c>null</c> for command without parameters;</para>
+            <para> - single <see cref="T:LinqToDB.Data.DataParameter"/> instance;</para>
+            <para> - array of <see cref="T:LinqToDB.Data.DataParameter"/> parameters;</para>
+            <para> - mapping class entity.</para>
+            <para>Last case will convert all mapped columns to <see cref="T:LinqToDB.Data.DataParameter"/> instances using following logic:</para>
+            <para> - if column is of <see cref="T:LinqToDB.Data.DataParameter"/> type, column value will be used. If parameter name (<see cref="P:LinqToDB.Data.DataParameter.Name"/>) is not set, column name will be used;</para>
+            <para> - if converter from column type to <see cref="T:LinqToDB.Data.DataParameter"/> is defined in mapping schema, it will be used to create parameter with colum name passed to converter;</para>
+            <para> - otherwise column value will be converted to <see cref="T:LinqToDB.Data.DataParameter"/> using column name as parameter name and column value will be converted to parameter value using conversion, defined by mapping schema.</para>
+            </param>
+            <returns>Returns task with array of query result records.</returns>
+        </member>
         <member name="M:LinqToDB.Data.DataConnectionExtensions.Query``1(LinqToDB.Data.DataConnection,``0,System.String,LinqToDB.Data.DataParameter[])">
             <summary>
             Executes command and returns results as collection of values of specified type.
@@ -3939,6 +4618,134 @@
             <para> - otherwise column value will be converted to <see cref="T:LinqToDB.Data.DataParameter"/> using column name as parameter name and column value will be converted to parameter value using conversion, defined by mapping schema.</para>
             </param>
             <returns>Returns collection of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToListAsync``1(LinqToDB.Data.DataConnection,``0,System.String,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command asynchronously and returns list of values of specified type.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="template">This value used only for <typeparamref name="T"/> parameter type inference, which makes this method usable with anonymous types.</param>
+            <param name="sql">Command text.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Returns task with list of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToListAsync``1(LinqToDB.Data.DataConnection,``0,System.String,System.Threading.CancellationToken,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command asynchronously and returns list of values of specified type.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="template">This value used only for <typeparamref name="T"/> parameter type inference, which makes this method usable with anonymous types.</param>
+            <param name="sql">Command text.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Returns task with list of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToArrayAsync``1(LinqToDB.Data.DataConnection,``0,System.String,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command asynchronously and returns array of values of specified type.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="template">This value used only for <typeparamref name="T"/> parameter type inference, which makes this method usable with anonymous types.</param>
+            <param name="sql">Command text.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Returns task with array of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToArrayAsync``1(LinqToDB.Data.DataConnection,``0,System.String,System.Threading.CancellationToken,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command asynchronously and returns array of values of specified type.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="template">This value used only for <typeparamref name="T"/> parameter type inference, which makes this method usable with anonymous types.</param>
+            <param name="sql">Command text.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Returns task with array of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToListAsync``1(LinqToDB.Data.DataConnection,``0,System.String,System.Object)">
+            <summary>
+            Executes command asynchronously and returns list of values of specified type.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="template">This value used only for <typeparamref name="T"/> parameter type inference, which makes this method usable with anonymous types.</param>
+            <param name="sql">Command text.</param>
+            <param name="parameters">Command parameters. Supported values:
+            <para> - <c>null</c> for command without parameters;</para>
+            <para> - single <see cref="T:LinqToDB.Data.DataParameter"/> instance;</para>
+            <para> - array of <see cref="T:LinqToDB.Data.DataParameter"/> parameters;</para>
+            <para> - mapping class entity.</para>
+            <para>Last case will convert all mapped columns to <see cref="T:LinqToDB.Data.DataParameter"/> instances using following logic:</para>
+            <para> - if column is of <see cref="T:LinqToDB.Data.DataParameter"/> type, column value will be used. If parameter name (<see cref="P:LinqToDB.Data.DataParameter.Name"/>) is not set, column name will be used;</para>
+            <para> - if converter from column type to <see cref="T:LinqToDB.Data.DataParameter"/> is defined in mapping schema, it will be used to create parameter with colum name passed to converter;</para>
+            <para> - otherwise column value will be converted to <see cref="T:LinqToDB.Data.DataParameter"/> using column name as parameter name and column value will be converted to parameter value using conversion, defined by mapping schema.</para>
+            </param>
+            <returns>Returns task with list of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToListAsync``1(LinqToDB.Data.DataConnection,``0,System.String,System.Threading.CancellationToken,System.Object)">
+            <summary>
+            Executes command asynchronously and returns list of values of specified type.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="template">This value used only for <typeparamref name="T"/> parameter type inference, which makes this method usable with anonymous types.</param>
+            <param name="sql">Command text.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <param name="parameters">Command parameters. Supported values:
+            <para> - <c>null</c> for command without parameters;</para>
+            <para> - single <see cref="T:LinqToDB.Data.DataParameter"/> instance;</para>
+            <para> - array of <see cref="T:LinqToDB.Data.DataParameter"/> parameters;</para>
+            <para> - mapping class entity.</para>
+            <para>Last case will convert all mapped columns to <see cref="T:LinqToDB.Data.DataParameter"/> instances using following logic:</para>
+            <para> - if column is of <see cref="T:LinqToDB.Data.DataParameter"/> type, column value will be used. If parameter name (<see cref="P:LinqToDB.Data.DataParameter.Name"/>) is not set, column name will be used;</para>
+            <para> - if converter from column type to <see cref="T:LinqToDB.Data.DataParameter"/> is defined in mapping schema, it will be used to create parameter with colum name passed to converter;</para>
+            <para> - otherwise column value will be converted to <see cref="T:LinqToDB.Data.DataParameter"/> using column name as parameter name and column value will be converted to parameter value using conversion, defined by mapping schema.</para>
+            </param>
+            <returns>Returns task with list of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToArrayAsync``1(LinqToDB.Data.DataConnection,``0,System.String,System.Object)">
+            <summary>
+            Executes command asynchronously and returns array of values of specified type.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="template">This value used only for <typeparamref name="T"/> parameter type inference, which makes this method usable with anonymous types.</param>
+            <param name="sql">Command text.</param>
+            <param name="parameters">Command parameters. Supported values:
+            <para> - <c>null</c> for command without parameters;</para>
+            <para> - single <see cref="T:LinqToDB.Data.DataParameter"/> instance;</para>
+            <para> - array of <see cref="T:LinqToDB.Data.DataParameter"/> parameters;</para>
+            <para> - mapping class entity.</para>
+            <para>Last case will convert all mapped columns to <see cref="T:LinqToDB.Data.DataParameter"/> instances using following logic:</para>
+            <para> - if column is of <see cref="T:LinqToDB.Data.DataParameter"/> type, column value will be used. If parameter name (<see cref="P:LinqToDB.Data.DataParameter.Name"/>) is not set, column name will be used;</para>
+            <para> - if converter from column type to <see cref="T:LinqToDB.Data.DataParameter"/> is defined in mapping schema, it will be used to create parameter with colum name passed to converter;</para>
+            <para> - otherwise column value will be converted to <see cref="T:LinqToDB.Data.DataParameter"/> using column name as parameter name and column value will be converted to parameter value using conversion, defined by mapping schema.</para>
+            </param>
+            <returns>Returns task with array of query result records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.QueryToArrayAsync``1(LinqToDB.Data.DataConnection,``0,System.String,System.Threading.CancellationToken,System.Object)">
+            <summary>
+            Executes command asynchronously and returns array of values of specified type.
+            </summary>
+            <typeparam name="T">Result record type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="template">This value used only for <typeparamref name="T"/> parameter type inference, which makes this method usable with anonymous types.</param>
+            <param name="sql">Command text.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <param name="parameters">Command parameters. Supported values:
+            <para> - <c>null</c> for command without parameters;</para>
+            <para> - single <see cref="T:LinqToDB.Data.DataParameter"/> instance;</para>
+            <para> - array of <see cref="T:LinqToDB.Data.DataParameter"/> parameters;</para>
+            <para> - mapping class entity.</para>
+            <para>Last case will convert all mapped columns to <see cref="T:LinqToDB.Data.DataParameter"/> instances using following logic:</para>
+            <para> - if column is of <see cref="T:LinqToDB.Data.DataParameter"/> type, column value will be used. If parameter name (<see cref="P:LinqToDB.Data.DataParameter.Name"/>) is not set, column name will be used;</para>
+            <para> - if converter from column type to <see cref="T:LinqToDB.Data.DataParameter"/> is defined in mapping schema, it will be used to create parameter with colum name passed to converter;</para>
+            <para> - otherwise column value will be converted to <see cref="T:LinqToDB.Data.DataParameter"/> using column name as parameter name and column value will be converted to parameter value using conversion, defined by mapping schema.</para>
+            </param>
+            <returns>Returns task with array of query result records.</returns>
         </member>
         <member name="M:LinqToDB.Data.DataConnectionExtensions.Execute(LinqToDB.Data.DataConnection,System.String)">
             <summary>
@@ -3983,6 +4790,98 @@
             <para> - otherwise column value will be converted to <see cref="T:LinqToDB.Data.DataParameter"/> using column name as parameter name and column value will be converted to parameter value using conversion, defined by mapping schema.</para>
             </param>
             <returns>Number of records, affected by command execution.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.ExecuteAsync(LinqToDB.Data.DataConnection,System.String)">
+            <summary>
+            Executes command asynchronously and returns number of affected records.
+            </summary>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <returns>Task with number of records, affected by command execution.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.ExecuteAsync(LinqToDB.Data.DataConnection,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Executes command asynchronously and returns number of affected records.
+            </summary>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Task with number of records, affected by command execution.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.ExecuteAsync(LinqToDB.Data.DataConnection,System.String,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command asynchronously and returns number of affected records.
+            </summary>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Task with number of records, affected by command execution.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.ExecuteAsync(LinqToDB.Data.DataConnection,System.String,System.Threading.CancellationToken,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command asynchronously and returns number of affected records.
+            </summary>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Task with number of records, affected by command execution.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.ExecuteAsync(LinqToDB.Data.DataConnection,System.String,System.Object)">
+            <summary>
+            Executes command asynchronously and returns number of affected records.
+            </summary>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="parameters">Command parameters. Supported values:
+            <para> - <c>null</c> for command without parameters;</para>
+            <para> - single <see cref="T:LinqToDB.Data.DataParameter"/> instance;</para>
+            <para> - array of <see cref="T:LinqToDB.Data.DataParameter"/> parameters;</para>
+            <para> - mapping class entity.</para>
+            <para>Last case will convert all mapped columns to <see cref="T:LinqToDB.Data.DataParameter"/> instances using following logic:</para>
+            <para> - if column is of <see cref="T:LinqToDB.Data.DataParameter"/> type, column value will be used. If parameter name (<see cref="P:LinqToDB.Data.DataParameter.Name"/>) is not set, column name will be used;</para>
+            <para> - if converter from column type to <see cref="T:LinqToDB.Data.DataParameter"/> is defined in mapping schema, it will be used to create parameter with colum name passed to converter;</para>
+            <para> - otherwise column value will be converted to <see cref="T:LinqToDB.Data.DataParameter"/> using column name as parameter name and column value will be converted to parameter value using conversion, defined by mapping schema.</para>
+            </param>
+            <returns>Task with number of records, affected by command execution.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.ExecuteAsync(LinqToDB.Data.DataConnection,System.String,System.Threading.CancellationToken,System.Object)">
+            <summary>
+            Executes command asynchronously and returns number of affected records.
+            </summary>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <param name="parameters">Command parameters. Supported values:
+            <para> - <c>null</c> for command without parameters;</para>
+            <para> - single <see cref="T:LinqToDB.Data.DataParameter"/> instance;</para>
+            <para> - array of <see cref="T:LinqToDB.Data.DataParameter"/> parameters;</para>
+            <para> - mapping class entity.</para>
+            <para>Last case will convert all mapped columns to <see cref="T:LinqToDB.Data.DataParameter"/> instances using following logic:</para>
+            <para> - if column is of <see cref="T:LinqToDB.Data.DataParameter"/> type, column value will be used. If parameter name (<see cref="P:LinqToDB.Data.DataParameter.Name"/>) is not set, column name will be used;</para>
+            <para> - if converter from column type to <see cref="T:LinqToDB.Data.DataParameter"/> is defined in mapping schema, it will be used to create parameter with colum name passed to converter;</para>
+            <para> - otherwise column value will be converted to <see cref="T:LinqToDB.Data.DataParameter"/> using column name as parameter name and column value will be converted to parameter value using conversion, defined by mapping schema.</para>
+            </param>
+            <returns>Task with number of records, affected by command execution.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.ExecuteProcAsync(LinqToDB.Data.DataConnection,System.String,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command using <see cref="F:System.Data.CommandType.StoredProcedure"/> command type asynchronously and returns number of affected records.
+            </summary>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Task with number of records, affected by command execution.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.ExecuteProcAsync(LinqToDB.Data.DataConnection,System.String,System.Threading.CancellationToken,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command using <see cref="F:System.Data.CommandType.StoredProcedure"/> command type asynchronously and returns number of affected records.
+            </summary>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Task with number of records, affected by command execution.</returns>
         </member>
         <member name="M:LinqToDB.Data.DataConnectionExtensions.Execute``1(LinqToDB.Data.DataConnection,System.String)">
             <summary>
@@ -4039,6 +4938,127 @@
             <typeparam name="T">Resulting value type.</typeparam>
             <param name="connection">Database connection.</param>
             <param name="sql">Command text.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Resulting value.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.ExecuteAsync``1(LinqToDB.Data.DataConnection,System.String)">
+            <summary>
+            Executes command asynchronously and returns single value.
+            </summary>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <typeparam name="T">Resulting value type.</typeparam>
+            <returns>Task with resulting value.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.ExecuteAsync``1(LinqToDB.Data.DataConnection,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Executes command asynchronously and returns single value.
+            </summary>
+            <typeparam name="T">Resulting value type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Task with resulting value.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.ExecuteAsync``1(LinqToDB.Data.DataConnection,System.String,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command asynchronously and returns single value.
+            </summary>
+            <typeparam name="T">Resulting value type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Task with resulting value.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.ExecuteAsync``1(LinqToDB.Data.DataConnection,System.String,System.Threading.CancellationToken,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command asynchronously and returns single value.
+            </summary>
+            <typeparam name="T">Resulting value type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Task with resulting value.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.ExecuteAsync``1(LinqToDB.Data.DataConnection,System.String,LinqToDB.Data.DataParameter)">
+            <summary>
+            Executes command asynchronously and returns single value.
+            </summary>
+            <typeparam name="T">Resulting value type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="parameter">Command parameter.</param>
+            <returns>Task with resulting value.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.ExecuteAsync``1(LinqToDB.Data.DataConnection,System.String,LinqToDB.Data.DataParameter,System.Threading.CancellationToken)">
+            <summary>
+            Executes command asynchronously and returns single value.
+            </summary>
+            <typeparam name="T">Resulting value type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="parameter">Command parameter.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Task with resulting value.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.ExecuteAsync``1(LinqToDB.Data.DataConnection,System.String,System.Object)">
+            <summary>
+            Executes command asynchronously and returns single value.
+            </summary>
+            <typeparam name="T">Resulting value type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="parameters">Command parameters. Supported values:
+            <para> - <c>null</c> for command without parameters;</para>
+            <para> - single <see cref="T:LinqToDB.Data.DataParameter"/> instance;</para>
+            <para> - array of <see cref="T:LinqToDB.Data.DataParameter"/> parameters;</para>
+            <para> - mapping class entity.</para>
+            <para>Last case will convert all mapped columns to <see cref="T:LinqToDB.Data.DataParameter"/> instances using following logic:</para>
+            <para> - if column is of <see cref="T:LinqToDB.Data.DataParameter"/> type, column value will be used. If parameter name (<see cref="P:LinqToDB.Data.DataParameter.Name"/>) is not set, column name will be used;</para>
+            <para> - if converter from column type to <see cref="T:LinqToDB.Data.DataParameter"/> is defined in mapping schema, it will be used to create parameter with colum name passed to converter;</para>
+            <para> - otherwise column value will be converted to <see cref="T:LinqToDB.Data.DataParameter"/> using column name as parameter name and column value will be converted to parameter value using conversion, defined by mapping schema.</para>
+            </param>
+            <returns>Task with resulting value.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.ExecuteAsync``1(LinqToDB.Data.DataConnection,System.String,System.Threading.CancellationToken,System.Object)">
+            <summary>
+            Executes command asynchronously and returns single value.
+            </summary>
+            <typeparam name="T">Resulting value type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <param name="parameters">Command parameters. Supported values:
+            <para> - <c>null</c> for command without parameters;</para>
+            <para> - single <see cref="T:LinqToDB.Data.DataParameter"/> instance;</para>
+            <para> - array of <see cref="T:LinqToDB.Data.DataParameter"/> parameters;</para>
+            <para> - mapping class entity.</para>
+            <para>Last case will convert all mapped columns to <see cref="T:LinqToDB.Data.DataParameter"/> instances using following logic:</para>
+            <para> - if column is of <see cref="T:LinqToDB.Data.DataParameter"/> type, column value will be used. If parameter name (<see cref="P:LinqToDB.Data.DataParameter.Name"/>) is not set, column name will be used;</para>
+            <para> - if converter from column type to <see cref="T:LinqToDB.Data.DataParameter"/> is defined in mapping schema, it will be used to create parameter with colum name passed to converter;</para>
+            <para> - otherwise column value will be converted to <see cref="T:LinqToDB.Data.DataParameter"/> using column name as parameter name and column value will be converted to parameter value using conversion, defined by mapping schema.</para>
+            </param>
+            <returns>Task with resulting value.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.ExecuteProcAsync``1(LinqToDB.Data.DataConnection,System.String,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command using <see cref="F:System.Data.CommandType.StoredProcedure"/> command type asynchronously and returns single value.
+            </summary>
+            <typeparam name="T">Resulting value type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Task with resulting value.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.ExecuteProcAsync``1(LinqToDB.Data.DataConnection,System.String,System.Threading.CancellationToken,LinqToDB.Data.DataParameter[])">
+            <summary>
+            Executes command using <see cref="F:System.Data.CommandType.StoredProcedure"/> command type asynchronously and returns single value.
+            </summary>
+            <typeparam name="T">Resulting value type.</typeparam>
+            <param name="connection">Database connection.</param>
+            <param name="sql">Command text.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
             <param name="parameters">Command parameters.</param>
             <returns>Resulting value.</returns>
         </member>
@@ -4284,6 +5304,144 @@
             <param name="databaseName">Optional target table's database name.</param>
             <param name="schemaName">Optional target table's schema name.</param>
             <returns>Returns number of affected target records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.MergeAsync``1(LinqToDB.Data.DataConnection,System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Executes following merge operations asynchronously in specified order:
+            - Update
+            - Insert
+            - Delete By Source.
+            Method could be used only with SQL Server.
+            </summary>
+            <typeparam name="T">Target table mapping class.</typeparam>
+            <param name="dataConnection">Data connection instance.</param>
+            <param name="source">Source data to merge into target table. All source data will be loaded from server for command generation.</param>
+            <param name="predicate">Filter, applied both to source and delete operation. Required.</param>
+            <param name="tableName">Optional target table name.</param>
+            <param name="databaseName">Optional target table's database name.</param>
+            <param name="schemaName">Optional target table's schema name.</param>
+            <param name="cancellationToken">Optional asynchronous operation cancellation token.</param>
+            <returns>Task with number of affected target records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.MergeAsync``1(LinqToDB.Data.DataConnection,System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Executes following merge operations asynchronously in specified order:
+            - Update
+            - Insert
+            - Delete By Source.
+            Method could be used only with SQL Server.
+            </summary>
+            <typeparam name="T">Target table mapping class.</typeparam>
+            <param name="dataConnection">Data connection instance.</param>
+            <param name="predicate">Filter, applied to delete operation. Optional.</param>
+            <param name="source">Source data to merge into target table.</param>
+            <param name="tableName">Optional target table name.</param>
+            <param name="databaseName">Optional target table's database name.</param>
+            <param name="schemaName">Optional target table's schema name.</param>
+            <param name="cancellationToken">Optional asynchronous operation cancellation token.</param>
+            <returns>Task with number of affected target records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.MergeAsync``1(LinqToDB.Data.DataConnection,System.Boolean,System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Executes following merge operations asynchronously in specified order:
+            - Update
+            - Insert
+            - Delete By Source (optional).
+            If delete operation enabled by <paramref name="delete"/> parameter - method could be used only with SQL Server.
+            </summary>
+            <typeparam name="T">Target table mapping class.</typeparam>
+            <param name="dataConnection">Data connection instance.</param>
+            <param name="delete">If true, merge command will include delete by source operation without condition.</param>
+            <param name="source">Source data to merge into target table.</param>
+            <param name="tableName">Optional target table name.</param>
+            <param name="databaseName">Optional target table's database name.</param>
+            <param name="schemaName">Optional target table's schema name.</param>
+            <param name="cancellationToken">Optional asynchronous operation cancellation token.</param>
+            <returns>Task with number of affected target records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.MergeAsync``1(LinqToDB.Data.DataConnection,System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Executes following merge operations asynchronously in specified order:
+            - Update
+            - Insert.
+            </summary>
+            <typeparam name="T">Target table mapping class.</typeparam>
+            <param name="dataConnection">Data connection instance.</param>
+            <param name="source">Source data to merge into target table.</param>
+            <param name="tableName">Optional target table name.</param>
+            <param name="databaseName">Optional target table's database name.</param>
+            <param name="schemaName">Optional target table's schema name.</param>
+            <param name="cancellationToken">Optional asynchronous operation cancellation token.</param>
+            <returns>Task with number of affected target records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.MergeAsync``1(LinqToDB.ITable{``0},System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Executes following merge operations asynchronously in specified order:
+            - Update
+            - Insert
+            - Delete By Source.
+            Method could be used only with SQL Server.
+            </summary>
+            <typeparam name="T">Target table mapping class.</typeparam>
+            <param name="table">Target table.</param>
+            <param name="source">Source data to merge into target table. All source data will be loaded from server for command generation.</param>
+            <param name="predicate">Filter, applied both to source and delete operation. Required.</param>
+            <param name="tableName">Optional target table name.</param>
+            <param name="databaseName">Optional target table's database name.</param>
+            <param name="schemaName">Optional target table's schema name.</param>
+            <param name="cancellationToken">Optional asynchronous operation cancellation token.</param>
+            <returns>Task with number of affected target records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.MergeAsync``1(LinqToDB.ITable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Executes following merge operations asynchronously in specified order:
+            - Update
+            - Insert
+            - Delete By Source.
+            Method could be used only with SQL Server.
+            </summary>
+            <typeparam name="T">Target table mapping class.</typeparam>
+            <param name="table">Target table.</param>
+            <param name="predicate">Filter, applied to delete operation. Optional.</param>
+            <param name="source">Source data to merge into target table.</param>
+            <param name="tableName">Optional target table name.</param>
+            <param name="databaseName">Optional target table's database name.</param>
+            <param name="schemaName">Optional target table's schema name.</param>
+            <param name="cancellationToken">Optional asynchronous operation cancellation token.</param>
+            <returns>Task with number of affected target records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.MergeAsync``1(LinqToDB.ITable{``0},System.Boolean,System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Executes following merge operations asynchronously in specified order:
+            - Update
+            - Insert
+            - Delete By Source (optional).
+            If delete operation enabled by <paramref name="delete"/> parameter - method could be used only with SQL Server.
+            </summary>
+            <typeparam name="T">Target table mapping class.</typeparam>
+            <param name="table">Target table.</param>
+            <param name="delete">If true, merge command will include delete by source operation without condition.</param>
+            <param name="source">Source data to merge into target table.</param>
+            <param name="tableName">Optional target table name.</param>
+            <param name="databaseName">Optional target table's database name.</param>
+            <param name="schemaName">Optional target table's schema name.</param>
+            <param name="cancellationToken">Optional asynchronous operation cancellation token.</param>
+            <returns>Task with number of affected target records.</returns>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.MergeAsync``1(LinqToDB.ITable{``0},System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Executes following merge operations asynchronously in specified order:
+            - Update
+            - Insert.
+            </summary>
+            <typeparam name="T">Target table mapping class.</typeparam>
+            <param name="table">Target table.</param>
+            <param name="source">Source data to merge into target table.</param>
+            <param name="tableName">Optional target table name.</param>
+            <param name="databaseName">Optional target table's database name.</param>
+            <param name="schemaName">Optional target table's schema name.</param>
+            <param name="cancellationToken">Optional asynchronous operation cancellation token.</param>
+            <returns>Task with number of affected target records.</returns>
         </member>
         <member name="P:LinqToDB.Data.DataParameter.DataType">
             <summary>
@@ -5799,6 +6957,19 @@
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <returns>Number of affected records.</returns>
         </member>
+        <member name="M:LinqToDB.DataExtensions.InsertAsync``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Inserts record asynchronously into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
+            </summary>
+            <typeparam name="T">Mapping class.</typeparam>
+            <param name="dataContext">Database connection context.</param>
+            <param name="obj">Object with data to insert.</param>
+            <param name="tableName">Optional table name to override default table name, extracted from <typeparamref name="T"/> mapping.</param>
+            <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Number of affected records.</returns>
+        </member>
         <member name="M:LinqToDB.DataExtensions.InsertOrReplace``1(LinqToDB.IDataContext,``0)">
             <summary>
             Inserts new record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter
@@ -5807,6 +6978,17 @@
             <typeparam name="T">Mapping class.</typeparam>
             <param name="dataContext">Database connection context.</param>
             <param name="obj">Object with data to insert or update.</param>
+            <returns>Number of affected records.</returns>
+        </member>
+        <member name="M:LinqToDB.DataExtensions.InsertOrReplaceAsync``1(LinqToDB.IDataContext,``0,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously inserts new record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter
+            or update exising record, identified by match on primary key value.
+            </summary>
+            <typeparam name="T">Mapping class.</typeparam>
+            <param name="dataContext">Database connection context.</param>
+            <param name="obj">Object with data to insert or update.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Number of affected records.</returns>
         </member>
         <member name="M:LinqToDB.DataExtensions.InsertWithIdentity``1(LinqToDB.IDataContext,``0)">
@@ -5849,6 +7031,50 @@
             <param name="obj">Object with data to insert.</param>
             <returns>Inserted record's identity value.</returns>
         </member>
+        <member name="M:LinqToDB.DataExtensions.InsertWithIdentityAsync``1(LinqToDB.IDataContext,``0,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously inserts record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
+            Returns identity value for inserted record.
+            </summary>
+            <typeparam name="T">Mapping class.</typeparam>
+            <param name="dataContext">Database connection context.</param>
+            <param name="obj">Object with data to insert.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Inserted record's identity value.</returns>
+        </member>
+        <member name="M:LinqToDB.DataExtensions.InsertWithInt32IdentityAsync``1(LinqToDB.IDataContext,``0,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously inserts record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
+            Returns identity value for inserted record as <see cref="T:System.Int32"/> value.
+            </summary>
+            <typeparam name="T">Mapping class.</typeparam>
+            <param name="dataContext">Database connection context.</param>
+            <param name="obj">Object with data to insert.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Inserted record's identity value.</returns>
+        </member>
+        <member name="M:LinqToDB.DataExtensions.InsertWithInt64IdentityAsync``1(LinqToDB.IDataContext,``0,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously inserts record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
+            Returns identity value for inserted record as <see cref="T:System.Int64"/> value.
+            </summary>
+            <typeparam name="T">Mapping class.</typeparam>
+            <param name="dataContext">Database connection context.</param>
+            <param name="obj">Object with data to insert.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Inserted record's identity value.</returns>
+        </member>
+        <member name="M:LinqToDB.DataExtensions.InsertWithDecimalIdentityAsync``1(LinqToDB.IDataContext,``0,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously inserts record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
+            Returns identity value for inserted record as <see cref="T:System.Decimal"/> value.
+            </summary>
+            <typeparam name="T">Mapping class.</typeparam>
+            <param name="dataContext">Database connection context.</param>
+            <param name="obj">Object with data to insert.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Inserted record's identity value.</returns>
+        </member>
         <member name="M:LinqToDB.DataExtensions.Update``1(LinqToDB.IDataContext,``0)">
             <summary>
             Updates record in table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
@@ -5859,6 +7085,17 @@
             <param name="obj">Object with data to update.</param>
             <returns>Number of affected records.</returns>
         </member>
+        <member name="M:LinqToDB.DataExtensions.UpdateAsync``1(LinqToDB.IDataContext,``0,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously updates record in table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
+            Record to update identified by match on primary key value from <paramref name="obj"/> value.
+            </summary>
+            <typeparam name="T">Mapping class.</typeparam>
+            <param name="dataContext">Database connection context.</param>
+            <param name="obj">Object with data to update.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Number of affected records.</returns>
+        </member>
         <member name="M:LinqToDB.DataExtensions.Delete``1(LinqToDB.IDataContext,``0)">
             <summary>
             Deletes record in table, identified by <typeparamref name="T"/> mapping class.
@@ -5867,6 +7104,17 @@
             <typeparam name="T">Mapping class.</typeparam>
             <param name="dataContext">Database connection context.</param>
             <param name="obj">Object with data for delete operation.</param>
+            <returns>Number of affected records.</returns>
+        </member>
+        <member name="M:LinqToDB.DataExtensions.DeleteAsync``1(LinqToDB.IDataContext,``0,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously deletes record in table, identified by <typeparamref name="T"/> mapping class.
+            Record to delete identified by match on primary key value from <paramref name="obj"/> value.
+            </summary>
+            <typeparam name="T">Mapping class.</typeparam>
+            <param name="dataContext">Database connection context.</param>
+            <param name="obj">Object with data for delete operation.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Number of affected records.</returns>
         </member>
         <member name="M:LinqToDB.DataExtensions.CreateTable``1(LinqToDB.IDataContext,System.String,System.String,System.String,System.String,System.String,LinqToDB.SqlQuery.DefaulNullable)">
@@ -5887,6 +7135,27 @@
             <para> - <see cref="F:LinqToDB.SqlQuery.DefaulNullable.None"/> - explicitly generate <c>NULL</c> and <c>NOT NULL</c> for all columns.</para>
             Default value: <see cref="F:LinqToDB.SqlQuery.DefaulNullable.None"/>.
             </param>
+            <returns>Created table as queryable source.</returns>
+        </member>
+        <member name="M:LinqToDB.DataExtensions.CreateTableAsync``1(LinqToDB.IDataContext,System.String,System.String,System.String,System.String,System.String,LinqToDB.SqlQuery.DefaulNullable,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously creates new table in database for mapping class <typeparamref name="T"/>.
+            Information about table name, columns names and types is taken from mapping class.
+            </summary>
+            <typeparam name="T">Mapping class.</typeparam>
+            <param name="dataContext">Database connection context.</param>
+            <param name="tableName">Optional table name to override default table name, extracted from <typeparamref name="T"/> mapping.</param>
+            <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="statementHeader">Optional replacement for <c>"CREATE TABLE table_name"</c> header. Header is a template with <c>{0}</c> parameter for table name.</param>
+            <param name="statementFooter">Optional SQL, appended to generated create table statement.</param>
+            <param name="defaulNullable">Defines how columns nullability flag should be generated:
+            <para> - <see cref="F:LinqToDB.SqlQuery.DefaulNullable.Null"/> - generate only <c>NOT NULL</c> for non-nullable fields. Missing nullability information treated as <c>NULL</c> by database.</para>
+            <para> - <see cref="F:LinqToDB.SqlQuery.DefaulNullable.NotNull"/> - generate only <c>NULL</c> for nullable fields. Missing nullability information treated as <c>NOT NULL</c> by database.</para>
+            <para> - <see cref="F:LinqToDB.SqlQuery.DefaulNullable.None"/> - explicitly generate <c>NULL</c> and <c>NOT NULL</c> for all columns.</para>
+            Default value: <see cref="F:LinqToDB.SqlQuery.DefaulNullable.None"/>.
+            </param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Created table as queryable source.</returns>
         </member>
         <member name="M:LinqToDB.DataExtensions.DropTable``1(LinqToDB.IDataContext,System.String,System.String,System.String,System.Boolean)">
@@ -5916,6 +7185,38 @@
             This behavior is not correct and will be fixed in future to mask only missing table exceptions.
             Tracked by <a href="https://github.com/linq2db/linq2db/issues/798">issue</a>.
             Default value: <c>true</c>.</param>
+        </member>
+        <member name="M:LinqToDB.DataExtensions.DropTableAsync``1(LinqToDB.IDataContext,System.String,System.String,System.String,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously drops table identified by mapping class <typeparamref name="T"/>.
+            </summary>
+            <typeparam name="T">Mapping class.</typeparam>
+            <param name="dataContext">Database connection context.</param>
+            <param name="tableName">Optional table name to override default table name, extracted from <typeparamref name="T"/> mapping.</param>
+            <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="throwExceptionIfNotExists">If <c>false</c>, any exception during drop operation will be silently catched and <c>0</c> returned.
+            This behavior is not correct and will be fixed in future to mask only missing table exceptions.
+            Tracked by <a href="https://github.com/linq2db/linq2db/issues/798">issue</a>.
+            Default value: <c>true</c>.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Asynchronous operation completion task.</returns>
+        </member>
+        <member name="M:LinqToDB.DataExtensions.DropTableAsync``1(LinqToDB.ITable{``0},System.String,System.String,System.String,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously drops table identified by <paramref name="table"/> parameter.
+            </summary>
+            <typeparam name="T">Mapping class.</typeparam>
+            <param name="table">Dropped table.</param>
+            <param name="tableName">Optional table name to override default table name, extracted from <typeparamref name="T"/> mapping.</param>
+            <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="throwExceptionIfNotExists">If <c>false</c>, any exception during drop operation will be silently catched and <c>0</c> returned.
+            This behavior is not correct and will be fixed in future to mask only missing table exceptions.
+            Tracked by <a href="https://github.com/linq2db/linq2db/issues/798">issue</a>.
+            Default value: <c>true</c>.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Asynchronous operation completion task.</returns>
         </member>
         <member name="T:LinqToDB.Linq.LinqException">
             <summary>
@@ -6097,12 +7398,31 @@
             <param name="selector">Value selection expression.</param>
             <returns>Requested value.</returns>
         </member>
+        <member name="M:LinqToDB.LinqExtensions.SelectAsync``1(LinqToDB.IDataContext,System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Loads scalar value or record from database without explicit table source asynchronously.
+            Could be usefull for function calls, querying of database variables or properties, subqueries, execution of code on server side.
+            </summary>
+            <typeparam name="T">Type of result.</typeparam>
+            <param name="dataContext">Database connection context.</param>
+            <param name="selector">Value selection expression.</param>
+            <returns>Requested value.</returns>
+        </member>
         <member name="M:LinqToDB.LinqExtensions.Delete``1(System.Linq.IQueryable{``0})">
             <summary>
             Executes delete operation, using source query as filter for records, that should be deleted.
             </summary>
             <typeparam name="T">Mapping class for delete operation target table.</typeparam>
             <param name="source">Query that returns records to delete.</param>
+            <returns>Number of deleted records.</returns>
+        </member>
+        <member name="M:LinqToDB.LinqExtensions.DeleteAsync``1(System.Linq.IQueryable{``0},System.Threading.CancellationToken)">
+            <summary>
+            Executes delete operation asynchronously, using source query as filter for records, that should be deleted.
+            </summary>
+            <typeparam name="T">Mapping class for delete operation target table.</typeparam>
+            <param name="source">Query that returns records to delete.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Number of deleted records.</returns>
         </member>
         <member name="M:LinqToDB.LinqExtensions.Delete``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
@@ -6112,6 +7432,16 @@
             <typeparam name="T">Mapping class for delete operation target table.</typeparam>
             <param name="source">Query that returns records to delete.</param>
             <param name="predicate">Filter expression, to specify what records from source should be deleted.</param>
+            <returns>Number of deleted records.</returns>
+        </member>
+        <member name="M:LinqToDB.LinqExtensions.DeleteAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken)">
+            <summary>
+            Executes delete operation asynchronously, using source query as initial filter for records, that should be deleted, and predicate expression as additional filter.
+            </summary>
+            <typeparam name="T">Mapping class for delete operation target table.</typeparam>
+            <param name="source">Query that returns records to delete.</param>
+            <param name="predicate">Filter expression, to specify what records from source should be deleted.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Number of deleted records.</returns>
         </member>
         <member name="M:LinqToDB.LinqExtensions.Update``2(System.Linq.IQueryable{``0},LinqToDB.ITable{``1},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
@@ -6125,6 +7455,18 @@
             <param name="setter">Update expression. Uses record from source query as parameter. Expression supports only target table record new expression with field initializers.</param>
             <returns>Number of updated records.</returns>
         </member>
+        <member name="M:LinqToDB.LinqExtensions.UpdateAsync``2(System.Linq.IQueryable{``0},LinqToDB.ITable{``1},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Threading.CancellationToken)">
+            <summary>
+            Executes update-from-source operation asynchronously against target table.
+            </summary>
+            <typeparam name="TSource">Source query record type.</typeparam>
+            <typeparam name="TTarget">Target table mapping class.</typeparam>
+            <param name="source">Source data query.</param>
+            <param name="target">Target table.</param>
+            <param name="setter">Update expression. Uses record from source query as parameter. Expression supports only target table record new expression with field initializers.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Number of updated records.</returns>
+        </member>
         <member name="M:LinqToDB.LinqExtensions.Update``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``0}})">
             <summary>
             Executes update operation using source query as record filter.
@@ -6132,6 +7474,16 @@
             <typeparam name="T">Updated table record type.</typeparam>
             <param name="source">Source data query.</param>
             <param name="setter">Update expression. Uses updated record as parameter. Expression supports only target table record new expression with field initializers.</param>
+            <returns>Number of updated records.</returns>
+        </member>
+        <member name="M:LinqToDB.LinqExtensions.UpdateAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``0}},System.Threading.CancellationToken)">
+            <summary>
+            Executes update operation asynchronously using source query as record filter.
+            </summary>
+            <typeparam name="T">Updated table record type.</typeparam>
+            <param name="source">Source data query.</param>
+            <param name="setter">Update expression. Uses updated record as parameter. Expression supports only target table record new expression with field initializers.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Number of updated records.</returns>
         </member>
         <member name="M:LinqToDB.LinqExtensions.Update``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,``0}})">
@@ -6144,12 +7496,32 @@
             <param name="setter">Update expression. Uses updated record as parameter. Expression supports only target table record new expression with field initializers.</param>
             <returns>Number of updated records.</returns>
         </member>
+        <member name="M:LinqToDB.LinqExtensions.UpdateAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,``0}},System.Threading.CancellationToken)">
+            <summary>
+            Executes update operation asynchronously using source query as record filter with additional filter expression.
+            </summary>
+            <typeparam name="T">Updated table record type.</typeparam>
+            <param name="source">Source data query.</param>
+            <param name="predicate">Filter expression, to specify what records from source query should be updated.</param>
+            <param name="setter">Update expression. Uses updated record as parameter. Expression supports only target table record new expression with field initializers.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Number of updated records.</returns>
+        </member>
         <member name="M:LinqToDB.LinqExtensions.Update``1(LinqToDB.Linq.IUpdatable{``0})">
             <summary>
             Executes update operation for already configured update query.
             </summary>
             <typeparam name="T">Updated table record type.</typeparam>
             <param name="source">Update query.</param>
+            <returns>Number of updated records.</returns>
+        </member>
+        <member name="M:LinqToDB.LinqExtensions.UpdateAsync``1(LinqToDB.Linq.IUpdatable{``0},System.Threading.CancellationToken)">
+            <summary>
+            Executes update operation asynchronously for already configured update query.
+            </summary>
+            <typeparam name="T">Updated table record type.</typeparam>
+            <param name="source">Update query.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Number of updated records.</returns>
         </member>
         <member name="M:LinqToDB.LinqExtensions.Update``2(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
@@ -6162,6 +7534,19 @@
             <param name="source">Source data query.</param>
             <param name="target">Target table selection expression.</param>
             <param name="setter">Update expression. Uses record from source query as parameter. Expression supports only target table record new expression with field initializers.</param>
+            <returns>Number of updated records.</returns>
+        </member>
+        <member name="M:LinqToDB.LinqExtensions.UpdateAsync``2(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Threading.CancellationToken)">
+            <summary>
+            Executes update-from-source operation asynchronously against target table.
+            Also see <seealso cref="M:LinqToDB.LinqExtensions.UpdateAsync``2(System.Linq.IQueryable{``0},LinqToDB.ITable{``1},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Threading.CancellationToken)"/> method.
+            </summary>
+            <typeparam name="TSource">Source query record type.</typeparam>
+            <typeparam name="TTarget">Target table mapping class.</typeparam>
+            <param name="source">Source data query.</param>
+            <param name="target">Target table selection expression.</param>
+            <param name="setter">Update expression. Uses record from source query as parameter. Expression supports only target table record new expression with field initializers.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Number of updated records.</returns>
         </member>
         <member name="M:LinqToDB.LinqExtensions.AsUpdatable``1(System.Linq.IQueryable{``0})">
@@ -6247,6 +7632,16 @@
             <param name="setter">Insert expression. Expression supports only target table record new expression with field initializers.</param>
             <returns>Number of affected records.</returns>
         </member>
+        <member name="M:LinqToDB.LinqExtensions.InsertAsync``1(LinqToDB.ITable{``0},System.Linq.Expressions.Expression{System.Func{``0}},System.Threading.CancellationToken)">
+            <summary>
+            Inserts single record into target table asynchronously.
+            </summary>
+            <typeparam name="T">Inserted record type.</typeparam>
+            <param name="target">Target table.</param>
+            <param name="setter">Insert expression. Expression supports only target table record new expression with field initializers.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Number of affected records.</returns>
+        </member>
         <member name="M:LinqToDB.LinqExtensions.InsertWithIdentity``1(LinqToDB.ITable{``0},System.Linq.Expressions.Expression{System.Func{``0}})">
             <summary>
             Inserts single record into target table and returns identity value of inserted record.
@@ -6281,6 +7676,46 @@
             <typeparam name="T">Inserted record type.</typeparam>
             <param name="target">Target table.</param>
             <param name="setter">Insert expression. Expression supports only target table record new expression with field initializers.</param>
+            <returns>Inserted record's identity value.</returns>
+        </member>
+        <member name="M:LinqToDB.LinqExtensions.InsertWithIdentityAsync``1(LinqToDB.ITable{``0},System.Linq.Expressions.Expression{System.Func{``0}},System.Threading.CancellationToken)">
+            <summary>
+            Inserts single record into target table asynchronously and returns identity value of inserted record.
+            </summary>
+            <typeparam name="T">Inserted record type.</typeparam>
+            <param name="target">Target table.</param>
+            <param name="setter">Insert expression. Expression supports only target table record new expression with field initializers.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Inserted record's identity value.</returns>
+        </member>
+        <member name="M:LinqToDB.LinqExtensions.InsertWithInt32IdentityAsync``1(LinqToDB.ITable{``0},System.Linq.Expressions.Expression{System.Func{``0}},System.Threading.CancellationToken)">
+            <summary>
+            Inserts single record into target table asynchronously and returns identity value of inserted record as <see cref="T:System.Int32"/> value.
+            </summary>
+            <typeparam name="T">Inserted record type.</typeparam>
+            <param name="target">Target table.</param>
+            <param name="setter">Insert expression. Expression supports only target table record new expression with field initializers.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Inserted record's identity value.</returns>
+        </member>
+        <member name="M:LinqToDB.LinqExtensions.InsertWithInt64IdentityAsync``1(LinqToDB.ITable{``0},System.Linq.Expressions.Expression{System.Func{``0}},System.Threading.CancellationToken)">
+            <summary>
+            Inserts single record into target table asynchronously and returns identity value of inserted record as <see cref="T:System.Int64"/> value.
+            </summary>
+            <typeparam name="T">Inserted record type.</typeparam>
+            <param name="target">Target table.</param>
+            <param name="setter">Insert expression. Expression supports only target table record new expression with field initializers.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Inserted record's identity value.</returns>
+        </member>
+        <member name="M:LinqToDB.LinqExtensions.InsertWithDecimalIdentityAsync``1(LinqToDB.ITable{``0},System.Linq.Expressions.Expression{System.Func{``0}},System.Threading.CancellationToken)">
+            <summary>
+            Inserts single record into target table asynchronously and returns identity value of inserted record as <see cref="T:System.Decimal"/> value.
+            </summary>
+            <typeparam name="T">Inserted record type.</typeparam>
+            <param name="target">Target table.</param>
+            <param name="setter">Insert expression. Expression supports only target table record new expression with field initializers.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Inserted record's identity value.</returns>
         </member>
         <member name="M:LinqToDB.LinqExtensions.Into``1(LinqToDB.IDataContext,LinqToDB.ITable{``0})">
@@ -6344,6 +7779,15 @@
             <param name="source">Insert query.</param>
             <returns>Number of affected records.</returns>
         </member>
+        <member name="M:LinqToDB.LinqExtensions.InsertAsync``1(LinqToDB.Linq.IValueInsertable{``0},System.Threading.CancellationToken)">
+            <summary>
+            Executes insert query asynchronously.
+            </summary>
+            <typeparam name="T">Target table record type.</typeparam>
+            <param name="source">Insert query.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Number of affected records.</returns>
+        </member>
         <member name="M:LinqToDB.LinqExtensions.InsertWithIdentity``1(LinqToDB.Linq.IValueInsertable{``0})">
             <summary>
             Executes insert query and returns identity value of inserted record.
@@ -6376,6 +7820,42 @@
             <param name="source">Insert query.</param>
             <returns>Inserted record's identity value.</returns>
         </member>
+        <member name="M:LinqToDB.LinqExtensions.InsertWithIdentityAsync``1(LinqToDB.Linq.IValueInsertable{``0},System.Threading.CancellationToken)">
+            <summary>
+            Executes insert query asynchronously and returns identity value of inserted record.
+            </summary>
+            <typeparam name="T">Target table record type.</typeparam>
+            <param name="source">Insert query.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Inserted record's identity value.</returns>
+        </member>
+        <member name="M:LinqToDB.LinqExtensions.InsertWithInt32IdentityAsync``1(LinqToDB.Linq.IValueInsertable{``0},System.Threading.CancellationToken)">
+            <summary>
+            Executes insert query asynchronously and returns identity value of inserted record as <see cref="T:System.Int32"/> value.
+            </summary>
+            <typeparam name="T">Target table record type.</typeparam>
+            <param name="source">Insert query.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Inserted record's identity value.</returns>
+        </member>
+        <member name="M:LinqToDB.LinqExtensions.InsertWithInt64IdentityAsync``1(LinqToDB.Linq.IValueInsertable{``0},System.Threading.CancellationToken)">
+            <summary>
+            Executes insert query asynchronously and returns identity value of inserted record as <see cref="T:System.Int64"/> value.
+            </summary>
+            <typeparam name="T">Target table record type.</typeparam>
+            <param name="source">Insert query.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Inserted record's identity value.</returns>
+        </member>
+        <member name="M:LinqToDB.LinqExtensions.InsertWithDecimalIdentityAsync``1(LinqToDB.Linq.IValueInsertable{``0},System.Threading.CancellationToken)">
+            <summary>
+            Executes insert query asynchronously and returns identity value of inserted record as <see cref="T:System.Decimal"/> value.
+            </summary>
+            <typeparam name="T">Target table record type.</typeparam>
+            <param name="source">Insert query.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Inserted record's identity value.</returns>
+        </member>
         <member name="M:LinqToDB.LinqExtensions.Insert``2(System.Linq.IQueryable{``0},LinqToDB.ITable{``1},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
             <summary>
             Inserts records from source query into target table.
@@ -6386,6 +7866,19 @@
             <param name="target">Target table.</param>
             <param name="setter">Inserted record constructor expression.
             Expression supports only target table record new expression with field initializers.</param>
+            <returns>Number of affected records.</returns>
+        </member>
+        <member name="M:LinqToDB.LinqExtensions.InsertAsync``2(System.Linq.IQueryable{``0},LinqToDB.ITable{``1},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Threading.CancellationToken)">
+            <summary>
+            Inserts records from source query into target table asynchronously.
+            </summary>
+            <typeparam name="TSource">Source query record type.</typeparam>
+            <typeparam name="TTarget">Target table record type</typeparam>
+            <param name="source">Source query, that returns data for insert operation.</param>
+            <param name="target">Target table.</param>
+            <param name="setter">Inserted record constructor expression.
+            Expression supports only target table record new expression with field initializers.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Number of affected records.</returns>
         </member>
         <member name="M:LinqToDB.LinqExtensions.InsertWithIdentity``2(System.Linq.IQueryable{``0},LinqToDB.ITable{``1},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
@@ -6434,6 +7927,58 @@
             <param name="target">Target table.</param>
             <param name="setter">Inserted record constructor expression.
             Expression supports only target table record new expression with field initializers.</param>
+            <returns>Last inserted record's identity value.</returns>
+        </member>
+        <member name="M:LinqToDB.LinqExtensions.InsertWithIdentityAsync``2(System.Linq.IQueryable{``0},LinqToDB.ITable{``1},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Threading.CancellationToken)">
+            <summary>
+            Inserts records from source query into target table asynchronously and returns identity value of last inserted record.
+            </summary>
+            <typeparam name="TSource">Source query record type.</typeparam>
+            <typeparam name="TTarget">Target table record type</typeparam>
+            <param name="source">Source query, that returns data for insert operation.</param>
+            <param name="target">Target table.</param>
+            <param name="setter">Inserted record constructor expression.
+            Expression supports only target table record new expression with field initializers.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Last inserted record's identity value.</returns>
+        </member>
+        <member name="M:LinqToDB.LinqExtensions.InsertWithInt32IdentityAsync``2(System.Linq.IQueryable{``0},LinqToDB.ITable{``1},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Threading.CancellationToken)">
+            <summary>
+            Inserts records from source query into target table asynchronously and returns identity value of last inserted record as <see cref="T:System.Int32"/> value.
+            </summary>
+            <typeparam name="TSource">Source query record type.</typeparam>
+            <typeparam name="TTarget">Target table record type</typeparam>
+            <param name="source">Source query, that returns data for insert operation.</param>
+            <param name="target">Target table.</param>
+            <param name="setter">Inserted record constructor expression.
+            Expression supports only target table record new expression with field initializers.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Last inserted record's identity value.</returns>
+        </member>
+        <member name="M:LinqToDB.LinqExtensions.InsertWithInt64IdentityAsync``2(System.Linq.IQueryable{``0},LinqToDB.ITable{``1},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Threading.CancellationToken)">
+            <summary>
+            Inserts records from source query into target table asynchronously and returns identity value of last inserted record as <see cref="T:System.Int64"/> value.
+            </summary>
+            <typeparam name="TSource">Source query record type.</typeparam>
+            <typeparam name="TTarget">Target table record type</typeparam>
+            <param name="source">Source query, that returns data for insert operation.</param>
+            <param name="target">Target table.</param>
+            <param name="setter">Inserted record constructor expression.
+            Expression supports only target table record new expression with field initializers.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Last inserted record's identity value.</returns>
+        </member>
+        <member name="M:LinqToDB.LinqExtensions.InsertWithDecimalIdentityAsync``2(System.Linq.IQueryable{``0},LinqToDB.ITable{``1},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Threading.CancellationToken)">
+            <summary>
+            Inserts records from source query into target table asynchronously and returns identity value of last inserted record as <see cref="T:System.Decimal"/> value.
+            </summary>
+            <typeparam name="TSource">Source query record type.</typeparam>
+            <typeparam name="TTarget">Target table record type</typeparam>
+            <param name="source">Source query, that returns data for insert operation.</param>
+            <param name="target">Target table.</param>
+            <param name="setter">Inserted record constructor expression.
+            Expression supports only target table record new expression with field initializers.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Last inserted record's identity value.</returns>
         </member>
         <member name="M:LinqToDB.LinqExtensions.Into``2(System.Linq.IQueryable{``0},LinqToDB.ITable{``1})">
@@ -6491,6 +8036,16 @@
             <param name="source">Insert query.</param>
             <returns>Number of affected records.</returns>
         </member>
+        <member name="M:LinqToDB.LinqExtensions.InsertAsync``2(LinqToDB.Linq.ISelectInsertable{``0,``1},System.Threading.CancellationToken)">
+            <summary>
+            Executes configured insert query asynchronously.
+            </summary>
+            <typeparam name="TSource">Source query record type.</typeparam>
+            <typeparam name="TTarget">Target table record type.</typeparam>
+            <param name="source">Insert query.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Number of affected records.</returns>
+        </member>
         <member name="M:LinqToDB.LinqExtensions.InsertWithIdentity``2(LinqToDB.Linq.ISelectInsertable{``0,``1})">
             <summary>
             Executes configured insert query and returns identity value of last inserted record.
@@ -6527,6 +8082,46 @@
             <param name="source">Insert query.</param>
             <returns>Number of affected records.</returns>
         </member>
+        <member name="M:LinqToDB.LinqExtensions.InsertWithIdentityAsync``2(LinqToDB.Linq.ISelectInsertable{``0,``1},System.Threading.CancellationToken)">
+            <summary>
+            Executes configured insert query asynchronously and returns identity value of last inserted record.
+            </summary>
+            <typeparam name="TSource">Source query record type.</typeparam>
+            <typeparam name="TTarget">Target table record type.</typeparam>
+            <param name="source">Insert query.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Number of affected records.</returns>
+        </member>
+        <member name="M:LinqToDB.LinqExtensions.InsertWithInt32IdentityAsync``2(LinqToDB.Linq.ISelectInsertable{``0,``1},System.Threading.CancellationToken)">
+            <summary>
+            Executes configured insert query asynchronously and returns identity value of last inserted record as <see cref="T:System.Int32"/> value.
+            </summary>
+            <typeparam name="TSource">Source query record type.</typeparam>
+            <typeparam name="TTarget">Target table record type.</typeparam>
+            <param name="source">Insert query.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Number of affected records.</returns>
+        </member>
+        <member name="M:LinqToDB.LinqExtensions.InsertWithInt64IdentityAsync``2(LinqToDB.Linq.ISelectInsertable{``0,``1},System.Threading.CancellationToken)">
+            <summary>
+            Executes configured insert query asynchronously and returns identity value of last inserted record as <see cref="T:System.Int64"/> value.
+            </summary>
+            <typeparam name="TSource">Source query record type.</typeparam>
+            <typeparam name="TTarget">Target table record type.</typeparam>
+            <param name="source">Insert query.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Number of affected records.</returns>
+        </member>
+        <member name="M:LinqToDB.LinqExtensions.InsertWithDecimalIdentityAsync``2(LinqToDB.Linq.ISelectInsertable{``0,``1},System.Threading.CancellationToken)">
+            <summary>
+            Executes configured insert query asynchronously and returns identity value of last inserted record as <see cref="T:System.Decimal"/> value.
+            </summary>
+            <typeparam name="TSource">Source query record type.</typeparam>
+            <typeparam name="TTarget">Target table record type.</typeparam>
+            <param name="source">Insert query.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Number of affected records.</returns>
+        </member>
         <member name="M:LinqToDB.LinqExtensions.InsertOrUpdate``1(LinqToDB.ITable{``0},System.Linq.Expressions.Expression{System.Func{``0}},System.Linq.Expressions.Expression{System.Func{``0,``0}})">
             <summary>
             Inserts new record into target table or updates existing record if record with the same primary key value already exists in target table.
@@ -6538,6 +8133,20 @@
             <param name="onDuplicateKeyUpdateSetter">Updated record constructor expression.
             Expression supports only target table record new expression with field initializers.
             Accepts updated record as parameter.</param>
+            <returns>Number of affected records.</returns>
+        </member>
+        <member name="M:LinqToDB.LinqExtensions.InsertOrUpdateAsync``1(LinqToDB.ITable{``0},System.Linq.Expressions.Expression{System.Func{``0}},System.Linq.Expressions.Expression{System.Func{``0,``0}},System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously inserts new record into target table or updates existing record if record with the same primary key value already exists in target table.
+            </summary>
+            <typeparam name="T">Table record type.</typeparam>
+            <param name="target">Target table.</param>
+            <param name="insertSetter">Inserted record constructor expression.
+            Expression supports only target table record new expression with field initializers.</param>
+            <param name="onDuplicateKeyUpdateSetter">Updated record constructor expression.
+            Expression supports only target table record new expression with field initializers.
+            Accepts updated record as parameter.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Number of affected records.</returns>
         </member>
         <member name="M:LinqToDB.LinqExtensions.InsertOrUpdate``1(LinqToDB.ITable{``0},System.Linq.Expressions.Expression{System.Func{``0}},System.Linq.Expressions.Expression{System.Func{``0,``0}},System.Linq.Expressions.Expression{System.Func{``0}})">
@@ -6555,6 +8164,22 @@
             Expression supports only target table record new expression with field initializers for each key field. Assigned key field value will be used as key value by operation type selector.</param>
             <returns>Number of affected records.</returns>
         </member>
+        <member name="M:LinqToDB.LinqExtensions.InsertOrUpdateAsync``1(LinqToDB.ITable{``0},System.Linq.Expressions.Expression{System.Func{``0}},System.Linq.Expressions.Expression{System.Func{``0,``0}},System.Linq.Expressions.Expression{System.Func{``0}},System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously inserts new record into target table or updates existing record if record with the same key value already exists in target table.
+            </summary>
+            <typeparam name="T">Table record type.</typeparam>
+            <param name="target">Target table.</param>
+            <param name="insertSetter">Inserted record constructor expression.
+            Expression supports only target table record new expression with field initializers.</param>
+            <param name="onDuplicateKeyUpdateSetter">Updated record constructor expression.
+            Expression supports only target table record new expression with field initializers.
+            Accepts updated record as parameter.</param>
+            <param name="keySelector">Key fields selector to specify what fields and values must be used as key fields for selection between insert and update operations.
+            Expression supports only target table record new expression with field initializers for each key field. Assigned key field value will be used as key value by operation type selector.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <returns>Number of affected records.</returns>
+        </member>
         <member name="M:LinqToDB.LinqExtensions.Drop``1(LinqToDB.ITable{``0},System.Boolean)">
             <summary>
             Drops database table.
@@ -6565,6 +8190,19 @@
             This behavior is not correct and will be fixed in future to mask only missing table exceptions.
             Tracked by <a href="https://github.com/linq2db/linq2db/issues/798">issue</a>.
             Default value: <c>true</c>.</param>
+            <returns>Number of affected records. Usually <c>-1</c> as it is not data modification operation.</returns>
+        </member>
+        <member name="M:LinqToDB.LinqExtensions.DropAsync``1(LinqToDB.ITable{``0},System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Drops database table asynchronously.
+            </summary>
+            <typeparam name="T">Table record type.</typeparam>
+            <param name="target">Dropped table.</param>
+            <param name="throwExceptionIfNotExists">If <c>false</c>, any exception during drop operation will be silently catched and <c>0</c> returned.
+            This behavior is not correct and will be fixed in future to mask only missing table exceptions.
+            Tracked by <a href="https://github.com/linq2db/linq2db/issues/798">issue</a>.
+            Default value: <c>true</c>.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Number of affected records. Usually <c>-1</c> as it is not data modification operation.</returns>
         </member>
         <member name="M:LinqToDB.LinqExtensions.Take``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{System.Int32}})">
@@ -6618,6 +8256,18 @@
             <exception cref="T:System.InvalidOperationException">Source query doesn't have record with specified index.</exception>
             <returns>Record at specified position.</returns>
         </member>
+        <member name="M:LinqToDB.LinqExtensions.ElementAtAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{System.Int32}},System.Threading.CancellationToken)">
+            <summary>
+            Selects record at specified position from source query asynchronously.
+            If query doesn't return enough records, <see cref="T:System.InvalidOperationException"/> will be thrown.
+            </summary>
+            <typeparam name="TSource">Source table record type.</typeparam>
+            <param name="source">Source query.</param>
+            <param name="index">Expression that defines index of record to select.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
+            <exception cref="T:System.InvalidOperationException">Source query doesn't have record with specified index.</exception>
+            <returns>Record at specified position.</returns>
+        </member>
         <member name="M:LinqToDB.LinqExtensions.ElementAtOrDefault``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{System.Int32}})">
             <summary>
             Selects record at specified position from source query.
@@ -6625,6 +8275,16 @@
             <typeparam name="TSource">Source table record type.</typeparam>
             <param name="source">Source query.</param>
             <param name="index">Expression that defines index of record to select.</param>
+            <returns>Record at specified position or default value, if source query doesn't have record with such index.</returns>
+        </member>
+        <member name="M:LinqToDB.LinqExtensions.ElementAtOrDefaultAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{System.Int32}},System.Threading.CancellationToken)">
+            <summary>
+            Selects record at specified position from source query asynchronously.
+            </summary>
+            <typeparam name="TSource">Source table record type.</typeparam>
+            <param name="source">Source query.</param>
+            <param name="index">Expression that defines index of record to select.</param>
+            <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Record at specified position or default value, if source query doesn't have record with such index.</returns>
         </member>
         <member name="M:LinqToDB.LinqExtensions.Having``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">

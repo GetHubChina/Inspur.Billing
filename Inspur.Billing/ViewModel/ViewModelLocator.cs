@@ -51,6 +51,9 @@ namespace Inspur.Billing.ViewModel
             SimpleIoc.Default.Register<CreditViewModel>();
             SimpleIoc.Default.Register<PrintViewModel>();
             SimpleIoc.Default.Register<PinViewModel>();
+            SimpleIoc.Default.Register<TaxPayerSettingVm>();
+            SimpleIoc.Default.Register<ParameterSettingVm>();
+            SimpleIoc.Default.Register<SoftwareSettingVm>();
         }
         public LoginViewModel Login
         {
@@ -92,6 +95,27 @@ namespace Inspur.Billing.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<PinViewModel>();
+            }
+        }
+        public TaxPayerSettingVm TaxPayerSetting
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<TaxPayerSettingVm>();
+            }
+        }
+        public ParameterSettingVm ParameterSetting
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ParameterSettingVm>();
+            }
+        }
+        public SoftwareSettingVm SoftwareSetting
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<SoftwareSettingVm>();
             }
         }
         public static void Cleanup()

@@ -24,5 +24,15 @@ namespace Inspur.Billing.View
         {
             InitializeComponent();
         }
+
+        private void ImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
     }
 }

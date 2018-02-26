@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using Inspur.TaxModel.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,7 +64,7 @@ namespace Inspur.TaxModel
         /// <summary>
         /// 获取或设置商品数量
         /// </summary>
-        private double _count;
+        private double _count = 1;
         /// <summary>
         /// 获取或设置商品数量
         /// </summary>
@@ -92,26 +93,26 @@ namespace Inspur.TaxModel
         {
             get
             {
-                //含税
-                if (TaxInclusive == "0")
-                {
-                    _amount = Price * Count;
-                }
-                else
-                {
-                    //不含税 价格+税款
-                    if (TaxType.CalculationMode == "1")
-                    {
-                        //固定税额
-                        _amount = Price * Count + Count * TaxType.FixTaxAmount;
-                    }
-                    else
-                    {
-                        //税率
-                        _amount = Price * Count * (1 + TaxType.Rate);
-                    }
-                }
-                return _amount;
+                ////含税 
+                //if (TaxInclusive == ((int)ProductTaxInclusive.Yes).ToString())
+                //{
+                //    _amount = Math.Round(Price * Count, 2);
+                //}
+                //else
+                //{
+                //    //不含税 价格+税款
+                //    if (TaxType.CalculationMode == ((int)CalculationMode.Fixed).ToString())
+                //    {
+                //        //固定税额
+                //        _amount = Math.Round(Price * Count + Count * TaxType.FixTaxAmount, 2);
+                //    }
+                //    else
+                //    {
+                //        //税率
+                //        _amount = Math.Round(Price * Count * (1 + TaxType.Rate / 100), 2);
+                //    }
+                //}
+                return Math.Round(Price * Count, 2);
             }
             set { Set<double>(ref _amount, value, "Amount"); }
         }

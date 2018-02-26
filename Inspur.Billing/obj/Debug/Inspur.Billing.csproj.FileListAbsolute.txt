@@ -57,3 +57,11 @@ D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\Inspur.Billing.csproj.Generate
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\Inspur.Billing.csproj.CoreCompileInputs.cache
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\Inspur.Billing.exe
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\Inspur.Billing.pdb
+D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\CommonLib.Net.dll
+D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\JumpKick.HttpLib.dll
+D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\Newtonsoft.Json.dll
+D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\CommonLib.Net.pdb
+D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\JumpKick.HttpLib.pdb
+D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\Newtonsoft.Json.xml
+D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\View\Setting\PinView.g.cs
+D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\View\Setting\PinView.baml

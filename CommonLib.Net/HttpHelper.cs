@@ -459,7 +459,7 @@ namespace CommonLib.Net
             get { return _Method; }
             set { _Method = value; }
         }
-        int _Timeout = 100000;
+        int _Timeout = 10000;
         /// <summary>
         /// 默认请求超时时间
         /// </summary>
@@ -468,7 +468,7 @@ namespace CommonLib.Net
             get { return _Timeout; }
             set { _Timeout = value; }
         }
-        int _ReadWriteTimeout = 30000;
+        int _ReadWriteTimeout = 10000;
         /// <summary>
         /// 默认写入Post数据超时间
         /// </summary>

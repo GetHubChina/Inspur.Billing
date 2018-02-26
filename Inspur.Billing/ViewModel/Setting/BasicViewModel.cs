@@ -1,31 +1,16 @@
-﻿using CommonLib.Helper;
-using ControlLib.Controls.Dialogs;
+﻿using ControlLib.Controls.Dialogs;
 using DataModels;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Inspur.Billing.Commom;
 using Inspur.TaxModel;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Linq;
-using System.Data.Linq.Mapping;
-using System.Data.SQLite;
-using System.Data.SQLite.Linq;
-using System.Linq;
 using LinqToDB;
-using System.Text;
-using System.Threading.Tasks;
+using System;
+using System.Data;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using System.IO.Ports;
 //using EasyHttp.Http;
-using Inspur.Billing.Model.Service.Status;
-using Inspur.Billing.Model.Service.Attention;
-using Newtonsoft.Json;
-using CommonLib.Net;
-using System.Net;
-using Inspur.Billing.View.Setting;
 
 namespace Inspur.Billing.ViewModel.Setting
 {
@@ -143,21 +128,22 @@ namespace Inspur.Billing.ViewModel.Setting
                                 //验证sdc
                                 Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                                 {
-                                    ServiceHelper.CheckStatue();
+                                    //ServiceHelper.CheckStatue();
                                     //防止请求报错，软件信息为空
                                     LoadSoftwareInfo();
                                 }));
                                 break;
                             case "SDCTest":
-                                AttentionResponse attentionResponse = ServiceHelper.AttentionRequest();
-                                if (attentionResponse.ATT_GSC == "0000")
-                                {
-                                    MessageBoxEx.Show("E-SDC is available");
-                                }
-                                else
-                                {
-                                    MessageBoxEx.Show("E-SDC is not available");
-                                }
+                                ServiceHelper.CheckStatue();
+                                //AttentionResponse attentionResponse = ServiceHelper.AttentionRequest();
+                                //if (attentionResponse.ATT_GSC == "0000")
+                                //{
+                                //    MessageBoxEx.Show("E-SDC is available");
+                                //}
+                                //else
+                                //{
+                                //    MessageBoxEx.Show("E-SDC is not available");
+                                //}
                                 break;
                             case "PrinterPortTest":
                                 Printer.Instance.PrintPort = PrintPort;
