@@ -6,3 +6,9 @@ D:\GitHub\Inspur.Billing\CommonLib\obj\Debug\CommonLib.csproj.GenerateResource.C
 D:\GitHub\Inspur.Billing\CommonLib\obj\Debug\CommonLib.csproj.CoreCompileInputs.cache
 D:\GitHub\Inspur.Billing\CommonLib\obj\Debug\CommonLib.dll
 D:\GitHub\Inspur.Billing\CommonLib\obj\Debug\CommonLib.pdb
+D:\dingjm\开票软件\Inspur.Billing\CommonLib\bin\Debug\CommonLib.dll
+D:\dingjm\开票软件\Inspur.Billing\CommonLib\bin\Debug\CommonLib.pdb
+D:\dingjm\开票软件\Inspur.Billing\CommonLib\obj\Debug\CommonLib.Properties.Resources.resources
+D:\dingjm\开票软件\Inspur.Billing\CommonLib\obj\Debug\CommonLib.csproj.GenerateResource.Cache
+D:\dingjm\开票软件\Inspur.Billing\CommonLib\obj\Debug\CommonLib.dll
+D:\dingjm\开票软件\Inspur.Billing\CommonLib\obj\Debug\CommonLib.pdb

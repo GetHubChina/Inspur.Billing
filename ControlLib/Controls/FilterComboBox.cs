@@ -39,36 +39,43 @@ namespace ControlLib.Controls
         private void _editTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             //_editTextBox.Select(Text.Length, 0);
-            _editTextBox.SelectionStart = Text.Length;
-            if (string.IsNullOrWhiteSpace(Text))
-            {
-                ItemsSource = null;
-            }
-            else
-            {
-                if (MyItemsSource != null)
+            //try
+            //{
+                _editTextBox.SelectionStart = Text.Length;
+                if (string.IsNullOrWhiteSpace(Text))
                 {
-
-                    List<object> list = new List<object>();
-                    foreach (var item in MyItemsSource)
+                    ItemsSource = null;
+                }
+                else
+                {
+                    if (MyItemsSource != null)
                     {
-                        string s = item.GetType().GetProperty(DisplayMemberPath).GetValue(item, null).ToString();
-                        if (s.Contains(Text))
+
+                        List<object> list = new List<object>();
+                        foreach (var item in MyItemsSource)
                         {
-                            list.Add(item);
+                            string s = item.GetType().GetProperty(DisplayMemberPath).GetValue(item, null).ToString();
+                            if (s.Contains(Text))
+                            {
+                                list.Add(item);
+                            }
+                        }
+                        ItemsSource = list;
+                        if (list.Count > 0)
+                        {
+                            IsDropDownOpen = true;
+                        }
+                        else
+                        {
+                            IsDropDownOpen = false;
                         }
                     }
-                    ItemsSource = list;
-                    if (list.Count > 0)
-                    {
-                        IsDropDownOpen = true;
-                    }
-                    else
-                    {
-                        IsDropDownOpen = false;
-                    }
                 }
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //}
         }
 
         public IEnumerable MyItemsSource

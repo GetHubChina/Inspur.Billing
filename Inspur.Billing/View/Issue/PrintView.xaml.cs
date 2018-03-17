@@ -24,7 +24,10 @@ namespace Inspur.Billing.View.Issue
         {
             InitializeComponent();
             //注册MVVMLight消息
-            Messenger.Default.Register<string>(this, "ClosePrintView", a => { this.DialogResult = true; });
+            Messenger.Default.Register<string>(this, "ClosePrintView", a => 
+            {
+                this.DialogResult = true;
+            });
 
             //卸载当前(this)对象注册的所有MVVMLight消息
             this.Unloaded += (sender, e) => Messenger.Default.Unregister(this);

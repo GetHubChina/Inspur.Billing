@@ -18,6 +18,7 @@ using System.Windows;
 using LinqToDB;
 using Inspur.Billing.Model.Service.Sign;
 using System.Security.Cryptography;
+using Inspur.Billing.Model.Service.LastSign;
 
 namespace Inspur.Billing.Commom
 {
@@ -111,6 +112,29 @@ namespace Inspur.Billing.Commom
             return JsonConvert.DeserializeObject<SignResponse>(html.Html);
         }
 
+        public static SignResponse LastSignRequest(LastSignRequest request)
+        {
+            if (request == null)
+            {
+                throw new ArgumentNullException("SignRequest data can not be null.");
+            }
+            string requestString = JsonConvert.SerializeObject(request);
+
+            HttpHelper httpHelper = new HttpHelper();
+            HttpItem httpItem = new HttpItem();
+            httpItem.Method = "POST";
+            httpItem.URL = Const.SignUri;
+            httpItem.Postdata = Convert.ToString(requestString);
+
+
+            httpItem.ResultType = ResultType.String;
+            HttpResult html = httpHelper.GetHtml(httpItem);
+            if (html.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception(string.IsNullOrEmpty(html.Html) ? (string.IsNullOrEmpty(html.StatusDescription) ? "Post Data Error!" : html.StatusDescription) : html.Html);
+            }
+            return JsonConvert.DeserializeObject<SignResponse>(html.Html);
+        }
 
         public static bool CheckStatue()
         {
@@ -145,6 +169,79 @@ namespace Inspur.Billing.Commom
                     else
                     {
                         ShowMessageBegin("E-SDC is available");
+                        result = true;
+                    }
+                }
+                else
+                {
+                    List<string> list = new List<string>();
+                    if (!statusResponse.GSC.Contains("0000"))
+                    {
+                        foreach (var item in statusResponse.GSC)
+                        {
+                            if (Const.Statues != null)
+                            {
+                                SystemStatu statu = Const.Statues.FirstOrDefault(a => a.Code == item);
+                                if (statu != null)
+                                {
+                                    list.Add(statu.Name);
+                                }
+                            }
+                        }
+                    }
+                    if (!statusResponse.MSSC.Contains("0000"))
+                    {
+                        foreach (var item in statusResponse.MSSC)
+                        {
+                            list.Add(item);
+                        }
+                    }
+                    if (list.Count > 0)
+                    {
+                        ShowMessageBegin(string.Join(",", list.ToArray()));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowMessageBegin(ex.Message);
+                result = false;
+            }
+            return result;
+        }
+
+        public static bool CheckStatue1()
+        {
+            bool result = false;
+            try
+            {
+                StatusResponse statusResponse = StatueRequest();
+                if (statusResponse.GSC.Contains("0000") && statusResponse.MSSC.Contains("0000"))
+                {
+                    //保存软件信息--此处处理未分开（每次都保存），正式使用的时候请
+                    var info = (from a in Const.dB.PosInfo
+                                select a).FirstOrDefault();
+                    if (info != null)
+                    {
+                        Const.dB.Update<PosInfo>(new PosInfo { Id = info.Id, CompanyName = statusResponse.Make, Desc = statusResponse.Model, Version = statusResponse.SoftwareVersion, IssueDate = info.IssueDate });
+                    }
+                    if (statusResponse.IsPinRequired)
+                    {
+                        //Attention
+                        AttentionResponse attentionResponse = ServiceHelper.AttentionRequest();
+                        if (attentionResponse.ATT_GSC == "0000")
+                        {
+                            //校验pin
+                            PinView pinView = new PinView();
+                            result = pinView.ShowDialog().Value;
+                        }
+                        else
+                        {
+                            ShowMessageBegin("E-SDC is not available");
+                        }
+                    }
+                    else
+                    {
                         result = true;
                     }
                 }

@@ -1,9 +1,12 @@
-﻿D:\GitHub\Inspur.Billing\Inspur.Billing\obj\Debug\GeneratedInternalTypeHelper.g.cs
-FD:\GitHub\Inspur.Billing\Inspur.Billing\App.xaml;;
-FD:\GitHub\Inspur.Billing\Inspur.Billing\View\Issue\CreditView.xaml;;
-FD:\GitHub\Inspur.Billing\Inspur.Billing\View\Issue\PrintView.xaml;;
-FD:\GitHub\Inspur.Billing\Inspur.Billing\View\MainWindow.xaml;;
-FD:\GitHub\Inspur.Billing\Inspur.Billing\View\Login\LoginView.xaml;;
-FD:\GitHub\Inspur.Billing\Inspur.Billing\View\Setting\BasicView.xaml;;
-FD:\GitHub\Inspur.Billing\Inspur.Billing\View\Setting\PinView.xaml;;
+﻿
+FD:\dingjm\开票软件\Inspur.Billing\Inspur.Billing\App.xaml;;
+FD:\dingjm\开票软件\Inspur.Billing\Inspur.Billing\View\Issue\CreditView.xaml;;
+FD:\dingjm\开票软件\Inspur.Billing\Inspur.Billing\View\Issue\PrintView.xaml;;
+FD:\dingjm\开票软件\Inspur.Billing\Inspur.Billing\View\MainWindow.xaml;;
+FD:\dingjm\开票软件\Inspur.Billing\Inspur.Billing\View\Login\LoginView.xaml;;
+FD:\dingjm\开票软件\Inspur.Billing\Inspur.Billing\View\Setting\BasicView.xaml;;
+FD:\dingjm\开票软件\Inspur.Billing\Inspur.Billing\View\Setting\ParameterSetting.xaml;;
+FD:\dingjm\开票软件\Inspur.Billing\Inspur.Billing\View\Setting\PinView.xaml;;
+FD:\dingjm\开票软件\Inspur.Billing\Inspur.Billing\View\Setting\SoftwareSetting.xaml;;
+FD:\dingjm\开票软件\Inspur.Billing\Inspur.Billing\View\Setting\TaxPayerSetting.xaml;;
 

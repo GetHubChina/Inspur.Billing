@@ -123,6 +123,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+
             <Border Grid.ColumnSpan="2" Background="#FF45B9F1" MouseLeftButtonDown="Border_MouseLeftButtonDown">
                 <Image Source="/Inspur.Billing;component/Images/login_bg1.png" Height="58" Width="260" Stretch="UniformToFill" HorizontalAlignment="Left" />
             </Border>
@@ -136,6 +137,12 @@
                 <controls:ImageButton NormalImage="/Inspur.Billing;component/Images/Home/in_but4_1.png" Width="110" Height="34"
                                       MouseOverImage="/Inspur.Billing;component/Images/Home/in_but4_2.png" Click="ImageButton_Click"/>
             </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                <Button Style="{DynamicResource MinButtonStyle}" Click="Button_Click"/>
+                <Button Style="{DynamicResource MaxButtonStyle}" Click="Button_Click_1"/>
+                <Button Style="{DynamicResource CloseButtonStyle}" Click="Button_Click_2"/>
+            </StackPanel>
+
             <Grid Grid.Row="1">
                 <Grid.Background>
                     <ImageBrush ImageSource="/Inspur.Billing;component/Images/Home/zjmleftbj.png" Stretch="Fill"/>
@@ -206,7 +213,7 @@
                 <Frame NavigationUIVisibility="Hidden" Source="{Binding Uri}"/>
             </Grid>
             <Grid Grid.Row="2" Grid.ColumnSpan="2" Height="30" Background="#FFF0F0F0">
-                <!--<TextBlock Style="{StaticResource Little_FZ_TbkStyle}" Margin="100,0,0,0"><Run Text="Offline Issued Qty:"/></TextBlock>-->
+                <TextBlock Style="{StaticResource Little_FZ_TbkStyle}" Margin="10,0,0,0"><Run Text="{Binding Message}" Foreground="Red"/></TextBlock>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,100,0" Visibility="{Binding OffLineVisibility}">
                     <Image Source="/Inspur.Billing;component/Images/Home/offline.png" Margin="0,3"/>
                     <TextBlock Text="E-SDC Offline" Style="{StaticResource Little_FZ_TbkStyle}"/>

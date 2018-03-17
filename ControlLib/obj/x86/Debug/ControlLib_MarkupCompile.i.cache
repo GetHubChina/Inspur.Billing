@@ -4,7 +4,7 @@
 library
 C#
 .cs
-D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\
+D:\开票软件\开票软件\Inspur.Billing - 副本\ControlLib\obj\x86\Debug\
 ControlLib
 none
 false
@@ -13,7 +13,7 @@ DEBUG;TRACE
 20-983160444
 
 13-1549842128
-15163496753
+152125821141
 Controls\Dialogs\MessageBoxEx.xaml;Controls\FilterComboBox1.xaml;Styles\Accent\Blue.xaml;Styles\ButtonStyle.xaml;Styles\ComboBoxStyle.xaml;Styles\TabControlStyle.xaml;Styles\MenuStyle.xaml;Styles\Colors.xaml;Styles\DataGridStyle.xaml;Styles\FontSizeStyle.xaml;Styles\LineStyle.xaml;Styles\Styles.xaml;Styles\TextBlockStyle.xaml;Styles\TextBoxStyle.xaml;Themes\ButtonStyle.xaml;Themes\FilterComboBoxStyle.xaml;Themes\MessageDialogStyle.xaml;Themes\Generic.xaml;Themes\RadioButtonStyle.xaml;Themes\ToggleButtonStyle.xaml;
 
 False

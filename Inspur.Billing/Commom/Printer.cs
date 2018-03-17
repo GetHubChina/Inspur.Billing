@@ -252,6 +252,23 @@ namespace Inspur.Billing.Commom
         /// <returns></returns>
         [DllImport("POS_SDK.dll", CharSet = CharSet.Ansi, EntryPoint = "POS_Output_PrintRamBmp")]
         static extern Int32 POS_Output_PrintRamBmp(Int32 printID, Int32 n);
+        /// <summary>
+        /// 走纸
+        /// </summary>
+        /// <param name="printID"></param>
+        /// <param name="lines"></param>
+        /// <returns></returns>
+        [DllImport("POS_SDK.dll", CharSet = CharSet.Ansi, EntryPoint = "POS_Control_FeedLines")]
+        static extern Int32 POS_Control_FeedLines(Int32 printID, Int32 lines);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="iPrinterID"></param>
+        /// <param name="iLeftMargin"></param>
+        /// <param name="iWidth"></param>
+        /// <returns></returns>
+        [DllImport("POS_SDK.dll", CharSet = CharSet.Ansi, EntryPoint = "POS_Control_SetPrintPosition")]
+        static extern Int32 POS_Control_SetPrintPosition(Int32 iPrinterID, Int32 iLeftMargin, Int32 iWidth);
         #endregion
 
         #region 方法
@@ -278,26 +295,30 @@ namespace Inspur.Billing.Commom
             {
                 return;
             }
-            Int32 ret;
-            ret = POS_Control_PrintTestpage(m_hPrinter);
-            switch (ret)
+            else
             {
-                case POS_ES_SUCCESS:
-                    MessageBoxEx.Show("Send success.");
-                    break;
-                case POS_ES_INVALIDPARA:
-                    MessageBoxEx.Show("Parameter error.");
-                    break;
-                case POS_ES_WRITEFAIL:
-                    MessageBoxEx.Show("Write failure.");
-                    break;
-                case POS_ES_OVERTIME:
-                    MessageBoxEx.Show("Send Timeout.");
-                    break;
-                case POS_ES_OTHERERRORS:
-                    MessageBoxEx.Show("Other mistakes.");
-                    break;
+                MessageBoxEx.Show("The printer works well.");
             }
+            //Int32 ret;
+            //ret = POS_Control_PrintTestpage(m_hPrinter);
+            //switch (ret)
+            //{
+            //    case POS_ES_SUCCESS:
+            //        MessageBoxEx.Show("Send success.");
+            //        break;
+            //    case POS_ES_INVALIDPARA:
+            //        MessageBoxEx.Show("Parameter error.");
+            //        break;
+            //    case POS_ES_WRITEFAIL:
+            //        MessageBoxEx.Show("Write failure.");
+            //        break;
+            //    case POS_ES_OVERTIME:
+            //        MessageBoxEx.Show("Send Timeout.");
+            //        break;
+            //    case POS_ES_OTHERERRORS:
+            //        MessageBoxEx.Show("Other mistakes.");
+            //        break;
+            //}
         }
         /// <summary>
         /// 查询状态返回处理
@@ -484,6 +505,7 @@ namespace Inspur.Billing.Commom
             {
                 return false;
             }
+            Reset();
             return true;
         }
         /// <summary>
@@ -520,7 +542,7 @@ namespace Inspur.Billing.Commom
         /// <returns></returns>
         public int PrintTwoDimensionalBarcodeA(string lpString)
         {
-            int result = POS_Output_PrintTwoDimensionalBarcodeA(m_hPrinter, POS_BT_QRCODE, 2, 77, 4, lpString);
+            int result = POS_Output_PrintTwoDimensionalBarcodeA(m_hPrinter, POS_BT_QRCODE, 2, 77, 3, lpString);
 
             switch (result)
             {
@@ -609,6 +631,19 @@ namespace Inspur.Billing.Commom
         public int Reset()
         {
             return POS_Control_ReSet(m_hPrinter);
+        }
+        /// <summary>
+        /// 进纸
+        /// </summary>
+        /// <param name="lines">行数</param>
+        /// <returns></returns>
+        public int FeedLines(int lines)
+        {
+            return POS_Control_FeedLines(m_hPrinter, 2);
+        }
+        public int SetPosition(int lefMargin, int width)
+        {
+            return POS_Control_SetPrintPosition(m_hPrinter, lefMargin, width);
         }
         #endregion
     }

@@ -259,12 +259,52 @@ namespace Inspur.Billing.ViewModel.Issue
                                 Clipboard.SetText(OrderNumber.ToString());
                                 break;
                             case "Print":
+                                if (Productes == null || Productes.Count == 0)
+                                {
+                                    throw new Exception("Please add the goods sold.");
+                                }
+                                foreach (var productItem in Productes)
+                                {
+                                    if (string.IsNullOrWhiteSpace(productItem.BarCode) || productItem.BarCode.Length < 8 || productItem.BarCode.Length > 14)
+                                    {
+                                        throw new Exception("GTIN can not be null,and the length must between 8 and 14.");
+                                    }
+                                    if (string.IsNullOrWhiteSpace(productItem.Name))
+                                    {
+                                        throw new Exception("Good name can not be null.");
+                                    }
+                                    if (productItem.TaxType == null || string.IsNullOrWhiteSpace(productItem.TaxType.Label))
+                                    {
+                                        throw new Exception("Please select the good rate.");
+                                    }
+                                    if (productItem.Price <= 0)
+                                    {
+                                        throw new Exception("Price must be more than 0.");
+                                    }
+                                    if (productItem.Count <= 0)
+                                    {
+                                        throw new Exception("Count must be more than 0.");
+                                    }
+                                }
                                 PrintView printView = new PrintView();
                                 Const.Locator.Print.Credit = this;
-                                if (printView.ShowDialog()==true)
+                                if (printView.ShowDialog() == true)
                                 {
-                                    //刷新orderNum
+                                    //刷新orderNum,
                                     GetOrderNumber();
+                                    if (Productes == null)
+                                    {
+                                        Productes = new ObservableCollection<ProductItem>();
+                                    }
+                                    else
+                                    {
+                                        Productes.Clear();
+                                    }
+                                    GrandTotal = 0;
+                                    Buyer = new Buyer();
+                                    IsMitQr = false;
+                                    IsMitTexTual = false;
+                                    SelectedPaymentType = PaymentType.FirstOrDefault(a => a.Code == "1");
                                 }
                                 break;
                             case "BuyerTinLostFocus":
@@ -278,7 +318,7 @@ namespace Inspur.Billing.ViewModel.Issue
                             case "ProductDelete":
                                 if (_selectedItem == null)
                                 {
-                                    MessageBox.Show("Please select the delete item.");
+                                    MessageBoxEx.Show("Please choose to delete entries.");
                                 }
                                 else
                                 {
@@ -300,6 +340,10 @@ namespace Inspur.Billing.ViewModel.Issue
                             case "ProductSelectionChanged":
                                 if (SelectedItem != null)
                                 {
+                                    if (Goods == null || SelectedItem == null)
+                                    {
+                                        return;
+                                    }
                                     GoodsInfo goodsInfo = Goods.FirstOrDefault(a => a.Barcode == SelectedItem.BarCode);
                                     if (goodsInfo != null)
                                     {
@@ -310,6 +354,10 @@ namespace Inspur.Billing.ViewModel.Issue
                                         long taxId = (from a in GoodTaxType
                                                       where a.GoodsId == SelectedItem.No
                                                       select a.TaxtypeId).FirstOrDefault();
+                                        if (TaxRates == null)
+                                        {
+                                            return;
+                                        }
                                         CodeTaxtype codeTaxtype = TaxRates.FirstOrDefault(a => a.TaxtypeId == taxId);
                                         if (codeTaxtype != null)
                                         {
@@ -319,7 +367,7 @@ namespace Inspur.Billing.ViewModel.Issue
                                 }
                                 break;
                             case "TaxRateSelectionChanged":
-                                if (SelectedItem == null && SelectedItem.TaxType == null)
+                                if (SelectedItem == null || SelectedItem.TaxType == null)
                                 {
                                     return;
                                 }

@@ -27,7 +27,6 @@ namespace Inspur.Billing.ViewModel.Issue
     public class PrintViewModel : ViewModelBase
     {
         #region 字段
-        private bool _isHasPrint = false;
         SignRequest signRequest;
         SignResponse signResponse;
         /// <summary>
@@ -170,6 +169,21 @@ namespace Inspur.Billing.ViewModel.Issue
             set { Set<ImageSource>(ref _qrPath, value, "QrPath"); }
         }
 
+
+
+        /// <summary>
+        /// 获取或设置是否可以签名，true签名打印sdc格式，false打印自定义
+        /// </summary>
+        private bool _isCanSign;
+        /// <summary>
+        /// 获取或设置是否可以签名，true签名打印sdc格式，false打印自定义
+        /// </summary>
+        public bool IsCanSign
+        {
+            get { return _isCanSign; }
+            set { Set<bool>(ref _isCanSign, value, "IsCanSign"); }
+        }
+
         #endregion
 
         #region 命令
@@ -192,8 +206,9 @@ namespace Inspur.Billing.ViewModel.Issue
                         switch (p)
                         {
                             case "Loaded":
-                                _isHasPrint = false;
 
+                                //if (IsCanSign)
+                                //{
                                 try
                                 {
                                     signResponse = Sign();
@@ -214,10 +229,18 @@ namespace Inspur.Billing.ViewModel.Issue
                                             {
                                                 //校验pin
                                                 PinView pinView = new PinView();
-                                                pinView.ShowDialog();
+                                                if (pinView.ShowDialog() == true)
+                                                {
+                                                    Command.Execute("Loaded");
+                                                }
+
+                                                //pinView.ShowDialog();
                                                 return;
                                             }
                                         }
+
+
+
                                         MessageBoxEx.Show(signResponse.Message);
                                         SignFilureData();
                                     }
@@ -231,6 +254,11 @@ namespace Inspur.Billing.ViewModel.Issue
                                 {
                                     SignFilureData();
                                 }
+                                //}
+                                //else
+                                //{
+                                //    SignFilureData();
+                                //}
                                 break;
                             case "Unloaded":
                                 QrPath = null;
@@ -284,21 +312,21 @@ namespace Inspur.Billing.ViewModel.Issue
                     //Bitmap bitmap2 = bmp.Clone(new Rectangle(0, 0, zoombmp.Width, zoombmp.Height), System.Drawing.Imaging.PixelFormat.Format1bppIndexed);
                     //bitmap2.Save(AppDomain.CurrentDomain.BaseDirectory + "qr.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
 
+                    ////先缩放，在保存
+                    //Bitmap bmp = new Bitmap(ms);
+                    //int qrWidth = (int)(bmp.Width * Config.QrMagnification);
+                    ////缩放图片
+                    //Bitmap zoombmp = new Bitmap(qrWidth, qrWidth);
+                    //Graphics g = Graphics.FromImage(zoombmp);
+                    //// 插值算法的质量
+                    //g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    //g.DrawImage(bmp, new Rectangle(0, 0, qrWidth, qrWidth), new Rectangle(0, 0, bmp.Width, bmp.Height), GraphicsUnit.Pixel);
+                    //g.Dispose();
+                    ////保存单色图
+                    //Bitmap bitmap = zoombmp.Clone(new Rectangle(0, 0, zoombmp.Width, zoombmp.Height), System.Drawing.Imaging.PixelFormat.Format1bppIndexed);
+                    //bitmap.Save(Const.QrPath, System.Drawing.Imaging.ImageFormat.Bmp);
 
-
-
-                    //先缩放，在保存
-                    Bitmap bmp = new Bitmap(ms);
-                    int qrWidth = (int)(bmp.Width * Config.QrMagnification);
-                    //缩放图片
-                    Bitmap zoombmp = new Bitmap(qrWidth, qrWidth);
-                    Graphics g = Graphics.FromImage(zoombmp);
-                    // 插值算法的质量
-                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                    g.DrawImage(bmp, new Rectangle(0, 0, qrWidth, qrWidth), new Rectangle(0, 0, bmp.Width, bmp.Height), GraphicsUnit.Pixel);
-                    g.Dispose();
-                    //保存单色图
-                    Bitmap bitmap = zoombmp.Clone(new Rectangle(0, 0, zoombmp.Width, zoombmp.Height), System.Drawing.Imaging.PixelFormat.Format1bppIndexed);
+                    Bitmap bitmap = new Bitmap(ms);
                     bitmap.Save(Const.QrPath, System.Drawing.Imaging.ImageFormat.Bmp);
 
                     //防止图片占用
@@ -427,6 +455,8 @@ namespace Inspur.Billing.ViewModel.Issue
                         Save(signRequest, signResponse);
                         //关闭校验窗口
                         Messenger.Default.Send<string>(null, "ClosePrintView");
+                        //清空数据
+                        ActualPay = 0;
                     }
                     catch (Exception ex)
                     {
@@ -434,7 +464,7 @@ namespace Inspur.Billing.ViewModel.Issue
                     }
                 }, () =>
                {
-                   return !_isHasPrint;
+                   return true;
                }));
             }
         }
@@ -573,12 +603,11 @@ namespace Inspur.Billing.ViewModel.Issue
 
                     Printer.Instance.Reset();
                     Printer.Instance.SetAlign(1);
-                    if (!Credit.IsMitQr)
+                    if (!Credit.IsMitQr && !string.IsNullOrWhiteSpace(signResponse.VerificationUrl))
                     {
-                        Printer.Instance.PrintBmpDirect(Const.QrPath);
+                        Printer.Instance.PrintTwoDimensionalBarcodeA(signResponse.VerificationUrl);
                     }
-
-                    Printer.Instance.CutPaper(1, 3);
+                    Printer.Instance.CutPaper(1, 5);
                 }
                 else
                 {

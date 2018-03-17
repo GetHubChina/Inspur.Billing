@@ -25,7 +25,7 @@ namespace Inspur.Billing.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=D:\\GitHub\\Inspur.Billing\\Inspur.Billing\\bin\\Debug\\Billing.db")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=D:\\开票软件\\开票软件\\Inspur.Billing - 副本\\Inspur.Billing\\bin\\Debug\\Billing.db")]
         public string connectionString {
             get {
                 return ((string)(this["connectionString"]));

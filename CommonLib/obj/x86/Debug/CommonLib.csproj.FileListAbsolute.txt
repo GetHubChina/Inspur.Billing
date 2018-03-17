@@ -5,3 +5,23 @@ D:\GitHub\Inspur.Billing\CommonLib\obj\x86\Debug\CommonLib.csproj.GenerateResour
 D:\GitHub\Inspur.Billing\CommonLib\obj\x86\Debug\CommonLib.csproj.CoreCompileInputs.cache
 D:\GitHub\Inspur.Billing\CommonLib\obj\x86\Debug\CommonLib.dll
 D:\GitHub\Inspur.Billing\CommonLib\obj\x86\Debug\CommonLib.pdb
+D:\dingjm\开票软件\Inspur.Billing\CommonLib\bin\x86\Debug\CommonLib.dll
+D:\dingjm\开票软件\Inspur.Billing\CommonLib\bin\x86\Debug\CommonLib.pdb
+D:\dingjm\开票软件\Inspur.Billing\CommonLib\obj\x86\Debug\CommonLib.Properties.Resources.resources
+D:\dingjm\开票软件\Inspur.Billing\CommonLib\obj\x86\Debug\CommonLib.csproj.GenerateResource.Cache
+D:\dingjm\开票软件\Inspur.Billing\CommonLib\obj\x86\Debug\CommonLib.dll
+D:\dingjm\开票软件\Inspur.Billing\CommonLib\obj\x86\Debug\CommonLib.pdb
+D:\dingjm\开票软件\Inspur.Billing - 副本\CommonLib\bin\x86\Debug\CommonLib.dll
+D:\dingjm\开票软件\Inspur.Billing - 副本\CommonLib\bin\x86\Debug\CommonLib.pdb
+D:\dingjm\开票软件\Inspur.Billing - 副本\CommonLib\obj\x86\Debug\CommonLib.Properties.Resources.resources
+D:\dingjm\开票软件\Inspur.Billing - 副本\CommonLib\obj\x86\Debug\CommonLib.csproj.GenerateResource.Cache
+D:\dingjm\开票软件\Inspur.Billing - 副本\CommonLib\obj\x86\Debug\CommonLib.dll
+D:\dingjm\开票软件\Inspur.Billing - 副本\CommonLib\obj\x86\Debug\CommonLib.pdb
+D:\开票软件\开票软件\Inspur.Billing - 副本\CommonLib\bin\x86\Debug\CommonLib.dll
+D:\开票软件\开票软件\Inspur.Billing - 副本\CommonLib\bin\x86\Debug\CommonLib.pdb
+D:\开票软件\开票软件\Inspur.Billing - 副本\CommonLib\obj\x86\Debug\CommonLib.Properties.Resources.resources
+D:\开票软件\开票软件\Inspur.Billing - 副本\CommonLib\obj\x86\Debug\CommonLib.csproj.GenerateResource.Cache
+D:\开票软件\开票软件\Inspur.Billing - 副本\CommonLib\obj\x86\Debug\CommonLib.csproj.CoreCompileInputs.cache
+D:\开票软件\开票软件\Inspur.Billing - 副本\CommonLib\obj\x86\Debug\CommonLib.dll
+D:\开票软件\开票软件\Inspur.Billing - 副本\CommonLib\obj\x86\Debug\CommonLib.pdb
+D:\开票软件\开票软件\Inspur.Billing - 副本\CommonLib\obj\x86\Debug\CommonLib.csprojResolveAssemblyReference.cache

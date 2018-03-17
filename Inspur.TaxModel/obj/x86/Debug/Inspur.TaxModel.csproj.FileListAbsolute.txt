@@ -15,3 +15,54 @@ D:\GitHub\Inspur.Billing\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Platfo
 D:\GitHub\Inspur.Billing\Inspur.TaxModel\obj\x86\Debug\Inspur.TaxModel.csproj.CoreCompileInputs.cache
 D:\GitHub\Inspur.Billing\Inspur.TaxModel\obj\x86\Debug\Inspur.TaxModel.dll
 D:\GitHub\Inspur.Billing\Inspur.TaxModel\obj\x86\Debug\Inspur.TaxModel.pdb
+D:\dingjm\开票软件\Inspur.Billing\Inspur.TaxModel\bin\x86\Debug\Inspur.TaxModel.dll.config
+D:\dingjm\开票软件\Inspur.Billing\Inspur.TaxModel\bin\x86\Debug\Inspur.TaxModel.dll
+D:\dingjm\开票软件\Inspur.Billing\Inspur.TaxModel\bin\x86\Debug\Inspur.TaxModel.pdb
+D:\dingjm\开票软件\Inspur.Billing\Inspur.TaxModel\bin\x86\Debug\CommonServiceLocator.dll
+D:\dingjm\开票软件\Inspur.Billing\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.dll
+D:\dingjm\开票软件\Inspur.Billing\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Extras.dll
+D:\dingjm\开票软件\Inspur.Billing\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Platform.dll
+D:\dingjm\开票软件\Inspur.Billing\Inspur.TaxModel\bin\x86\Debug\System.Windows.Interactivity.dll
+D:\dingjm\开票软件\Inspur.Billing\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.pdb
+D:\dingjm\开票软件\Inspur.Billing\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.xml
+D:\dingjm\开票软件\Inspur.Billing\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Extras.pdb
+D:\dingjm\开票软件\Inspur.Billing\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Extras.xml
+D:\dingjm\开票软件\Inspur.Billing\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Platform.pdb
+D:\dingjm\开票软件\Inspur.Billing\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Platform.xml
+D:\dingjm\开票软件\Inspur.Billing\Inspur.TaxModel\obj\x86\Debug\Inspur.TaxModel.dll
+D:\dingjm\开票软件\Inspur.Billing\Inspur.TaxModel\obj\x86\Debug\Inspur.TaxModel.pdb
+D:\dingjm\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\Inspur.TaxModel.dll.config
+D:\dingjm\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\Inspur.TaxModel.dll
+D:\dingjm\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\Inspur.TaxModel.pdb
+D:\dingjm\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\CommonServiceLocator.dll
+D:\dingjm\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.dll
+D:\dingjm\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Extras.dll
+D:\dingjm\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Platform.dll
+D:\dingjm\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\System.Windows.Interactivity.dll
+D:\dingjm\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.pdb
+D:\dingjm\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.xml
+D:\dingjm\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Extras.pdb
+D:\dingjm\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Extras.xml
+D:\dingjm\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Platform.pdb
+D:\dingjm\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Platform.xml
+D:\dingjm\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\obj\x86\Debug\Inspur.TaxModel.csprojResolveAssemblyReference.cache
+D:\dingjm\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\obj\x86\Debug\Inspur.TaxModel.dll
+D:\dingjm\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\obj\x86\Debug\Inspur.TaxModel.pdb
+D:\开票软件\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\Inspur.TaxModel.dll.config
+D:\开票软件\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\Inspur.TaxModel.dll
+D:\开票软件\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\Inspur.TaxModel.pdb
+D:\开票软件\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\CommonServiceLocator.dll
+D:\开票软件\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.dll
+D:\开票软件\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Extras.dll
+D:\开票软件\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Platform.dll
+D:\开票软件\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\System.Windows.Interactivity.dll
+D:\开票软件\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.pdb
+D:\开票软件\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.xml
+D:\开票软件\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Extras.pdb
+D:\开票软件\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Extras.xml
+D:\开票软件\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Platform.pdb
+D:\开票软件\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Platform.xml
+D:\开票软件\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\obj\x86\Debug\Inspur.TaxModel.csproj.CoreCompileInputs.cache
+D:\开票软件\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\obj\x86\Debug\Inspur.TaxModel.dll
+D:\开票软件\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\obj\x86\Debug\Inspur.TaxModel.pdb
+D:\开票软件\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\obj\x86\Debug\Inspur.TaxModel.csprojResolveAssemblyReference.cache

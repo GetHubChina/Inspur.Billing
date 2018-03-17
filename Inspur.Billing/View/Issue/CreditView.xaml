@@ -85,7 +85,7 @@
                             <DataGridTemplateColumn Header="Tax Label"  Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ComboBox ItemsSource="{Binding DataContext.TaxRates,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=DataGrid}}"
+                                        <ComboBox ItemsSource="{Binding DataContext.TaxRates,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=DataGrid}}" SelectedIndex="0"
                                               SelectedValuePath="TaxtypeId" DisplayMemberPath="TaxItemLable" SelectedValue="{Binding DataContext.TaxType.Id,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=DataGridRow}}">
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="SelectionChanged">

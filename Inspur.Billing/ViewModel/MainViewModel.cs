@@ -38,7 +38,7 @@ namespace Inspur.Billing.ViewModel
             ////{
             ////    // Code runs "for real"
             ////}
-            Timer timer = new Timer(5000);
+            Timer timer = new Timer(3000);
             timer.Elapsed += Timer_Elapsed;
             timer.AutoReset = true;
             timer.Start();
