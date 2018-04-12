@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="connectionString" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Data Source=D:\开票软件\开票软件\Inspur.Billing - 副本\Inspur.Billing\bin\Debug\Billing.db</Value>
+      <Value Profile="(Default)">Data Source=D:\GitHub\Inspur.Billing\Inspur.Billing\bin\Debug\Billing.db</Value>
     </Setting>
   </Settings>
 </SettingsFile>

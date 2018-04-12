@@ -1,9 +1,7 @@
 D:\GitHub\Inspur.Billing\CommonLib.Net\bin\x86\Debug\CommonLib.Net.dll
 D:\GitHub\Inspur.Billing\CommonLib.Net\bin\x86\Debug\CommonLib.Net.pdb
-D:\GitHub\Inspur.Billing\CommonLib.Net\obj\x86\Debug\CommonLib.Net.csproj.CoreCompileInputs.cache
 D:\GitHub\Inspur.Billing\CommonLib.Net\obj\x86\Debug\CommonLib.Net.dll
 D:\GitHub\Inspur.Billing\CommonLib.Net\obj\x86\Debug\CommonLib.Net.pdb
-D:\GitHub\Inspur.Billing\CommonLib.Net\obj\x86\Debug\CommonLib.Net.csprojResolveAssemblyReference.cache
 D:\dingjm\开票软件\Inspur.Billing\CommonLib.Net\bin\x86\Debug\CommonLib.Net.dll
 D:\dingjm\开票软件\Inspur.Billing\CommonLib.Net\bin\x86\Debug\CommonLib.Net.pdb
 D:\dingjm\开票软件\Inspur.Billing\CommonLib.Net\obj\x86\Debug\CommonLib.Net.dll

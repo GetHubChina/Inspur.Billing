@@ -27,7 +27,6 @@ D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\Themes\MessageDialogStyle.baml
 D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\Themes\RadioButtonStyle.baml
 D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\Themes\ToggleButtonStyle.baml
 D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\ControlLib.g.resources
-D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\ControlLib.csproj.CoreCompileInputs.cache
 D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\ControlLib.dll
 D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\ControlLib.pdb
 D:\dingjm\开票软件\Inspur.Billing\ControlLib\bin\x86\Debug\ControlLib.dll
@@ -126,3 +125,4 @@ D:\开票软件\开票软件\Inspur.Billing - 副本\ControlLib\obj\x86\Debug\Co
 D:\开票软件\开票软件\Inspur.Billing - 副本\ControlLib\obj\x86\Debug\ControlLib.dll
 D:\开票软件\开票软件\Inspur.Billing - 副本\ControlLib\obj\x86\Debug\ControlLib.pdb
 D:\开票软件\开票软件\Inspur.Billing - 副本\ControlLib\obj\x86\Debug\ControlLib.csprojResolveAssemblyReference.cache
+D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\ControlLib.csprojResolveAssemblyReference.cache

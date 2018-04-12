@@ -9,10 +9,8 @@ D:\GitHub\Inspur.Billing\CommonLib.Sqlite\bin\x86\Debug\System.Data.SQLite.Linq.
 D:\GitHub\Inspur.Billing\CommonLib.Sqlite\bin\x86\Debug\EntityFramework.xml
 D:\GitHub\Inspur.Billing\CommonLib.Sqlite\bin\x86\Debug\EntityFramework.SqlServer.xml
 D:\GitHub\Inspur.Billing\CommonLib.Sqlite\bin\x86\Debug\System.Data.SQLite.xml
-D:\GitHub\Inspur.Billing\CommonLib.Sqlite\bin\x86\Debug\System.Data.SQLite.dll.config
 D:\GitHub\Inspur.Billing\CommonLib.Sqlite\obj\x86\Debug\CommonLib.Sqlite.Properties.Resources.resources
 D:\GitHub\Inspur.Billing\CommonLib.Sqlite\obj\x86\Debug\CommonLib.Sqlite.csproj.GenerateResource.Cache
-D:\GitHub\Inspur.Billing\CommonLib.Sqlite\obj\x86\Debug\CommonLib.Sqlite.csproj.CoreCompileInputs.cache
 D:\GitHub\Inspur.Billing\CommonLib.Sqlite\obj\x86\Debug\CommonLib.Sqlite.dll
 D:\GitHub\Inspur.Billing\CommonLib.Sqlite\obj\x86\Debug\CommonLib.Sqlite.pdb
 D:\dingjm\开票软件\Inspur.Billing\CommonLib.Sqlite\bin\x86\Debug\CommonLib.Sqlite.dll.config
@@ -64,3 +62,4 @@ D:\开票软件\开票软件\Inspur.Billing - 副本\CommonLib.Sqlite\obj\x86\De
 D:\开票软件\开票软件\Inspur.Billing - 副本\CommonLib.Sqlite\obj\x86\Debug\CommonLib.Sqlite.dll
 D:\开票软件\开票软件\Inspur.Billing - 副本\CommonLib.Sqlite\obj\x86\Debug\CommonLib.Sqlite.pdb
 D:\开票软件\开票软件\Inspur.Billing - 副本\CommonLib.Sqlite\obj\x86\Debug\CommonLib.Sqlite.csprojResolveAssemblyReference.cache
+D:\GitHub\Inspur.Billing\CommonLib.Sqlite\obj\x86\Debug\CommonLib.Sqlite.csprojResolveAssemblyReference.cache

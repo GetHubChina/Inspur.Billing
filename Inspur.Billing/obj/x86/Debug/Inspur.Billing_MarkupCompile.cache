@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-D:\开票软件\开票软件\Inspur.Billing - 副本\Inspur.Billing\obj\x86\Debug\
+D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\
 Inspur.Billing
 none
 false
 DEBUG;TRACE
-D:\开票软件\开票软件\Inspur.Billing - 副本\Inspur.Billing\App.xaml
+D:\GitHub\Inspur.Billing\Inspur.Billing\App.xaml
 9-1853398898
 1922158864
 42-1548549217
-871699724254
+87-1249333322
 View\Issue\CreditView.xaml;View\Issue\PrintView.xaml;View\MainWindow.xaml;View\Login\LoginView.xaml;View\Setting\BasicView.xaml;View\Setting\ParameterSetting.xaml;View\Setting\PinView.xaml;View\Setting\SoftwareSetting.xaml;View\Setting\TaxPayerSetting.xaml;
 
 False

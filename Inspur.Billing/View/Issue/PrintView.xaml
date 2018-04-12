@@ -50,6 +50,8 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <TextBlock Style="{StaticResource BaseContentTbkStyle}"><Run Text="POSID:"/><Run Text="{Binding Credit.PosNumber}"/></TextBlock>
                     <TextBlock Style="{StaticResource H_R_ContentTbkStyle}"><Run Text="Cashier:"/><Run Text="{Binding Credit.Cashier}"/></TextBlock>
@@ -61,6 +63,10 @@
                     <TextBlock Grid.Row="3" Text="{Binding Credit.Buyer.Address}" Style="{StaticResource H_R_ContentTbkStyle}"/>
                     <TextBlock Grid.Row="4" Text="Buyer Tel:" Style="{StaticResource BaseContentTbkStyle}"/>
                     <TextBlock Grid.Row="4" Text="{Binding Credit.Buyer.TelPhone}" Style="{StaticResource H_R_ContentTbkStyle}"/>
+                    <TextBlock Grid.Row="5" Text="Invoice Code:" Style="{StaticResource BaseContentTbkStyle}"/>
+                    <TextBlock Grid.Row="5" Text="{Binding Credit.Buyer.TelPhone}" Style="{StaticResource H_R_ContentTbkStyle}"/>
+                    <TextBlock Grid.Row="6" Text="Invoice Number:" Style="{StaticResource BaseContentTbkStyle}"/>
+                    <TextBlock Grid.Row="6" Text="{Binding Credit.Buyer.TelPhone}" Style="{StaticResource H_R_ContentTbkStyle}"/>
                 </Grid>
                 <Line Grid.Row="3" Style="{StaticResource DotLineStyle}" Margin="0,10"/>
                 <Grid Grid.Row="4">
@@ -132,6 +138,8 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Text="TIN:" Style="{StaticResource BaseContentTbkStyle}"/>
                     <TextBlock Grid.Row="0" Text="{Binding TaxPayerInfo.Tin}" Style="{StaticResource H_R_ContentTbkStyle}"/>
@@ -141,6 +149,10 @@
                     <TextBlock Grid.Row="2" Text="{Binding TaxPayerInfo.Address}" Style="{StaticResource H_R_ContentTbkStyle}"/>
                     <TextBlock Grid.Row="3" Text="Tel:" Style="{StaticResource BaseContentTbkStyle}"/>
                     <TextBlock Grid.Row="3" Text="{Binding TaxPayerInfo.Telphone}" Style="{StaticResource H_R_ContentTbkStyle}"/>
+                    <TextBlock Grid.Row="4" Text="Terminal ID:" Style="{StaticResource BaseContentTbkStyle}"/>
+                    <TextBlock Grid.Row="4" Text="{Binding TaxPayerInfo.Telphone}" Style="{StaticResource H_R_ContentTbkStyle}"/>
+                    <TextBlock Grid.Row="5" Text="Fiscal Code:" Style="{StaticResource BaseContentTbkStyle}"/>
+                    <TextBlock Grid.Row="5" Text="{Binding TaxPayerInfo.Telphone}" Style="{StaticResource H_R_ContentTbkStyle}"/>
                 </Grid>
                 <Line Grid.Row="11" Style="{StaticResource DotLineStyle}" Margin="0,10"/>
                 <Image Grid.Row="12" Source="{Binding QrPath}" Width="200" Margin="0,10"/>

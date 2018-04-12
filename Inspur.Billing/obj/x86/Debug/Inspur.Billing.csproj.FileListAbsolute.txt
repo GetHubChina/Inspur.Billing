@@ -21,11 +21,9 @@ D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\System.Data.SQLite.Linq.dl
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\System.Windows.Interactivity.dll
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\CommonLib.Net.pdb
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\CommonLib.Sqlite.pdb
-D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\CommonLib.Sqlite.dll.config
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\CommonLib.pdb
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\ControlLib.pdb
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\Inspur.TaxModel.pdb
-D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\Inspur.TaxModel.dll.config
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\EntityFramework.xml
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\EntityFramework.SqlServer.xml
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\GalaSoft.MvvmLight.pdb
@@ -39,7 +37,6 @@ D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\linq2db.pdb
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\linq2db.xml
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\Newtonsoft.Json.xml
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\System.Data.SQLite.xml
-D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\System.Data.SQLite.dll.config
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\Inspur.Billing.csprojResolveAssemblyReference.cache
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\View\Issue\CreditView.g.cs
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\View\Issue\PrintView.g.cs
@@ -68,7 +65,6 @@ D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\View\Setting\TaxPayerSetti
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\Inspur.Billing.g.resources
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\Inspur.Billing.Properties.Resources.resources
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\Inspur.Billing.csproj.GenerateResource.Cache
-D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\Inspur.Billing.csproj.CoreCompileInputs.cache
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\Inspur.Billing.exe
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\Inspur.Billing.pdb
 D:\dingjm\开票软件\Inspur.Billing\Inspur.Billing\bin\x86\Debug\Inspur.Billing.exe.config

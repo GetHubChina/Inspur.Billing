@@ -12,7 +12,6 @@ D:\GitHub\Inspur.Billing\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Extras
 D:\GitHub\Inspur.Billing\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Extras.xml
 D:\GitHub\Inspur.Billing\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Platform.pdb
 D:\GitHub\Inspur.Billing\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Platform.xml
-D:\GitHub\Inspur.Billing\Inspur.TaxModel\obj\x86\Debug\Inspur.TaxModel.csproj.CoreCompileInputs.cache
 D:\GitHub\Inspur.Billing\Inspur.TaxModel\obj\x86\Debug\Inspur.TaxModel.dll
 D:\GitHub\Inspur.Billing\Inspur.TaxModel\obj\x86\Debug\Inspur.TaxModel.pdb
 D:\dingjm\开票软件\Inspur.Billing\Inspur.TaxModel\bin\x86\Debug\Inspur.TaxModel.dll.config
@@ -66,3 +65,4 @@ D:\开票软件\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\obj\x86\Deb
 D:\开票软件\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\obj\x86\Debug\Inspur.TaxModel.dll
 D:\开票软件\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\obj\x86\Debug\Inspur.TaxModel.pdb
 D:\开票软件\开票软件\Inspur.Billing - 副本\Inspur.TaxModel\obj\x86\Debug\Inspur.TaxModel.csprojResolveAssemblyReference.cache
+D:\GitHub\Inspur.Billing\Inspur.TaxModel\obj\x86\Debug\Inspur.TaxModel.csprojResolveAssemblyReference.cache
