@@ -136,18 +136,7 @@ namespace Inspur.Billing.ViewModel.Setting
                                 }));
                                 break;
                             case "SDCTest":
-                                //ServiceHelper.CheckStatue();
-                                if (!ServiceHelper.TcpClient.IsConnected)
-                                {
-                                    string[] sdc = SdcUrl.Split(':');
-                                    if (sdc != null && sdc.Count() != 2)
-                                    {
-                                        MessageBoxEx.Show("E-SDC URL is not in the right format.", MessageBoxButton.OK);
-                                        return;
-                                    }
-                                    ServiceHelper.TcpClient.Connect(IPAddress.Parse(sdc[0]), int.Parse(sdc[1]));
-                                    //
-                                }
+                                ServiceHelper.CheckStatue();
                                 break;
                             case "PrinterPortTest":
                                 Printer.Instance.PrintPort = PrintPort;

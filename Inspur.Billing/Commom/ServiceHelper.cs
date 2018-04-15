@@ -19,6 +19,7 @@ using LinqToDB;
 using Inspur.Billing.Model.Service.Sign;
 using System.Security.Cryptography;
 using Inspur.Billing.Model.Service.LastSign;
+using System.Net.Sockets;
 
 namespace Inspur.Billing.Commom
 {
@@ -30,25 +31,52 @@ namespace Inspur.Billing.Commom
         /// </summary>
         public static TcpHelper TcpClient = new TcpHelper();
 
+        //public static StatusResponse StatueRequest()
+        //{
+        //    StatusRequest statusRequest = new StatusRequest() { GS = "GetStatus" };
+        //    string requestString = JsonConvert.SerializeObject(statusRequest);
+
+        //    HttpHelper httpHelper = new HttpHelper();
+        //    HttpItem httpItem = new HttpItem();
+        //    httpItem.Method = "POST";
+        //    httpItem.URL = Const.GetStatusUri;
+        //    httpItem.Postdata = Convert.ToString(requestString);
+
+
+        //    httpItem.ResultType = ResultType.String;
+        //    HttpResult html = httpHelper.GetHtml(httpItem);
+        //    if (html.StatusCode != HttpStatusCode.OK)
+        //    {
+        //        throw new Exception(string.IsNullOrEmpty(html.Html) ? (string.IsNullOrEmpty(html.StatusDescription) ? "Post Data Error!" : html.StatusDescription) : html.Html);
+        //    }
+        //    return JsonConvert.DeserializeObject<StatusResponse>(html.Html);
+        //}
+
         public static StatusResponse StatueRequest()
         {
-            StatusRequest statusRequest = new StatusRequest() { GS = "GetStatus" };
+            StatusRequest statusRequest = new StatusRequest() { PosSerialNumber = Config.PosSerialNumber, PosVendor = Config.PosVendor };
             string requestString = JsonConvert.SerializeObject(statusRequest);
 
-            HttpHelper httpHelper = new HttpHelper();
-            HttpItem httpItem = new HttpItem();
-            httpItem.Method = "POST";
-            httpItem.URL = Const.GetStatusUri;
-            httpItem.Postdata = Convert.ToString(requestString);
-
-
-            httpItem.ResultType = ResultType.String;
-            HttpResult html = httpHelper.GetHtml(httpItem);
-            if (html.StatusCode != HttpStatusCode.OK)
+            if (!TcpClient.IsConnected)
             {
-                throw new Exception(string.IsNullOrEmpty(html.Html) ? (string.IsNullOrEmpty(html.StatusDescription) ? "Post Data Error!" : html.StatusDescription) : html.Html);
+                if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SdcUrl))
+                {
+                    MessageBoxEx.Show("E-SDC URL can not be null.", MessageBoxButton.OK);
+                    return null;
+                }
+                string[] sdc = Const.Locator.ParameterSetting.SdcUrl.Split(':');
+                if (sdc != null && sdc.Count() != 2)
+                {
+                    MessageBoxEx.Show("E-SDC URL is not in the right format.", MessageBoxButton.OK);
+                    return null;
+                }
+                TcpClient.Connect(IPAddress.Parse(sdc[0]), int.Parse(sdc[1]));
             }
-            return JsonConvert.DeserializeObject<StatusResponse>(html.Html);
+            TcpClient.Send(0x01, requestString);
+
+            MessageModel messageModel = TcpClient.Recive();
+
+            return JsonConvert.DeserializeObject<StatusResponse>(messageModel.Message);
         }
 
         public static PinResponse VertifyPin(string pin)
@@ -97,23 +125,45 @@ namespace Inspur.Billing.Commom
                 throw new ArgumentNullException("SignRequest data can not be null.");
             }
             string requestString = JsonConvert.SerializeObject(request);
-            request.Hash = CaclBase64Md5Hash(requestString);
-            requestString = JsonConvert.SerializeObject(request);
-
-            HttpHelper httpHelper = new HttpHelper();
-            HttpItem httpItem = new HttpItem();
-            httpItem.Method = "POST";
-            httpItem.URL = Const.SignUri;
-            httpItem.Postdata = Convert.ToString(requestString);
 
 
-            httpItem.ResultType = ResultType.String;
-            HttpResult html = httpHelper.GetHtml(httpItem);
-            if (html.StatusCode != HttpStatusCode.OK)
+            if (!TcpClient.IsConnected)
             {
-                throw new Exception(string.IsNullOrEmpty(html.Html) ? (string.IsNullOrEmpty(html.StatusDescription) ? "Post Data Error!" : html.StatusDescription) : html.Html);
+                if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SdcUrl))
+                {
+                    MessageBoxEx.Show("E-SDC URL can not be null.", MessageBoxButton.OK);
+                    return null;
+                }
+                string[] sdc = Const.Locator.ParameterSetting.SdcUrl.Split(':');
+                if (sdc != null && sdc.Count() != 2)
+                {
+                    MessageBoxEx.Show("E-SDC URL is not in the right format.", MessageBoxButton.OK);
+                    return null;
+                }
+                TcpClient.Connect(IPAddress.Parse(sdc[0]), int.Parse(sdc[1]));
             }
-            return JsonConvert.DeserializeObject<SignResponse>(html.Html);
+            TcpClient.Send(0x02, requestString);
+
+            MessageModel messageModel = TcpClient.Recive();
+
+            //request.Hash = CaclBase64Md5Hash(requestString);
+            //requestString = JsonConvert.SerializeObject(request);
+
+            //HttpHelper httpHelper = new HttpHelper();
+            //HttpItem httpItem = new HttpItem();
+            //httpItem.Method = "POST";
+            //httpItem.URL = Const.SignUri;
+            //httpItem.Postdata = Convert.ToString(requestString);
+
+
+            //httpItem.ResultType = ResultType.String;
+            //HttpResult html = httpHelper.GetHtml(httpItem);
+            //if (html.StatusCode != HttpStatusCode.OK)
+            //{
+            //    throw new Exception(string.IsNullOrEmpty(html.Html) ? (string.IsNullOrEmpty(html.StatusDescription) ? "Post Data Error!" : html.StatusDescription) : html.Html);
+            //}
+
+            return JsonConvert.DeserializeObject<SignResponse>(messageModel.Message);
         }
 
         public static SignResponse LastSignRequest(LastSignRequest request)
@@ -146,92 +196,46 @@ namespace Inspur.Billing.Commom
             try
             {
                 StatusResponse statusResponse = StatueRequest();
-                if (statusResponse.GSC.Contains("0000") && statusResponse.MSSC.Contains("0000"))
+                if (statusResponse != null)
                 {
+                    //
+                    Const.IsHasGetStatus = true;
                     //保存软件信息--此处处理未分开（每次都保存），正式使用的时候请
                     var info = (from a in Const.dB.PosInfo
                                 select a).FirstOrDefault();
                     if (info != null)
                     {
-                        Const.dB.Update<PosInfo>(new PosInfo { Id = info.Id, CompanyName = statusResponse.Make, Desc = statusResponse.Model, Version = statusResponse.SoftwareVersion, IssueDate = info.IssueDate });
+                        Const.dB.Update<PosInfo>(new PosInfo { Id = info.Id, CompanyName = statusResponse.Manufacture, Desc = statusResponse.Model, Version = statusResponse.SoftwareVersion, IssueDate = info.IssueDate });
                     }
-                    if (statusResponse.IsPinRequired)
+                    //记录税种信息
+                    if (statusResponse.TaxInfo != null && statusResponse.TaxInfo.Count > 0)
                     {
-                        //Attention
-                        AttentionResponse attentionResponse = ServiceHelper.AttentionRequest();
-                        if (attentionResponse.ATT_GSC == "0000")
+                        Const.dB.CodeTaxtype.Delete();
+                        foreach (var item in statusResponse.TaxInfo)
                         {
-                            //校验pin
-                            PinView pinView = new PinView();
-                            result = pinView.ShowDialog().Value;
-                        }
-                        else
-                        {
-                            ShowMessageBegin("E-SDC is not available");
-                        }
-                    }
-                    else
-                    {
-                        ShowMessageBegin("E-SDC is available");
-                        result = true;
-                    }
-                }
-                else
-                {
-                    List<string> list = new List<string>();
-                    if (!statusResponse.GSC.Contains("0000"))
-                    {
-                        foreach (var item in statusResponse.GSC)
-                        {
-                            if (Const.Statues != null)
+                            if (item.Category != null && item.Category.Count > 0)
                             {
-                                SystemStatu statu = Const.Statues.FirstOrDefault(a => a.Code == item);
-                                if (statu != null)
+                                foreach (var itm in item.Category)
                                 {
-                                    list.Add(statu.Name);
+                                    Const.dB.Insert<CodeTaxtype>(new CodeTaxtype
+                                    {
+                                        TaxTypeName = item.TaxTpye,
+                                        TaxTypeCode = item.TaxTpye,
+                                        TaxItemName = itm.TaxName,
+                                        TaxItemCode = itm.CategoryId.ToString(),
+                                        TaxRate = itm.TaxRate,
+                                        EffectDate = itm.EffectiveDate,
+                                        ExpireDate = itm.ExpiredDate
+                                    });
                                 }
                             }
                         }
                     }
-                    if (!statusResponse.MSSC.Contains("0000"))
-                    {
-                        foreach (var item in statusResponse.MSSC)
-                        {
-                            list.Add(item);
-                        }
-                    }
-                    if (list.Count > 0)
-                    {
-                        ShowMessageBegin(string.Join(",", list.ToArray()));
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ShowMessageBegin(ex.Message);
-                result = false;
-            }
-            return result;
-        }
+                    //记录monitor信息
 
-        public static bool CheckStatue1()
-        {
-            bool result = false;
-            try
-            {
-                StatusResponse statusResponse = StatueRequest();
-                if (statusResponse.GSC.Contains("0000") && statusResponse.MSSC.Contains("0000"))
-                {
-                    //保存软件信息--此处处理未分开（每次都保存），正式使用的时候请
-                    var info = (from a in Const.dB.PosInfo
-                                select a).FirstOrDefault();
-                    if (info != null)
+
+                    if (!statusResponse.isInitialized)
                     {
-                        Const.dB.Update<PosInfo>(new PosInfo { Id = info.Id, CompanyName = statusResponse.Make, Desc = statusResponse.Model, Version = statusResponse.SoftwareVersion, IssueDate = info.IssueDate });
-                    }
-                    if (statusResponse.IsPinRequired)
-                    {
-                        //Attention
                         AttentionResponse attentionResponse = ServiceHelper.AttentionRequest();
                         if (attentionResponse.ATT_GSC == "0000")
                         {
@@ -246,38 +250,85 @@ namespace Inspur.Billing.Commom
                     }
                     else
                     {
-                        result = true;
-                    }
-                }
-                else
-                {
-                    List<string> list = new List<string>();
-                    if (!statusResponse.GSC.Contains("0000"))
-                    {
-                        foreach (var item in statusResponse.GSC)
+                        if (statusResponse.isLocked)
                         {
-                            if (Const.Statues != null)
-                            {
-                                SystemStatu statu = Const.Statues.FirstOrDefault(a => a.Code == item);
-                                if (statu != null)
-                                {
-                                    list.Add(statu.Name);
-                                }
-                            }
+                            ShowMessageBegin("E-SDC is locked.");
+                        }
+                        else
+                        {
+                            ShowMessageBegin("E-SDC is available");
+                            result = true;
                         }
                     }
-                    if (!statusResponse.MSSC.Contains("0000"))
-                    {
-                        foreach (var item in statusResponse.MSSC)
-                        {
-                            list.Add(item);
-                        }
-                    }
-                    if (list.Count > 0)
-                    {
-                        ShowMessageBegin(string.Join(",", list.ToArray()));
-                    }
                 }
+
+
+
+
+
+                //if (statusResponse.GSC.Contains("0000") && statusResponse.MSSC.Contains("0000"))
+                //{
+                //    //保存软件信息--此处处理未分开（每次都保存），正式使用的时候请
+                //    var info = (from a in Const.dB.PosInfo
+                //                select a).FirstOrDefault();
+                //    if (info != null)
+                //    {
+                //        Const.dB.Update<PosInfo>(new PosInfo { Id = info.Id, CompanyName = statusResponse.Make, Desc = statusResponse.Model, Version = statusResponse.SoftwareVersion, IssueDate = info.IssueDate });
+                //    }
+                //    if (statusResponse.IsPinRequired)
+                //    {
+                //        //Attention
+                //        AttentionResponse attentionResponse = ServiceHelper.AttentionRequest();
+                //        if (attentionResponse.ATT_GSC == "0000")
+                //        {
+                //            //校验pin
+                //            PinView pinView = new PinView();
+                //            result = pinView.ShowDialog().Value;
+                //        }
+                //        else
+                //        {
+                //            ShowMessageBegin("E-SDC is not available");
+                //        }
+                //    }
+                //    else
+                //    {
+                //        ShowMessageBegin("E-SDC is available");
+                //        result = true;
+                //    }
+                //}
+                //else
+                //{
+                //    List<string> list = new List<string>();
+                //    if (!statusResponse.GSC.Contains("0000"))
+                //    {
+                //        foreach (var item in statusResponse.GSC)
+                //        {
+                //            if (Const.Statues != null)
+                //            {
+                //                SystemStatu statu = Const.Statues.FirstOrDefault(a => a.Code == item);
+                //                if (statu != null)
+                //                {
+                //                    list.Add(statu.Name);
+                //                }
+                //            }
+                //        }
+                //    }
+                //    if (!statusResponse.MSSC.Contains("0000"))
+                //    {
+                //        foreach (var item in statusResponse.MSSC)
+                //        {
+                //            list.Add(item);
+                //        }
+                //    }
+                //    if (list.Count > 0)
+                //    {
+                //        ShowMessageBegin(string.Join(",", list.ToArray()));
+                //    }
+                //}
+            }
+            catch (SocketException e)
+            {
+                ShowMessageBegin("Pos can not connect with ESDC.");
             }
             catch (Exception ex)
             {

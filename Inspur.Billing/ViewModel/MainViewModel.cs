@@ -121,6 +121,18 @@ namespace Inspur.Billing.ViewModel
             get { return _offLineVisibility; }
             set { Set<Visibility>(ref _offLineVisibility, value, "OffLineVisibility"); }
         }
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        private bool _isBusy;
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        public bool IsBusy
+        {
+            get { return _isBusy; }
+            set { Set<bool>(ref _isBusy, value, "IsBusy"); }
+        }
 
         #endregion
 

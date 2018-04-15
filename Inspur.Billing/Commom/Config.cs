@@ -24,5 +24,13 @@ namespace Inspur.Billing.Commom
         }
         //二维码放大倍数
         public static double QrMagnification { get; set; }
+        /// <summary>
+        /// pos序列号
+        /// </summary>
+        public static string PosSerialNumber { get; set; }
+        /// <summary>
+        /// pos厂家信息
+        /// </summary>
+        public static string PosVendor { get; set; }
     }
 }

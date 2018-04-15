@@ -70,5 +70,9 @@ namespace Inspur.Billing.Commom
                 return AppDomain.CurrentDomain.BaseDirectory + "qr.bmp";
             }
         }
+        /// <summary>
+        /// 是否获取过esdc状态
+        /// </summary>
+        public static bool IsHasGetStatus { get; set; }
     }
 }

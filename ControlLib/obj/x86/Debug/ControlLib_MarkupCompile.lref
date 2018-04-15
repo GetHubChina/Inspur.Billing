@@ -1,4 +1,4 @@
-﻿D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+﻿
 
 FD:\GitHub\Inspur.Billing\ControlLib\Controls\Dialogs\MessageBoxEx.xaml;;
 FD:\GitHub\Inspur.Billing\ControlLib\Controls\FilterComboBox1.xaml;;
@@ -7,4 +7,5 @@ FD:\GitHub\Inspur.Billing\ControlLib\Themes\FilterComboBoxStyle.xaml;;
 FD:\GitHub\Inspur.Billing\ControlLib\Themes\MessageDialogStyle.xaml;;
 FD:\GitHub\Inspur.Billing\ControlLib\Themes\RadioButtonStyle.xaml;;
 FD:\GitHub\Inspur.Billing\ControlLib\Themes\ToggleButtonStyle.xaml;;
+FD:\GitHub\Inspur.Billing\ControlLib\UserControls\Loading.xaml;;
 

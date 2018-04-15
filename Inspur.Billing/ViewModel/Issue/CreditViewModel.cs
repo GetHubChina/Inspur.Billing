@@ -65,8 +65,9 @@ namespace Inspur.Billing.ViewModel.Issue
         /// </summary>
         private List<CodeTable> _transactionType = new List<CodeTable>
         {
-            new CodeTable{ Name="Invoice",Code="0"},
-            new CodeTable{ Name="Refund",Code="1"}
+            new CodeTable{ Name="Normal",Code="0"},
+            new CodeTable{ Name="Credit Note",Code="1"},
+            new CodeTable{ Name="Debit Note",Code="1"}
         };
         /// <summary>
         /// 获取或设置交易类型
@@ -81,13 +82,13 @@ namespace Inspur.Billing.ViewModel.Issue
         /// </summary>
         private List<CodeTable> _paymentType = new List<CodeTable>
         {
-            new CodeTable{ Name="Other",Code="0"},
-            new CodeTable{ Name="Cash",Code="1"},
-            new CodeTable{ Name="Card",Code="2"},
-            new CodeTable{ Name="Check",Code="3"},
-            new CodeTable{ Name="Wiretransfer",Code="4"},
-            new CodeTable{ Name="Voucher",Code="5"},
-            new CodeTable{ Name="MobileMoney",Code="6"}
+            new CodeTable{ Name="Cash",Code="0"},
+            new CodeTable{ Name="Card",Code="1"},
+            new CodeTable{ Name="Cheque",Code="2"},
+            new CodeTable{ Name="Electronic Transfer",Code="3"},
+            //new CodeTable{ Name="Wiretransfer",Code="4"},
+            //new CodeTable{ Name="Voucher",Code="5"},
+            //new CodeTable{ Name="MobileMoney",Code="6"}
         };
         /// <summary>
         /// 获取或设置支付类型
@@ -111,7 +112,18 @@ namespace Inspur.Billing.ViewModel.Issue
             set { Set<CodeTable>(ref _selectedPaymentType, value, "SelectedPaymentType"); }
         }
 
-
+        /// <summary>
+        /// 获取或设置选中的支付方式
+        /// </summary>
+        private CodeTable _selectedTransactionType;
+        /// <summary>
+        /// 获取或设置选中的支付方式
+        /// </summary>
+        public CodeTable SelectedTransactionType
+        {
+            get { return _selectedPaymentType; }
+            set { Set<CodeTable>(ref _selectedPaymentType, value, "SelectedTransactionType"); }
+        }
         /// <summary>
         /// 获取或设置商品集合
         /// </summary>
@@ -250,6 +262,12 @@ namespace Inspur.Billing.ViewModel.Issue
                         switch (p)
                         {
                             case "Loaded":
+                                //Const.Locator.Main.IsBusy = true;
+                                if (!Const.IsHasGetStatus)
+                                {
+                                    ServiceHelper.CheckStatue();
+                                }
+                                //Const.Locator.Main.IsBusy = false;
                                 LoadGoods();
                                 LoadTaxRate();
                                 LoadGoodTaxType();
@@ -304,7 +322,7 @@ namespace Inspur.Billing.ViewModel.Issue
                                     Buyer = new Buyer();
                                     IsMitQr = false;
                                     IsMitTexTual = false;
-                                    SelectedPaymentType = PaymentType.FirstOrDefault(a => a.Code == "1");
+                                    //SelectedPaymentType = PaymentType.FirstOrDefault(a => a.Code == "1");
                                 }
                                 break;
                             case "BuyerTinLostFocus":
@@ -407,7 +425,7 @@ namespace Inspur.Billing.ViewModel.Issue
         #endregion
 
         #region 方法
-
+        
         private void LoadBuyerInfo()
         {
             if (!string.IsNullOrWhiteSpace(_buyer.Tin))

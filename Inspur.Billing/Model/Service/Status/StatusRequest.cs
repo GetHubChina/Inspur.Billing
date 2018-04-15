@@ -8,6 +8,8 @@ namespace Inspur.Billing.Model.Service.Status
 {
     public class StatusRequest
     {
-        public string GS { get; set; }
+        //public string GS { get; set; }
+        public string PosSerialNumber { get; set; }
+        public string PosVendor { get; set; }
     }
 }

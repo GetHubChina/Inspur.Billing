@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Inspur.Billing"
         xmlns:controls="clr-namespace:ControlLib.Controls;assembly=ControlLib"
+        xmlns:userControls="clr-namespace:ControlLib.UserControls;assembly=ControlLib"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="POS Invoice Issue System" Height="650" Width="1100"
@@ -112,117 +113,120 @@
             </Style>
         </ResourceDictionary>
     </Window.Resources>
-    <Border BorderThickness="1,0,1,1" BorderBrush="#FF45B9F1">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <Border Grid.ColumnSpan="2" Background="#FF45B9F1" MouseLeftButtonDown="Border_MouseLeftButtonDown">
-                <Image Source="/Inspur.Billing;component/Images/login_bg1.png" Height="58" Width="260" Stretch="UniformToFill" HorizontalAlignment="Left" />
-            </Border>
-            <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <controls:ImageButton NormalImage="/Inspur.Billing;component/Images/Home/in_but1_1.png" Width="110" Height="34"
-                                      MouseOverImage="/Inspur.Billing;component/Images/Home/in_but1_2.png" Command="{Binding NavigationCommand}" CommandParameter=""/>
-                <controls:ImageButton NormalImage="/Inspur.Billing;component/Images/Home/in_but2_1.png" Width="110" Height="34"
-                                      MouseOverImage="/Inspur.Billing;component/Images/Home/in_but2_2.png" Command="{Binding NavigationCommand}" CommandParameter=""/>
-                <controls:ImageButton NormalImage="/Inspur.Billing;component/Images/Home/in_but3_1.png" Width="78" Height="34"
-                                      MouseOverImage="/Inspur.Billing;component/Images/Home/in_but3_2.png" Command="{Binding NavigationCommand}" CommandParameter=""/>
-                <controls:ImageButton NormalImage="/Inspur.Billing;component/Images/Home/in_but4_1.png" Width="110" Height="34"
-                                      MouseOverImage="/Inspur.Billing;component/Images/Home/in_but4_2.png" Click="ImageButton_Click"/>
-            </StackPanel>
-            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
-                <Button Style="{DynamicResource MinButtonStyle}" Click="Button_Click"/>
-                <Button Style="{DynamicResource MaxButtonStyle}" Click="Button_Click_1"/>
-                <Button Style="{DynamicResource CloseButtonStyle}" Click="Button_Click_2"/>
-            </StackPanel>
-
-            <Grid Grid.Row="1">
-                <Grid.Background>
-                    <ImageBrush ImageSource="/Inspur.Billing;component/Images/Home/zjmleftbj.png" Stretch="Fill"/>
-                </Grid.Background>
+    <Grid>
+        <Border BorderThickness="1,0,1,1" BorderBrush="#FF45B9F1">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Image Source="/Inspur.Billing;component/Images/Home/yh_tx1.png" Width="27" Height="24" HorizontalAlignment="Left" Margin="20,0,0,0"/>
-                <TextBlock Grid.Row="1" Text="Inspur software group Co.Ltd" Margin="18,0,0,0" FontSize="12"/>
-                <TreeView Grid.Row="2" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Hidden" >
-                    <Expander IsExpanded="{Binding IsSelected,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=TreeViewItem}}" Style="{DynamicResource LeftExpanderStyle}">
-                        <Expander.Resources>
-                            <Style TargetType="controls:ImageToggleButton" BasedOn="{StaticResource ExpanderImageToggleButtonStyle}">
-                                <Setter Property="NormalImage" Value="/Inspur.Billing;component/Images/Issuing/saleNormal.png"/>
-                                <Setter Property="MouseOverImage" Value="/Inspur.Billing;component/Images/Issuing/saleMouseOver.png"/>
-                                <Setter Property="PressedImage" Value="/Inspur.Billing;component/Images/Issuing/SalePressed.png"/>
-                            </Style>
-                        </Expander.Resources>
-                        <StackPanel>
-                            <controls:ImageRadioButton GroupName="navigation" NormalImage="/Inspur.Billing;component/Images/Issuing/IssuNormal.png" Width="202" Height="37"
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.ColumnSpan="2" Background="#FF45B9F1" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+                    <Image Source="/Inspur.Billing;component/Images/login_bg1.png" Height="58" Width="260" Stretch="UniformToFill" HorizontalAlignment="Left" />
+                </Border>
+                <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                    <controls:ImageButton NormalImage="/Inspur.Billing;component/Images/Home/in_but1_1.png" Width="110" Height="34"
+                                      MouseOverImage="/Inspur.Billing;component/Images/Home/in_but1_2.png" Command="{Binding NavigationCommand}" CommandParameter=""/>
+                    <controls:ImageButton NormalImage="/Inspur.Billing;component/Images/Home/in_but2_1.png" Width="110" Height="34"
+                                      MouseOverImage="/Inspur.Billing;component/Images/Home/in_but2_2.png" Command="{Binding NavigationCommand}" CommandParameter=""/>
+                    <controls:ImageButton NormalImage="/Inspur.Billing;component/Images/Home/in_but3_1.png" Width="78" Height="34"
+                                      MouseOverImage="/Inspur.Billing;component/Images/Home/in_but3_2.png" Command="{Binding NavigationCommand}" CommandParameter=""/>
+                    <controls:ImageButton NormalImage="/Inspur.Billing;component/Images/Home/in_but4_1.png" Width="110" Height="34"
+                                      MouseOverImage="/Inspur.Billing;component/Images/Home/in_but4_2.png" Click="ImageButton_Click"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                    <Button Style="{DynamicResource MinButtonStyle}" Click="Button_Click"/>
+                    <Button Style="{DynamicResource MaxButtonStyle}" Click="Button_Click_1"/>
+                    <Button Style="{DynamicResource CloseButtonStyle}" Click="Button_Click_2"/>
+                </StackPanel>
+
+                <Grid Grid.Row="1">
+                    <Grid.Background>
+                        <ImageBrush ImageSource="/Inspur.Billing;component/Images/Home/zjmleftbj.png" Stretch="Fill"/>
+                    </Grid.Background>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Image Source="/Inspur.Billing;component/Images/Home/yh_tx1.png" Width="27" Height="24" HorizontalAlignment="Left" Margin="20,0,0,0"/>
+                    <TextBlock Grid.Row="1" Text="Inspur software group Co.Ltd" Margin="18,0,0,0" FontSize="12"/>
+                    <TreeView Grid.Row="2" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Hidden" >
+                        <Expander IsExpanded="{Binding IsSelected,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=TreeViewItem}}" Style="{DynamicResource LeftExpanderStyle}">
+                            <Expander.Resources>
+                                <Style TargetType="controls:ImageToggleButton" BasedOn="{StaticResource ExpanderImageToggleButtonStyle}">
+                                    <Setter Property="NormalImage" Value="/Inspur.Billing;component/Images/Issuing/saleNormal.png"/>
+                                    <Setter Property="MouseOverImage" Value="/Inspur.Billing;component/Images/Issuing/saleMouseOver.png"/>
+                                    <Setter Property="PressedImage" Value="/Inspur.Billing;component/Images/Issuing/SalePressed.png"/>
+                                </Style>
+                            </Expander.Resources>
+                            <StackPanel>
+                                <controls:ImageRadioButton GroupName="navigation" NormalImage="/Inspur.Billing;component/Images/Issuing/IssuNormal.png" Width="202" Height="37"
                                                    MouseOverImage="/Inspur.Billing;component/Images/Issuing/issuePressed.png" Command="{Binding NavigationCommand}" 
                                                    CommandParameter="/Inspur.Billing;component/View/Issue/CreditView.xaml"/>
-                        </StackPanel>
-                    </Expander>
-                    <Expander IsExpanded="{Binding IsSelected,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=TreeViewItem}}" Style="{DynamicResource LeftExpanderStyle}">
-                        <Expander.Resources>
-                            <Style TargetType="controls:ImageToggleButton" BasedOn="{StaticResource ExpanderImageToggleButtonStyle}">
-                                <Setter Property="NormalImage" Value="/Inspur.Billing;component/Images/Management/CofigNormal.png"/>
-                                <Setter Property="MouseOverImage" Value="/Inspur.Billing;component/Images/Management/ConfigMouseOver.png"/>
-                                <Setter Property="PressedImage" Value="/Inspur.Billing;component/Images/Management/ConfigPressed.png"/>
-                            </Style>
-                        </Expander.Resources>
-                    </Expander>
-                    <Expander IsExpanded="{Binding IsSelected,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=TreeViewItem}}" Style="{DynamicResource LeftExpanderStyle}">
-                        <Expander.Resources>
-                            <Style TargetType="controls:ImageToggleButton" BasedOn="{StaticResource ExpanderImageToggleButtonStyle}">
-                                <Setter Property="NormalImage" Value="/Inspur.Billing;component/Images/Statistics/StatisticsNormal.png"/>
-                                <Setter Property="MouseOverImage" Value="/Inspur.Billing;component/Images/Statistics/StatisticsMouseOver.png"/>
-                                <Setter Property="PressedImage" Value="/Inspur.Billing;component/Images/Statistics/StatisticsPressed.png"/>
-                            </Style>
-                        </Expander.Resources>
-                    </Expander>
-                    <Expander IsExpanded="{Binding IsSelected,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=TreeViewItem}}" Style="{DynamicResource LeftExpanderStyle}">
-                        <Expander.Resources>
-                            <Style TargetType="controls:ImageToggleButton" BasedOn="{StaticResource ExpanderImageToggleButtonStyle}">
-                                <Setter Property="NormalImage" Value="/Inspur.Billing;component/Images/System/SettingNormal.png"/>
-                                <Setter Property="MouseOverImage" Value="/Inspur.Billing;component/Images/System/SettingMouseover.png"/>
-                                <Setter Property="PressedImage" Value="/Inspur.Billing;component/Images/System/SettingPressed.png"/>
-                            </Style>
-                        </Expander.Resources>
-                        <StackPanel>
-                            <controls:ImageRadioButton GroupName="navigation" NormalImage="/Inspur.Billing;component/Images/System/TaxPayerNormal.png" Width="200" Height="37"
+                            </StackPanel>
+                        </Expander>
+                        <Expander IsExpanded="{Binding IsSelected,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=TreeViewItem}}" Style="{DynamicResource LeftExpanderStyle}">
+                            <Expander.Resources>
+                                <Style TargetType="controls:ImageToggleButton" BasedOn="{StaticResource ExpanderImageToggleButtonStyle}">
+                                    <Setter Property="NormalImage" Value="/Inspur.Billing;component/Images/Management/CofigNormal.png"/>
+                                    <Setter Property="MouseOverImage" Value="/Inspur.Billing;component/Images/Management/ConfigMouseOver.png"/>
+                                    <Setter Property="PressedImage" Value="/Inspur.Billing;component/Images/Management/ConfigPressed.png"/>
+                                </Style>
+                            </Expander.Resources>
+                        </Expander>
+                        <Expander IsExpanded="{Binding IsSelected,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=TreeViewItem}}" Style="{DynamicResource LeftExpanderStyle}">
+                            <Expander.Resources>
+                                <Style TargetType="controls:ImageToggleButton" BasedOn="{StaticResource ExpanderImageToggleButtonStyle}">
+                                    <Setter Property="NormalImage" Value="/Inspur.Billing;component/Images/Statistics/StatisticsNormal.png"/>
+                                    <Setter Property="MouseOverImage" Value="/Inspur.Billing;component/Images/Statistics/StatisticsMouseOver.png"/>
+                                    <Setter Property="PressedImage" Value="/Inspur.Billing;component/Images/Statistics/StatisticsPressed.png"/>
+                                </Style>
+                            </Expander.Resources>
+                        </Expander>
+                        <Expander IsExpanded="{Binding IsSelected,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=TreeViewItem}}" Style="{DynamicResource LeftExpanderStyle}">
+                            <Expander.Resources>
+                                <Style TargetType="controls:ImageToggleButton" BasedOn="{StaticResource ExpanderImageToggleButtonStyle}">
+                                    <Setter Property="NormalImage" Value="/Inspur.Billing;component/Images/System/SettingNormal.png"/>
+                                    <Setter Property="MouseOverImage" Value="/Inspur.Billing;component/Images/System/SettingMouseover.png"/>
+                                    <Setter Property="PressedImage" Value="/Inspur.Billing;component/Images/System/SettingPressed.png"/>
+                                </Style>
+                            </Expander.Resources>
+                            <StackPanel>
+                                <controls:ImageRadioButton GroupName="navigation" NormalImage="/Inspur.Billing;component/Images/System/TaxPayerNormal.png" Width="200" Height="37"
                                       MouseOverImage="/Inspur.Billing;component/Images/System/TaxPayerPressed.png" Command="{Binding NavigationCommand}" CommandParameter="Setting/TaxPayerSetting.xaml"/>
-                            <controls:ImageRadioButton GroupName="navigation" NormalImage="/Inspur.Billing;component/Images/System/ParamSettingNormal.png" Width="200" Height="37"
+                                <controls:ImageRadioButton GroupName="navigation" NormalImage="/Inspur.Billing;component/Images/System/ParamSettingNormal.png" Width="200" Height="37"
                                       MouseOverImage="/Inspur.Billing;component/Images/System/ParamSettingPressed.png" Command="{Binding NavigationCommand}" CommandParameter="Setting/ParameterSetting.xaml"/>
-                            <controls:ImageRadioButton GroupName="navigation" NormalImage="/Inspur.Billing;component/Images/System/SoftNormal.png" Width="202" Height="37"
+                                <controls:ImageRadioButton GroupName="navigation" NormalImage="/Inspur.Billing;component/Images/System/SoftNormal.png" Width="202" Height="37"
                                       MouseOverImage="/Inspur.Billing;component/Images/System/SoftPressed.png" Command="{Binding NavigationCommand}" CommandParameter="Setting/SoftwareSetting.xaml"/>
-                        </StackPanel>
-                    </Expander>
-                </TreeView>
+                            </StackPanel>
+                        </Expander>
+                    </TreeView>
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="1" Margin="0,1,0,0">
+                    <Grid.Background>
+                        <ImageBrush ImageSource="/Inspur.Billing;component/Images/Home/Contentbg.jpg"/>
+                    </Grid.Background>
+                    <Frame NavigationUIVisibility="Hidden" Source="{Binding Uri}"/>
+                </Grid>
+                <Grid Grid.Row="2" Grid.ColumnSpan="2" Height="30" Background="#FFF0F0F0">
+                    <TextBlock Style="{StaticResource Little_FZ_TbkStyle}" Margin="10,0,0,0"><Run Text="{Binding Message}" Foreground="Red"/></TextBlock>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,100,0" Visibility="{Binding OffLineVisibility}">
+                        <Image Source="/Inspur.Billing;component/Images/Home/offline.png" Margin="0,3"/>
+                        <TextBlock Text="E-SDC Offline" Style="{StaticResource Little_FZ_TbkStyle}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,100,0" Visibility="{Binding OnLineVisibility}">
+                        <Image Source="/Inspur.Billing;component/Images/Home/online.png" Margin="0,3"/>
+                        <TextBlock Text="E-SDC Online" Style="{StaticResource Little_FZ_TbkStyle}"/>
+                    </StackPanel>
+                </Grid>
             </Grid>
-            <Grid Grid.Row="1" Grid.Column="1" Margin="0,1,0,0">
-                <Grid.Background>
-                    <ImageBrush ImageSource="/Inspur.Billing;component/Images/Home/Contentbg.jpg"/>
-                </Grid.Background>
-                <Frame NavigationUIVisibility="Hidden" Source="{Binding Uri}"/>
-            </Grid>
-            <Grid Grid.Row="2" Grid.ColumnSpan="2" Height="30" Background="#FFF0F0F0">
-                <TextBlock Style="{StaticResource Little_FZ_TbkStyle}" Margin="10,0,0,0"><Run Text="{Binding Message}" Foreground="Red"/></TextBlock>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,100,0" Visibility="{Binding OffLineVisibility}">
-                    <Image Source="/Inspur.Billing;component/Images/Home/offline.png" Margin="0,3"/>
-                    <TextBlock Text="E-SDC Offline" Style="{StaticResource Little_FZ_TbkStyle}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,100,0" Visibility="{Binding OnLineVisibility}">
-                    <Image Source="/Inspur.Billing;component/Images/Home/online.png" Margin="0,3"/>
-                    <TextBlock Text="E-SDC Online" Style="{StaticResource Little_FZ_TbkStyle}"/>
-                </StackPanel>
-            </Grid>
-        </Grid>
-    </Border>
+        </Border>
+        <!--<userControls:Loading IsBusy="{Binding IsBusy}"/>-->
+    </Grid>
 </Window>

@@ -150,6 +150,7 @@
       <DependentUpon>CopyMe.SQLite.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\CodeTable.cs" />
+    <Compile Include="Model\MonitoringInfo.cs" />
     <Compile Include="Model\Service\Attention\AttentionRequest.cs" />
     <Compile Include="Model\Service\Attention\AttentionResponse.cs" />
     <Compile Include="Model\Service\LastSign\LastSignRequest.cs" />
@@ -161,6 +162,8 @@
     <Compile Include="Model\Service\Sign\TaxItem.cs" />
     <Compile Include="Model\Service\Status\StatusRequest.cs" />
     <Compile Include="Model\Service\Status\StatusResponse.cs" />
+    <Compile Include="Model\TaxCategory.cs" />
+    <Compile Include="Model\TaxInfo.cs" />
     <Compile Include="ViewModel\Issue\CreditViewModel.cs" />
     <Compile Include="ViewModel\Issue\PrintViewModel.cs" />
     <Compile Include="ViewModel\Login\LoginViewModel.cs" />

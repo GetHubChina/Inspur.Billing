@@ -97,7 +97,6 @@ D:\开票软件\开票软件\Inspur.Billing - 副本\ControlLib\obj\x86\Debug\Co
 D:\GitHub\Inspur.Billing\ControlLib\bin\x86\Debug\ControlLib.dll
 D:\GitHub\Inspur.Billing\ControlLib\bin\x86\Debug\ControlLib.pdb
 D:\GitHub\Inspur.Billing\ControlLib\bin\x86\Debug\System.Windows.Interactivity.dll
-D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\ControlLib.csprojResolveAssemblyReference.cache
 D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\Styles\Accent\Blue.baml
 D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\Styles\ButtonStyle.baml
 D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\Styles\ComboBoxStyle.baml
@@ -127,3 +126,6 @@ D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\ControlLib.g.resources
 D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\ControlLib.csproj.CoreCompileInputs.cache
 D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\ControlLib.dll
 D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\ControlLib.pdb
+D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\UserControls\Loading.g.cs
+D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\UserControls\Loading.baml
+D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\ControlLib.csprojResolveAssemblyReference.cache

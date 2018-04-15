@@ -90,8 +90,8 @@ namespace DataModels
         [Column("editor"), Nullable] public string Editor { get; set; } // varchar(20)
         [Column("edate"), Nullable] public DateTime? Edate { get; set; } // date
         [Column("valid"), Nullable] public char? Valid { get; set; } // varchar(1)
-        [Column("effect _date"), Nullable] public DateTime? EffectDate { get; set; } // date
-        [Column("expire_date"), Nullable] public DateTime? ExpireDate { get; set; } // date
+        [Column("effect _date"), Nullable] public string EffectDate { get; set; } // date
+        [Column("expire_date"), Nullable] public string ExpireDate { get; set; } // date
     }
 
     [Table("goods_info")]

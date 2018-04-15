@@ -34,12 +34,38 @@ namespace CommonLib.Net
             }
         }
         byte[] buffer;
-        public void Recive()
+        /// <summary>
+        /// 异步接受收数据
+        /// </summary>
+        public void ReciveAsync()
         {
             buffer = new byte[1024];
             _socket.BeginReceive(buffer, 0, buffer.Length, 0, new AsyncCallback(ReciveCallback), null);
         }
-
+        /// <summary>
+        /// 同步接收数据
+        /// </summary>
+        /// <returns></returns>
+        public MessageModel Recive()
+        {
+            buffer = new byte[1024];
+            int count = _socket.Receive(buffer, 0, buffer.Length, 0);
+            if (count > 0)
+            {
+                byte[] results = new byte[count];
+                Array.Copy(buffer, 0, results, 0, count);
+                MessageModel messageModel = _tcpData.Decode(results);
+                if (messageModel.MessageId == 0)
+                {
+                    return Recive();
+                }
+                else
+                {
+                    return messageModel;
+                }
+            }
+            return new MessageModel();
+        }
         private void ReciveCallback(IAsyncResult ar)
         {
             try
@@ -69,9 +95,9 @@ namespace CommonLib.Net
             }
         }
 
-        public void Send(string data)
+        public void Send(byte id, string data)
         {
-            _socket.Send(_tcpData.Encode(0x01, data));
+            _socket.Send(_tcpData.Encode(id, data));
         }
         public void Close()
         {

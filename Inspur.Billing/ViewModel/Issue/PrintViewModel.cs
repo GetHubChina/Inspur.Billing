@@ -183,6 +183,54 @@ namespace Inspur.Billing.ViewModel.Issue
             get { return _isCanSign; }
             set { Set<bool>(ref _isCanSign, value, "IsCanSign"); }
         }
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        private string _terminalID;
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        public string TerminalID
+        {
+            get { return _terminalID; }
+            set { Set<string>(ref _terminalID, value, "TerminalID"); }
+        }
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        private string _invoiceCode;
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        public string InvoiceCode
+        {
+            get { return _invoiceCode; }
+            set { Set<string>(ref _invoiceCode, value, "InvoiceCode"); }
+        }
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        private string _invoiceNumber;
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        public string InvoiceNumber
+        {
+            get { return _invoiceNumber; }
+            set { Set<string>(ref _invoiceNumber, value, "InvoiceNumber"); }
+        }
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        private string _fiscalCode;
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        public string FiscalCode
+        {
+            get { return _fiscalCode; }
+            set { Set<string>(ref _fiscalCode, value, "FiscalCode"); }
+        }
 
         #endregion
 
@@ -207,8 +255,6 @@ namespace Inspur.Billing.ViewModel.Issue
                         {
                             case "Loaded":
 
-                                //if (IsCanSign)
-                                //{
                                 try
                                 {
                                     signResponse = Sign();
@@ -221,44 +267,13 @@ namespace Inspur.Billing.ViewModel.Issue
                                 }
                                 if (signResponse != null)
                                 {
-                                    if (!string.IsNullOrWhiteSpace(signResponse.Message))
-                                    {
-                                        foreach (var item in signResponse.ModelState.Values)
-                                        {
-                                            if (item.Contains("1500"))
-                                            {
-                                                //校验pin
-                                                PinView pinView = new PinView();
-                                                if (pinView.ShowDialog() == true)
-                                                {
-                                                    Command.Execute("Loaded");
-                                                }
-
-                                                //pinView.ShowDialog();
-                                                return;
-                                            }
-                                        }
-
-
-
-                                        MessageBoxEx.Show(signResponse.Message);
-                                        SignFilureData();
-                                    }
-                                    else
-                                    {
-                                        //处理税款数据
-                                        SignSuccessData();
-                                    }
+                                    //处理税款数据
+                                    SignSuccessData();
                                 }
                                 else
                                 {
                                     SignFilureData();
                                 }
-                                //}
-                                //else
-                                //{
-                                //    SignFilureData();
-                                //}
                                 break;
                             case "Unloaded":
                                 QrPath = null;
@@ -280,6 +295,7 @@ namespace Inspur.Billing.ViewModel.Issue
 
         private void SignSuccessData()
         {
+            SignSuccessDataInvoice();
             SignSuccessDataTaxItems();
             SignSuccessDataTaxPayerInfo();
             //处理二维码
@@ -337,9 +353,9 @@ namespace Inspur.Billing.ViewModel.Issue
 
         private void SignSuccessDataTaxPayerInfo()
         {
-            TaxPayerInfo.Tin = signResponse.TIN;
-            TaxPayerInfo.Name = signResponse.BusinessName;
-            TaxPayerInfo.Address = signResponse.Address;
+            TaxPayerInfo.Tin = signResponse.TPIN;
+            TaxPayerInfo.Name = signResponse.TaxpayerName;
+            TaxPayerInfo.Address = signResponse.Addreess;
         }
 
         private void SignSuccessDataTaxItems()
@@ -365,6 +381,14 @@ namespace Inspur.Billing.ViewModel.Issue
                     TotalTaxAmount = Math.Round(TaxList.Sum(a => a.TaxAmount), 2);
                 };
             }
+        }
+        private void SignSuccessDataInvoice()
+        {
+            TerminalID = signResponse.TerminalID;
+            FiscalCode = signResponse.FiscalCode;
+
+            InvoiceCode = signResponse.InvoiceCode;
+            InvoiceNumber = signResponse.InvoiceNumber;
         }
 
         private void GetTaxPayerInfo()
@@ -475,32 +499,40 @@ namespace Inspur.Billing.ViewModel.Issue
             {
                 signRequest = new SignRequest
                 {
-                    DateAndTimeOfIssue = ServiceHelper.CurrentTime,
-                    IT = "Normal",
-                    TT = "Sale",
-                    PaymentType = Credit.SelectedPaymentType.Name,
+                    PosSerialNumber = Config.PosSerialNumber,
+                    IssueTime = DateTime.Now.ToString("yyyyMMddHHmmss"),
+                    TransactionType = Credit.SelectedPaymentType.Code,
+                    PaymentMode = Credit.SelectedPaymentType.Code,
+                    SaleType = "0",
+                    LocalPurchaseOrder = "",
                     Cashier = Credit.Cashier,
-                    BD = Credit.Buyer.Tin
+                    BuyerTPIN = Credit.Buyer.Tin,
+                    BuyerName = Credit.Buyer.Name,
+                    BuyerTaxAccountName = "",
+                    BuyerAddress = Credit.Buyer.Address,
+                    BuyerTel = Credit.Buyer.TelPhone,
+                    OriginalInvoiceCode = "",
+                    OriginalInvoiceNumber = ""
                 };
                 //signRequest.BuyerCostCenterId = "1234567890";
                 //signRequest.InvoiceNumber = "PNQAVDNX-PNQAVDNX-1";
-                signRequest.Options = new Dictionary<string, string>();
-                if (Credit.IsMitQr)
-                {
-                    signRequest.Options.Add("OmitQRCodeGen", "1");
-                }
-                else
-                {
-                    signRequest.Options.Add("OmitQRCodeGen", "0");
-                }
-                if (Credit.IsMitTexTual)
-                {
-                    signRequest.Options.Add("OmitTextualRepresentation", "1");
-                }
-                else
-                {
-                    signRequest.Options.Add("OmitTextualRepresentation", "0");
-                }
+                //signRequest.Options = new Dictionary<string, string>();
+                //if (Credit.IsMitQr)
+                //{
+                //    signRequest.Options.Add("OmitQRCodeGen", "1");
+                //}
+                //else
+                //{
+                //    signRequest.Options.Add("OmitQRCodeGen", "0");
+                //}
+                //if (Credit.IsMitTexTual)
+                //{
+                //    signRequest.Options.Add("OmitTextualRepresentation", "1");
+                //}
+                //else
+                //{
+                //    signRequest.Options.Add("OmitTextualRepresentation", "0");
+                //}
                 signRequest.Items = new List<SignGoodItem>();
                 SignGoodItem signGoodItem;
                 foreach (var item in Credit.Productes)
@@ -511,6 +543,7 @@ namespace Inspur.Billing.ViewModel.Issue
                     signGoodItem.Quantity = item.Count;
                     signGoodItem.UnitPrice = item.Price;
                     signGoodItem.TotalAmount = item.Amount;
+                    signGoodItem.IsTaxInclusive = true;
                     signGoodItem.Labels = new string[1] { item.TaxType.Label };
                     signRequest.Items.Add(signGoodItem);
                 }
@@ -546,19 +579,19 @@ namespace Inspur.Billing.ViewModel.Issue
                 invoiceAbbreviation.BuyerName = Credit.Buyer.Name;
                 invoiceAbbreviation.TotalAmount = Credit.GrandTotal;
             }
-            if (request != null)
-            {
-                invoiceAbbreviation.HashCode = request.Hash;
-            }
+            //if (request != null)
+            //{
+            //    invoiceAbbreviation.HashCode = request.Hash;
+            //}
             ///sdc取值
             if (signResponse != null)
             {
-                invoiceAbbreviation.TaxpayerName = signResponse.BusinessName;//sdc取值
-                invoiceAbbreviation.TaxpayerLocation = signResponse.LocationName;//sdc取值
-                invoiceAbbreviation.TaxpayerAddress = signResponse.Address;//sdc取值
-                invoiceAbbreviation.TaxpayerDistrit = signResponse.District;//sdc取值
-                invoiceAbbreviation.InvoiceNumber = signResponse.IN;//sdc取值
-                invoiceAbbreviation.IssueDate = request.DateAndTimeOfIssue;//sdc取值
+                invoiceAbbreviation.TaxpayerName = signResponse.TaxpayerName;//sdc取值
+                //invoiceAbbreviation.TaxpayerLocation = signResponse.LocationName;//sdc取值
+                invoiceAbbreviation.TaxpayerAddress = signResponse.Addreess;//sdc取值
+                //invoiceAbbreviation.TaxpayerDistrit = signResponse.District;//sdc取值
+                invoiceAbbreviation.InvoiceNumber = signResponse.InvoiceNumber;//sdc取值
+                invoiceAbbreviation.IssueDate = request.IssueTime;//sdc取值
                 invoiceAbbreviation.VerificationUrl = signResponse.VerificationUrl;
             }
             Const.dB.Insert<InvoiceAbbreviation>(invoiceAbbreviation);
@@ -595,92 +628,99 @@ namespace Inspur.Billing.ViewModel.Issue
             //_isHasPrint = true;
             Printer.Instance.Print(() =>
             {
-                if (signResponse != null && string.IsNullOrWhiteSpace(signResponse.Message) && !string.IsNullOrWhiteSpace(signResponse.Journal))
+                //if (signResponse != null && string.IsNullOrWhiteSpace(signResponse.Message) && !string.IsNullOrWhiteSpace(signResponse.Journal))
+                //{
+                //    //打印返回的表
+                //    Printer.Instance.SetAlign(1);
+                //    Printer.Instance.PrintString(0, 1, 0, 0, 0, string.Format("{0}\r\n", signResponse.Journal));
+
+                //    Printer.Instance.Reset();
+                //    Printer.Instance.SetAlign(1);
+                //    if (!Credit.IsMitQr && !string.IsNullOrWhiteSpace(signResponse.VerificationUrl))
+                //    {
+                //        Printer.Instance.PrintTwoDimensionalBarcodeA(signResponse.VerificationUrl);
+                //    }
+                //    Printer.Instance.CutPaper(1, 5);
+                //}
+                //else
+                //{
+                //打印自定义的表样
+                Printer.Instance.SetAlign(1);
+                Printer.Instance.PrintString(0, 1, 0, 0, 0, string.Format("Order Number:{0}\r\n{1}\r\n", Credit.OrderNumber, CurrentTime));
+
+                Printer.Instance.SetAlign(0);
+                SetTwoColumnPrint("POSID", Credit.PosNumber, "Cashier:", Credit.Cashier);
+                SetTwoColumnPrint("Buyer TIN", "", "", Credit.Buyer.Tin);
+                SetTwoColumnPrint("Buyer Name", "", "", Credit.Buyer.Name);
+                SetTwoColumnPrint("Buyer Address", "", "", Credit.Buyer.Address);
+                SetTwoColumnPrint("Buyer Tel", "", "", Credit.Buyer.TelPhone);
+                SetTwoColumnPrint("Invoice Code", "", "", InvoiceCode);
+                SetTwoColumnPrint("Invoice Number", "", "", InvoiceNumber);
+                PrintLine();
+
+                Printer.Instance.SetAlign(1);
+                Printer.Instance.PrintString(0, 1, 0, 0, 0, "Particular Of Items\r\n");
+                //表格字符占用按照7 8 5 3 9来打印
+                //表格字符占用按照11 11 5 3 9来打印
+                Printer.Instance.SetAlign(0);
+                Printer.Instance.PrintString(0, 1, 0, 0, 0, "Name           Price          Qty.       Amount\r\n");
+                if (Credit != null && Credit.Productes != null)
                 {
-                    //打印返回的表
-                    Printer.Instance.SetAlign(1);
-                    Printer.Instance.PrintString(0, 1, 0, 0, 0, string.Format("{0}\r\n", signResponse.Journal));
-
-                    Printer.Instance.Reset();
-                    Printer.Instance.SetAlign(1);
-                    if (!Credit.IsMitQr && !string.IsNullOrWhiteSpace(signResponse.VerificationUrl))
+                    foreach (var item in Credit.Productes)
                     {
-                        Printer.Instance.PrintTwoDimensionalBarcodeA(signResponse.VerificationUrl);
+                        Printer.Instance.PrintString(0, 1, 0, 0, 0, string.Format("{0}{1}{2}{3}\r\n",
+                            SetLeftPrint(15, string.Format("{0} ({1})", item.Name, item.TaxType.Label.ToString())),
+                            SetLeftPrint(12, item.Price.ToString("0.00")),
+                            SetCenterPrint(8, item.Count.ToString()),
+                            SetRightPrint(12, item.Amount.ToString("0.00"))));
                     }
-                    Printer.Instance.CutPaper(1, 5);
                 }
-                else
+                //SetTwoColumnPrint("Total Value", "", "", Credit.GrandTotal.ToString("0.00"));
+                PrintLine();
+
+                Printer.Instance.SetAlign(1);
+                Printer.Instance.PrintString(0, 1, 0, 0, 0, "Tax Amount\r\n");
+                //表格字符占用按照8 8 8 8来打印
+                Printer.Instance.SetAlign(0);
+                Printer.Instance.PrintString(0, 1, 0, 0, 0, "Label           Name      Rate(%)    Tax Amount\r\n");
+                if (TaxList != null)
                 {
-                    //打印自定义的表样
-                    Printer.Instance.SetAlign(1);
-                    Printer.Instance.PrintString(0, 1, 0, 0, 0, string.Format("Order Number:{0}\r\n{1}\r\n", Credit.OrderNumber, CurrentTime));
-
-                    Printer.Instance.SetAlign(0);
-                    SetTwoColumnPrint("POSID", Credit.PosNumber, "Cashier:", Credit.Cashier);
-                    SetTwoColumnPrint("Buyer TIN", "", "", Credit.Buyer.Tin);
-                    SetTwoColumnPrint("Buyer Name", "", "", Credit.Buyer.Name);
-                    SetTwoColumnPrint("Buyer Address", "", "", Credit.Buyer.Address);
-                    SetTwoColumnPrint("Buyer Tel", "", "", Credit.Buyer.TelPhone);
-                    PrintLine();
-
-                    Printer.Instance.SetAlign(1);
-                    Printer.Instance.PrintString(0, 1, 0, 0, 0, "Particular Of Items\r\n");
-                    //表格字符占用按照7 8 5 3 9来打印
-                    //表格字符占用按照11 11 5 3 9来打印
-                    Printer.Instance.SetAlign(0);
-                    Printer.Instance.PrintString(0, 1, 0, 0, 0, "Name           Price          Qty.       Amount\r\n");
-                    if (Credit != null && Credit.Productes != null)
+                    foreach (var item in TaxList)
                     {
-                        foreach (var item in Credit.Productes)
-                        {
-                            Printer.Instance.PrintString(0, 1, 0, 0, 0, string.Format("{0}{1}{2}{3}\r\n",
-                                SetLeftPrint(15, string.Format("{0} ({1})", item.Name, item.TaxType.Label.ToString())),
-                                SetLeftPrint(12, item.Price.ToString("0.00")),
-                                SetCenterPrint(8, item.Count.ToString()),
-                                SetRightPrint(12, item.Amount.ToString("0.00"))));
-                        }
+                        Printer.Instance.PrintString(0, 1, 0, 0, 0, string.Format("{0}{1}{2}{3}\r\n",
+                            SetLeftPrint(12, item.TaxItemCode),
+                            SetCenterPrint(12, item.TaxItemDesc),
+                            SetCenterPrint(11, (item.TaxRate).ToString()),
+                            SetRightPrint(12, item.TaxAmount.ToString("0.00"))));
                     }
-                    //SetTwoColumnPrint("Total Value", "", "", Credit.GrandTotal.ToString("0.00"));
-                    PrintLine();
-
-                    Printer.Instance.SetAlign(1);
-                    Printer.Instance.PrintString(0, 1, 0, 0, 0, "Tax Amount\r\n");
-                    //表格字符占用按照8 8 8 8来打印
-                    Printer.Instance.SetAlign(0);
-                    Printer.Instance.PrintString(0, 1, 0, 0, 0, "Label           Name      Rate(%)    Tax Amount\r\n");
-                    if (TaxList != null)
-                    {
-                        foreach (var item in TaxList)
-                        {
-                            Printer.Instance.PrintString(0, 1, 0, 0, 0, string.Format("{0}{1}{2}{3}\r\n",
-                                SetLeftPrint(12, item.TaxItemCode),
-                                SetCenterPrint(12, item.TaxItemDesc),
-                                SetCenterPrint(11, (item.TaxRate).ToString()),
-                                SetRightPrint(12, item.TaxAmount.ToString("0.00"))));
-                        }
-                    }
-                    SetTwoColumnPrint("Total Tax", "", "", TotalTaxAmount.ToString("0.00"));
-                    PrintLine();
-
-                    SetTwoColumnPrint("Total Amount", "", "", Credit.GrandTotal.ToString("0.00"));
-                    SetTwoColumnPrint("Payment Mode", "", "", Credit == null ? "" : (Credit.SelectedPaymentType == null ? "" : Credit.SelectedPaymentType.Name));
-                    SetTwoColumnPrint("Actual Payment", "", "", ActualPay.ToString("0.00"));
-                    SetTwoColumnPrint("Change", "", "", Change.ToString("0.00"));
-                    PrintLine();
-
-                    SetTwoColumnPrint("TIN", "", "", TaxPayerInfo.Tin);
-                    SetTwoColumnPrint("Name", "", "", TaxPayerInfo.Name);
-                    SetTwoColumnPrint("Address", "", "", TaxPayerInfo.Address);
-                    SetTwoColumnPrint("Tel", "", "", TaxPayerInfo.Telphone);
-                    PrintLine();
-
-                    //Printer.Instance.PrintTwoDimensionalBarcodeA(signResponse.VerificationUrl);
-
-                    Printer.Instance.PrintString(0, 0, 0, 0, 0, "Dear sir madam,please keep the invoice properly so as to refunds & replaces \r\n\r\n");
-                    Printer.Instance.SetAlign(1);
-                    Printer.Instance.PrintString(0, 0, 0, 0, 0, "Thank You & Please Come Again \r\n");
-                    Printer.Instance.CutPaper(1, 3);
                 }
+                SetTwoColumnPrint("Total Tax", "", "", TotalTaxAmount.ToString("0.00"));
+                PrintLine();
+
+                SetTwoColumnPrint("Total Amount", "", "", Credit.GrandTotal.ToString("0.00"));
+                SetTwoColumnPrint("Payment Mode", "", "", Credit == null ? "" : (Credit.SelectedPaymentType == null ? "" : Credit.SelectedPaymentType.Name));
+                SetTwoColumnPrint("Actual Payment", "", "", ActualPay.ToString("0.00"));
+                SetTwoColumnPrint("Change", "", "", Change.ToString("0.00"));
+                PrintLine();
+
+                SetTwoColumnPrint("TIN", "", "", TaxPayerInfo.Tin);
+                SetTwoColumnPrint("Name", "", "", TaxPayerInfo.Name);
+                SetTwoColumnPrint("Address", "", "", TaxPayerInfo.Address);
+                SetTwoColumnPrint("Tel", "", "", TaxPayerInfo.Telphone);
+                SetTwoColumnPrint("Terminal ID", "", "", TerminalID);
+                SetTwoColumnPrint("Fiscal Code", "", "", FiscalCode);
+                PrintLine();
+
+                if (!Credit.IsMitQr && signResponse != null && !string.IsNullOrWhiteSpace(signResponse.VerificationUrl))
+                {
+                    Printer.Instance.PrintTwoDimensionalBarcodeA(signResponse.VerificationUrl);
+                }
+
+                Printer.Instance.PrintString(0, 0, 0, 0, 0, "Dear sir madam,please keep the invoice properly so as to refunds & replaces \r\n\r\n");
+                Printer.Instance.SetAlign(1);
+                Printer.Instance.PrintString(0, 0, 0, 0, 0, "Thank You & Please Come Again \r\n");
+                Printer.Instance.CutPaper(1, 5);
+                //}
             });
         }
 
