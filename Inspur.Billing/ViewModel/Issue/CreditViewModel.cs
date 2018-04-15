@@ -30,7 +30,7 @@ namespace Inspur.Billing.ViewModel.Issue
             }
             if (string.IsNullOrWhiteSpace(Printer.Instance.PrintPort))
             {
-                Printer.Instance.PrintPort = Const.Locator.Basic.PrintPort;
+                Printer.Instance.PrintPort = Const.Locator.ParameterSetting.PrintPort;
             }
         }
 

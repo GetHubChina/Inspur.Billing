@@ -8,6 +8,7 @@ using LinqToDB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -135,13 +136,22 @@ namespace Inspur.Billing.ViewModel.Setting
                                 }));
                                 break;
                             case "SDCTest":
-                                ServiceHelper.CheckStatue();
+                                //ServiceHelper.CheckStatue();
+                                if (!ServiceHelper.TcpClient.IsConnected)
+                                {
+                                    string[] sdc = SdcUrl.Split(':');
+                                    if (sdc != null && sdc.Count() != 2)
+                                    {
+                                        MessageBoxEx.Show("E-SDC URL is not in the right format.", MessageBoxButton.OK);
+                                        return;
+                                    }
+                                    ServiceHelper.TcpClient.Connect(IPAddress.Parse(sdc[0]), int.Parse(sdc[1]));
+                                    //
+                                }
                                 break;
                             case "PrinterPortTest":
                                 Printer.Instance.PrintPort = PrintPort;
                                 Printer.Instance.PrintTestPaper();
-                                break;
-                            case "SoftwareCancel":
                                 break;
                             default:
                                 break;

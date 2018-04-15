@@ -134,24 +134,6 @@ namespace Inspur.Billing.ViewModel.Setting
                                     LoadSoftwareInfo();
                                 }));
                                 break;
-                            case "SDCTest":
-                                ServiceHelper.CheckStatue();
-                                //AttentionResponse attentionResponse = ServiceHelper.AttentionRequest();
-                                //if (attentionResponse.ATT_GSC == "0000")
-                                //{
-                                //    MessageBoxEx.Show("E-SDC is available");
-                                //}
-                                //else
-                                //{
-                                //    MessageBoxEx.Show("E-SDC is not available");
-                                //}
-                                break;
-                            case "PrinterPortTest":
-                                Printer.Instance.PrintPort = PrintPort;
-                                Printer.Instance.PrintTestPaper();
-                                break;
-                            case "SoftwareCancel":
-                                break;
                             default:
                                 break;
                         }
@@ -232,100 +214,6 @@ namespace Inspur.Billing.ViewModel.Setting
                 }, () =>
                 {
                     return IsTaxPayerEnable;
-                }));
-            }
-        }
-        /// <summary>
-        /// 获取或设置网络设置编辑命令
-        /// </summary>
-        private ICommand _netSettingEditCommand;
-        /// <summary>
-        /// 获取或设置网络设置编辑命令
-        /// </summary>
-        public ICommand NetSettingEditCommand
-        {
-            get
-            {
-                return _netSettingEditCommand ?? (_netSettingEditCommand = new RelayCommand(() =>
-                {
-                    IsParameterEnable = true;
-                }, () =>
-                {
-                    return !IsParameterEnable;
-                }));
-            }
-        }
-        /// <summary>
-        /// 获取或设置网络设置保存命令
-        /// </summary>
-        private ICommand _netSettingSaveCommand;
-        /// <summary>
-        /// 获取或设置网络设置保存命令
-        /// </summary>
-        public ICommand NetSettingSaveCommand
-        {
-            get
-            {
-                return _netSettingSaveCommand ?? (_netSettingSaveCommand = new RelayCommand(() =>
-                {
-                    if (string.IsNullOrEmpty(SdcUrl))
-                    {
-                        MessageBoxEx.Show("E-SDC URL can not null.", MessageBoxButton.OK);
-                        return;
-                    }
-                    string[] sdc = SdcUrl.Split(':');
-                    if (sdc != null && sdc.Count() != 2)
-                    {
-                        MessageBoxEx.Show("E-SDC URL is not in the right format.", MessageBoxButton.OK);
-                        return;
-                    }
-                    if (string.IsNullOrEmpty(_sdcId))
-                    {
-                        //insert
-                        Const.dB.Insert<SdcInfo>(new SdcInfo
-                        {
-                            SdcIp = sdc[0],
-                            SdcPort = sdc[1]
-                        });
-                        LoadSDCInfo();
-                    }
-                    else
-                    {
-                        //updata
-                        long id;
-                        long.TryParse(_sdcId, out id);
-                        Const.dB.Update<SdcInfo>(new SdcInfo
-                        {
-                            SdcId = id,
-                            SdcIp = sdc[0],
-                            SdcPort = sdc[1]
-                        });
-                        IsParameterEnable = false;
-                        Printer.Instance.PrintPort = PrintPort;
-                    }
-                }, () =>
-                {
-                    return IsParameterEnable;
-                }));
-            }
-        }
-        /// <summary>
-        /// 获取或设置网络设置取消命令
-        /// </summary>
-        private ICommand _netSettingCancelCommand;
-        /// <summary>
-        /// 获取或设置网络设置取消命令
-        /// </summary>
-        public ICommand NetSettingCancelCommand
-        {
-            get
-            {
-                return _netSettingCancelCommand ?? (_netSettingCancelCommand = new RelayCommand(() =>
-                {
-                    LoadSDCInfo();
-                }, () =>
-                {
-                    return IsParameterEnable;
                 }));
             }
         }

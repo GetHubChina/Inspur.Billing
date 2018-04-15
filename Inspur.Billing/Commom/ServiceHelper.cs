@@ -25,6 +25,10 @@ namespace Inspur.Billing.Commom
     class ServiceHelper
     {
         public static string CurrentTime = DateTime.UtcNow.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ");
+        /// <summary>
+        /// socket连接对象
+        /// </summary>
+        public static TcpHelper TcpClient = new TcpHelper();
 
         public static StatusResponse StatueRequest()
         {

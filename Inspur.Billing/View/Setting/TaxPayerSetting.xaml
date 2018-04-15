@@ -7,7 +7,7 @@
              DataContext="{Binding Path=TaxPayerSetting, Source={StaticResource Locator}}"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="800">
+             d:DesignHeight="500" d:DesignWidth="800">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding Command}" CommandParameter="Loaded"/>

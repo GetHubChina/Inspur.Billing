@@ -165,7 +165,6 @@
     <Compile Include="ViewModel\Issue\PrintViewModel.cs" />
     <Compile Include="ViewModel\Login\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\Setting\BasicViewModel.cs" />
     <Compile Include="ViewModel\Setting\ParameterSettingVm.cs" />
     <Compile Include="ViewModel\Setting\PinViewModel.cs" />
     <Compile Include="ViewModel\Setting\SoftwareSettingVm.cs" />
@@ -179,9 +178,6 @@
     </Compile>
     <Compile Include="View\Login\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Setting\BasicView.xaml.cs">
-      <DependentUpon>BasicView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Setting\ParameterSetting.xaml.cs">
       <DependentUpon>ParameterSetting.xaml</DependentUpon>
@@ -216,10 +212,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\Login\LoginView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Setting\BasicView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
