@@ -21,6 +21,8 @@ namespace Inspur.Billing.Commom
             {
                 QrMagnification = 1;
             }
+            //PosSerialNumber = ConfigurationManager.AppSettings["PosSerialNumber"];
+            //PosVendor = ConfigurationManager.AppSettings["PosVendor"];
         }
         //二维码放大倍数
         public static double QrMagnification { get; set; }

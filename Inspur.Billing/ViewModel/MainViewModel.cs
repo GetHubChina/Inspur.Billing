@@ -30,14 +30,6 @@ namespace Inspur.Billing.ViewModel
         /// </summary>
         public MainViewModel()
         {
-            ////if (IsInDesignMode)
-            ////{
-            ////    // Code runs in Blend --> create design time data.
-            ////}
-            ////else
-            ////{
-            ////    // Code runs "for real"
-            ////}
             Timer timer = new Timer(3000);
             timer.Elapsed += Timer_Elapsed;
             timer.AutoReset = true;
