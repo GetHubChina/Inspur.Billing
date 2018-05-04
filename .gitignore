@@ -45,4 +45,6 @@ Temporary Items
 bin/  
 Debug/  
 Release/  
-obj/  
+obj/
+x86/
+x64/  

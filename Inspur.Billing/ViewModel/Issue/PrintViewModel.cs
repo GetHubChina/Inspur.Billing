@@ -21,6 +21,7 @@ using System.Windows.Media;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using GalaSoft.MvvmLight.Messaging;
+using Newtonsoft.Json;
 
 namespace Inspur.Billing.ViewModel.Issue
 {
@@ -257,7 +258,7 @@ namespace Inspur.Billing.ViewModel.Issue
 
                                 try
                                 {
-                                    signResponse = Sign();
+                                    Sign();
                                 }
                                 catch
                                 {
@@ -265,15 +266,7 @@ namespace Inspur.Billing.ViewModel.Issue
                                     signResponse = null;
                                     GetTaxPayerInfo();
                                 }
-                                if (signResponse != null)
-                                {
-                                    //处理税款数据
-                                    SignSuccessData();
-                                }
-                                else
-                                {
-                                    SignFilureData();
-                                }
+
                                 break;
                             case "Unloaded":
                                 QrPath = null;
@@ -492,7 +485,7 @@ namespace Inspur.Billing.ViewModel.Issue
                }));
             }
         }
-        private SignResponse Sign()
+        private void Sign()
         {
             AttentionResponse attentionResponse = ServiceHelper.AttentionRequest();
             if (attentionResponse.ATT_GSC == "0000")
@@ -547,15 +540,42 @@ namespace Inspur.Billing.ViewModel.Issue
                     signGoodItem.Labels = new string[1] { item.TaxType.Label };
                     signRequest.Items.Add(signGoodItem);
                 }
-
-                return ServiceHelper.SignRequest(signRequest);
+                ServiceHelper.TcpClient.Complated -= TcpClient_Complated;
+                ServiceHelper.TcpClient.Complated += TcpClient_Complated;
+                ServiceHelper.SignRequest(signRequest);
             }
             else
             {
                 MessageBoxEx.Show("E-SDC is not available.ATT_GSC=" + attentionResponse.ATT_GSC);
-                return null;
             }
         }
+
+        private void TcpClient_Complated(object sender, CommonLib.Net.MessageModel e)
+        {
+            try
+            {
+                if (e.MessageId != 0x02)
+                {
+                    return;
+                }
+                ServiceHelper.TcpClient.Complated -= TcpClient_Complated;
+                signResponse = JsonConvert.DeserializeObject<SignResponse>(e.Message);
+                if (signResponse != null)
+                {
+                    //处理税款数据
+                    SignSuccessData();
+                }
+                else
+                {
+                    SignFilureData();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBoxEx.Show(ex.Message);
+            }
+        }
+
         private void Save(SignRequest request, SignResponse signResponse)
         {
             //保存销售订单主表

@@ -14,7 +14,6 @@ D:\开票软件\开票软件\Inspur.Billing - 副本\CommonLib.Net\obj\x86\Debug
 D:\开票软件\开票软件\Inspur.Billing - 副本\CommonLib.Net\obj\x86\Debug\CommonLib.Net.csprojResolveAssemblyReference.cache
 D:\GitHub\Inspur.Billing\CommonLib.Net\bin\x86\Debug\CommonLib.Net.dll
 D:\GitHub\Inspur.Billing\CommonLib.Net\bin\x86\Debug\CommonLib.Net.pdb
-D:\GitHub\Inspur.Billing\CommonLib.Net\obj\x86\Debug\CommonLib.Net.csproj.CoreCompileInputs.cache
 D:\GitHub\Inspur.Billing\CommonLib.Net\obj\x86\Debug\CommonLib.Net.dll
 D:\GitHub\Inspur.Billing\CommonLib.Net\obj\x86\Debug\CommonLib.Net.pdb
 D:\GitHub\Inspur.Billing\CommonLib.Net\obj\x86\Debug\CommonLib.Net.csprojResolveAssemblyReference.cache

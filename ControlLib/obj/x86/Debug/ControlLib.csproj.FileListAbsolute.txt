@@ -123,7 +123,6 @@ D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\Themes\MessageDialogStyle.baml
 D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\Themes\RadioButtonStyle.baml
 D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\Themes\ToggleButtonStyle.baml
 D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\ControlLib.g.resources
-D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\ControlLib.csproj.CoreCompileInputs.cache
 D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\ControlLib.dll
 D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\ControlLib.pdb
 D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\UserControls\Loading.g.cs

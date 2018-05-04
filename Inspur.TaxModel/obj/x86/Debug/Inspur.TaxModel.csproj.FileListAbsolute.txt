@@ -64,6 +64,5 @@ D:\GitHub\Inspur.Billing\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Extras
 D:\GitHub\Inspur.Billing\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Platform.pdb
 D:\GitHub\Inspur.Billing\Inspur.TaxModel\bin\x86\Debug\GalaSoft.MvvmLight.Platform.xml
 D:\GitHub\Inspur.Billing\Inspur.TaxModel\obj\x86\Debug\Inspur.TaxModel.csprojResolveAssemblyReference.cache
-D:\GitHub\Inspur.Billing\Inspur.TaxModel\obj\x86\Debug\Inspur.TaxModel.csproj.CoreCompileInputs.cache
 D:\GitHub\Inspur.Billing\Inspur.TaxModel\obj\x86\Debug\Inspur.TaxModel.dll
 D:\GitHub\Inspur.Billing\Inspur.TaxModel\obj\x86\Debug\Inspur.TaxModel.pdb

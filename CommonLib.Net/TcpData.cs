@@ -85,6 +85,9 @@ namespace CommonLib.Net
                     crcBytes.AddRange(BitConverter.GetBytes(data.Length));
                     crcBytes.AddRange(data);
                     bw.Write(CalculationCrc(crcBytes.ToArray(), crcBytes.Count));
+
+                    Console.WriteLine("状态查询发送字节数：" + ms.Length);
+
                     return ms.ToArray();
                 }
             }

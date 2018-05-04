@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Inspur.Billing.Commom;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,13 @@ namespace Inspur.Billing
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+            if (ServiceHelper.TcpClient!=null&&ServiceHelper.TcpClient.IsConnected)
+            {
+                ServiceHelper.TcpClient.Close();
+            }
+        }
     }
 }

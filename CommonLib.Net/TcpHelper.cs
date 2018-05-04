@@ -70,6 +70,10 @@ namespace CommonLib.Net
         {
             try
             {
+                if (_socket == null)
+                {
+                    return;
+                }
                 int end = _socket.EndReceive(ar);
                 if (end > 0)
                 {
@@ -86,7 +90,6 @@ namespace CommonLib.Net
                         Complated(this, messageModel);
                         Console.WriteLine(messageModel.Message);
                     }
-
                 }
             }
             catch (SocketException ex)
@@ -102,9 +105,11 @@ namespace CommonLib.Net
         public void Close()
         {
             _socket.Close();
+            _socket = null;
         }
 
         public event EventHandler<MessageModel> Complated;
+        public event EventHandler SendComplate;
 
         public bool IsConnected
         {
