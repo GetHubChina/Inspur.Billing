@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -10,6 +11,10 @@ namespace CommonLib.Net
 {
     public class TcpHelper
     {
+        /// <summary>
+        /// 日志对象
+        /// </summary>
+        Logger _logger = LogManager.GetCurrentClassLogger();
         /// <summary>
         /// 通讯的socket对象
         /// </summary>
@@ -30,7 +35,7 @@ namespace CommonLib.Net
             {
                 IPEndPoint point = new IPEndPoint(iPAddress, port);
                 _socket.Connect(point);
-                Console.WriteLine("连接成功。");
+                _logger.Info("Socket连接成功");
             }
         }
         byte[] buffer;
@@ -88,13 +93,13 @@ namespace CommonLib.Net
                     else
                     {
                         Complated(this, messageModel);
-                        Console.WriteLine(messageModel.Message);
+                        _logger.Info(string.Format("接收消息 {0}", messageModel.Message));
                     }
                 }
             }
             catch (SocketException ex)
             {
-                Console.WriteLine(ex.Message);
+                _logger.Error(ex.Message + ex.StackTrace);
             }
         }
 
@@ -105,11 +110,11 @@ namespace CommonLib.Net
         public void Close()
         {
             _socket.Close();
+            _logger.Info("关闭Socket");
             _socket = null;
         }
 
         public event EventHandler<MessageModel> Complated;
-        public event EventHandler SendComplate;
 
         public bool IsConnected
         {

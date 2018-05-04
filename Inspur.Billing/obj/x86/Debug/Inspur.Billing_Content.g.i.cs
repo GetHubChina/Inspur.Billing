@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("nlog.config")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("nlog.xsd")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("linqtodb.templates/copyme.sqlite.tt")]
 
 

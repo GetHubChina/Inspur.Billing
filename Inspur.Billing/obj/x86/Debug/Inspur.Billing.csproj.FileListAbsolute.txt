@@ -276,3 +276,6 @@ D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\Inspur.Billing.Properties.
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\Inspur.Billing.csproj.GenerateResource.Cache
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\Inspur.Billing.exe
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\Inspur.Billing.pdb
+D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\NLog.dll
+D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\NLog.config
+D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\NLog.xsd

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,6 +11,10 @@ namespace CommonLib.Net
     public class TcpData
     {
         #region 字段
+        /// <summary>
+        /// 日志对象
+        /// </summary>
+        Logger _logger = LogManager.GetCurrentClassLogger();
         /// <summary>
         /// 默认编码方式
         /// </summary>
@@ -86,8 +91,7 @@ namespace CommonLib.Net
                     crcBytes.AddRange(data);
                     bw.Write(CalculationCrc(crcBytes.ToArray(), crcBytes.Count));
 
-                    Console.WriteLine("状态查询发送字节数：" + ms.Length);
-
+                    _logger.Info(string.Format("数据发送  id：{0},内容：{1}，编码成字节数据：{2}", id, message, string.Join(" ", ms.ToArray())));
                     return ms.ToArray();
                 }
             }
