@@ -30,10 +30,10 @@ namespace Inspur.Billing.ViewModel
         /// </summary>
         public MainViewModel()
         {
-            //Timer timer = new Timer(3000);
-            //timer.Elapsed += Timer_Elapsed;
-            //timer.AutoReset = true;
-            //timer.Start();
+            Timer timer = new Timer(3000);
+            timer.Elapsed += Timer_Elapsed;
+            timer.AutoReset = true;
+            timer.Start();
         }
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
