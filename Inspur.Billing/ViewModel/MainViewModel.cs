@@ -38,16 +38,7 @@ namespace Inspur.Billing.ViewModel
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            AttentionResponse res;
-            try
-            {
-                res = ServiceHelper.AttentionRequest();
-            }
-            catch (Exception ex)
-            {
-                res = null;
-            }
-            if (res != null && res.ATT_GSC == "0000")
+            if (ServiceHelper.TcpClient != null && ServiceHelper.TcpClient.IsConnected)
             {
                 Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                 {

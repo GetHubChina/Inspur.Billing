@@ -279,7 +279,3 @@ D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\Inspur.Billing.pdb
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\NLog.dll
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\NLog.config
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\NLog.xsd
-D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\CommonLib.Sqlite.dll.config
-D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\Inspur.TaxModel.dll.config
-D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\System.Data.SQLite.dll.config
-D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\Inspur.Billing.csproj.CoreCompileInputs.cache

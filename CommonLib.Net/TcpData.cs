@@ -46,7 +46,11 @@ namespace CommonLib.Net
         /// <summary>
         /// 正文之前的头长度
         /// </summary>
-        const int HEADLENGTH = 9;
+        const int HEADLENGTH = 7;
+        /// <summary>
+        /// RCR长度
+        /// </summary>
+        const int RCRLENGTH = 2;
         #endregion
 
         #region 构造函数
@@ -79,17 +83,19 @@ namespace CommonLib.Net
                     //写入
                     byte[] data = _defaultEncoding.GetBytes(message);
                     //写入内容长度
-                    bw.Write(BitConverter.GetBytes(data.Length));
+                    byte[] lengthBytes = BitConverter.GetBytes(data.Length);
+                    //写入报文的时候高位在前，低位在后
+                    Array.Reverse(lengthBytes);
+                    bw.Write(lengthBytes);
                     //写入内容
                     bw.Write(data);
                     //写入校验码
-                    List<byte> crcBytes = new List<byte>();
-                    crcBytes.Add(HEADER1);
-                    crcBytes.Add(HEADER1);
-                    crcBytes.Add(id);
-                    crcBytes.AddRange(BitConverter.GetBytes(data.Length));
-                    crcBytes.AddRange(data);
-                    bw.Write(CalculationCrc(crcBytes.ToArray(), crcBytes.Count));
+                    byte[] bytes = ms.ToArray();
+                    ushort crc = CalculationCrc(bytes, bytes.Count());
+
+                    byte[] crcBytes = BitConverter.GetBytes(crc);
+                    Array.Reverse(crcBytes);
+                    bw.Write(crcBytes);
 
                     _logger.Info(string.Format("数据发送  id：{0},内容：{1}，编码成字节数据：{2}", id, message, string.Join(" ", ms.ToArray())));
                     return ms.ToArray();
@@ -102,14 +108,11 @@ namespace CommonLib.Net
         /// <param name="data"></param>
         public MessageModel Decode(byte[] data)
         {
-            //拷贝本次的有效字节  
-            byte[] copyBuffer = new byte[data.Length];
-            Array.Copy(data, 0, copyBuffer, 0, copyBuffer.Length);
-            data = copyBuffer;
+            ////拷贝本次的有效字节  
             if (this._unreadBuffer.Count > 0)
             {
                 //拷贝之前遗留的字节  
-                this._unreadBuffer.AddRange(copyBuffer);
+                this._unreadBuffer.AddRange(data);
                 data = this._unreadBuffer.ToArray();
                 this._unreadBuffer.Clear();
                 this._unreadBuffer = new List<byte>();
@@ -132,7 +135,9 @@ namespace CommonLib.Net
                 byte messageId = br.ReadByte();
                 messageModel.MessageId = messageId;
                 //读取报文长度
-                int dataLength = br.ReadInt32();
+                byte[] lengthBytes = br.ReadBytes(4);
+                Array.Reverse(lengthBytes);
+                int dataLength = BitConverter.ToInt32(lengthBytes, 0);
                 #endregion
 
                 #region 包解析  
@@ -140,26 +145,26 @@ namespace CommonLib.Net
                 if (dataLength + 2 <= (br.BaseStream.Length - br.BaseStream.Position))
                 {
                     //读取内容
-                    data = br.ReadBytes(dataLength);
-                    messageModel.Data = data;
-                    messageModel.Message = _defaultEncoding.GetString(data);
+                    byte[] contentBytes = br.ReadBytes(dataLength);
+                    messageModel.Data = contentBytes;
+                    messageModel.Message = _defaultEncoding.GetString(contentBytes);
                     Console.WriteLine(messageModel.Message);
                     //读取校验码
-                    short crc = br.ReadByte();
-                    List<byte> crcList = new List<byte>();
-                    crcList.Add(HEADER1);
-                    crcList.Add(HEADER2);
-                    crcList.Add(messageId);
-                    crcList.AddRange(BitConverter.GetBytes(dataLength));
-                    crcList.AddRange(data);
+                    byte[] crcBytes = br.ReadBytes(2);
+                    Array.Reverse(crcBytes);
+                    //高位在前，低位在后
+                    short crc = BitConverter.ToInt16(crcBytes, 0);
+
+                    byte[] messageBytes = new byte[HEADLENGTH + dataLength];
+                    Array.Copy(data, br.BaseStream.Position - HEADLENGTH - RCRLENGTH - dataLength + 1, messageBytes, 0, HEADLENGTH + dataLength);
+
                     //将未读数据添加到未读字节列表
                     while (br.BaseStream.Position < br.BaseStream.Length - 1)
                     {
                         _unreadBuffer.Add(br.ReadByte());
                     }
 
-
-                    if (crc != CalculationCrc(crcList.ToArray(), crcList.Count))
+                    if (crc != CalculationCrc(messageBytes, messageBytes.Count()))
                     {
                         //crc 校验不通过
                         throw new Exception("CRC is invalid.");
@@ -184,10 +189,6 @@ namespace CommonLib.Net
                     br.Dispose();
                 }
                 br.Close();
-                if (br != null)
-                {
-                    br.Dispose();
-                }
                 ms.Close();
                 if (ms != null)
                 {
@@ -199,10 +200,10 @@ namespace CommonLib.Net
         /// <summary>
         /// 计算校验码
         /// </summary>
-        private short CalculationCrc(byte[] data, int length)
+        private ushort CalculationCrc(byte[] data, int length)
         {
-            int i;
-            int crc = 0;
+            ushort i;
+            uint crc = 0;
 
             foreach (var item in data)
             {
@@ -221,14 +222,15 @@ namespace CommonLib.Net
                         crc ^= 0x18005;
                 }
             }
-            return (short)crc;
+            Console.WriteLine((ushort)crc);
+            return (ushort)crc;
         }
 
         private bool LoopReadHeader(BinaryReader br)
         {
             //循环读取包头             
             //判断本次解析的字节是否满足常量字节数   
-            if ((br.BaseStream.Length - br.BaseStream.Position) < HEADLENGTH)
+            if ((br.BaseStream.Length - br.BaseStream.Position) < (HEADLENGTH + RCRLENGTH))
             {
                 byte[] _buff = br.ReadBytes((int)(br.BaseStream.Length - br.BaseStream.Position));
                 this._unreadBuffer.AddRange(_buff);

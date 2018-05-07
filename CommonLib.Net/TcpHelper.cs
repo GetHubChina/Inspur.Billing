@@ -84,7 +84,7 @@ namespace CommonLib.Net
                 {
                     byte[] data = new byte[end];
                     Array.Copy(buffer, 0, data, 0, end);
-
+                    _logger.Info(string.Format("接收消息字节 {0}", string.Join(" ", data.ToArray())));
                     MessageModel messageModel = _tcpData.Decode(data);
                     if (messageModel.MessageId == 0)
                     {
