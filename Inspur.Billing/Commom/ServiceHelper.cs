@@ -31,27 +31,6 @@ namespace Inspur.Billing.Commom
         /// </summary>
         public static TcpHelper TcpClient = new TcpHelper();
 
-        //public static StatusResponse StatueRequest()
-        //{
-        //    StatusRequest statusRequest = new StatusRequest() { GS = "GetStatus" };
-        //    string requestString = JsonConvert.SerializeObject(statusRequest);
-
-        //    HttpHelper httpHelper = new HttpHelper();
-        //    HttpItem httpItem = new HttpItem();
-        //    httpItem.Method = "POST";
-        //    httpItem.URL = Const.GetStatusUri;
-        //    httpItem.Postdata = Convert.ToString(requestString);
-
-
-        //    httpItem.ResultType = ResultType.String;
-        //    HttpResult html = httpHelper.GetHtml(httpItem);
-        //    if (html.StatusCode != HttpStatusCode.OK)
-        //    {
-        //        throw new Exception(string.IsNullOrEmpty(html.Html) ? (string.IsNullOrEmpty(html.StatusDescription) ? "Post Data Error!" : html.StatusDescription) : html.Html);
-        //    }
-        //    return JsonConvert.DeserializeObject<StatusResponse>(html.Html);
-        //}
-
         public static void StatueRequest()
         {
             StatusRequest statusRequest = new StatusRequest() { PosSerialNumber = Config.PosSerialNumber, PosVendor = Config.PosVendor };
@@ -134,16 +113,7 @@ namespace Inspur.Billing.Commom
 
                     if (!statusResponse.isInitialized)
                     {
-                        AttentionResponse attentionResponse = ServiceHelper.AttentionRequest();
-                        if (attentionResponse.ATT_GSC == "0000")
-                        {
-                            //校验pin
-                            PinView pinView = new PinView();
-                        }
-                        else
-                        {
-                            ShowMessageBegin("E-SDC is not available");
-                        }
+                        ShowMessageBegin("E-SDC is not initialized.");
                     }
                     else
                     {
@@ -164,45 +134,6 @@ namespace Inspur.Billing.Commom
             }
         }
 
-        public static PinResponse VertifyPin(string pin)
-        {
-            PinRequest request = new PinRequest { VPIN = pin };
-            string requestString = JsonConvert.SerializeObject(request);
-
-            HttpHelper httpHelper = new HttpHelper();
-            HttpItem httpItem = new HttpItem();
-            httpItem.Method = "POST";
-            httpItem.URL = Const.VerifyPinUri;
-            httpItem.Postdata = Convert.ToString(requestString);
-
-
-            httpItem.ResultType = ResultType.String;
-            HttpResult html = httpHelper.GetHtml(httpItem);
-            if (html.StatusCode != HttpStatusCode.OK)
-            {
-                throw new Exception(string.IsNullOrEmpty(html.Html) ? (string.IsNullOrEmpty(html.StatusDescription) ? "Post Data Error!" : html.StatusDescription) : html.Html);
-            }
-            return JsonConvert.DeserializeObject<PinResponse>(html.Html);
-        }
-        public static AttentionResponse AttentionRequest()
-        {
-            string requestString = JsonConvert.SerializeObject(new AttentionRequest { ATT = "Attention" });
-
-            HttpHelper httpHelper = new HttpHelper();
-            HttpItem httpItem = new HttpItem();
-            httpItem.Method = "POST";
-            httpItem.URL = Const.AttentionUri;
-            httpItem.Postdata = Convert.ToString(requestString);
-
-
-            httpItem.ResultType = ResultType.String;
-            HttpResult html = httpHelper.GetHtml(httpItem);
-            if (html.StatusCode != HttpStatusCode.OK)
-            {
-                throw new Exception(string.IsNullOrEmpty(html.Html) ? (string.IsNullOrEmpty(html.StatusDescription) ? "Post Data Error!" : html.StatusDescription) : html.Html);
-            }
-            return JsonConvert.DeserializeObject<AttentionResponse>(html.Html);
-        }
         public static void SignRequest(SignRequest request)
         {
             if (request == null)
@@ -217,39 +148,19 @@ namespace Inspur.Billing.Commom
                 if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SdcUrl))
                 {
                     MessageBoxEx.Show("E-SDC URL can not be null.", MessageBoxButton.OK);
-                    return ;
+                    return;
                 }
                 string[] sdc = Const.Locator.ParameterSetting.SdcUrl.Split(':');
                 if (sdc != null && sdc.Count() != 2)
                 {
                     MessageBoxEx.Show("E-SDC URL is not in the right format.", MessageBoxButton.OK);
-                    return ;
+                    return;
                 }
                 TcpClient.Connect(IPAddress.Parse(sdc[0]), int.Parse(sdc[1]));
             }
             TcpClient.Send(0x02, requestString);
 
-            //MessageModel messageModel = TcpClient.Recive();
-            TcpClient.Recive();
-
-            //request.Hash = CaclBase64Md5Hash(requestString);
-            //requestString = JsonConvert.SerializeObject(request);
-
-            //HttpHelper httpHelper = new HttpHelper();
-            //HttpItem httpItem = new HttpItem();
-            //httpItem.Method = "POST";
-            //httpItem.URL = Const.SignUri;
-            //httpItem.Postdata = Convert.ToString(requestString);
-
-
-            //httpItem.ResultType = ResultType.String;
-            //HttpResult html = httpHelper.GetHtml(httpItem);
-            //if (html.StatusCode != HttpStatusCode.OK)
-            //{
-            //    throw new Exception(string.IsNullOrEmpty(html.Html) ? (string.IsNullOrEmpty(html.StatusDescription) ? "Post Data Error!" : html.StatusDescription) : html.Html);
-            //}
-
-            //return JsonConvert.DeserializeObject<SignResponse>(messageModel.Message);
+            TcpClient.ReciveAsync();
         }
 
         public static SignResponse LastSignRequest(LastSignRequest request)
@@ -282,72 +193,6 @@ namespace Inspur.Billing.Commom
             try
             {
                 StatueRequest();
-                //StatusResponse statusResponse = StatueRequest();
-                //if (statusResponse != null)
-                //{
-                //    //
-                //    Const.IsHasGetStatus = true;
-                //    //保存软件信息--此处处理未分开（每次都保存），正式使用的时候请
-                //    var info = (from a in Const.dB.PosInfo
-                //                select a).FirstOrDefault();
-                //    if (info != null)
-                //    {
-                //        Const.dB.Update<PosInfo>(new PosInfo { Id = info.Id, CompanyName = statusResponse.Manufacture, Desc = statusResponse.Model, Version = statusResponse.SoftwareVersion, IssueDate = info.IssueDate });
-                //    }
-                //    //记录税种信息
-                //    if (statusResponse.TaxInfo != null && statusResponse.TaxInfo.Count > 0)
-                //    {
-                //        Const.dB.CodeTaxtype.Delete();
-                //        foreach (var item in statusResponse.TaxInfo)
-                //        {
-                //            if (item.Category != null && item.Category.Count > 0)
-                //            {
-                //                foreach (var itm in item.Category)
-                //                {
-                //                    Const.dB.Insert<CodeTaxtype>(new CodeTaxtype
-                //                    {
-                //                        TaxTypeName = item.TaxTpye,
-                //                        TaxTypeCode = item.TaxTpye,
-                //                        TaxItemName = itm.TaxName,
-                //                        TaxItemCode = itm.CategoryId.ToString(),
-                //                        TaxRate = itm.TaxRate,
-                //                        EffectDate = itm.EffectiveDate,
-                //                        ExpireDate = itm.ExpiredDate
-                //                    });
-                //                }
-                //            }
-                //        }
-                //    }
-                //    //记录monitor信息
-
-
-                //    if (!statusResponse.isInitialized)
-                //    {
-                //        AttentionResponse attentionResponse = ServiceHelper.AttentionRequest();
-                //        if (attentionResponse.ATT_GSC == "0000")
-                //        {
-                //            //校验pin
-                //            PinView pinView = new PinView();
-                //            result = pinView.ShowDialog().Value;
-                //        }
-                //        else
-                //        {
-                //            ShowMessageBegin("E-SDC is not available");
-                //        }
-                //    }
-                //    else
-                //    {
-                //        if (statusResponse.isLocked)
-                //        {
-                //            ShowMessageBegin("E-SDC is locked.");
-                //        }
-                //        else
-                //        {
-                //            ShowMessageBegin("E-SDC is available");
-                //            result = true;
-                //        }
-                //    }
-                //}
             }
             catch (SocketException e)
             {

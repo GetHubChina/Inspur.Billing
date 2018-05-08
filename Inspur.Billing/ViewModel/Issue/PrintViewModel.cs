@@ -487,67 +487,40 @@ namespace Inspur.Billing.ViewModel.Issue
         }
         private void Sign()
         {
-            AttentionResponse attentionResponse = ServiceHelper.AttentionRequest();
-            if (attentionResponse.ATT_GSC == "0000")
+            signRequest = new SignRequest
             {
-                signRequest = new SignRequest
-                {
-                    PosSerialNumber = Config.PosSerialNumber,
-                    IssueTime = DateTime.Now.ToString("yyyyMMddHHmmss"),
-                    TransactionType = Credit.SelectedPaymentType.Code,
-                    PaymentMode = Credit.SelectedPaymentType.Code,
-                    SaleType = "0",
-                    LocalPurchaseOrder = "",
-                    Cashier = Credit.Cashier,
-                    BuyerTPIN = Credit.Buyer.Tin,
-                    BuyerName = Credit.Buyer.Name,
-                    BuyerTaxAccountName = "",
-                    BuyerAddress = Credit.Buyer.Address,
-                    BuyerTel = Credit.Buyer.TelPhone,
-                    OriginalInvoiceCode = "",
-                    OriginalInvoiceNumber = ""
-                };
-                //signRequest.BuyerCostCenterId = "1234567890";
-                //signRequest.InvoiceNumber = "PNQAVDNX-PNQAVDNX-1";
-                //signRequest.Options = new Dictionary<string, string>();
-                //if (Credit.IsMitQr)
-                //{
-                //    signRequest.Options.Add("OmitQRCodeGen", "1");
-                //}
-                //else
-                //{
-                //    signRequest.Options.Add("OmitQRCodeGen", "0");
-                //}
-                //if (Credit.IsMitTexTual)
-                //{
-                //    signRequest.Options.Add("OmitTextualRepresentation", "1");
-                //}
-                //else
-                //{
-                //    signRequest.Options.Add("OmitTextualRepresentation", "0");
-                //}
-                signRequest.Items = new List<SignGoodItem>();
-                SignGoodItem signGoodItem;
-                foreach (var item in Credit.Productes)
-                {
-                    signGoodItem = new SignGoodItem();
-                    signGoodItem.GTIN = item.BarCode;
-                    signGoodItem.Name = item.Name;
-                    signGoodItem.Quantity = item.Count;
-                    signGoodItem.UnitPrice = item.Price;
-                    signGoodItem.TotalAmount = item.Amount;
-                    signGoodItem.IsTaxInclusive = true;
-                    signGoodItem.Labels = new string[1] { item.TaxType.Label };
-                    signRequest.Items.Add(signGoodItem);
-                }
-                ServiceHelper.TcpClient.Complated -= TcpClient_Complated;
-                ServiceHelper.TcpClient.Complated += TcpClient_Complated;
-                ServiceHelper.SignRequest(signRequest);
-            }
-            else
+                PosSerialNumber = Config.PosSerialNumber,
+                IssueTime = DateTime.Now.ToString("yyyyMMddHHmmss"),
+                TransactionType = Credit.SelectedPaymentType.Code,
+                PaymentMode = Credit.SelectedPaymentType.Code,
+                SaleType = "0",
+                LocalPurchaseOrder = "",
+                Cashier = Credit.Cashier,
+                BuyerTPIN = Credit.Buyer.Tin,
+                BuyerName = Credit.Buyer.Name,
+                BuyerTaxAccountName = "",
+                BuyerAddress = Credit.Buyer.Address,
+                BuyerTel = Credit.Buyer.TelPhone,
+                OriginalInvoiceCode = "",
+                OriginalInvoiceNumber = ""
+            };
+            signRequest.Items = new List<SignGoodItem>();
+            SignGoodItem signGoodItem;
+            foreach (var item in Credit.Productes)
             {
-                MessageBoxEx.Show("E-SDC is not available.ATT_GSC=" + attentionResponse.ATT_GSC);
+                signGoodItem = new SignGoodItem();
+                signGoodItem.GTIN = item.BarCode;
+                signGoodItem.Name = item.Name;
+                signGoodItem.Quantity = item.Count;
+                signGoodItem.UnitPrice = item.Price;
+                signGoodItem.TotalAmount = item.Amount;
+                signGoodItem.IsTaxInclusive = true;
+                signGoodItem.Labels = new string[1] { item.TaxType.Label };
+                signRequest.Items.Add(signGoodItem);
             }
+            ServiceHelper.TcpClient.Complated -= TcpClient_Complated;
+            ServiceHelper.TcpClient.Complated += TcpClient_Complated;
+            ServiceHelper.SignRequest(signRequest);
         }
 
         private void TcpClient_Complated(object sender, CommonLib.Net.MessageModel e)

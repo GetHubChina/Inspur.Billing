@@ -55,25 +55,25 @@ namespace Inspur.Billing.ViewModel.Setting
             {
                 return _confirmCommand ?? (_confirmCommand = new RelayCommand(() =>
                 {
-                    if (string.IsNullOrEmpty(Pin))
-                    {
-                        MessageBoxEx.Show("PIN can not be null.", MessageBoxButton.OK);
-                        return;
-                    }
+                    //if (string.IsNullOrEmpty(Pin))
+                    //{
+                    //    MessageBoxEx.Show("PIN can not be null.", MessageBoxButton.OK);
+                    //    return;
+                    //}
 
-                    PinResponse pinResponse = ServiceHelper.VertifyPin(Pin);
-                    if (pinResponse.VPIN_GSC == "0100")
-                    {
-                        //关闭校验窗口
-                        Messenger.Default.Send<string>(null, "ClosePinView");
-                    }
-                    else
-                    {
-                        Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-                        {
-                            ServiceHelper.ShowMessage(new string[1] { pinResponse.VPIN_GSC });
-                        }));
-                    }
+                    //PinResponse pinResponse = ServiceHelper.VertifyPin(Pin);
+                    //if (pinResponse.VPIN_GSC == "0100")
+                    //{
+                    //    //关闭校验窗口
+                    //    Messenger.Default.Send<string>(null, "ClosePinView");
+                    //}
+                    //else
+                    //{
+                    //    Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                    //    {
+                    //        ServiceHelper.ShowMessage(new string[1] { pinResponse.VPIN_GSC });
+                    //    }));
+                    //}
                 }, () =>
                 {
                     return true;
