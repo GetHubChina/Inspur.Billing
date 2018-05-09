@@ -156,7 +156,7 @@ namespace CommonLib.Net
                     short crc = BitConverter.ToInt16(crcBytes, 0);
 
                     byte[] messageBytes = new byte[HEADLENGTH + dataLength];
-                    Array.Copy(data, br.BaseStream.Position - HEADLENGTH - RCRLENGTH - dataLength + 1, messageBytes, 0, HEADLENGTH + dataLength);
+                    Array.Copy(data, br.BaseStream.Position - HEADLENGTH - RCRLENGTH - dataLength, messageBytes, 0, HEADLENGTH + dataLength);
 
                     //将未读数据添加到未读字节列表
                     while (br.BaseStream.Position < br.BaseStream.Length - 1)
@@ -166,12 +166,19 @@ namespace CommonLib.Net
 
                     if (crc != CalculationCrc(messageBytes, messageBytes.Count()))
                     {
+                        messageModel = new MessageModel();
                         //crc 校验不通过
                         throw new Exception("CRC is invalid.");
                     }
                 }
                 else
                 {
+                    messageModel = new MessageModel();
+                    _unreadBuffer.Add(HEADER1);
+                    _unreadBuffer.Add(HEADER2);
+                    _unreadBuffer.Add(messageId);
+                    Array.Reverse(lengthBytes);
+                    _unreadBuffer.AddRange(lengthBytes);
                     //剩余字节数刚好小于本次读取的字节数 存起来，等待接受剩余字节数一起解析  
                     buff = br.ReadBytes((int)(br.BaseStream.Length - br.BaseStream.Position + 7));
                     _unreadBuffer.AddRange(buff);

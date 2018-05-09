@@ -95,7 +95,7 @@ namespace Inspur.Billing.Commom
             {
                 target = new TaxType();
             }
-            target.Id = source.TaxtypeId;
+            target.Id = source.TaxtypeId == null ? 0 : source.TaxtypeId.Value;
             target.FixTaxAmount = source.FixedTaxAmount == null ? 0 : source.FixedTaxAmount.Value;
             target.CalculationMode = source.CalculationMode;
             target.Rate = source.TaxRate == null ? 0 : source.TaxRate.Value;

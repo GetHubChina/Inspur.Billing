@@ -376,7 +376,7 @@ namespace Inspur.Billing.ViewModel.Issue
                                         {
                                             return;
                                         }
-                                        CodeTaxtype codeTaxtype = TaxRates.FirstOrDefault(a => a.TaxtypeId == taxId);
+                                        CodeTaxtype codeTaxtype = TaxRates.FirstOrDefault(a => (a.TaxtypeId != null && a.TaxtypeId.Value == taxId));
                                         if (codeTaxtype != null)
                                         {
                                             EntityAdapter.CodeTaxtype2TaxType(codeTaxtype, SelectedItem.TaxType);
@@ -389,7 +389,7 @@ namespace Inspur.Billing.ViewModel.Issue
                                 {
                                     return;
                                 }
-                                CodeTaxtype codeTax = TaxRates.FirstOrDefault(a => a.TaxtypeId == SelectedItem.TaxType.Id);
+                                CodeTaxtype codeTax = TaxRates.FirstOrDefault(a => (a.TaxtypeId != null && a.TaxtypeId.Value == SelectedItem.TaxType.Id));
                                 if (codeTax != null)
                                 {
                                     EntityAdapter.CodeTaxtype2TaxType(codeTax, SelectedItem.TaxType);
@@ -425,7 +425,7 @@ namespace Inspur.Billing.ViewModel.Issue
         #endregion
 
         #region 方法
-        
+
         private void LoadBuyerInfo()
         {
             if (!string.IsNullOrWhiteSpace(_buyer.Tin))
@@ -455,7 +455,6 @@ namespace Inspur.Billing.ViewModel.Issue
         {
             TaxRates = (from a in Const.dB.CodeTaxtype
                         select a).ToList();
-
         }
         private void LoadGoodTaxType()
         {

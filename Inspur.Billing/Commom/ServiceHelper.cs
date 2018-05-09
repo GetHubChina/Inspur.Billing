@@ -88,6 +88,7 @@ namespace Inspur.Billing.Commom
                     if (statusResponse.TaxInfo != null && statusResponse.TaxInfo.Count > 0)
                     {
                         Const.dB.CodeTaxtype.Delete();
+                        long id = 1;
                         foreach (var item in statusResponse.TaxInfo)
                         {
                             if (item.Category != null && item.Category.Count > 0)
@@ -96,14 +97,18 @@ namespace Inspur.Billing.Commom
                                 {
                                     Const.dB.Insert<CodeTaxtype>(new CodeTaxtype
                                     {
+                                        TaxtypeId = id,
                                         TaxTypeName = item.TaxTpye,
                                         TaxTypeCode = item.TaxTpye,
+
+                                        TaxItemLable = itm.TaxLabel,
                                         TaxItemName = itm.TaxName,
                                         TaxItemCode = itm.CategoryId.ToString(),
                                         TaxRate = itm.TaxRate,
                                         EffectDate = itm.EffectiveDate,
                                         ExpireDate = itm.ExpiredDate
                                     });
+                                    id++;
                                 }
                             }
                         }

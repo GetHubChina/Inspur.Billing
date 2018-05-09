@@ -76,7 +76,7 @@ namespace DataModels
     [Table("code_taxtype")]
     public partial class CodeTaxtype
     {
-        [Column("taxtype_id"), PrimaryKey, NotNull] public long TaxtypeId { get; set; } // integer
+        [Column("taxtype_id"), PrimaryKey, NotNull] public long? TaxtypeId { get; set; } // integer
         [Column("tax type_name"), Nullable] public string TaxTypeName { get; set; } // varchar(100)
         [Column("tax_type_code"), Nullable] public string TaxTypeCode { get; set; } // varchar(10)
         [Column("tax_item_name"), Nullable] public string TaxItemName { get; set; } // varchar(100)
