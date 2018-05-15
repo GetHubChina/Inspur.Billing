@@ -8,9 +8,9 @@ namespace Inspur.Billing.Model.Service.Sign
 {
     public class TaxItem
     {
-        public string Label{ get; set; }
+        public string TaxLabel{ get; set; }
         public string CategoryName{ get; set; }
         public double Rate { get; set; }
-        public double Amount{ get; set; }
+        public double TaxAmount{ get; set; }
     }
 }

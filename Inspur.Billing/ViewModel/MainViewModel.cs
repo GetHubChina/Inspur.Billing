@@ -1,8 +1,12 @@
+using ControlLib.Controls.Dialogs;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Inspur.Billing.Commom;
+using Inspur.Billing.Model;
 using Inspur.Billing.Model.Service.Attention;
 using LinqToDB;
+using Newtonsoft.Json;
+using NLog;
 using System;
 using System.Linq;
 using System.Timers;
@@ -26,6 +30,10 @@ namespace Inspur.Billing.ViewModel
     public class MainViewModel : ViewModelBase
     {
         /// <summary>
+        /// 日志对象
+        /// </summary>
+        Logger _logger = LogManager.GetCurrentClassLogger();
+        /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public MainViewModel()
@@ -34,6 +42,24 @@ namespace Inspur.Billing.ViewModel
             timer.Elapsed += Timer_Elapsed;
             timer.AutoReset = true;
             timer.Start();
+
+            if (ServiceHelper.TcpClient != null)
+            {
+                ServiceHelper.TcpClient.Complated += TcpClient_Complated;
+            }
+        }
+
+        private void TcpClient_Complated(object sender, CommonLib.Net.MessageModel e)
+        {
+            if (e.MessageId == 0x03)
+            {
+                ErrorInfo erroInfo = JsonConvert.DeserializeObject<ErrorInfo>(e.Message);
+                if (erroInfo != null)
+                {
+                    _logger.Info(string.Format("返回错误，ErroCode：{0},Description:{1}", erroInfo.ErroCode, erroInfo.Description));
+                    MessageBoxEx.Show(erroInfo.Description, MessageBoxButton.OK);
+                }
+            }
         }
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)

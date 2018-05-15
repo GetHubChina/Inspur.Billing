@@ -37,7 +37,7 @@ namespace Inspur.Billing
 
         private void Current_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            _logger.Error(e.Exception, "UI线程全局异常");
+            _logger.Error(e.Exception, "UI线程全局异常"+e.Exception);
             e.Handled = true;
         }
 

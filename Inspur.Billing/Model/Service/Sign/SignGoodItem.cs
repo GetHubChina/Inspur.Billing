@@ -13,7 +13,7 @@ namespace Inspur.Billing.Model.Service.Sign
         /// Global Trade Item Number (GTIN) is an identifier for trade items, incorporated the ISBN, ISSN, ISMN, IAN (which includes the European Article Number and Japanese Article Number) and some Universal Product Codes, into a universal number space.
         /// </summary>
         [JsonProperty(PropertyName = "ItemId")]
-        public string GTIN { get; set; }
+        public int GTIN { get; set; }
         /// <summary>
         /// Human readable name of the product or service. Required Max Length 2048 character
         /// </summary>
@@ -23,7 +23,7 @@ namespace Inspur.Billing.Model.Service.Sign
         public double Quantity { get; set; }
         [JsonProperty(PropertyName = "UnitPrice")]
         public double UnitPrice { get; set; }
-        public double Discount { get; set; }
+        //public double Discount { get; set; }
         /// <summary>
         /// Array of labels. Each Label represents one of the Tax Rates applied on invoice item. Tax Items are calculated based on TotalAmount and applied Labels as described in Calculate Taxes section. 
         /// Required, Array of strings.In case no taxes are applicable online item this field is optional
@@ -39,6 +39,6 @@ namespace Inspur.Billing.Model.Service.Sign
         [JsonProperty(PropertyName = "isTaxInclusive")]
         public bool IsTaxInclusive { get; set; }
         [JsonProperty(PropertyName = "RRP")]
-        public bool RRP { get; set; }
+        public double RRP { get; set; }
     }
 }

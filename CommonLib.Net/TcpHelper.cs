@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace CommonLib.Net
 {
@@ -92,7 +93,10 @@ namespace CommonLib.Net
                     }
                     else
                     {
-                        Complated(this, messageModel);
+                        Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                        {
+                            Complated(this, messageModel);
+                        }));
                         _logger.Info(string.Format("接收消息 {0}", messageModel.Message));
                     }
                 }

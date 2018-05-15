@@ -152,6 +152,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CopyMe.SQLite.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\ErrorInfo.cs" />
     <Compile Include="Model\CodeTable.cs" />
     <Compile Include="Model\MonitoringInfo.cs" />
     <Compile Include="Model\Service\Attention\AttentionRequest.cs" />

@@ -67,7 +67,7 @@ namespace Inspur.Billing.ViewModel.Issue
         {
             new CodeTable{ Name="Normal",Code="0"},
             new CodeTable{ Name="Credit Note",Code="1"},
-            new CodeTable{ Name="Debit Note",Code="1"}
+            new CodeTable{ Name="Debit Note",Code="2"}
         };
         /// <summary>
         /// 获取或设置交易类型

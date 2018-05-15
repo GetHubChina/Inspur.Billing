@@ -361,10 +361,10 @@ namespace Inspur.Billing.ViewModel.Issue
                 {
                     invoiceTax = new InvoiceTax
                     {
-                        TaxItemCode = taxItem.Label,
+                        TaxItemCode = taxItem.TaxLabel,
                         TaxItemDesc = taxItem.CategoryName,
                         TaxRate = taxItem.Rate,
-                        TaxAmount = taxItem.Amount,
+                        TaxAmount = taxItem.TaxAmount,
                     };
                     items.Add(invoiceTax);
                 }
@@ -491,25 +491,51 @@ namespace Inspur.Billing.ViewModel.Issue
             {
                 PosSerialNumber = Config.PosSerialNumber,
                 IssueTime = DateTime.Now.ToString("yyyyMMddHHmmss"),
-                TransactionType = Credit.SelectedPaymentType.Code,
-                PaymentMode = Credit.SelectedPaymentType.Code,
-                SaleType = "0",
-                LocalPurchaseOrder = "",
+                SaleType = 0,
+                LocalPurchaseOrder = "1000582782",
                 Cashier = Credit.Cashier,
-                BuyerTPIN = Credit.Buyer.Tin,
-                BuyerName = Credit.Buyer.Name,
+                BuyerTPIN = string.IsNullOrWhiteSpace(Credit.Buyer.Tin) ? "" : Credit.Buyer.Tin,
+                BuyerName = string.IsNullOrWhiteSpace(Credit.Buyer.Name) ? "" : Credit.Buyer.Name,
                 BuyerTaxAccountName = "",
-                BuyerAddress = Credit.Buyer.Address,
-                BuyerTel = Credit.Buyer.TelPhone,
+                BuyerAddress = string.IsNullOrWhiteSpace(Credit.Buyer.Address) ? "" : Credit.Buyer.Address,
+                BuyerTel = string.IsNullOrWhiteSpace(Credit.Buyer.TelPhone) ? "" : Credit.Buyer.TelPhone,
                 OriginalInvoiceCode = "",
                 OriginalInvoiceNumber = ""
             };
+
+            int transactionCode, paymentCode;
+            if (int.TryParse(Credit.SelectedTransactionType.Code, out transactionCode))
+            {
+                signRequest.TransactionType = transactionCode;
+            }
+            else
+            {
+                MessageBoxEx.Show("TransactionType is not number.");
+                return;
+            }
+            if (int.TryParse(Credit.SelectedPaymentType.Code, out paymentCode))
+            {
+                signRequest.PaymentMode = paymentCode;
+            }
+            else
+            {
+                MessageBoxEx.Show("PaymentMode is not number.");
+                return;
+            }
+
             signRequest.Items = new List<SignGoodItem>();
             SignGoodItem signGoodItem;
+            int id = 1;
             foreach (var item in Credit.Productes)
             {
                 signGoodItem = new SignGoodItem();
-                signGoodItem.GTIN = item.BarCode;
+                signGoodItem.GTIN = id;
+                id++;
+                if (string.IsNullOrWhiteSpace(item.Name))
+                {
+                    MessageBoxEx.Show("Description is required.");
+                    return;
+                }
                 signGoodItem.Name = item.Name;
                 signGoodItem.Quantity = item.Count;
                 signGoodItem.UnitPrice = item.Price;

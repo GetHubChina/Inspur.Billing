@@ -64,9 +64,9 @@ namespace Inspur.Billing.Model.Service.Sign
 
         public string PosSerialNumber { get; set; }
         public string IssueTime { get; set; }
-        public string TransactionType { get; set; }
-        public string PaymentMode { get; set; }
-        public string SaleType { get; set; }
+        public int TransactionType { get; set; }
+        public int PaymentMode { get; set; }
+        public int SaleType { get; set; }
         public string LocalPurchaseOrder { get; set; }
         public string Cashier { get; set; }
         public string BuyerTPIN { get; set; }
