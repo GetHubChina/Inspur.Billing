@@ -46,7 +46,7 @@ namespace Inspur.Billing
             base.OnExit(e);
             if (ServiceHelper.TcpClient != null && ServiceHelper.TcpClient.IsConnected)
             {
-                ServiceHelper.TcpClient.Close();
+                ServiceHelper.TcpClient.CloseSocket();
             }
         }
     }

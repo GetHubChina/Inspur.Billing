@@ -22,6 +22,10 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using GalaSoft.MvvmLight.Messaging;
 using Newtonsoft.Json;
+using CommonLib.Net;
+using System.Net;
+using System.Windows;
+using Inspur.Billing.Model;
 
 namespace Inspur.Billing.ViewModel.Issue
 {
@@ -34,6 +38,10 @@ namespace Inspur.Billing.ViewModel.Issue
         /// 58pos -  32字符，80-
         /// </summary>
         const int PrintCharCount = 47;
+        /// <summary>
+        /// 签章请求
+        /// </summary>
+        public TcpHelper _signTcpClient = new TcpHelper();
         #endregion
 
         #region 属性
@@ -302,39 +310,6 @@ namespace Inspur.Billing.ViewModel.Issue
                 byte[] qrArr = Convert.FromBase64String(signResponse.VerificationQRCode);
                 using (MemoryStream ms = new MemoryStream(qrArr))
                 {
-                    //先保存，在缩放,保存
-                    //Bitmap bmp = new Bitmap(ms);
-                    ////bmp.Save(AppDomain.CurrentDomain.BaseDirectory + "qr.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
-                    ////保存单色图
-                    //Bitmap bitmap = bmp.Clone(new Rectangle(0, 0, bmp.Width, bmp.Height), System.Drawing.Imaging.PixelFormat.Format1bppIndexed);
-
-                    ////缩放图片
-                    //Bitmap zoombmp = new Bitmap(QrWidth, QrWidth);
-                    //Graphics g = Graphics.FromImage(zoombmp);
-                    //// 插值算法的质量
-                    //g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                    //g.DrawImage(bitmap, new Rectangle(0, 0, QrWidth, QrWidth), new Rectangle(0, 0, bitmap.Width, bitmap.Height), GraphicsUnit.Pixel);
-                    //g.Dispose();
-
-                    ////Bitmap bitmap = b.Clone(new Rectangle(0, 0, b.Width, b.Height), System.Drawing.Imaging.PixelFormat.Format1bppIndexed);
-                    ////保存单色图
-                    //Bitmap bitmap2 = bmp.Clone(new Rectangle(0, 0, zoombmp.Width, zoombmp.Height), System.Drawing.Imaging.PixelFormat.Format1bppIndexed);
-                    //bitmap2.Save(AppDomain.CurrentDomain.BaseDirectory + "qr.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
-
-                    ////先缩放，在保存
-                    //Bitmap bmp = new Bitmap(ms);
-                    //int qrWidth = (int)(bmp.Width * Config.QrMagnification);
-                    ////缩放图片
-                    //Bitmap zoombmp = new Bitmap(qrWidth, qrWidth);
-                    //Graphics g = Graphics.FromImage(zoombmp);
-                    //// 插值算法的质量
-                    //g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                    //g.DrawImage(bmp, new Rectangle(0, 0, qrWidth, qrWidth), new Rectangle(0, 0, bmp.Width, bmp.Height), GraphicsUnit.Pixel);
-                    //g.Dispose();
-                    ////保存单色图
-                    //Bitmap bitmap = zoombmp.Clone(new Rectangle(0, 0, zoombmp.Width, zoombmp.Height), System.Drawing.Imaging.PixelFormat.Format1bppIndexed);
-                    //bitmap.Save(Const.QrPath, System.Drawing.Imaging.ImageFormat.Bmp);
-
                     Bitmap bitmap = new Bitmap(ms);
                     bitmap.Save(Const.QrPath, System.Drawing.Imaging.ImageFormat.Bmp);
 
@@ -544,11 +519,105 @@ namespace Inspur.Billing.ViewModel.Issue
                 signGoodItem.Labels = new string[1] { item.TaxType.Label };
                 signRequest.Items.Add(signGoodItem);
             }
-            ServiceHelper.TcpClient.Complated -= TcpClient_Complated;
-            ServiceHelper.TcpClient.Complated += TcpClient_Complated;
-            ServiceHelper.SignRequest(signRequest);
+            //ServiceHelper.TcpClient.Complated -= TcpClient_Complated;
+            //ServiceHelper.TcpClient.Complated += TcpClient_Complated;
+            //ServiceHelper.SignRequest(signRequest);
+
+            SignRequest(signRequest);
         }
 
+        private void _signTcpClient_Complated(object sender, MessageModel e)
+        {
+            try
+            {
+                if (e.MessageId == 0x03)
+                {
+                    //返回错误
+                    ErrorInfo erroInfo = JsonConvert.DeserializeObject<ErrorInfo>(e.Message);
+                    if (erroInfo != null)
+                    {
+                        MessageBoxEx.Show(erroInfo.Description, MessageBoxButton.OK);
+                        return;
+                    }
+                }
+                if (e.MessageId != 0x02)
+                {
+                    return;
+                }
+                ServiceHelper.TcpClient.Complated -= TcpClient_Complated;
+                signResponse = JsonConvert.DeserializeObject<SignResponse>(e.Message);
+                if (signResponse != null)
+                {
+                    //处理税款数据
+                    SignSuccessData();
+                }
+                else
+                {
+                    SignFilureData();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBoxEx.Show(ex.Message);
+            }
+        }
+
+        public void SignRequest(SignRequest request)
+        {
+            if (request == null)
+            {
+                throw new ArgumentNullException("SignRequest data can not be null.");
+            }
+            _signTcpClient = new TcpHelper();
+            if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SdcUrl))
+            {
+                MessageBoxEx.Show("E-SDC URL can not be null.", MessageBoxButton.OK);
+                return;
+            }
+            string[] sdc = Const.Locator.ParameterSetting.SdcUrl.Split(':');
+            if (sdc != null && sdc.Count() != 2)
+            {
+                MessageBoxEx.Show("E-SDC URL is not in the right format.", MessageBoxButton.OK);
+                return;
+            }
+            bool isConn = _signTcpClient.Connect(IPAddress.Parse(sdc[0]), int.Parse(sdc[1]));
+            if (!isConn)
+            {
+                MessageBoxEx.Show("Failed to connect to E-SDC.", MessageBoxButton.OK);
+                return;
+            }
+            string requestString = JsonConvert.SerializeObject(request);
+            _signTcpClient.Complated -= _signTcpClient_Complated;
+            _signTcpClient.Complated += _signTcpClient_Complated;
+            _signTcpClient.Send(0x02, requestString);
+            _signTcpClient.ReciveAsync();
+
+
+
+
+
+            //string requestString = JsonConvert.SerializeObject(request);
+
+
+            //if (!_signTcpClient.IsConnected)
+            //{
+            //    if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SdcUrl))
+            //    {
+            //        MessageBoxEx.Show("E-SDC URL can not be null.", MessageBoxButton.OK);
+            //        return;
+            //    }
+            //    string[] sdc = Const.Locator.ParameterSetting.SdcUrl.Split(':');
+            //    if (sdc != null && sdc.Count() != 2)
+            //    {
+            //        MessageBoxEx.Show("E-SDC URL is not in the right format.", MessageBoxButton.OK);
+            //        return;
+            //    }
+            //    TcpClient.Connect(IPAddress.Parse(sdc[0]), int.Parse(sdc[1]));
+            //}
+            //TcpClient.Send(0x02, requestString);
+
+            //TcpClient.ReciveAsync();
+        }
         private void TcpClient_Complated(object sender, CommonLib.Net.MessageModel e)
         {
             try

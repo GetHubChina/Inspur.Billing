@@ -20,6 +20,7 @@ using Inspur.Billing.Model.Service.Sign;
 using System.Security.Cryptography;
 using Inspur.Billing.Model.Service.LastSign;
 using System.Net.Sockets;
+using Inspur.Billing.Model;
 
 namespace Inspur.Billing.Commom
 {
@@ -31,47 +32,62 @@ namespace Inspur.Billing.Commom
         /// </summary>
         public static TcpHelper TcpClient = new TcpHelper();
 
+        public static TcpHelper _statusTcpClient = new TcpHelper();
+
         public static void StatueRequest()
         {
+            _statusTcpClient = new TcpHelper();
+            if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SdcUrl))
+            {
+                MessageBoxEx.Show("E-SDC URL can not be null.", MessageBoxButton.OK);
+                return;
+            }
+            string[] sdc = Const.Locator.ParameterSetting.SdcUrl.Split(':');
+            if (sdc != null && sdc.Count() != 2)
+            {
+                MessageBoxEx.Show("E-SDC URL is not in the right format.", MessageBoxButton.OK);
+                return;
+            }
+            bool isConn = _statusTcpClient.Connect(IPAddress.Parse(sdc[0]), int.Parse(sdc[1]));
+            if (!isConn)
+            {
+                MessageBoxEx.Show("Failed to connect to E-SDC.", MessageBoxButton.OK);
+                return;
+            }
+
             StatusRequest statusRequest = new StatusRequest() { PosSerialNumber = Config.PosSerialNumber, PosVendor = Config.PosVendor };
             string requestString = JsonConvert.SerializeObject(statusRequest);
 
-            if (!TcpClient.IsConnected)
-            {
-                if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SdcUrl))
-                {
-                    MessageBoxEx.Show("E-SDC URL can not be null.", MessageBoxButton.OK);
-                    //return null;
-                    return;
-                }
-                string[] sdc = Const.Locator.ParameterSetting.SdcUrl.Split(':');
-                if (sdc != null && sdc.Count() != 2)
-                {
-                    MessageBoxEx.Show("E-SDC URL is not in the right format.", MessageBoxButton.OK);
-                    //return null;
-                    return;
-                }
-                TcpClient.Connect(IPAddress.Parse(sdc[0]), int.Parse(sdc[1]));
-            }
-            TcpClient.Complated -= TcpClient_Complated;
-            TcpClient.Complated += TcpClient_Complated;
-            TcpClient.Send(0x01, requestString);
-
-            //MessageModel messageModel = TcpClient.Recive();
-            TcpClient.ReciveAsync();
-
-            //return JsonConvert.DeserializeObject<StatusResponse>(messageModel.Message);
+            _statusTcpClient.Complated -= _statusTcpClient_Complated;
+            _statusTcpClient.Complated += _statusTcpClient_Complated;
+            _statusTcpClient.Send(0x01, requestString);
+            _statusTcpClient.ReciveAsync();
         }
 
-        private static void TcpClient_Complated(object sender, MessageModel e)
+        private static void _statusTcpClient_Complated(object sender, MessageModel e)
         {
             try
             {
+                if (e.MessageId == 0x03)
+                {
+                    //返回错误
+                    ErrorInfo erroInfo = JsonConvert.DeserializeObject<ErrorInfo>(e.Message);
+                    if (erroInfo != null)
+                    {
+                        MessageBoxEx.Show(erroInfo.Description, MessageBoxButton.OK);
+                        return;
+                    }
+                }
                 if (e.MessageId != 0x01)
                 {
                     return;
                 }
-                TcpClient.Complated -= TcpClient_Complated;
+                if (!e.IsSuccess)
+                {
+                    ShowMessageBegin(e.ErrorMessage);
+                    return;
+                }
+                _statusTcpClient.Complated -= _statusTcpClient_Complated;
                 StatusResponse statusResponse = JsonConvert.DeserializeObject<StatusResponse>(e.Message);
                 if (statusResponse != null)
                 {

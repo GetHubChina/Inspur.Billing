@@ -24,5 +24,8 @@ namespace CommonLib.Net
         /// 校验码
         /// </summary>
         public string Crc { get; set; }
+
+        public bool IsSuccess { get; set; }
+        public string ErrorMessage { get; set; }
     }
 }

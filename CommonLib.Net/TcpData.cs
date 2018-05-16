@@ -97,7 +97,7 @@ namespace CommonLib.Net
                     Array.Reverse(crcBytes);
                     bw.Write(crcBytes);
 
-                    _logger.Info(string.Format("数据发送  id：{0},内容：{1}，编码成字节数据：{2}", id, message, string.Join(" ", ms.ToArray())));
+                    _logger.Info(string.Format("数据发送  id：{0},内容：{1}，编码成字节数据：{2}", id, message, BitConverter.ToString(ms.ToArray())));
                     return ms.ToArray();
                 }
             }
@@ -119,6 +119,7 @@ namespace CommonLib.Net
             }
 
             MessageModel messageModel = new MessageModel();
+            messageModel.IsSuccess = true;
             MemoryStream ms = new MemoryStream(data);
             BinaryReader br = new BinaryReader(ms, _defaultEncoding);
             try
@@ -153,7 +154,7 @@ namespace CommonLib.Net
                     byte[] crcBytes = br.ReadBytes(2);
                     Array.Reverse(crcBytes);
                     //高位在前，低位在后
-                    short crc = BitConverter.ToInt16(crcBytes, 0);
+                    ushort crc = BitConverter.ToUInt16(crcBytes, 0);
 
                     byte[] messageBytes = new byte[HEADLENGTH + dataLength];
                     Array.Copy(data, br.BaseStream.Position - HEADLENGTH - RCRLENGTH - dataLength, messageBytes, 0, HEADLENGTH + dataLength);
@@ -163,12 +164,12 @@ namespace CommonLib.Net
                     {
                         _unreadBuffer.Add(br.ReadByte());
                     }
-
-                    if (crc != CalculationCrc(messageBytes, messageBytes.Count()))
+                    ushort localCRC = CalculationCrc(messageBytes, messageBytes.Count());
+                    if (crc != localCRC)
                     {
-                        messageModel = new MessageModel();
-                        //crc 校验不通过
-                        throw new Exception("CRC is invalid.");
+                        messageModel.IsSuccess = false;
+                        messageModel.ErrorMessage = "CRC is invalid.";
+                        _logger.Info("CRC is invalid." + localCRC + "Remote CRC:" + crc);
                     }
                 }
                 else
