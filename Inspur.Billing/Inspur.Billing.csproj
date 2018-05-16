@@ -177,6 +177,9 @@
     <Compile Include="ViewModel\Setting\SoftwareSettingVm.cs" />
     <Compile Include="ViewModel\Setting\TaxPayerSettingVm.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\Issue\AddGood.xaml.cs">
+      <DependentUpon>AddGood.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Issue\CreditView.xaml.cs">
       <DependentUpon>CreditView.xaml</DependentUpon>
     </Compile>
@@ -198,6 +201,10 @@
     <Compile Include="View\Setting\TaxPayerSetting.xaml.cs">
       <DependentUpon>TaxPayerSetting.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\Issue\AddGood.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Issue\CreditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

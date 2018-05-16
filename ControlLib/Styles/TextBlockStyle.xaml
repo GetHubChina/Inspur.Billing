@@ -16,6 +16,13 @@
         <Setter Property="Foreground" Value="{DynamicResource DarkRedForground}"/>
         <Setter Property="FontWeight" Value="ExtraBlack"/>
     </Style>
+    <!--水平居中的文本样式-->
+    <Style x:Key="H_C_D_TitleTbkStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseContentTbkStyle}">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="{StaticResource FontSize_18}"/>
+        <Setter Property="Margin" Value="0,5,0,5"/>
+        <Setter Property="Foreground" Value="Black"/>
+    </Style>
     <!--水平居右的文本样式-->
     <Style x:Key="H_R_ContentTbkStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseContentTbkStyle}">
         <Setter Property="HorizontalAlignment" Value="Right"/>
