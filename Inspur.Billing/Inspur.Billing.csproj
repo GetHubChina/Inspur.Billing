@@ -143,6 +143,7 @@
     </ApplicationDefinition>
     <Compile Include="Commom\Config.cs" />
     <Compile Include="Commom\Const.cs" />
+    <Compile Include="Commom\DateTimeHelper.cs" />
     <Compile Include="Commom\EntityAdapter.cs" />
     <Compile Include="Commom\Printer.cs" />
     <Compile Include="Commom\ServiceHelper.cs" />

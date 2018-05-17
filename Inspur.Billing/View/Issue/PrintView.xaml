@@ -141,7 +141,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Text="TIN:" Style="{StaticResource BaseContentTbkStyle}"/>
+                    <TextBlock Grid.Row="0" Text="TPIN:" Style="{StaticResource BaseContentTbkStyle}"/>
                     <TextBlock Grid.Row="0" Text="{Binding TaxPayerInfo.Tin}" Style="{StaticResource H_R_ContentTbkStyle}"/>
                     <TextBlock Grid.Row="1" Text="Name:" Style="{StaticResource BaseContentTbkStyle}"/>
                     <TextBlock Grid.Row="1" Text="{Binding TaxPayerInfo.Name}" Style="{StaticResource H_R_ContentTbkStyle}"/>

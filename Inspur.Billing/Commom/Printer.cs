@@ -542,7 +542,7 @@ namespace Inspur.Billing.Commom
         /// <returns></returns>
         public int PrintTwoDimensionalBarcodeA(string lpString)
         {
-            int result = POS_Output_PrintTwoDimensionalBarcodeA(m_hPrinter, POS_BT_QRCODE, 2, 77, 3, lpString);
+            int result = POS_Output_PrintTwoDimensionalBarcodeA(m_hPrinter, POS_BT_QRCODE, 2, 77, (int)Config.QrMagnification, lpString);
 
             switch (result)
             {

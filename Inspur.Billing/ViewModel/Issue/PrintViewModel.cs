@@ -296,6 +296,9 @@ namespace Inspur.Billing.ViewModel.Issue
 
         private void SignSuccessData()
         {
+            //时间赋值
+            CurrentTime = DateTimeHelper.Converter(signResponse.ESDTime, "yyyyMMddHHmmss", "dd/MM/yyyy HH:mm:ss");
+
             SignSuccessDataInvoice();
             SignSuccessDataTaxItems();
             SignSuccessDataTaxPayerInfo();
@@ -770,14 +773,14 @@ namespace Inspur.Billing.ViewModel.Issue
                 Printer.Instance.PrintString(0, 1, 0, 0, 0, "Tax Amount\r\n");
                 //表格字符占用按照8 8 8 8来打印
                 Printer.Instance.SetAlign(0);
-                Printer.Instance.PrintString(0, 1, 0, 0, 0, "Label           Name      Rate(%)    Tax Amount\r\n");
+                Printer.Instance.PrintString(0, 1, 0, 0, 0, "Label       Name        Rate(%)      Tax Amount\r\n");
                 if (TaxList != null)
                 {
                     foreach (var item in TaxList)
                     {
                         Printer.Instance.PrintString(0, 1, 0, 0, 0, string.Format("{0}{1}{2}{3}\r\n",
-                            SetLeftPrint(12, item.TaxItemCode),
-                            SetCenterPrint(12, item.TaxItemDesc),
+                            SetLeftPrint(6, item.TaxItemCode),
+                            SetCenterPrint(18, item.TaxItemDesc),
                             SetCenterPrint(11, (item.TaxRate).ToString()),
                             SetRightPrint(12, item.TaxAmount.ToString("0.00"))));
                     }
@@ -791,7 +794,7 @@ namespace Inspur.Billing.ViewModel.Issue
                 SetTwoColumnPrint("Change", "", "", Change.ToString("0.00"));
                 PrintLine();
 
-                SetTwoColumnPrint("TIN", "", "", TaxPayerInfo.Tin);
+                SetTwoColumnPrint("TPIN", "", "", TaxPayerInfo.Tin);
                 SetTwoColumnPrint("Name", "", "", TaxPayerInfo.Name);
                 SetTwoColumnPrint("Address", "", "", TaxPayerInfo.Address);
                 SetTwoColumnPrint("Tel", "", "", TaxPayerInfo.Telphone);
@@ -801,9 +804,10 @@ namespace Inspur.Billing.ViewModel.Issue
 
                 if (!Credit.IsMitQr && signResponse != null && !string.IsNullOrWhiteSpace(signResponse.VerificationUrl))
                 {
+                    Printer.Instance.SetAlign(1);
                     Printer.Instance.PrintTwoDimensionalBarcodeA(signResponse.VerificationUrl);
                 }
-
+                Printer.Instance.SetAlign(0);
                 Printer.Instance.PrintString(0, 0, 0, 0, 0, "Dear sir madam,please keep the invoice properly so as to refunds & replaces \r\n\r\n");
                 Printer.Instance.SetAlign(1);
                 Printer.Instance.PrintString(0, 0, 0, 0, 0, "Thank You & Please Come Again \r\n");
