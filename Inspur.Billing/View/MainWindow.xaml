@@ -204,6 +204,8 @@
                                       MouseOverImage="/Inspur.Billing;component/Images/System/ParamSettingPressed.png" Command="{Binding NavigationCommand}" CommandParameter="Setting/ParameterSetting.xaml"/>
                                 <controls:ImageRadioButton GroupName="navigation" NormalImage="/Inspur.Billing;component/Images/System/SoftNormal.png" Width="202" Height="37"
                                       MouseOverImage="/Inspur.Billing;component/Images/System/SoftPressed.png" Command="{Binding NavigationCommand}" CommandParameter="Setting/SoftwareSetting.xaml"/>
+                                <controls:ImageRadioButton GroupName="navigation" NormalImage="/Inspur.Billing;component/Images/System/SoftNormal.png" Width="202" Height="37"
+                                      MouseOverImage="/Inspur.Billing;component/Images/System/SoftPressed.png" Command="{Binding NavigationCommand}" CommandParameter="Setting/SystemTest.xaml"/>
                             </StackPanel>
                         </Expander>
                     </TreeView>

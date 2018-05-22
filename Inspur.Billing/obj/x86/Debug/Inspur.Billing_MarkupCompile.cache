@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\GitHub\Inspur.Billing\Inspur.Billing\App.xaml
-91410789375
+101409701946
 31862730680
-46-421936953
+4815692115
 88893682793
-View\Issue\AddGood.xaml;View\Issue\CreditView.xaml;View\Issue\PrintView.xaml;View\MainWindow.xaml;View\Login\LoginView.xaml;View\Setting\ParameterSetting.xaml;View\Setting\PinView.xaml;View\Setting\SoftwareSetting.xaml;View\Setting\TaxPayerSetting.xaml;
+View\Issue\AddGood.xaml;View\Issue\CreditView.xaml;View\Issue\PrintView.xaml;View\MainWindow.xaml;View\Login\LoginView.xaml;View\Setting\ParameterSetting.xaml;View\Setting\PinView.xaml;View\Setting\SoftwareSetting.xaml;View\Setting\SystemTest.xaml;View\Setting\TaxPayerSetting.xaml;
 
 False
 

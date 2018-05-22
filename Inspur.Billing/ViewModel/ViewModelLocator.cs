@@ -53,6 +53,7 @@ namespace Inspur.Billing.ViewModel
             SimpleIoc.Default.Register<TaxPayerSettingVm>();
             SimpleIoc.Default.Register<ParameterSettingVm>();
             SimpleIoc.Default.Register<SoftwareSettingVm>();
+            SimpleIoc.Default.Register<SystemTestVm>();
         }
         public LoginViewModel Login
         {
@@ -108,6 +109,13 @@ namespace Inspur.Billing.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<SoftwareSettingVm>();
+            }
+        }
+        public SystemTestVm SystemTest
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<SystemTestVm>();
             }
         }
         public static void Cleanup()

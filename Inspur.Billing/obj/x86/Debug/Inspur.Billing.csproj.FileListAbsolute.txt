@@ -281,3 +281,5 @@ D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\NLog.config
 D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\NLog.xsd
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\View\Issue\AddGood.g.cs
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\View\Issue\AddGood.baml
+D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\View\Setting\SystemTest.g.cs
+D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\View\Setting\SystemTest.baml

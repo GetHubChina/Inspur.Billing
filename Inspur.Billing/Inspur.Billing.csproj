@@ -176,6 +176,7 @@
     <Compile Include="ViewModel\Setting\ParameterSettingVm.cs" />
     <Compile Include="ViewModel\Setting\PinViewModel.cs" />
     <Compile Include="ViewModel\Setting\SoftwareSettingVm.cs" />
+    <Compile Include="ViewModel\Setting\SystemTestVm.cs" />
     <Compile Include="ViewModel\Setting\TaxPayerSettingVm.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\Issue\AddGood.xaml.cs">
@@ -198,6 +199,9 @@
     </Compile>
     <Compile Include="View\Setting\SoftwareSetting.xaml.cs">
       <DependentUpon>SoftwareSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Setting\SystemTest.xaml.cs">
+      <DependentUpon>SystemTest.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Setting\TaxPayerSetting.xaml.cs">
       <DependentUpon>TaxPayerSetting.xaml</DependentUpon>
@@ -239,6 +243,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Setting\SoftwareSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Setting\SystemTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

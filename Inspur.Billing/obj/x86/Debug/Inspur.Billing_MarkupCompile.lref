@@ -1,4 +1,4 @@
-﻿D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+﻿
 FD:\GitHub\Inspur.Billing\Inspur.Billing\App.xaml;;
 FD:\GitHub\Inspur.Billing\Inspur.Billing\View\Issue\AddGood.xaml;;
 FD:\GitHub\Inspur.Billing\Inspur.Billing\View\Issue\CreditView.xaml;;
@@ -8,5 +8,6 @@ FD:\GitHub\Inspur.Billing\Inspur.Billing\View\Login\LoginView.xaml;;
 FD:\GitHub\Inspur.Billing\Inspur.Billing\View\Setting\ParameterSetting.xaml;;
 FD:\GitHub\Inspur.Billing\Inspur.Billing\View\Setting\PinView.xaml;;
 FD:\GitHub\Inspur.Billing\Inspur.Billing\View\Setting\SoftwareSetting.xaml;;
+FD:\GitHub\Inspur.Billing\Inspur.Billing\View\Setting\SystemTest.xaml;;
 FD:\GitHub\Inspur.Billing\Inspur.Billing\View\Setting\TaxPayerSetting.xaml;;
 
