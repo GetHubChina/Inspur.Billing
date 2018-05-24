@@ -45,15 +45,15 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="Port:" Style="{StaticResource BaseContentTbkStyle}"/>
-            <ComboBox Grid.Column="1" ItemsSource="{Binding CmdList}" SelectedItem="{Binding Cmd}" SelectedIndex="0" VerticalContentAlignment="Center"/>
+            <ComboBox Grid.Column="1" ItemsSource="{Binding SerialPorts}" SelectedItem="{Binding SelectedPort}" SelectedIndex="0" VerticalContentAlignment="Center"/>
             <TextBlock Grid.Column="2" Text="BaudRate:" Style="{StaticResource H_C_ContentTbkStyle}"/>
-            <ComboBox Grid.Column="3" ItemsSource="{Binding CmdList}" SelectedItem="{Binding Cmd}" SelectedIndex="0" VerticalContentAlignment="Center"/>
+            <ComboBox Grid.Column="3" ItemsSource="{Binding BaudRates}" SelectedItem="{Binding SelectedBaudRate}" SelectedIndex="0" VerticalContentAlignment="Center"/>
             <TextBlock Grid.Column="4" Text="Parity:" Style="{StaticResource H_C_ContentTbkStyle}"/>
-            <ComboBox Grid.Column="5" ItemsSource="{Binding CmdList}" SelectedItem="{Binding Cmd}" SelectedIndex="0" VerticalContentAlignment="Center"/>
+            <ComboBox Grid.Column="5" ItemsSource="{Binding ParityList}" SelectedItem="{Binding SelectedParity}" SelectedIndex="0" VerticalContentAlignment="Center"/>
             <TextBlock Grid.Column="6" Text="DataBits:" Style="{StaticResource H_C_ContentTbkStyle}"/>
-            <ComboBox Grid.Column="7" ItemsSource="{Binding CmdList}" SelectedItem="{Binding Cmd}" SelectedIndex="0" VerticalContentAlignment="Center"/>
+            <ComboBox Grid.Column="7" ItemsSource="{Binding DataBitsList}" SelectedItem="{Binding SelectedDataBits}" SelectedIndex="0" VerticalContentAlignment="Center"/>
             <TextBlock Grid.Column="8" Text="StopBits:" Style="{StaticResource H_C_ContentTbkStyle}"/>
-            <ComboBox Grid.Column="9" ItemsSource="{Binding CmdList}" SelectedItem="{Binding Cmd}" SelectedIndex="0" VerticalContentAlignment="Center"/>
+            <ComboBox Grid.Column="9" ItemsSource="{Binding StopBitsList}" SelectedItem="{Binding SelectedStopBits}" SelectedIndex="0" VerticalContentAlignment="Center"/>
         </Grid>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <TextBlock Text="Request:" Style="{StaticResource M_10_ContentTbkStyle}"/>
