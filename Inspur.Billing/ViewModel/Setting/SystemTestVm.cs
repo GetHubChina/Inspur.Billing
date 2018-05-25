@@ -1,7 +1,9 @@
-﻿using ControlLib.Controls.Dialogs;
+﻿using CommonLib.Net;
+using ControlLib.Controls.Dialogs;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Inspur.Billing.Model;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO.Ports;
@@ -25,7 +27,6 @@ namespace Inspur.Billing.ViewModel.Setting
             }
             ParityList = System.Enum.GetNames(typeof(Parity)).ToList();
             StopBitsList = Enum.GetNames(typeof(StopBits)).ToList();
-            _serialPort.DataReceived += _serialPort_DataReceived;
         }
         #endregion
 
@@ -38,6 +39,11 @@ namespace Inspur.Billing.ViewModel.Setting
         /// 发送按钮是否可用
         /// </summary>
         private bool _isCanSend = true;
+        /// <summary>
+        /// 日志对象
+        /// </summary>
+        Logger _logger = LogManager.GetCurrentClassLogger();
+        SerialClient _client;
         #endregion
 
         #region 属性
@@ -182,7 +188,7 @@ namespace Inspur.Billing.ViewModel.Setting
         /// <summary>
         /// 获取或设置波特率集合
         /// </summary>
-        private List<string> _baudRates = new List<string> { "9600", "14400", "19200", "38400", "57600", "115200" };
+        private List<string> _baudRates = new List<string> { "115200", "57600", "38400", "19200", "14400", "9600" };
         /// <summary>
         /// 获取或设置波特率集合
         /// </summary>
@@ -230,7 +236,7 @@ namespace Inspur.Billing.ViewModel.Setting
         /// <summary>
         /// 获取或设置数据位集合
         /// </summary>
-        private List<string> _dataBitsList = new List<string> { "5", "6", "7", "8" };
+        private List<string> _dataBitsList = new List<string> { "8", "7", "6", "5" };
         /// <summary>
         /// 获取或设置数据位集合
         /// </summary>
@@ -299,6 +305,7 @@ namespace Inspur.Billing.ViewModel.Setting
                             switch (SelectedModes.Code)
                             {
                                 case "0"://网口通讯
+
                                     break;
                                 case "1"://串口通讯
                                     if (!_serialPort.IsOpen)
@@ -323,13 +330,31 @@ namespace Inspur.Billing.ViewModel.Setting
                                         {
                                             throw new Exception("StopBits can not be null.");
                                         }
-                                        _serialPort.BaudRate = int.Parse(SelectedBaudRate);
-                                        _serialPort.PortName = SelectedPort;
-                                        _serialPort.Parity = (Parity)Enum.Parse(typeof(Parity), SelectedParity);
-                                        _serialPort.DataBits = int.Parse(SelectedDataBits);
-                                        _serialPort.StopBits = (StopBits)Enum.Parse(typeof(StopBits), SelectedStopBits);
-                                        _serialPort.Open();
-                                        
+                                        if (string.IsNullOrWhiteSpace(Cmd))
+                                        {
+                                            throw new Exception("Request cmd can not be null.");
+                                        }
+                                        if (string.IsNullOrWhiteSpace(Request))
+                                        {
+                                            throw new Exception("Request can not be null.");
+                                        }
+                                        _client = new SerialClient(SelectedPort,
+                                           int.Parse(SelectedBaudRate),
+                                           (Parity)Enum.Parse(typeof(Parity), SelectedParity),
+                                           int.Parse(SelectedDataBits),
+                                           (StopBits)Enum.Parse(typeof(StopBits), SelectedStopBits));
+                                        _client.Open();
+                                        switch (Cmd)
+                                        {
+                                            case "Status":
+                                                _client.Send(0x01, Request);
+                                                break;
+                                            case "Sign":
+                                                _client.Send(0x02, Request);
+                                                break;
+                                            default:
+                                                break;
+                                        }
                                     }
                                     break;
                                 default:
@@ -347,12 +372,6 @@ namespace Inspur.Billing.ViewModel.Setting
                 }));
             }
         }
-
-        private void _serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         #endregion
     }
 }

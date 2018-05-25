@@ -53,7 +53,7 @@
             <TextBlock Grid.Column="6" Text="DataBits:" Style="{StaticResource H_C_ContentTbkStyle}"/>
             <ComboBox Grid.Column="7" ItemsSource="{Binding DataBitsList}" SelectedItem="{Binding SelectedDataBits}" SelectedIndex="0" VerticalContentAlignment="Center"/>
             <TextBlock Grid.Column="8" Text="StopBits:" Style="{StaticResource H_C_ContentTbkStyle}"/>
-            <ComboBox Grid.Column="9" ItemsSource="{Binding StopBitsList}" SelectedItem="{Binding SelectedStopBits}" SelectedIndex="0" VerticalContentAlignment="Center"/>
+            <ComboBox Grid.Column="9" ItemsSource="{Binding StopBitsList}" SelectedItem="{Binding SelectedStopBits}" SelectedIndex="1" VerticalContentAlignment="Center"/>
         </Grid>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <TextBlock Text="Request:" Style="{StaticResource M_10_ContentTbkStyle}"/>

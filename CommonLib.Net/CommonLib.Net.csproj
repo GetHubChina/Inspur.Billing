@@ -87,6 +87,7 @@
     <Compile Include="HttpHelper.cs" />
     <Compile Include="MessageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SerialClient.cs" />
     <Compile Include="TcpData.cs" />
     <Compile Include="TcpHelper.cs" />
   </ItemGroup>
