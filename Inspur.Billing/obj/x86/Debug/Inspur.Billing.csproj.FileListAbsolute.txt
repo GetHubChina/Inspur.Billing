@@ -283,3 +283,7 @@ D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\View\Issue\AddGood.g.cs
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\View\Issue\AddGood.baml
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\View\Setting\SystemTest.g.cs
 D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\View\Setting\SystemTest.baml
+D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\CommonLib.Sqlite.dll.config
+D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\Inspur.TaxModel.dll.config
+D:\GitHub\Inspur.Billing\Inspur.Billing\bin\x86\Debug\System.Data.SQLite.dll.config
+D:\GitHub\Inspur.Billing\Inspur.Billing\obj\x86\Debug\Inspur.Billing.csproj.CoreCompileInputs.cache

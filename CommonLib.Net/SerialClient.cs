@@ -1,9 +1,11 @@
 ﻿using NLog;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -45,6 +47,14 @@ namespace CommonLib.Net
         /// RCR长度
         /// </summary>
         const int RCRLENGTH = 2;
+        /// <summary>
+        /// 超时控制
+        /// </summary>
+        private ManualResetEvent _timeOutObject;
+        /// <summary>
+        /// 超时时间
+        /// </summary>
+        int _timeOut = 30000;
         #endregion
 
         #region 构造函数
@@ -81,6 +91,7 @@ namespace CommonLib.Net
                 _serialPort.Close();
             }
             _serialPort.Open();
+            _logger.Info("Open the serial port successfully.");
         }
         /// <summary>
         /// 关闭串口
@@ -90,6 +101,7 @@ namespace CommonLib.Net
             if (_serialPort != null && _serialPort.IsOpen)
             {
                 _serialPort.Close();
+                _logger.Info("Close the serial port successfully.");
             }
         }
         /// <summary>
@@ -99,10 +111,15 @@ namespace CommonLib.Net
         /// <param name="message"></param>
         public void Send(byte id, string message)
         {
-            byte[] sendBytes = GetSendBytes(id, message);
+            byte[] sendBytes = Encode(id, message);
             _serialPort.Write(sendBytes, 0, sendBytes.Count());
+            _timeOutObject = new ManualResetEvent(false);
+            if (!_timeOutObject.WaitOne(_timeOut, false))
+            {
+                Close();
+            }
         }
-        private byte[] GetSendBytes(byte id, string message)
+        private byte[] Encode(byte id, string message)
         {
             List<byte> sendBytes = new List<byte>();
             sendBytes.Add(0x1A);
@@ -153,7 +170,153 @@ namespace CommonLib.Net
             Console.WriteLine((ushort)crc);
             return (ushort)crc;
         }
+        public MessageModel Decode(byte[] data)
+        {
+            ////拷贝本次的有效字节  
+            if (this._unreadBuffer.Count > 0)
+            {
+                //拷贝之前遗留的字节  
+                this._unreadBuffer.AddRange(data);
+                data = this._unreadBuffer.ToArray();
+                this._unreadBuffer.Clear();
+                this._unreadBuffer = new List<byte>();
+            }
 
+            MessageModel messageModel = new MessageModel();
+            messageModel.IsSuccess = true;
+            MemoryStream ms = new MemoryStream(data);
+            BinaryReader br = new BinaryReader(ms, _defaultEncoding);
+            try
+            {
+                byte[] buff;
+
+                if (!LoopReadHeader(br))
+                {
+                    return messageModel;
+                }
+
+                #region 包协议  
+                //读取消息id
+                byte messageId = br.ReadByte();
+                messageModel.MessageId = messageId;
+                //读取报文长度
+                byte[] lengthBytes = br.ReadBytes(4);
+                Array.Reverse(lengthBytes);
+                int dataLength = BitConverter.ToInt32(lengthBytes, 0);
+                #endregion
+
+                #region 包解析  
+                //剩余字节数大于本次需要读取的字节数  
+                if (dataLength + 2 <= (br.BaseStream.Length - br.BaseStream.Position))
+                {
+                    //读取内容
+                    byte[] contentBytes = br.ReadBytes(dataLength);
+                    messageModel.Data = contentBytes;
+                    messageModel.Message = _defaultEncoding.GetString(contentBytes);
+                    Console.WriteLine(messageModel.Message);
+                    //读取校验码
+                    byte[] crcBytes = br.ReadBytes(2);
+                    Array.Reverse(crcBytes);
+                    //高位在前，低位在后
+                    ushort crc = BitConverter.ToUInt16(crcBytes, 0);
+
+                    byte[] messageBytes = new byte[HEADLENGTH + dataLength];
+                    Array.Copy(data, br.BaseStream.Position - HEADLENGTH - RCRLENGTH - dataLength, messageBytes, 0, HEADLENGTH + dataLength);
+
+                    //将未读数据添加到未读字节列表
+                    while (br.BaseStream.Position < br.BaseStream.Length - 1)
+                    {
+                        _unreadBuffer.Add(br.ReadByte());
+                    }
+                    ushort localCRC = CalculationCrc(messageBytes, messageBytes.Count());
+                    if (crc != localCRC)
+                    {
+                        messageModel.IsSuccess = false;
+                        messageModel.ErrorMessage = "CRC is invalid.";
+                        _logger.Info("CRC is invalid." + localCRC + "Remote CRC:" + crc);
+                    }
+                }
+                else
+                {
+                    messageModel = new MessageModel();
+                    _unreadBuffer.Add(HEADER1);
+                    _unreadBuffer.Add(HEADER2);
+                    _unreadBuffer.Add(messageId);
+                    Array.Reverse(lengthBytes);
+                    _unreadBuffer.AddRange(lengthBytes);
+                    //剩余字节数刚好小于本次读取的字节数 存起来，等待接受剩余字节数一起解析  
+                    buff = br.ReadBytes((int)(br.BaseStream.Length - br.BaseStream.Position + 7));
+                    _unreadBuffer.AddRange(buff);
+                }
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            finally
+            {
+                if (br != null)
+                {
+                    br.Dispose();
+                }
+                br.Close();
+                ms.Close();
+                if (ms != null)
+                {
+                    ms.Dispose();
+                }
+            }
+            return messageModel;
+        }
+        private bool LoopReadHeader(BinaryReader br)
+        {
+            //循环读取包头             
+            //判断本次解析的字节是否满足常量字节数   
+            if ((br.BaseStream.Length - br.BaseStream.Position) < (HEADLENGTH + RCRLENGTH))
+            {
+                byte[] _buff = br.ReadBytes((int)(br.BaseStream.Length - br.BaseStream.Position));
+                this._unreadBuffer.AddRange(_buff);
+                return false;
+            }
+            byte header1 = br.ReadByte();
+            byte header2 = br.ReadByte();
+            if (!(HEADER1 == header1 && HEADER2 == header2))
+            {
+                br.BaseStream.Seek(-1, SeekOrigin.Current);
+                return LoopReadHeader(br);
+            }
+            return true;
+        }
+
+
+        private void Receive()
+        {
+            byte[] bytes = new byte[_serialPort.ReadBufferSize];
+            int length = _serialPort.Read(bytes, 0, bytes.Length);
+            if (length > 0)
+            {
+                byte[] data = new byte[length];
+                Array.Copy(bytes, 0, data, 0, length);
+                _logger.Info(string.Format("接收消息字节 {0}", BitConverter.ToString(data.ToArray())));
+                MessageModel messageModel = Decode(data);
+                if (messageModel.MessageId == 0)
+                {
+                    Receive();
+                }
+                else
+                {
+                    //接收数据成功之后，解除程序的阻塞
+                    _timeOutObject.Set();
+                    Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        Complated(this, messageModel);
+                    }));
+                    _logger.Info(string.Format("接收消息 {0}", messageModel.Message));
+                    Close();
+                }
+            }
+        }
         #endregion
 
         #region 事件
@@ -163,28 +326,7 @@ namespace CommonLib.Net
         {
             try
             {
-                byte[] bytes = new byte[_serialPort.ReadBufferSize];
-                int length = _serialPort.Read(bytes, 0, bytes.Length);
-                if (length > 0)
-                {
-                    byte[] data = new byte[length];
-                    Array.Copy(bytes, 0, data, 0, length);
-                    _logger.Info(string.Format("接收消息字节 {0}", BitConverter.ToString(data.ToArray())));
-                    MessageModel messageModel = _tcpData.Decode(data);
-                    if (messageModel.MessageId == 0)
-                    {
-                    }
-                    else
-                    {
-                        //接收数据成功之后，解除程序的阻塞
-                        Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-                        {
-                            Complated(this, messageModel);
-                        }));
-                        _logger.Info(string.Format("接收消息 {0}", messageModel.Message));
-                        Close();
-                    }
-                }
+                Receive();
             }
             catch (Exception ex)
             {

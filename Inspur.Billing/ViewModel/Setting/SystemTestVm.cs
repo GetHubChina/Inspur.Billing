@@ -2,12 +2,16 @@
 using ControlLib.Controls.Dialogs;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Inspur.Billing.Commom;
 using Inspur.Billing.Model;
+using Inspur.Billing.Model.Service.Status;
+using Newtonsoft.Json;
 using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -43,7 +47,14 @@ namespace Inspur.Billing.ViewModel.Setting
         /// 日志对象
         /// </summary>
         Logger _logger = LogManager.GetCurrentClassLogger();
+        /// <summary>
+        /// 串口客户端
+        /// </summary>
         SerialClient _client;
+        /// <summary>
+        /// 网口客户端（应该抽象一个类，统一串口和网口行为，时间关系，以后在做）
+        /// </summary>
+        TcpHelper _netClient;
         #endregion
 
         #region 属性
@@ -305,7 +316,48 @@ namespace Inspur.Billing.ViewModel.Setting
                             switch (SelectedModes.Code)
                             {
                                 case "0"://网口通讯
+                                    if (string.IsNullOrWhiteSpace(Cmd))
+                                    {
+                                        throw new Exception("Request cmd can not be null.");
+                                    }
+                                    if (string.IsNullOrWhiteSpace(Request))
+                                    {
+                                        throw new Exception("Request can not be null.");
+                                    }
 
+                                    _netClient = new TcpHelper();
+                                    if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SdcUrl))
+                                    {
+                                        MessageBoxEx.Show("E-SDC URL can not be null.", MessageBoxButton.OK);
+                                        return;
+                                    }
+                                    string[] sdc = Const.Locator.ParameterSetting.SdcUrl.Split(':');
+                                    if (sdc != null && sdc.Count() != 2)
+                                    {
+                                        MessageBoxEx.Show("E-SDC URL is not in the right format.", MessageBoxButton.OK);
+                                        return;
+                                    }
+                                    bool isConn = _netClient.Connect(IPAddress.Parse(sdc[0]), int.Parse(sdc[1]));
+                                    if (!isConn)
+                                    {
+                                        MessageBoxEx.Show("Failed to connect to E-SDC.", MessageBoxButton.OK);
+                                        return;
+                                    }
+                                    
+                                    _netClient.Complated -= _client_Complated;
+                                    _netClient.Complated += _client_Complated;
+                                    switch (Cmd)
+                                    {
+                                        case "Status":
+                                            _netClient.Send(0x01, Request);
+                                            break;
+                                        case "Sign":
+                                            _netClient.Send(0x02, Request);
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    _netClient.ReciveAsync();
                                     break;
                                 case "1"://串口通讯
                                     if (!_serialPort.IsOpen)
@@ -344,6 +396,8 @@ namespace Inspur.Billing.ViewModel.Setting
                                            int.Parse(SelectedDataBits),
                                            (StopBits)Enum.Parse(typeof(StopBits), SelectedStopBits));
                                         _client.Open();
+                                        _isCanSend = false;
+                                        _client.Complated += _client_Complated;
                                         switch (Cmd)
                                         {
                                             case "Status":
@@ -366,10 +420,27 @@ namespace Inspur.Billing.ViewModel.Setting
                     {
                         MessageBoxEx.Show(ex.Message, MessageBoxButton.OK);
                     }
+                    finally
+                    {
+                        _isCanSend = true;
+                    }
                 }, a =>
                 {
                     return _isCanSend;
                 }));
+            }
+        }
+
+        private void _client_Complated(object sender, MessageModel e)
+        {
+            try
+            {
+                _isCanSend = true;
+                Response = e.Message;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
             }
         }
         #endregion

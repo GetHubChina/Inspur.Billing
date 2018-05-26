@@ -61,7 +61,7 @@
                       Width="80" Margin="10,0,0,0"/>
         </StackPanel>
         <TextBox Grid.Row="3" Text="{Binding Request}" Margin="10"/>
-        <TextBlock Grid.Row="4" Text="Request:" Style="{StaticResource M_10_ContentTbkStyle}"/>
+        <TextBlock Grid.Row="4" Text="Response:" Style="{StaticResource M_10_ContentTbkStyle}"/>
         <TextBox Grid.Row="5" Text="{Binding Response}" Margin="10"/>
     </Grid>
 </UserControl>

@@ -128,3 +128,4 @@ D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\ControlLib.pdb
 D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\UserControls\Loading.g.cs
 D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\UserControls\Loading.baml
 D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\ControlLib.csprojResolveAssemblyReference.cache
+D:\GitHub\Inspur.Billing\ControlLib\obj\x86\Debug\ControlLib.csproj.CoreCompileInputs.cache

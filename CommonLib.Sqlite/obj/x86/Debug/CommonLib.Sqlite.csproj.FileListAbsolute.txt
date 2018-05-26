@@ -62,4 +62,5 @@ D:\GitHub\Inspur.Billing\CommonLib.Sqlite\obj\x86\Debug\CommonLib.Sqlite.Propert
 D:\GitHub\Inspur.Billing\CommonLib.Sqlite\obj\x86\Debug\CommonLib.Sqlite.csproj.GenerateResource.Cache
 D:\GitHub\Inspur.Billing\CommonLib.Sqlite\obj\x86\Debug\CommonLib.Sqlite.dll
 D:\GitHub\Inspur.Billing\CommonLib.Sqlite\obj\x86\Debug\CommonLib.Sqlite.pdb
-D:\GitHub\Inspur.Billing\CommonLib.Sqlite\obj\x86\Debug\CommonLib.Sqlite.csprojResolveAssemblyReference.cache
+D:\GitHub\Inspur.Billing\CommonLib.Sqlite\bin\x86\Debug\System.Data.SQLite.dll.config
+D:\GitHub\Inspur.Billing\CommonLib.Sqlite\obj\x86\Debug\CommonLib.Sqlite.csproj.CoreCompileInputs.cache
