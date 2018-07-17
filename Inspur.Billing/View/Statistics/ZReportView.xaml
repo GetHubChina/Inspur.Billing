@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="Inspur.Billing.View.Statistics.ZReportView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Inspur.Billing.View.Statistics"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Style="{StaticResource BaseContentTbkStyle}"><Run Text="REPORT NO:"/><Run/></TextBlock>
+        <TextBlock Grid.Row="1" Style="{StaticResource BaseContentTbkStyle}"><Run Text="DATE TIME:"/><Run/></TextBlock>
+        <TextBlock Grid.Row="2" Text="Z REPORT" Style="{StaticResource H_C_ContentTbkStyle}"/>
+        <Line Grid.Row="3" Style="{StaticResource DotLineStyle}" Margin="0,5"/>
+        <TextBlock Grid.Row="4" Text="FISCAL RECEIPT QTY" Style="{StaticResource BaseContentTbkStyle}"/>
+        <TextBlock Grid.Row="4" Text="1" Style="{StaticResource H_R_ContentTbkStyle}"/>
+        <TextBlock Grid.Row="5" Text="TOTAL SALES" Style="{StaticResource BaseContentTbkStyle}"/>
+        <TextBlock Grid.Row="5" Text="*12.00" Style="{StaticResource H_R_ContentTbkStyle}"/>
+        <TextBlock Grid.Row="6" Text="TOTAL TAX" Style="{StaticResource BaseContentTbkStyle}"/>
+        <TextBlock Grid.Row="6" Text="*1.58" Style="{StaticResource H_R_ContentTbkStyle}"/>
+        <Grid Grid.Row="7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Line Grid.Column="0" Style="{StaticResource DotLineStyle}" Margin="0,5"/>
+            <TextBlock Grid.Column="1" Text="TOTAL SALES" Style="{StaticResource H_C_ContentTbkStyle}"/>
+            <Line Grid.Column="2" Style="{StaticResource DotLineStyle}" Margin="0,5"/>
+        </Grid>
+        <ListBox Grid.Row="8">
+
+        </ListBox>
+    </Grid>
+</UserControl>

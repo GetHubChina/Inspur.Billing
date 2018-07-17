@@ -188,6 +188,11 @@
                                     <Setter Property="PressedImage" Value="/Inspur.Billing;component/Images/Statistics/StatisticsPressed.png"/>
                                 </Style>
                             </Expander.Resources>
+                            <StackPanel>
+                                <controls:ImageRadioButton GroupName="navigation" NormalImage="/Inspur.Billing;component/Images/Issuing/IssuNormal.png" Width="202" Height="37"
+                                                   MouseOverImage="/Inspur.Billing;component/Images/Issuing/issuePressed.png" Command="{Binding NavigationCommand}" 
+                                                   CommandParameter="/Inspur.Billing;component/View/Statistics/XZPeriodicView.xaml"/>
+                            </StackPanel>
                         </Expander>
                         <Expander IsExpanded="{Binding IsSelected,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=TreeViewItem}}" Style="{DynamicResource LeftExpanderStyle}">
                             <Expander.Resources>
