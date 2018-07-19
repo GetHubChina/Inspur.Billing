@@ -27,6 +27,6 @@
         <ComboBox Grid.Row="1" Grid.Column="1" Margin="0,3" ItemsSource="{Binding ReportTypes}" SelectedValue="{Binding ReportType}"
                   SelectedValuePath="Code" DisplayMemberPath="Name" SelectedIndex="0"/>
         <Button Content="Query" Grid.Row="1" Grid.Column="3" Command="{Binding QueryCommand}"/>
-        <Frame Grid.Row="2" Grid.ColumnSpan="4" Margin="0,20,0,0"/>
+        <Frame Grid.Row="2" Grid.ColumnSpan="4" Margin="0,20,0,0" Source="{Binding Uri}" />
     </Grid>
 </UserControl>

@@ -56,6 +56,9 @@ namespace Inspur.Billing.ViewModel
             SimpleIoc.Default.Register<SoftwareSettingVm>();
             SimpleIoc.Default.Register<SystemTestVm>();
             SimpleIoc.Default.Register<XZPeriodicVm>();
+            SimpleIoc.Default.Register<XReportVm>();
+            SimpleIoc.Default.Register<ZReportVm>();
+            SimpleIoc.Default.Register<PeriodicReportVm>();
         }
         public LoginViewModel Login
         {
@@ -125,6 +128,27 @@ namespace Inspur.Billing.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<XZPeriodicVm>();
+            }
+        }
+        public XReportVm XReportVm
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<XReportVm>();
+            }
+        }
+        public ZReportVm ZReportVm
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ZReportVm>();
+            }
+        }
+        public PeriodicReportVm PeriodicReportVm
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<PeriodicReportVm>();
             }
         }
         public static void Cleanup()

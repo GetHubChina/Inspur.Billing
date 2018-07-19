@@ -186,7 +186,10 @@
     <Compile Include="ViewModel\Setting\SoftwareSettingVm.cs" />
     <Compile Include="ViewModel\Setting\SystemTestVm.cs" />
     <Compile Include="ViewModel\Setting\TaxPayerSettingVm.cs" />
+    <Compile Include="ViewModel\Statistics\PeriodicReportVm.cs" />
+    <Compile Include="ViewModel\Statistics\XReportVm.cs" />
     <Compile Include="ViewModel\Statistics\XZPeriodicVm.cs" />
+    <Compile Include="ViewModel\Statistics\ZReportVm.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\Issue\AddGood.xaml.cs">
       <DependentUpon>AddGood.xaml</DependentUpon>
