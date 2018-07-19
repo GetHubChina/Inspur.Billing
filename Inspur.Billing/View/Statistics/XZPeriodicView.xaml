@@ -4,13 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Inspur.Billing.View.Statistics"
-             mc:Ignorable="d" Background="#FFF7F9F9"
+             DataContext="{Binding Path=XZPeriodicVm, Source={StaticResource Locator}}"
+             mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="900">
     <Grid Margin="10,10,10,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="100"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -19,14 +20,13 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock Text="BeginDate"  Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
-        <DatePicker Grid.Column="1" VerticalAlignment="Center"/>
+        <DatePicker Grid.Column="1" VerticalAlignment="Center" SelectedDate="{Binding BeginTime}"/>
         <TextBlock Grid.Column="2" Text="EndDate"  Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
-        <DatePicker Grid.Column="3" VerticalAlignment="Center"/>
-        <!--<TextBlock Grid.Row="1" Text="CurrentDatetTime"  Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
-        <DatePicker Grid.Row="1" Grid.Column="1"/>-->
+        <DatePicker Grid.Column="3" VerticalAlignment="Center" SelectedDate="{Binding EndTime}"/>
         <TextBlock Grid.Row="1" Grid.Column="0" Text="ReportType"  Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
-        <ComboBox Grid.Row="1" Grid.Column="1"/>
-        <Button Content="Query" Grid.Row="1" Grid.Column="3"/>
+        <ComboBox Grid.Row="1" Grid.Column="1" Margin="0,3" ItemsSource="{Binding ReportTypes}" SelectedValue="{Binding ReportType}"
+                  SelectedValuePath="Code" DisplayMemberPath="Name" SelectedIndex="0"/>
+        <Button Content="Query" Grid.Row="1" Grid.Column="3" Command="{Binding QueryCommand}"/>
         <Frame Grid.Row="2" Grid.ColumnSpan="4" Margin="0,20,0,0"/>
     </Grid>
 </UserControl>

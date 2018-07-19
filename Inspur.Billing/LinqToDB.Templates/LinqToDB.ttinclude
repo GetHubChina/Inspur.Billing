@@ -105,6 +105,7 @@ void GenerateTypesFromMetadata()
 		DataContextObject.Members.Add(schemaGroup);
 	}
 
+	
 	if (GenerateConstructors)
 	{
 		foreach (var c in GetConstructors(DefaultConfiguration, DataContextObject.Name))

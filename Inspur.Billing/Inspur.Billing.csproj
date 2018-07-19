@@ -141,6 +141,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commom\CommModel.cs" />
     <Compile Include="Commom\Config.cs" />
     <Compile Include="Commom\Const.cs" />
     <Compile Include="Commom\DateTimeHelper.cs" />
@@ -165,6 +166,13 @@
     <Compile Include="Model\Service\Sign\SignRequest.cs" />
     <Compile Include="Model\Service\Sign\SignResponse.cs" />
     <Compile Include="Model\Service\Sign\TaxItem.cs" />
+    <Compile Include="Model\Service\Statistics\PeriodicModel.cs" />
+    <Compile Include="Model\Service\Statistics\ReportRequest.cs" />
+    <Compile Include="Model\Service\Statistics\ReportResponse.cs" />
+    <Compile Include="Model\Service\Statistics\ReportTaxItems.cs" />
+    <Compile Include="Model\Service\Statistics\XReportModel.cs" />
+    <Compile Include="Model\Service\Statistics\ZReport.cs" />
+    <Compile Include="Model\Service\Statistics\ZReportModel.cs" />
     <Compile Include="Model\Service\Status\StatusRequest.cs" />
     <Compile Include="Model\Service\Status\StatusResponse.cs" />
     <Compile Include="Model\TaxCategory.cs" />
@@ -178,6 +186,7 @@
     <Compile Include="ViewModel\Setting\SoftwareSettingVm.cs" />
     <Compile Include="ViewModel\Setting\SystemTestVm.cs" />
     <Compile Include="ViewModel\Setting\TaxPayerSettingVm.cs" />
+    <Compile Include="ViewModel\Statistics\XZPeriodicVm.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\Issue\AddGood.xaml.cs">
       <DependentUpon>AddGood.xaml</DependentUpon>

@@ -21,6 +21,7 @@ using System.Security.Cryptography;
 using Inspur.Billing.Model.Service.LastSign;
 using System.Net.Sockets;
 using Inspur.Billing.Model;
+using System.IO.Ports;
 
 namespace Inspur.Billing.Commom
 {
@@ -34,7 +35,7 @@ namespace Inspur.Billing.Commom
 
         public static TcpHelper _statusTcpClient = new TcpHelper();
 
-        public static void StatueRequest()
+        public static void StatueRequest(string requestString)
         {
             _statusTcpClient = new TcpHelper();
             if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SdcUrl))
@@ -54,10 +55,6 @@ namespace Inspur.Billing.Commom
                 MessageBoxEx.Show("Failed to connect to E-SDC.", MessageBoxButton.OK);
                 return;
             }
-
-            StatusRequest statusRequest = new StatusRequest() { PosSerialNumber = Config.PosSerialNumber, PosVendor = Config.PosVendor };
-            string requestString = JsonConvert.SerializeObject(statusRequest);
-
             _statusTcpClient.Complated -= _statusTcpClient_Complated;
             _statusTcpClient.Complated += _statusTcpClient_Complated;
             _statusTcpClient.Send(0x01, requestString);
@@ -87,7 +84,7 @@ namespace Inspur.Billing.Commom
                     ShowMessageBegin(e.ErrorMessage);
                     return;
                 }
-                _statusTcpClient.Complated -= _statusTcpClient_Complated;
+                //_statusTcpClient.Complated -= _statusTcpClient_Complated;
                 StatusResponse statusResponse = JsonConvert.DeserializeObject<StatusResponse>(e.Message);
                 if (statusResponse != null)
                 {
@@ -155,6 +152,42 @@ namespace Inspur.Billing.Commom
             }
         }
 
+        public static void StatueRequestSerial(string request)
+        {
+            if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SelectedPort))
+            {
+                throw new Exception("Port can not be null.");
+            }
+            if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SelectedDataBits))
+            {
+                throw new Exception("DataBits can not be null.");
+            }
+            if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SelectedBaudRate))
+            {
+                throw new Exception("BaudRate can not be null.");
+            }
+            if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SelectedParity))
+            {
+                throw new Exception("Parity can not be null.");
+            }
+            if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SelectedStopBits))
+            {
+                throw new Exception("StopBits can not be null.");
+            }
+            if (string.IsNullOrWhiteSpace(request))
+            {
+                throw new Exception("Request can not be null.");
+            }
+            SerialClient _client = new SerialClient(Const.Locator.ParameterSetting.SelectedPort,
+               int.Parse(Const.Locator.ParameterSetting.SelectedBaudRate),
+               (Parity)Enum.Parse(typeof(Parity), Const.Locator.ParameterSetting.SelectedParity),
+               int.Parse(Const.Locator.ParameterSetting.SelectedDataBits),
+               (StopBits)Enum.Parse(typeof(StopBits), Const.Locator.ParameterSetting.SelectedStopBits));
+            _client.Open();
+            _client.Complated += _statusTcpClient_Complated;
+            _client.Send(0x01, request);
+        }
+
         public static void SignRequest(SignRequest request)
         {
             if (request == null)
@@ -213,7 +246,20 @@ namespace Inspur.Billing.Commom
             bool result = false;
             try
             {
-                StatueRequest();
+                StatusRequest statusRequest = new StatusRequest() { PosSerialNumber = Config.PosSerialNumber, PosVendor = Config.PosVendor };
+                string requestString = JsonConvert.SerializeObject(statusRequest);
+                switch (Const.Locator.ParameterSetting.CommModel)
+                {
+                    case CommModel.NetPort:
+                        StatueRequest(requestString);
+                        break;
+                    case CommModel.SerialPort:
+                        StatueRequestSerial(requestString);
+                        break;
+                    default:
+                        break;
+                }
+
             }
             catch (SocketException e)
             {

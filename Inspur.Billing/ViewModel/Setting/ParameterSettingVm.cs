@@ -3,10 +3,12 @@ using DataModels;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Inspur.Billing.Commom;
+using Inspur.Billing.Model;
 using Inspur.TaxModel;
 using LinqToDB;
 using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -22,6 +24,14 @@ namespace Inspur.Billing.ViewModel.Setting
         public ParameterSettingVm()
         {
             Printer.Instance.PrintPort = PrintPort;
+
+            string[] ports = SerialPort.GetPortNames();
+            if (ports != null && ports.Count() > 0)
+            {
+                SerialPorts = ports.ToList();
+            }
+            ParityList = System.Enum.GetNames(typeof(Parity)).ToList();
+            StopBitsList = Enum.GetNames(typeof(StopBits)).ToList();
         }
         #endregion
 
@@ -104,6 +114,201 @@ namespace Inspur.Billing.ViewModel.Setting
             set { Set<bool>(ref _isTaxPayerEnable, value, "IsTaxPayerEnable"); }
         }
 
+
+        /// <summary>
+        /// 获取或设置通讯模式列表
+        /// </summary>
+        private List<CodeTable> _commModes = new List<CodeTable> { new CodeTable { Name = "Network", Code = "0" }, new CodeTable { Name = "Serial", Code = "1" } };
+        /// <summary>
+        /// 获取或设置通讯模式列表
+        /// </summary>
+        public List<CodeTable> CommModes
+        {
+            get { return _commModes; }
+            set { Set<List<CodeTable>>(ref _commModes, value, "CommModes"); }
+        }
+        /// <summary>
+        /// 获取或设置选择的通讯模式
+        /// </summary>
+        private CodeTable _selectModes;
+        /// <summary>
+        /// 获取或设置选择的通讯模式
+        /// </summary>
+        public CodeTable SelectedModes
+        {
+            get { return _selectModes; }
+            set
+            {
+                if (value != _selectModes)
+                {
+                    _selectModes = value;
+                    if (_selectModes != null && _selectModes.Code == "1")
+                    {
+                        SerialParamVis = Visibility.Visible;
+                    }
+                    else
+                    {
+                        SerialParamVis = Visibility.Collapsed;
+                    }
+                    RaisePropertyChanged(() => this.SelectedModes);
+                }
+            }
+        }
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        private Visibility _serialParamVis;
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        public Visibility SerialParamVis
+        {
+            get { return _serialParamVis; }
+            set { Set<Visibility>(ref _serialParamVis, value, "SerialParamVis"); }
+        }
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        private List<string> _serialPorts;
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        public List<string> SerialPorts
+        {
+            get { return _serialPorts; }
+            set
+            {
+                if (value != _serialPorts)
+                {
+                    _serialPorts = value;
+                    RaisePropertyChanged(() => this.SerialPorts);
+                }
+            }
+        }
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        private string _selectedPort;
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        public string SelectedPort
+        {
+            get { return _selectedPort; }
+            set
+            {
+                if (value != _selectedPort)
+                {
+                    _selectedPort = value;
+                    RaisePropertyChanged(() => this.SelectedPort);
+                }
+            }
+        }
+        /// <summary>
+        /// 获取或设置波特率集合
+        /// </summary>
+        private List<string> _baudRates = new List<string> { "115200", "57600", "38400", "19200", "14400", "9600" };
+        /// <summary>
+        /// 获取或设置波特率集合
+        /// </summary>
+        public List<string> BaudRates
+        {
+            get { return _baudRates; }
+            set { Set<List<string>>(ref _baudRates, value, "BaudRates"); }
+        }
+        /// <summary>
+        /// 获取或设置波特率
+        /// </summary>
+        private string _selectedBaudRate;
+        /// <summary>
+        /// 获取或设置波特率
+        /// </summary>
+        public string SelectedBaudRate
+        {
+            get { return _selectedBaudRate; }
+            set { Set<string>(ref _selectedBaudRate, value, "SelectedBaudRate"); }
+        }
+        /// <summary>
+        /// 获取或设置奇偶校验位
+        /// </summary>
+        private List<string> _parityList;
+        /// <summary>
+        /// 获取或设置奇偶校验位
+        /// </summary>
+        public List<string> ParityList
+        {
+            get { return _parityList; }
+            set { Set<List<string>>(ref _parityList, value, "ParityList"); }
+        }
+        /// <summary>
+        /// 获取或设置选中的奇偶校验位
+        /// </summary>
+        private string _selectedParity;
+        /// <summary>
+        /// 获取或设置选中的奇偶校验位
+        /// </summary>
+        public string SelectedParity
+        {
+            get { return _selectedParity; }
+            set { Set<string>(ref _selectedParity, value, "SelectedParity"); }
+        }
+        /// <summary>
+        /// 获取或设置数据位集合
+        /// </summary>
+        private List<string> _dataBitsList = new List<string> { "8", "7", "6", "5" };
+        /// <summary>
+        /// 获取或设置数据位集合
+        /// </summary>
+        public List<string> DataBitsList
+        {
+            get { return _dataBitsList; }
+            set { Set<List<string>>(ref _dataBitsList, value, "DataBitsList"); }
+        }
+        /// <summary>
+        /// 获取或设置选择的数据位
+        /// </summary>
+        private string _selectedDataBits;
+        /// <summary>
+        /// 获取或设置选择的数据位
+        /// </summary>
+        public string SelectedDataBits
+        {
+            get { return _selectedDataBits; }
+            set { Set<string>(ref _selectedDataBits, value, "SelectedDataBits"); }
+        }
+        /// <summary>
+        /// 获取或设置停止位集合
+        /// </summary>
+        private List<string> _stopBitsList;
+        /// <summary>
+        /// 获取或设置停止位集合
+        /// </summary>
+        public List<string> StopBitsList
+        {
+            get { return _stopBitsList; }
+            set { Set<List<string>>(ref _stopBitsList, value, "StopBitsList"); }
+        }
+        /// <summary>
+        /// 获取或设置选择的停止位
+        /// </summary>
+        private string _selectedStopBits;
+        /// <summary>
+        /// 获取或设置选择的停止位
+        /// </summary>
+        public string SelectedStopBits
+        {
+            get { return _selectedStopBits; }
+            set { Set<string>(ref _selectedStopBits, value, "SelectedStopBits"); }
+        }
+
+
+        public Commom.CommModel CommModel
+        {
+            get
+            {
+                return (SelectedModes == null || SelectedModes.Code == "1") ? Commom.CommModel.SerialPort : Commom.CommModel.NetPort;
+            }
+        }
         #endregion
 
         #region 命令

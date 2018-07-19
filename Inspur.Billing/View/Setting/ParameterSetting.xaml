@@ -7,30 +7,76 @@
              DataContext="{Binding Path=ParameterSetting, Source={StaticResource Locator}}"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="800">
+             d:DesignHeight="500" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="0,3"/>
+            <Setter Property="Height" Value="30"/>
+        </Style>
+    </UserControl.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding Command}" CommandParameter="Loaded"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Grid MaxWidth="600" MinWidth="430" HorizontalAlignment="Center" Margin="0,100,0,0">
+    <Grid MaxWidth="600" MinWidth="530" HorizontalAlignment="Center" Margin="0,100,0,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="170"/>
             <ColumnDefinition/>
             <ColumnDefinition Width=" 120"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="E-SDC URL:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
-        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SdcUrl}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center" IsEnabled="{Binding IsParameterEnable}"/>
-        <Button Content="Test" Grid.Column="2" Width="100" Margin="0,3" Command="{Binding Command}" CommandParameter="SDCTest"/>
-        <TextBlock Grid.Row="1" Text="Printer Serial Port:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding PrintPort}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center" IsEnabled="{Binding IsParameterEnable}"/>
-        <Button Content="Test" Grid.Row="1" Grid.Column="2" Width="100" Command="{Binding Command}" CommandParameter="PrinterPortTest" Margin="0,3"/>
-        <StackPanel Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal" Margin="0,60,0,0">
+        <TextBlock Text="Communication Mode:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
+        <ComboBox Name="cbx" Grid.Column="1" ItemsSource="{Binding CommModes}" SelectedIndex="1"
+                      SelectedValuePath="Code" DisplayMemberPath="Name" SelectedItem="{Binding SelectedModes}" 
+                      VerticalContentAlignment="Center" IsEnabled="{Binding IsParameterEnable}"/>
+        <Grid Grid.Row="1" Grid.ColumnSpan="2" Visibility="{Binding SerialParamVis}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition  Width="170"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Port:" Style="{StaticResource H_R_M10_ContentTbkStyle}" Height="18" Margin="0,9,10,9" Width="31"/>
+            <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding SerialPorts}" SelectedItem="{Binding SelectedPort}"
+                      SelectedIndex="0" VerticalContentAlignment="Center" IsEnabled="{Binding IsParameterEnable}"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="BaudRate:" Style="{StaticResource H_R_M10_ContentTbkStyle}" Height="18" Margin="0,9,10,9" Width="68"/>
+            <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding BaudRates}" SelectedItem="{Binding SelectedBaudRate}"
+                      SelectedIndex="0" VerticalContentAlignment="Center" IsEnabled="{Binding IsParameterEnable}"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Parity:" Style="{StaticResource H_R_M10_ContentTbkStyle}" Height="18" Margin="0,9,10,9" Width="41"/>
+            <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding ParityList}" SelectedItem="{Binding SelectedParity}"
+                      SelectedIndex="0" VerticalContentAlignment="Center" IsEnabled="{Binding IsParameterEnable}"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="DataBits:" Style="{StaticResource H_R_M10_ContentTbkStyle}" Height="18" Margin="0,9,10,9" Width="59"/>
+            <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding DataBitsList}" SelectedItem="{Binding SelectedDataBits}"
+                      SelectedIndex="0" VerticalContentAlignment="Center" IsEnabled="{Binding IsParameterEnable}"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="StopBits:" Style="{StaticResource H_R_M10_ContentTbkStyle}" Height="18" Margin="0,9,10,9" Width="59"/>
+            <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding StopBitsList}" SelectedItem="{Binding SelectedStopBits}"
+                      SelectedIndex="1" VerticalContentAlignment="Center" IsEnabled="{Binding IsParameterEnable}"/>
+        </Grid>
+
+
+
+
+        <TextBlock Grid.Row="2" Text="E-SDC URL:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SdcUrl}" Style="{StaticResource M_3_P_3_TbStyle}" 
+                 VerticalAlignment="Center" IsEnabled="{Binding IsParameterEnable}"/>
+        <Button Grid.Row="2" Content="Test" Grid.Column="2" Width="100" Margin="0,3" Command="{Binding Command}" CommandParameter="SDCTest"/>
+        <TextBlock Grid.Row="3" Text="Printer Serial Port:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding PrintPort}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center" IsEnabled="{Binding IsParameterEnable}"/>
+        <Button Content="Test" Grid.Row="3" Grid.Column="2" Width="100" Command="{Binding Command}" CommandParameter="PrinterPortTest" Margin="0,3"/>
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal" Margin="0,60,0,0">
             <Button Width="100" Content="Edit" Command="{Binding NetSettingEditCommand}"/>
             <Button Width="100" Content="Save" Command="{Binding NetSettingSaveCommand}" Margin="30,0"/>
             <Button Width="100" Content="Cancel" Command="{Binding NetSettingCancelCommand}"/>

@@ -26,6 +26,7 @@ using CommonLib.Net;
 using System.Net;
 using System.Windows;
 using Inspur.Billing.Model;
+using System.IO.Ports;
 
 namespace Inspur.Billing.ViewModel.Issue
 {
@@ -522,11 +523,18 @@ namespace Inspur.Billing.ViewModel.Issue
                 signGoodItem.Labels = new string[1] { item.TaxType.Label };
                 signRequest.Items.Add(signGoodItem);
             }
-            //ServiceHelper.TcpClient.Complated -= TcpClient_Complated;
-            //ServiceHelper.TcpClient.Complated += TcpClient_Complated;
-            //ServiceHelper.SignRequest(signRequest);
+            switch (Const.Locator.ParameterSetting.CommModel)
+            {
+                case CommModel.NetPort:
+                    SignRequest(signRequest);
+                    break;
+                case CommModel.SerialPort:
+                    SignRequestSerial(signRequest);
+                    break;
+                default:
+                    break;
+            }
 
-            SignRequest(signRequest);
         }
 
         private void _signTcpClient_Complated(object sender, MessageModel e)
@@ -547,7 +555,6 @@ namespace Inspur.Billing.ViewModel.Issue
                 {
                     return;
                 }
-                ServiceHelper.TcpClient.Complated -= TcpClient_Complated;
                 signResponse = JsonConvert.DeserializeObject<SignResponse>(e.Message);
                 if (signResponse != null)
                 {
@@ -594,57 +601,41 @@ namespace Inspur.Billing.ViewModel.Issue
             _signTcpClient.Complated += _signTcpClient_Complated;
             _signTcpClient.Send(0x02, requestString);
             _signTcpClient.ReciveAsync();
-
-
-
-
-
-            //string requestString = JsonConvert.SerializeObject(request);
-
-
-            //if (!_signTcpClient.IsConnected)
-            //{
-            //    if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SdcUrl))
-            //    {
-            //        MessageBoxEx.Show("E-SDC URL can not be null.", MessageBoxButton.OK);
-            //        return;
-            //    }
-            //    string[] sdc = Const.Locator.ParameterSetting.SdcUrl.Split(':');
-            //    if (sdc != null && sdc.Count() != 2)
-            //    {
-            //        MessageBoxEx.Show("E-SDC URL is not in the right format.", MessageBoxButton.OK);
-            //        return;
-            //    }
-            //    TcpClient.Connect(IPAddress.Parse(sdc[0]), int.Parse(sdc[1]));
-            //}
-            //TcpClient.Send(0x02, requestString);
-
-            //TcpClient.ReciveAsync();
         }
-        private void TcpClient_Complated(object sender, CommonLib.Net.MessageModel e)
+
+        public void SignRequestSerial(SignRequest request)
         {
-            try
+            if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SelectedPort))
             {
-                if (e.MessageId != 0x02)
-                {
-                    return;
-                }
-                ServiceHelper.TcpClient.Complated -= TcpClient_Complated;
-                signResponse = JsonConvert.DeserializeObject<SignResponse>(e.Message);
-                if (signResponse != null)
-                {
-                    //处理税款数据
-                    SignSuccessData();
-                }
-                else
-                {
-                    SignFilureData();
-                }
+                throw new Exception("Port can not be null.");
             }
-            catch (Exception ex)
+            if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SelectedDataBits))
             {
-                MessageBoxEx.Show(ex.Message);
+                throw new Exception("DataBits can not be null.");
             }
+            if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SelectedBaudRate))
+            {
+                throw new Exception("BaudRate can not be null.");
+            }
+            if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SelectedParity))
+            {
+                throw new Exception("Parity can not be null.");
+            }
+            if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SelectedStopBits))
+            {
+                throw new Exception("StopBits can not be null.");
+            }
+            string requestString = JsonConvert.SerializeObject(request);
+
+            SerialClient _client = new SerialClient(Const.Locator.ParameterSetting.SelectedPort,
+               int.Parse(Const.Locator.ParameterSetting.SelectedBaudRate),
+               (Parity)Enum.Parse(typeof(Parity), Const.Locator.ParameterSetting.SelectedParity),
+               int.Parse(Const.Locator.ParameterSetting.SelectedDataBits),
+               (StopBits)Enum.Parse(typeof(StopBits), Const.Locator.ParameterSetting.SelectedStopBits));
+            _client.Open();
+            _client.Complated -= _signTcpClient_Complated;
+            _client.Complated += _signTcpClient_Complated;
+            _client.Send(0x02, requestString);
         }
 
         private void Save(SignRequest request, SignResponse signResponse)
