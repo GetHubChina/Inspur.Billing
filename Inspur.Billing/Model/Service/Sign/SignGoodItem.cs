@@ -14,6 +14,7 @@ namespace Inspur.Billing.Model.Service.Sign
         /// </summary>
         [JsonProperty(PropertyName = "ItemId")]
         public int GTIN { get; set; }
+        public string BarCode { get; set; }
         /// <summary>
         /// Human readable name of the product or service. Required Max Length 2048 character
         /// </summary>

@@ -7,6 +7,26 @@
              DataContext="{Binding Path=XZPeriodicVm, Source={StaticResource Locator}}"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="900">
+    <UserControl.Resources>
+        <DataTemplate x:Key="TaxItemDataTemplate">
+            <Grid Margin="0,0,0,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding TaxLable}" Style="{StaticResource BaseContentTbkStyle}"/>
+                <TextBlock Grid.Column="1" Text="{Binding TaxName}" Style="{StaticResource H_C_ContentTbkStyle}"/>
+                <TextBlock Grid.Column="2" Text="{Binding TaxRate}" Style="{StaticResource H_R_ContentTbkStyle}"/>
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="TAX AMOUNT" Style="{StaticResource BaseContentTbkStyle}"/>
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding TaxAmount}" Style="{StaticResource H_R_ContentTbkStyle}"/>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
     <Grid Margin="10,10,10,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -27,6 +47,56 @@
         <ComboBox Grid.Row="1" Grid.Column="1" Margin="0,3" ItemsSource="{Binding ReportTypes}" SelectedValue="{Binding ReportType}"
                   SelectedValuePath="Code" DisplayMemberPath="Name" SelectedIndex="0"/>
         <Button Content="Query" Grid.Row="1" Grid.Column="3" Command="{Binding QueryCommand}"/>
-        <Frame Grid.Row="2" Grid.ColumnSpan="4" Margin="0,20,0,0" Source="{Binding Uri}" />
+        <Border Grid.Row="2" Grid.ColumnSpan="4" Margin="0,20" Width="400" BorderThickness="1" BorderBrush="Black">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Style="{StaticResource BaseContentTbkStyle}" Visibility="{Binding NumberVisibility}" Margin="0,5"><Run Text="REPORT NO:"/><Run Text="{Binding ReportNumber}"/></TextBlock>
+                        <TextBlock Grid.Row="1" Style="{StaticResource BaseContentTbkStyle}" Margin="0,5"><Run Text="DATE TIME:"/><Run Text="{Binding CurrentTime}"/></TextBlock>
+                        <TextBlock Grid.Row="2" Text="{Binding Title}" Style="{StaticResource H_C_ContentTbkStyle}" Margin="0,5"/>
+                        <TextBlock Grid.Row="3" Style="{StaticResource BaseContentTbkStyle}" Visibility="{Binding PeriodicVisibility}" Margin="0,5"><Run Text="BETWEEN "/><Run Text="{Binding BeginDate}"/><Run Text="AND"/><Run Text="{Binding EndDate}"/></TextBlock>
+                        <Line Grid.Row="4" Style="{StaticResource DotLineStyle}" Margin="0,5"/>
+                        <TextBlock Grid.Row="5" Text="FISCAL RECEIPT QTY" Style="{StaticResource BaseContentTbkStyle}" Margin="0,5"/>
+                        <TextBlock Grid.Row="5" Text="{Binding InvoiceQuantity}" Style="{StaticResource H_R_ContentTbkStyle}" Margin="0,5"/>
+                        <TextBlock Grid.Row="6" Text="TOTAL SALES" Style="{StaticResource BaseContentTbkStyle}" Margin="0,5"/>
+                        <TextBlock Grid.Row="6" Text="{Binding TotalSlaes}" Style="{StaticResource H_R_ContentTbkStyle}" Margin="0,5"/>
+                        <TextBlock Grid.Row="7" Text="TOTAL TAX" Style="{StaticResource BaseContentTbkStyle}" Margin="0,5"/>
+                        <TextBlock Grid.Row="7" Text="{Binding TotalTax}" Style="{StaticResource H_R_ContentTbkStyle}" Margin="0,5"/>
+                        <Grid Grid.Row="8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Line Grid.Column="0" Style="{StaticResource DotLineStyle}" Margin="0,5"/>
+                            <TextBlock Grid.Column="1" Text="TOTAL SALES" Style="{StaticResource H_C_ContentTbkStyle}"/>
+                            <Line Grid.Column="2" Style="{StaticResource DotLineStyle}" Margin="0,5"/>
+                        </Grid>
+                        <ItemsControl Grid.Row="9" ItemTemplate="{StaticResource TaxItemDataTemplate}" 
+                              ItemsSource="{Binding TaxItems}">
+
+                        </ItemsControl>
+                    </Grid>
+                </ScrollViewer>
+
+                <Button Grid.Row="1" Content="Print" Command="{Binding PrintCommand}"/>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>
