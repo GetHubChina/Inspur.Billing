@@ -225,11 +225,11 @@
                     <TextBlock Style="{StaticResource Little_FZ_TbkStyle}" Margin="10,0,0,0"><Run Text="{Binding Message}" Foreground="Red"/></TextBlock>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,100,0" Visibility="{Binding OffLineVisibility}">
                         <Image Source="/Inspur.Billing;component/Images/Home/offline.png" Margin="0,3"/>
-                        <TextBlock Text="E-SDC Offline" Style="{StaticResource Little_FZ_TbkStyle}"/>
+                        <TextBlock Text="EFD Offline" Style="{StaticResource Little_FZ_TbkStyle}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,100,0" Visibility="{Binding OnLineVisibility}">
                         <Image Source="/Inspur.Billing;component/Images/Home/online.png" Margin="0,3"/>
-                        <TextBlock Text="E-SDC Online" Style="{StaticResource Little_FZ_TbkStyle}"/>
+                        <TextBlock Text="EFD Online" Style="{StaticResource Little_FZ_TbkStyle}"/>
                     </StackPanel>
                 </Grid>
             </Grid>

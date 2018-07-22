@@ -40,19 +40,19 @@ namespace Inspur.Billing.Commom
             _statusTcpClient = new TcpHelper();
             if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SdcUrl))
             {
-                MessageBoxEx.Show("E-SDC URL can not be null.", MessageBoxButton.OK);
+                MessageBoxEx.Show("EFD URL can not be null.", MessageBoxButton.OK);
                 return;
             }
             string[] sdc = Const.Locator.ParameterSetting.SdcUrl.Split(':');
             if (sdc != null && sdc.Count() != 2)
             {
-                MessageBoxEx.Show("E-SDC URL is not in the right format.", MessageBoxButton.OK);
+                MessageBoxEx.Show("EFD URL is not in the right format.", MessageBoxButton.OK);
                 return;
             }
             bool isConn = _statusTcpClient.Connect(IPAddress.Parse(sdc[0]), int.Parse(sdc[1]));
             if (!isConn)
             {
-                MessageBoxEx.Show("Failed to connect to E-SDC.", MessageBoxButton.OK);
+                MessageBoxEx.Show("Failed to connect to EFD.", MessageBoxButton.OK);
                 return;
             }
             _statusTcpClient.Complated -= _statusTcpClient_Complated;
@@ -131,17 +131,20 @@ namespace Inspur.Billing.Commom
 
                     if (!statusResponse.isInitialized)
                     {
-                        ShowMessageBegin("E-SDC is not initialized.");
+                        ShowMessageBegin("EFD is not initialized.");
                     }
                     else
                     {
                         if (statusResponse.isLocked)
                         {
-                            ShowMessageBegin("E-SDC is locked.");
+                            ShowMessageBegin("EFD is locked.");
                         }
                         else
                         {
-                            ShowMessageBegin("E-SDC is available");
+                            if (Const.IsNeedMessage)
+                            {
+                                ShowMessageBegin("EFD is available");
+                            }
                         }
                     }
                 }
@@ -201,13 +204,13 @@ namespace Inspur.Billing.Commom
             {
                 if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SdcUrl))
                 {
-                    MessageBoxEx.Show("E-SDC URL can not be null.", MessageBoxButton.OK);
+                    MessageBoxEx.Show("EFD URL can not be null.", MessageBoxButton.OK);
                     return;
                 }
                 string[] sdc = Const.Locator.ParameterSetting.SdcUrl.Split(':');
                 if (sdc != null && sdc.Count() != 2)
                 {
-                    MessageBoxEx.Show("E-SDC URL is not in the right format.", MessageBoxButton.OK);
+                    MessageBoxEx.Show("EFD URL is not in the right format.", MessageBoxButton.OK);
                     return;
                 }
                 TcpClient.Connect(IPAddress.Parse(sdc[0]), int.Parse(sdc[1]));

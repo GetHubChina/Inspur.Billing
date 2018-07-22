@@ -49,11 +49,11 @@ namespace Inspur.Billing.Model.Service.Sign
         //public List<SignGoodItem> Items { get; set; }
         ///// <summary>
         ///// Optional, String name-value collection 
-        ///// Options defines behavior of E-SDC during invoice fiscalization.
+        ///// Options defines behavior of EFD during invoice fiscalization.
         ///// Key: OmitQRCodeGen
-        ///// Value: "1" to omit QR Code generation by E-SDC, "0" to generate and return QR code. 
+        ///// Value: "1" to omit QR Code generation by EFD, "0" to generate and return QR code. 
         ///// Key: OmitTextualRepresentation
-        ///// Value: "1" to omit generation of textual representation by E-SDC, "0" to generate and return textual representation to POS. 
+        ///// Value: "1" to omit generation of textual representation by EFD, "0" to generate and return textual representation to POS. 
         ///// </summary>
         //public Dictionary<string, string> Options { get; set; }
         ///// <summary>

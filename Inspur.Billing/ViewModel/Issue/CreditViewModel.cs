@@ -265,6 +265,7 @@ namespace Inspur.Billing.ViewModel.Issue
                                 //Const.Locator.Main.IsBusy = true;
                                 if (!Const.IsHasGetStatus)
                                 {
+                                    Const.IsNeedMessage = false;
                                     ServiceHelper.CheckStatue();
                                 }
                                 //Const.Locator.Main.IsBusy = false;

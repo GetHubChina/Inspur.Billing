@@ -74,5 +74,9 @@ namespace Inspur.Billing.Commom
         /// 是否获取过esdc状态
         /// </summary>
         public static bool IsHasGetStatus { get; set; }
+        /// <summary>
+        /// 是否需要提示信息
+        /// </summary>
+        public static bool IsNeedMessage { get; set; }
     }
 }

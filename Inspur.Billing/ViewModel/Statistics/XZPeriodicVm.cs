@@ -6,6 +6,7 @@ using Inspur.Billing.Commom;
 using Inspur.Billing.Model;
 using Inspur.Billing.Model.Service.Statistics;
 using Newtonsoft.Json;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO.Ports;
@@ -25,6 +26,10 @@ namespace Inspur.Billing.ViewModel.Statistics
         /// 请求报表的指令代码
         /// </summary>
         const byte Cmd = 0x04;
+        /// <summary>
+        /// 日志对象
+        /// </summary>
+        Logger _logger = LogManager.GetCurrentClassLogger();
         #endregion
 
         #region 属性
@@ -392,19 +397,19 @@ namespace Inspur.Billing.ViewModel.Statistics
             TcpHelper _signTcpClient = new TcpHelper();
             if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SdcUrl))
             {
-                MessageBoxEx.Show("E-SDC URL can not be null.", MessageBoxButton.OK);
+                MessageBoxEx.Show("EFD URL can not be null.", MessageBoxButton.OK);
                 return;
             }
             string[] sdc = Const.Locator.ParameterSetting.SdcUrl.Split(':');
             if (sdc != null && sdc.Count() != 2)
             {
-                MessageBoxEx.Show("E-SDC URL is not in the right format.", MessageBoxButton.OK);
+                MessageBoxEx.Show("EFD URL is not in the right format.", MessageBoxButton.OK);
                 return;
             }
             bool isConn = _signTcpClient.Connect(IPAddress.Parse(sdc[0]), int.Parse(sdc[1]));
             if (!isConn)
             {
-                MessageBoxEx.Show("Failed to connect to E-SDC.", MessageBoxButton.OK);
+                MessageBoxEx.Show("Failed to connect to EFD.", MessageBoxButton.OK);
                 return;
             }
 
@@ -464,96 +469,103 @@ namespace Inspur.Billing.ViewModel.Statistics
             {
                 return;
             }
-            ReportResponse response = JsonConvert.DeserializeObject<ReportResponse>(e.Message);
-            //switch (response.ReportType)
-            //{
-            //    case 0:
-            //        CurrentTime = response.X.CurrentTime;
-            //        TotalSlaes = response.X.TotalSlaes;
-            //        TotalTax = response.X.TotalTax;
-            //        TaxItems = response.X.TaxItems;
-            //        InvoiceQuantity = response.X.InvoiceQuantity;
-            //        break;
-            //    case 1:
-            //        CurrentTime = response.Z.CurrentTime;
-            //        TotalSlaes = response.Z.TotalSlaes;
-            //        TotalTax = response.Z.TotalTax;
-            //        TaxItems = response.Z.TaxItems;
-            //        InvoiceQuantity = response.Z.InvoiceQuantity;
-
-            //        ReportNumber = response.Z.ReportNumber;
-            //        BeginDate = response.Z.BeginDate;
-            //        EndDate = response.Z.EndDate;
-            //        break;
-            //    case 2:
-            //        CurrentTime = response.Periodic.CurrentTime;
-            //        TotalSlaes = response.Periodic.TotalSlaes;
-            //        TotalTax = response.Periodic.TotalTax;
-            //        TaxItems = response.Periodic.TaxItems;
-            //        InvoiceQuantity = response.Periodic.InvoiceQuantity;
-
-            //        BeginDate = response.Periodic.BeginDate;
-            //        EndDate = response.Periodic.EndDate;
-            //        break;
-            //    default:
-            //        break;
-            //}
-
-
-
-            CurrentTime = "20180720213030";
-            TotalSlaes = 300;
-            TotalTax = 200;
-            InvoiceQuantity = 2;
-            TaxItems = new List<Model.Service.Statistics.ReportTaxItems>
+            try
             {
-                new Model.Service.Statistics.ReportTaxItems
+                ReportResponse response = JsonConvert.DeserializeObject<ReportResponse>(e.Message);
+                switch (response.ReportType)
                 {
-                    TaxLable="A",
-                    TaxName="aaaaaaaaa",
-                    TaxRate=0.12,
-                    TaxAmount=1000
-                },
-                new Model.Service.Statistics.ReportTaxItems
-                {
-                    TaxLable="A",
-                    TaxName="aaaaaaaaa",
-                    TaxRate=0.12,
-                    TaxAmount=1000
-                },
-                new Model.Service.Statistics.ReportTaxItems
-                {
-                    TaxLable="A",
-                    TaxName="aaaaaaaaa",
-                    TaxRate=0.12,
-                    TaxAmount=1000
-                },
-                new Model.Service.Statistics.ReportTaxItems
-                {
-                    TaxLable="A",
-                    TaxName="aaaaaaaaa",
-                    TaxRate=0.12,
-                    TaxAmount=1000
-                },
-                new Model.Service.Statistics.ReportTaxItems
-                {
-                    TaxLable="A",
-                    TaxName="aaaaaaaaa",
-                    TaxRate=0.12,
-                    TaxAmount=1000
-                },
-                new Model.Service.Statistics.ReportTaxItems
-                {
-                    TaxLable="B",
-                    TaxName="bbbbbbbb",
-                    TaxRate=0.12,
-                    TaxAmount=500
-                }
-            };
+                    case 0:
+                        CurrentTime = response.X.CurrentTime;
+                        TotalSlaes = response.X.TotalSlaes;
+                        TotalTax = response.X.TotalTax;
+                        TaxItems = response.X.TaxItems;
+                        InvoiceQuantity = response.X.InvoiceQuantity;
+                        break;
+                    case 1:
+                        CurrentTime = response.Z.CurrentTime;
+                        TotalSlaes = response.Z.TotalSlaes;
+                        TotalTax = response.Z.TotalTax;
+                        TaxItems = response.Z.TaxItems;
+                        InvoiceQuantity = response.Z.InvoiceQuantity;
 
-            ReportNumber = "111111";
-            BeginDate = "20180715";
-            EndDate = "20180720";
+                        ReportNumber = response.Z.ReportNumber;
+                        BeginDate = response.Z.BeginDate;
+                        EndDate = response.Z.EndDate;
+                        break;
+                    case 2:
+                        CurrentTime = response.Periodic.CurrentTime;
+                        TotalSlaes = response.Periodic.TotalSlaes;
+                        TotalTax = response.Periodic.TotalTax;
+                        TaxItems = response.Periodic.TaxItems;
+                        InvoiceQuantity = response.Periodic.InvoiceQuantity;
+
+                        BeginDate = response.Periodic.BeginDate;
+                        EndDate = response.Periodic.EndDate;
+                        break;
+                    default:
+                        break;
+                }
+
+
+
+                //CurrentTime = "20180720213030";
+                //TotalSlaes = 300;
+                //TotalTax = 200;
+                //InvoiceQuantity = 2;
+                //TaxItems = new List<Model.Service.Statistics.ReportTaxItems>
+                //{
+                //    new Model.Service.Statistics.ReportTaxItems
+                //    {
+                //        TaxLable="A",
+                //        TaxName="aaaaaaaaa",
+                //        TaxRate=0.12,
+                //        TaxAmount=1000
+                //    },
+                //    new Model.Service.Statistics.ReportTaxItems
+                //    {
+                //        TaxLable="A",
+                //        TaxName="aaaaaaaaa",
+                //        TaxRate=0.12,
+                //        TaxAmount=1000
+                //    },
+                //    new Model.Service.Statistics.ReportTaxItems
+                //    {
+                //        TaxLable="A",
+                //        TaxName="aaaaaaaaa",
+                //        TaxRate=0.12,
+                //        TaxAmount=1000
+                //    },
+                //    new Model.Service.Statistics.ReportTaxItems
+                //    {
+                //        TaxLable="A",
+                //        TaxName="aaaaaaaaa",
+                //        TaxRate=0.12,
+                //        TaxAmount=1000
+                //    },
+                //    new Model.Service.Statistics.ReportTaxItems
+                //    {
+                //        TaxLable="A",
+                //        TaxName="aaaaaaaaa",
+                //        TaxRate=0.12,
+                //        TaxAmount=1000
+                //    },
+                //    new Model.Service.Statistics.ReportTaxItems
+                //    {
+                //        TaxLable="B",
+                //        TaxName="bbbbbbbb",
+                //        TaxRate=0.12,
+                //        TaxAmount=500
+                //    }
+                //};
+
+                //ReportNumber = "111111";
+                //BeginDate = "20180715";
+                //EndDate = "20180720";
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message);
+            }
         }
         #endregion
     }

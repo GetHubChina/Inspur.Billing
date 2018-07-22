@@ -341,6 +341,7 @@ namespace Inspur.Billing.ViewModel.Setting
                                 }));
                                 break;
                             case "SDCTest":
+                                Const.IsNeedMessage = true;
                                 ServiceHelper.CheckStatue();
                                 break;
                             case "PrinterPortTest":
@@ -465,13 +466,13 @@ namespace Inspur.Billing.ViewModel.Setting
                 {
                     if (string.IsNullOrEmpty(SdcUrl))
                     {
-                        MessageBoxEx.Show("E-SDC URL can not null.", MessageBoxButton.OK);
+                        MessageBoxEx.Show("EFD URL can not null.", MessageBoxButton.OK);
                         return;
                     }
                     string[] sdc = SdcUrl.Split(':');
                     if (sdc != null && sdc.Count() != 2)
                     {
-                        MessageBoxEx.Show("E-SDC URL is not in the right format.", MessageBoxButton.OK);
+                        MessageBoxEx.Show("EFD URL is not in the right format.", MessageBoxButton.OK);
                         return;
                     }
                     if (string.IsNullOrEmpty(_sdcId))

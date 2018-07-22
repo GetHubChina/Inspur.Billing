@@ -9,11 +9,11 @@ namespace Inspur.Billing.Model.Service.Sign
     public class SignResponse
     {
         ///// <summary>
-        ///// UID of Secure Element digital certificate. In case of E-SDC it will be the same value as SignedBy field.
+        ///// UID of Secure Element digital certificate. In case of EFD it will be the same value as SignedBy field.
         ///// </summary>
         //public string RequestedBy { get; set; }
         ///// <summary>
-        ///// UID of Secure Element digital certificate. In case of E-SDC it will be the same value as RequestedBy field.
+        ///// UID of Secure Element digital certificate. In case of EFD it will be the same value as RequestedBy field.
         ///// </summary>
         //public string SignedBy { get; set; }
         ///// <summary>
@@ -94,7 +94,7 @@ namespace Inspur.Billing.Model.Service.Sign
         ///// </summary>
         //public string Rate { get; set; }
         ///// <summary>
-        ///// Tax amount calculated by E-SDC during invoice fiscalization 
+        ///// Tax amount calculated by EFD during invoice fiscalization 
         ///// </summary>
         //public double Amount { get; set; }
         ///// <summary>

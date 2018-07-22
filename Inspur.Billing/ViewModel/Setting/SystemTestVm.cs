@@ -68,7 +68,7 @@ namespace Inspur.Billing.ViewModel.Setting
         /// <summary>
         /// 获取或设置
         /// </summary>
-        private List<string> _cmdList = new List<string> { "Status", "Sign" };
+        private List<string> _cmdList = new List<string> { "Status", "Sign", "Report" };
         /// <summary>
         /// 获取或设置
         /// </summary>
@@ -122,19 +122,19 @@ namespace Inspur.Billing.ViewModel.Setting
                                 _netClient = new TcpHelper();
                                 if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SdcUrl))
                                 {
-                                    MessageBoxEx.Show("E-SDC URL can not be null.", MessageBoxButton.OK);
+                                    MessageBoxEx.Show("EFD URL can not be null.", MessageBoxButton.OK);
                                     return;
                                 }
                                 string[] sdc = Const.Locator.ParameterSetting.SdcUrl.Split(':');
                                 if (sdc != null && sdc.Count() != 2)
                                 {
-                                    MessageBoxEx.Show("E-SDC URL is not in the right format.", MessageBoxButton.OK);
+                                    MessageBoxEx.Show("EFD URL is not in the right format.", MessageBoxButton.OK);
                                     return;
                                 }
                                 bool isConn = _netClient.Connect(IPAddress.Parse(sdc[0]), int.Parse(sdc[1]));
                                 if (!isConn)
                                 {
-                                    MessageBoxEx.Show("Failed to connect to E-SDC.", MessageBoxButton.OK);
+                                    MessageBoxEx.Show("Failed to connect to EFD.", MessageBoxButton.OK);
                                     return;
                                 }
 
@@ -147,6 +147,9 @@ namespace Inspur.Billing.ViewModel.Setting
                                         break;
                                     case "Sign":
                                         _netClient.Send(0x02, Request);
+                                        break;
+                                    case "Report":
+                                        _netClient.Send(0x04, Request);
                                         break;
                                     default:
                                         break;
@@ -197,6 +200,9 @@ namespace Inspur.Billing.ViewModel.Setting
                                         break;
                                     case "Sign":
                                         _client.Send(0x02, Request);
+                                        break;
+                                    case "Report":
+                                        _client.Send(0x04, Request);
                                         break;
                                     default:
                                         break;

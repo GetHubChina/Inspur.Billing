@@ -69,7 +69,7 @@
 
 
 
-        <TextBlock Grid.Row="2" Text="E-SDC URL:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
+        <TextBlock Grid.Row="2" Text="EFD URL:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
         <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SdcUrl}" Style="{StaticResource M_3_P_3_TbStyle}" 
                  VerticalAlignment="Center" IsEnabled="{Binding IsParameterEnable}"/>
         <Button Grid.Row="2" Content="Test" Grid.Column="2" Width="100" Margin="0,3" Command="{Binding Command}" CommandParameter="SDCTest"/>

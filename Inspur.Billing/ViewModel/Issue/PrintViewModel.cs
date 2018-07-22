@@ -267,7 +267,7 @@ namespace Inspur.Billing.ViewModel.Issue
                                 }
                                 catch
                                 {
-                                    MessageBoxEx.Show("Can not connect E-SDC,We will custom print.");
+                                    MessageBoxEx.Show("Can not connect EFD,We will custom print.");
                                     signResponse = null;
                                     GetTaxPayerInfo();
                                 }
@@ -578,19 +578,19 @@ namespace Inspur.Billing.ViewModel.Issue
             _signTcpClient = new TcpHelper();
             if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SdcUrl))
             {
-                MessageBoxEx.Show("E-SDC URL can not be null.", MessageBoxButton.OK);
+                MessageBoxEx.Show("EFD URL can not be null.", MessageBoxButton.OK);
                 return;
             }
             string[] sdc = Const.Locator.ParameterSetting.SdcUrl.Split(':');
             if (sdc != null && sdc.Count() != 2)
             {
-                MessageBoxEx.Show("E-SDC URL is not in the right format.", MessageBoxButton.OK);
+                MessageBoxEx.Show("EFD URL is not in the right format.", MessageBoxButton.OK);
                 return;
             }
             bool isConn = _signTcpClient.Connect(IPAddress.Parse(sdc[0]), int.Parse(sdc[1]));
             if (!isConn)
             {
-                MessageBoxEx.Show("Failed to connect to E-SDC.", MessageBoxButton.OK);
+                MessageBoxEx.Show("Failed to connect to EFD.", MessageBoxButton.OK);
                 return;
             }
             string requestString = JsonConvert.SerializeObject(request);
