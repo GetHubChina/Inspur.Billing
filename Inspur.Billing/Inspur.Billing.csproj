@@ -341,6 +341,10 @@
     <None Include="LinqToDB.Templates\README.md" />
     <None Include="LinqToDB.Templates\T4Model.ttinclude" />
     <None Include="LinqToDB.Templates\Validation.ttinclude" />
+    <Resource Include="Images\System\TestNoraml.png" />
+    <Resource Include="Images\System\TestPressed.png" />
+    <Resource Include="Images\Statistics\ReportNormal.png" />
+    <Resource Include="Images\Statistics\ReportPressed.png" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
