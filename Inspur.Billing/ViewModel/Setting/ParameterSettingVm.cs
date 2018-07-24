@@ -23,7 +23,7 @@ namespace Inspur.Billing.ViewModel.Setting
         #region 构造函数
         public ParameterSettingVm()
         {
-            Printer.Instance.PrintPort = PrintPort;
+            //Printer.Instance.PrintPort = PrintPort;
 
             string[] ports = SerialPort.GetPortNames();
             if (ports != null && ports.Count() > 0)
@@ -64,18 +64,18 @@ namespace Inspur.Billing.ViewModel.Setting
             get { return _sdcUrl; }
             set { Set<string>(ref _sdcUrl, value, "SdcUrl"); }
         }
-        /// <summary>
-        /// 获取或设置打印端口
-        /// </summary>
-        private string _printPort = "SP-USB1";
-        /// <summary>
-        /// 获取或设置打印端口
-        /// </summary>
-        public string PrintPort
-        {
-            get { return _printPort; }
-            set { Set<string>(ref _printPort, value, "Port"); }
-        }
+        ///// <summary>
+        ///// 获取或设置打印端口
+        ///// </summary>
+        //private string _printPort = "SP-USB1";
+        ///// <summary>
+        ///// 获取或设置打印端口
+        ///// </summary>
+        //public string PrintPort
+        //{
+        //    get { return _printPort; }
+        //    set { Set<string>(ref _printPort, value, "Port"); }
+        //}
 
         /// <summary>
         /// 获取或设置pos软件信息
@@ -114,58 +114,31 @@ namespace Inspur.Billing.ViewModel.Setting
             set { Set<bool>(ref _isTaxPayerEnable, value, "IsTaxPayerEnable"); }
         }
 
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        private bool _isNetChecked = true;
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        public bool IsNetChecked
+        {
+            get { return _isNetChecked; }
+            set { Set<bool>(ref _isNetChecked, value, "IsNetChecked"); }
+        }
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        private bool _isSerialChecked;
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        public bool IsSerialChecked
+        {
+            get { return _isSerialChecked; }
+            set { Set<bool>(ref _isSerialChecked, value, "IsSerialChecked"); }
+        }
 
-        /// <summary>
-        /// 获取或设置通讯模式列表
-        /// </summary>
-        private List<CodeTable> _commModes = new List<CodeTable> { new CodeTable { Name = "Network", Code = "0" }, new CodeTable { Name = "Serial", Code = "1" } };
-        /// <summary>
-        /// 获取或设置通讯模式列表
-        /// </summary>
-        public List<CodeTable> CommModes
-        {
-            get { return _commModes; }
-            set { Set<List<CodeTable>>(ref _commModes, value, "CommModes"); }
-        }
-        /// <summary>
-        /// 获取或设置选择的通讯模式
-        /// </summary>
-        private CodeTable _selectModes;
-        /// <summary>
-        /// 获取或设置选择的通讯模式
-        /// </summary>
-        public CodeTable SelectedModes
-        {
-            get { return _selectModes; }
-            set
-            {
-                if (value != _selectModes)
-                {
-                    _selectModes = value;
-                    if (_selectModes != null && _selectModes.Code == "1")
-                    {
-                        SerialParamVis = Visibility.Visible;
-                    }
-                    else
-                    {
-                        SerialParamVis = Visibility.Collapsed;
-                    }
-                    RaisePropertyChanged(() => this.SelectedModes);
-                }
-            }
-        }
-        /// <summary>
-        /// 获取或设置
-        /// </summary>
-        private Visibility _serialParamVis;
-        /// <summary>
-        /// 获取或设置
-        /// </summary>
-        public Visibility SerialParamVis
-        {
-            get { return _serialParamVis; }
-            set { Set<Visibility>(ref _serialParamVis, value, "SerialParamVis"); }
-        }
         /// <summary>
         /// 获取或设置
         /// </summary>
@@ -306,7 +279,7 @@ namespace Inspur.Billing.ViewModel.Setting
         {
             get
             {
-                return (SelectedModes == null || SelectedModes.Code == "1") ? Commom.CommModel.SerialPort : Commom.CommModel.NetPort;
+                return IsSerialChecked ? Commom.CommModel.SerialPort : Commom.CommModel.NetPort;
             }
         }
         #endregion
@@ -344,10 +317,10 @@ namespace Inspur.Billing.ViewModel.Setting
                                 Const.IsNeedMessage = true;
                                 ServiceHelper.CheckStatue();
                                 break;
-                            case "PrinterPortTest":
-                                Printer.Instance.PrintPort = PrintPort;
-                                Printer.Instance.PrintTestPaper();
-                                break;
+                            //case "PrinterPortTest":
+                            //    Printer.Instance.PrintPort = PrintPort;
+                            //    Printer.Instance.PrintTestPaper();
+                            //    break;
                             default:
                                 break;
                         }
@@ -497,7 +470,7 @@ namespace Inspur.Billing.ViewModel.Setting
                             SdcPort = sdc[1]
                         });
                         IsParameterEnable = false;
-                        Printer.Instance.PrintPort = PrintPort;
+                        //Printer.Instance.PrintPort = PrintPort;
                     }
                 }, () =>
                 {

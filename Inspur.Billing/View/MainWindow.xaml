@@ -7,7 +7,7 @@
         xmlns:controls="clr-namespace:ControlLib.Controls;assembly=ControlLib"
         xmlns:userControls="clr-namespace:ControlLib.UserControls;assembly=ControlLib"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        mc:Ignorable="d"
+        mc:Ignorable="d" ResizeMode="NoResize"
         Title="POS Invoice Issue System" Height="650" Width="1100"
         DataContext="{Binding Path=Main, Source={StaticResource Locator}}"
         WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True">
@@ -207,6 +207,8 @@
                                       MouseOverImage="/Inspur.Billing;component/Images/System/TaxPayerPressed.png" Command="{Binding NavigationCommand}" CommandParameter="Setting/TaxPayerSetting.xaml"/>
                                 <controls:ImageRadioButton GroupName="navigation" NormalImage="/Inspur.Billing;component/Images/System/ParamSettingNormal.png" Width="200" Height="37"
                                       MouseOverImage="/Inspur.Billing;component/Images/System/ParamSettingPressed.png" Command="{Binding NavigationCommand}" CommandParameter="Setting/ParameterSetting.xaml"/>
+                                <controls:ImageRadioButton GroupName="navigation" NormalImage="/Inspur.Billing;component/Images/System/ParamSettingNormal.png" Width="200" Height="37"
+                                      MouseOverImage="/Inspur.Billing;component/Images/System/ParamSettingPressed.png" Command="{Binding NavigationCommand}" CommandParameter="Setting/PrintSetting.xaml"/>
                                 <controls:ImageRadioButton GroupName="navigation" NormalImage="/Inspur.Billing;component/Images/System/SoftNormal.png" Width="202" Height="37"
                                       MouseOverImage="/Inspur.Billing;component/Images/System/SoftPressed.png" Command="{Binding NavigationCommand}" CommandParameter="Setting/SoftwareSetting.xaml"/>
                                 <controls:ImageRadioButton GroupName="navigation" NormalImage="/Inspur.Billing;component/Images/System/TestNoraml.png" Width="202" Height="37"

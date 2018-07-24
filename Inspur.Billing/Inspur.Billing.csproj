@@ -183,13 +183,11 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\Setting\ParameterSettingVm.cs" />
     <Compile Include="ViewModel\Setting\PinViewModel.cs" />
+    <Compile Include="ViewModel\Setting\PrintSettingVm.cs" />
     <Compile Include="ViewModel\Setting\SoftwareSettingVm.cs" />
     <Compile Include="ViewModel\Setting\SystemTestVm.cs" />
     <Compile Include="ViewModel\Setting\TaxPayerSettingVm.cs" />
-    <Compile Include="ViewModel\Statistics\PeriodicReportVm.cs" />
-    <Compile Include="ViewModel\Statistics\XReportVm.cs" />
     <Compile Include="ViewModel\Statistics\XZPeriodicVm.cs" />
-    <Compile Include="ViewModel\Statistics\ZReportVm.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\Issue\AddGood.xaml.cs">
       <DependentUpon>AddGood.xaml</DependentUpon>
@@ -209,6 +207,9 @@
     <Compile Include="View\Setting\PinView.xaml.cs">
       <DependentUpon>PinView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Setting\PrintSetting.xaml.cs">
+      <DependentUpon>PrintSetting.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Setting\SoftwareSetting.xaml.cs">
       <DependentUpon>SoftwareSetting.xaml</DependentUpon>
     </Compile>
@@ -218,17 +219,8 @@
     <Compile Include="View\Setting\TaxPayerSetting.xaml.cs">
       <DependentUpon>TaxPayerSetting.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Statistics\PeriodicReportView.xaml.cs">
-      <DependentUpon>PeriodicReportView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Statistics\XReportView.xaml.cs">
-      <DependentUpon>XReportView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Statistics\XZPeriodicView.xaml.cs">
       <DependentUpon>XZPeriodicView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Statistics\ZReportView.xaml.cs">
-      <DependentUpon>ZReportView.xaml</DependentUpon>
     </Compile>
     <Page Include="View\Issue\AddGood.xaml">
       <SubType>Designer</SubType>
@@ -266,6 +258,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Setting\PrintSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Setting\SoftwareSetting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -278,21 +274,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Statistics\PeriodicReportView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Statistics\XReportView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\Statistics\XZPeriodicView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Statistics\ZReportView.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
