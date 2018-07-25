@@ -39,13 +39,15 @@
             <RowDefinition Height="30"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBlock Text="BeginDate"  Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
-        <DatePicker Grid.Column="1" VerticalAlignment="Center" SelectedDate="{Binding BeginTime}"/>
-        <TextBlock Grid.Column="2" Text="EndDate"  Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
-        <DatePicker Grid.Column="3" VerticalAlignment="Center" SelectedDate="{Binding EndTime}"/>
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="ReportType"  Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
-        <ComboBox Grid.Row="1" Grid.Column="1" Margin="0,3" ItemsSource="{Binding ReportTypes}" SelectedValue="{Binding ReportType}"
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="ReportType"  Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
+        <ComboBox Grid.Row="0" Grid.Column="1" Margin="0,3" ItemsSource="{Binding ReportTypes}" SelectedValue="{Binding ReportType}"
                   SelectedValuePath="Code" DisplayMemberPath="Name" SelectedIndex="0"/>
+
+        <TextBlock Grid.Column="2" Text="BeginDate"  Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
+        <DatePicker Grid.Column="3" VerticalAlignment="Center" SelectedDate="{Binding BeginTime}" IsEnabled="{Binding IsBeginEnable}" Language="en-US"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="EndDate"  Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
+        <DatePicker Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" SelectedDate="{Binding EndTime}" IsEnabled="{Binding IsEndEnable}" Language="en-US"/>
+
         <Button Content="Query" Grid.Row="1" Grid.Column="3" Command="{Binding QueryCommand}"/>
         <Border Grid.Row="2" Grid.ColumnSpan="4" Margin="0,20" Width="400" BorderThickness="1" BorderBrush="Black">
             <Grid>
@@ -70,7 +72,8 @@
                         <TextBlock Style="{StaticResource BaseContentTbkStyle}" Visibility="{Binding NumberVisibility}" Margin="0,5"><Run Text="REPORT NO:"/><Run Text="{Binding ReportNumber}"/></TextBlock>
                         <TextBlock Grid.Row="1" Style="{StaticResource BaseContentTbkStyle}" Margin="0,5"><Run Text="DATE TIME:"/><Run Text="{Binding CurrentTime}"/></TextBlock>
                         <TextBlock Grid.Row="2" Text="{Binding Title}" Style="{StaticResource H_C_ContentTbkStyle}" Margin="0,5"/>
-                        <TextBlock Grid.Row="3" Style="{StaticResource BaseContentTbkStyle}" Visibility="{Binding PeriodicVisibility}" Margin="0,5"><Run Text="BETWEEN "/><Run Text="{Binding BeginDate}"/><Run Text="AND"/><Run Text="{Binding EndDate}"/></TextBlock>
+                        <TextBlock Grid.Row="3" Style="{StaticResource BaseContentTbkStyle}" 
+                                   Visibility="{Binding PeriodicVisibility}" Margin="0,5"><Run Text="BETWEEN   "/><Run Text="{Binding BeginDate}"/><Run Text="    AND    "/><Run Text="{Binding EndDate}"/></TextBlock>
                         <Line Grid.Row="4" Style="{StaticResource DotLineStyle}" Margin="0,5"/>
                         <TextBlock Grid.Row="5" Text="FISCAL RECEIPT QTY" Style="{StaticResource BaseContentTbkStyle}" Margin="0,5"/>
                         <TextBlock Grid.Row="5" Text="{Binding InvoiceQuantity}" Style="{StaticResource H_R_ContentTbkStyle}" Margin="0,5"/>
@@ -85,7 +88,7 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Line Grid.Column="0" Style="{StaticResource DotLineStyle}" Margin="0,5"/>
-                            <TextBlock Grid.Column="1" Text="TOTAL SALES" Style="{StaticResource H_C_ContentTbkStyle}"/>
+                            <TextBlock Grid.Column="1" Text="TAX TOTALS" Style="{StaticResource H_C_ContentTbkStyle}"/>
                             <Line Grid.Column="2" Style="{StaticResource DotLineStyle}" Margin="0,5"/>
                         </Grid>
                         <ItemsControl Grid.Row="9" ItemTemplate="{StaticResource TaxItemDataTemplate}" 

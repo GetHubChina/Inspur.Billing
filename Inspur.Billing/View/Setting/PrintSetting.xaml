@@ -8,16 +8,26 @@
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="800">
     <Grid>
-        <Grid MaxWidth="600" MinWidth="530" HorizontalAlignment="Center" Margin="0,0,0,0">
+        <Grid MaxWidth="600" MinWidth="530" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="170"/>
                 <ColumnDefinition/>
-                <ColumnDefinition Width=" 120"/>
+                <ColumnDefinition Width="150"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="3" Text="Printer Serial Port:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
-            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding PrintPort}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center" IsEnabled="{Binding IsParameterEnable}"/>
-            <Button Content="Test" Grid.Row="3" Grid.Column="2" Width="100" Height="30"
-                    Command="{Binding Command}" CommandParameter="PrinterPortTest" Margin="0,3"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="Printer Serial Port:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding PrintPort}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center" IsEnabled="{Binding IsParameterEnable}"/>
+            <Button Content="Connection Test" Grid.Row="0" Grid.Column="2" Height="30"
+                    Command="{Binding Command}" CommandParameter="PrinterPortTest" Margin="10,0"/>
+
+            <StackPanel Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal" Margin="0,60,0,0">
+                <Button Width="100" Content="Edit" Command="{Binding NetSettingEditCommand}"/>
+                <Button Width="100" Content="Save" Command="{Binding NetSettingSaveCommand}" Margin="30,0"/>
+                <Button Width="100" Content="Cancel" Command="{Binding NetSettingCancelCommand}"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

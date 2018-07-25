@@ -41,6 +41,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
+                <TextBlock Visibility="{Binding OperationModeVis}" Style="{StaticResource H_C_ContentTbkStyle}" VerticalAlignment="Top" FontSize="16" Foreground="Red"><Run Text="The current pattern is "/><Run Text="{Binding OperationMode}"/></TextBlock>
                 <TextBlock Style="{StaticResource H_C_TitleTbkStyle}" Margin="0,30,0,0"><Run Text="Order Number: "/><Run Text="{Binding Credit.OrderNumber}"/></TextBlock>
                 <TextBlock Grid.Row="1" Text="{Binding CurrentTime}" Style="{StaticResource H_C_ContentTbkStyle}"/>
                 <Grid Grid.Row="2" Margin="10,0">

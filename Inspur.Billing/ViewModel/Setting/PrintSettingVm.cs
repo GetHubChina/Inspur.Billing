@@ -34,6 +34,19 @@ namespace Inspur.Billing.ViewModel.Setting
             get { return _printPort; }
             set { Set<string>(ref _printPort, value, "Port"); }
         }
+
+        /// <summary>
+        /// 获取或设置参数设置是否可用
+        /// </summary>
+        private bool _isParameterEnable = false;
+        /// <summary>
+        /// 获取或设置参数设置是否可用
+        /// </summary>
+        public bool IsParameterEnable
+        {
+            get { return _isParameterEnable; }
+            set { Set<bool>(ref _isParameterEnable, value, "IsParameterEnable"); }
+        }
         #endregion
 
         #region 命令
@@ -62,6 +75,70 @@ namespace Inspur.Billing.ViewModel.Setting
                 }, a =>
                 {
                     return true;
+                }));
+            }
+        }
+        string _oldPort;
+
+        /// <summary>
+        /// 获取或设置网络设置编辑命令
+        /// </summary>
+        private ICommand _netSettingEditCommand;
+        /// <summary>
+        /// 获取或设置网络设置编辑命令
+        /// </summary>
+        public ICommand NetSettingEditCommand
+        {
+            get
+            {
+                return _netSettingEditCommand ?? (_netSettingEditCommand = new RelayCommand(() =>
+                {
+                    _oldPort = PrintPort;
+                    IsParameterEnable = true;
+                }, () =>
+                {
+                    return !IsParameterEnable;
+                }));
+            }
+        }
+        /// <summary>
+        /// 获取或设置网络设置保存命令
+        /// </summary>
+        private ICommand _netSettingSaveCommand;
+        /// <summary>
+        /// 获取或设置网络设置保存命令
+        /// </summary>
+        public ICommand NetSettingSaveCommand
+        {
+            get
+            {
+                return _netSettingSaveCommand ?? (_netSettingSaveCommand = new RelayCommand(() =>
+                {
+                    IsParameterEnable = false;
+                }, () =>
+                {
+                    return IsParameterEnable;
+                }));
+            }
+        }
+        /// <summary>
+        /// 获取或设置网络设置取消命令
+        /// </summary>
+        private ICommand _netSettingCancelCommand;
+        /// <summary>
+        /// 获取或设置网络设置取消命令
+        /// </summary>
+        public ICommand NetSettingCancelCommand
+        {
+            get
+            {
+                return _netSettingCancelCommand ?? (_netSettingCancelCommand = new RelayCommand(() =>
+                {
+                    PrintPort = _oldPort;
+                    IsParameterEnable = false;
+                }, () =>
+                {
+                    return IsParameterEnable;
                 }));
             }
         }

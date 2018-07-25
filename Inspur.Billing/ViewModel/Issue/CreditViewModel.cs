@@ -240,6 +240,30 @@ namespace Inspur.Billing.ViewModel.Issue
             get { return _isMitTexTual; }
             set { Set<bool>(ref _isMitTexTual, value, "IsMitTexTual"); }
         }
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        private Visibility _operationModeVis;
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        public Visibility OperationModeVis
+        {
+            get { return _operationModeVis; }
+            set { Set<Visibility>(ref _operationModeVis, value, "OperationModeVis"); }
+        }
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        private string _operationMode;
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        public string OperationMode
+        {
+            get { return _operationMode; }
+            set { Set<string>(ref _operationMode, value, "OperationMode"); }
+        }
 
         #endregion
 
@@ -263,6 +287,22 @@ namespace Inspur.Billing.ViewModel.Issue
                         {
                             case "Loaded":
                                 //Const.Locator.Main.IsBusy = true;
+                                if (!Const.Locator.OperationModeVm.IsNormal)
+                                {
+                                    OperationModeVis = Visibility.Visible;
+                                    if (Const.Locator.OperationModeVm.IsTest)
+                                    {
+                                        OperationMode = "Test";
+                                    }
+                                    if (Const.Locator.OperationModeVm.IsSeperate)
+                                    {
+                                        OperationMode = "Seperate";
+                                    }
+                                }
+                                else
+                                {
+                                    OperationModeVis = Visibility.Collapsed;
+                                }
                                 if (!Const.IsHasGetStatus)
                                 {
                                     Const.IsNeedMessage = false;

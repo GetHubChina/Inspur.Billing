@@ -237,7 +237,30 @@ namespace Inspur.Billing.ViewModel.Issue
             get { return _fiscalCode; }
             set { Set<string>(ref _fiscalCode, value, "FiscalCode"); }
         }
-
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        private Visibility _operationModeVis;
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        public Visibility OperationModeVis
+        {
+            get { return _operationModeVis; }
+            set { Set<Visibility>(ref _operationModeVis, value, "OperationModeVis"); }
+        }
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        private string _operationMode;
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        public string OperationMode
+        {
+            get { return _operationMode; }
+            set { Set<string>(ref _operationMode, value, "OperationMode"); }
+        }
         #endregion
 
         #region 命令
@@ -497,6 +520,29 @@ namespace Inspur.Billing.ViewModel.Issue
                 MessageBoxEx.Show("PaymentMode is not number.");
                 return;
             }
+
+
+
+            if (!Const.Locator.OperationModeVm.IsNormal)
+            {
+                OperationModeVis = Visibility.Visible;
+                if (Const.Locator.OperationModeVm.IsTest)
+                {
+                    OperationMode = "Test";
+                    signRequest.OperationMode = 1;
+                }
+                if (Const.Locator.OperationModeVm.IsSeperate)
+                {
+                    OperationMode = "Seperate";
+                    signRequest.OperationMode = 2;
+                }
+            }
+            else
+            {
+                OperationModeVis = Visibility.Collapsed;
+                signRequest.OperationMode = 0;
+            }
+
 
             signRequest.Items = new List<SignGoodItem>();
             SignGoodItem signGoodItem;
@@ -799,6 +845,14 @@ namespace Inspur.Billing.ViewModel.Issue
                 Printer.Instance.PrintString(0, 0, 0, 0, 0, "Dear sir madam,please keep the invoice properly so as to refunds & replaces \r\n\r\n");
                 Printer.Instance.SetAlign(1);
                 Printer.Instance.PrintString(0, 0, 0, 0, 0, "Thank You & Please Come Again \r\n");
+
+
+                if (!Const.Locator.OperationModeVm.IsNormal)
+                {
+                    Printer.Instance.PrintString(0, 0, 0, 0, 0, "\r\n");
+                    Printer.Instance.PrintString(0, 0, 0, 0, 0, string.Format("The current pattern is {0}\r\n", OperationMode));
+                }
+
                 Printer.Instance.CutPaper(1, 5);
                 //}
             });

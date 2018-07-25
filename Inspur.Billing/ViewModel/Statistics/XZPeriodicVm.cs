@@ -43,8 +43,20 @@ namespace Inspur.Billing.ViewModel.Statistics
         public DateTime? BeginTime
         {
             get { return _beginTime; }
-            set { Set<DateTime?>(ref _beginTime, value, "BeginTime"); }
+            set
+            {
+                if (value != _beginTime)
+                {
+                    _beginTime = value;
+                    if (ReportType == "1")
+                    {
+                        EndTime = BeginTime;
+                    }
+                    RaisePropertyChanged(() => this.BeginTime);
+                }
+            }
         }
+
         /// <summary>
         /// 获取或设置
         /// </summary>
@@ -78,16 +90,24 @@ namespace Inspur.Billing.ViewModel.Statistics
                             Title = "X REPORT";
                             NumberVisibility = Visibility.Collapsed;
                             PeriodicVisibility = Visibility.Collapsed;
+                            BeginDate = null;
+                            EndDate = null;
+                            IsBeginEnable = false;
+                            IsEndEnable = false;
                             break;
                         case "1":
                             Title = "Z REPORT";
                             NumberVisibility = Visibility.Visible;
                             PeriodicVisibility = Visibility.Collapsed;
+                            IsBeginEnable = true;
+                            IsEndEnable = false;
                             break;
                         case "2":
                             Title = "PERIODIC REPORT";
                             NumberVisibility = Visibility.Collapsed;
                             PeriodicVisibility = Visibility.Visible;
+                            IsBeginEnable = true;
+                            IsEndEnable = true;
                             break;
                         default:
                             break;
@@ -250,6 +270,31 @@ namespace Inspur.Billing.ViewModel.Statistics
         {
             get { return _periodicVisibility; }
             set { Set<Visibility>(ref _periodicVisibility, value, "PeriodicVisibility"); }
+        }
+
+        /// <summary>
+        /// 获取或设置开始时间是否可以编辑
+        /// </summary>
+        private bool _isBeginEnable;
+        /// <summary>
+        /// 获取或设置开始时间是否可以编辑
+        /// </summary>
+        public bool IsBeginEnable
+        {
+            get { return _isBeginEnable; }
+            set { Set<bool>(ref _isBeginEnable, value, "IsBeginEnable"); }
+        }
+        /// <summary>
+        /// 获取或设置结束时间是否可以编辑
+        /// </summary>
+        private bool _isEndEnable;
+        /// <summary>
+        /// 获取或设置结束时间是否可以编辑
+        /// </summary>
+        public bool IsEndEnable
+        {
+            get { return _isEndEnable; }
+            set { Set<bool>(ref _isEndEnable, value, "IsEndEnable"); }
         }
 
         #endregion
