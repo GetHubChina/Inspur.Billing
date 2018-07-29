@@ -255,14 +255,14 @@ namespace Inspur.Billing.ViewModel.Issue
         /// <summary>
         /// 获取或设置
         /// </summary>
-        private string _operationMode;
+        private Visibility _maskVisibility = Visibility.Collapsed;
         /// <summary>
         /// 获取或设置
         /// </summary>
-        public string OperationMode
+        public Visibility MaskVisibility
         {
-            get { return _operationMode; }
-            set { Set<string>(ref _operationMode, value, "OperationMode"); }
+            get { return _maskVisibility; }
+            set { Set<Visibility>(ref _maskVisibility, value, "MaskVisibility"); }
         }
 
         #endregion
@@ -287,17 +287,18 @@ namespace Inspur.Billing.ViewModel.Issue
                         {
                             case "Loaded":
                                 //Const.Locator.Main.IsBusy = true;
+
+                                if (!Const.Locator.Main.IsOnline && Const.Locator.OperationModeVm.IsTest)
+                                {
+                                    MaskVisibility = Visibility.Visible;
+                                    MessageBoxEx.Show("Has been disconnected from SDC, POS can no longer work in test mode, please adjust to normal mode and try again.");
+                                    return;
+                                }
+                                MaskVisibility = Visibility.Collapsed;
+
                                 if (!Const.Locator.OperationModeVm.IsNormal)
                                 {
                                     OperationModeVis = Visibility.Visible;
-                                    if (Const.Locator.OperationModeVm.IsTest)
-                                    {
-                                        OperationMode = "Test";
-                                    }
-                                    if (Const.Locator.OperationModeVm.IsSeperate)
-                                    {
-                                        OperationMode = "Seperate";
-                                    }
                                 }
                                 else
                                 {

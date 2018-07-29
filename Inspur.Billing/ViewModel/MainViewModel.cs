@@ -1,3 +1,4 @@
+using CommonLib.Net;
 using ControlLib.Controls.Dialogs;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -8,7 +9,9 @@ using LinqToDB;
 using Newtonsoft.Json;
 using NLog;
 using System;
+using System.IO.Ports;
 using System.Linq;
+using System.Net;
 using System.Timers;
 using System.Windows;
 using System.Windows.Input;
@@ -42,43 +45,71 @@ namespace Inspur.Billing.ViewModel
             timer.Elapsed += Timer_Elapsed;
             timer.AutoReset = true;
             timer.Start();
-
-            if (ServiceHelper.TcpClient != null)
-            {
-                ServiceHelper.TcpClient.Complated += TcpClient_Complated;
-            }
         }
-
-        private void TcpClient_Complated(object sender, CommonLib.Net.MessageModel e)
-        {
-            if (e.MessageId == 0x03)
-            {
-                ErrorInfo erroInfo = JsonConvert.DeserializeObject<ErrorInfo>(e.Message);
-                if (erroInfo != null)
-                {
-                    _logger.Info(string.Format("返回错误，ErroCode：{0},Description:{1}", erroInfo.ErroCode, erroInfo.Description));
-                    MessageBoxEx.Show(erroInfo.Description, MessageBoxButton.OK);
-                }
-            }
-        }
-
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            if (ServiceHelper.TcpClient != null && ServiceHelper.TcpClient.IsConnected)
+            CheckIsOnline();
+        }
+
+        private void CheckIsOnline()
+        {
+            try
             {
-                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                switch (Const.Locator.ParameterSetting.CommModel)
                 {
-                    OnLineVisibility = Visibility.Visible;
-                    OffLineVisibility = Visibility.Collapsed;
-                }));
+                    case CommModel.NetPort:
+                        TcpHelper helper = new TcpHelper();
+                        string[] sdc = Const.Locator.ParameterSetting.SdcUrl.Split(':');
+                        if (sdc != null && sdc.Count() != 2)
+                        {
+                            _logger.Info("EFD URL is not in the right format.");
+                            SetIsOnline(false);
+                            return;
+                        }
+                        helper.Connect(IPAddress.Parse(sdc[0]), int.Parse(sdc[1]));
+                        SetIsOnline(helper.IsConnected);
+                        break;
+                    case CommModel.SerialPort:
+                        string[] ports = SerialPort.GetPortNames();
+                        if (ports != null && ports.Count() > 0)
+                        {
+                            if (ports.Contains(Const.Locator.ParameterSetting.SelectedPort))
+                            {
+                                SetIsOnline(true);
+                            }
+                            else
+                            {
+                                SetIsOnline(false);
+                            }
+                        }
+                        else
+                        {
+                            SetIsOnline(false);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message);
+            }
+        }
+
+
+        private void SetIsOnline(bool isOnline)
+        {
+            _isOnline = isOnline;
+            if (isOnline)
+            {
+                OnLineVisibility = Visibility.Visible;
+                OffLineVisibility = Visibility.Collapsed;
             }
             else
             {
-                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    OnLineVisibility = Visibility.Collapsed;
-                    OffLineVisibility = Visibility.Visible;
-                }));
+                OnLineVisibility = Visibility.Collapsed;
+                OffLineVisibility = Visibility.Visible;
             }
         }
         #region 属性
@@ -141,6 +172,15 @@ namespace Inspur.Billing.ViewModel
         {
             get { return _isBusy; }
             set { Set<bool>(ref _isBusy, value, "IsBusy"); }
+        }
+
+        private bool _isOnline = true;
+        /// <summary>
+        /// sdc是否连接
+        /// </summary>
+        public bool IsOnline
+        {
+            get { return _isOnline; }
         }
 
         #endregion

@@ -78,5 +78,6 @@ namespace Inspur.Billing.Commom
         /// 是否需要提示信息
         /// </summary>
         public static bool IsNeedMessage { get; set; }
+
     }
 }

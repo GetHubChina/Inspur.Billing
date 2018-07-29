@@ -90,8 +90,8 @@ namespace Inspur.Billing.ViewModel.Statistics
                             Title = "X REPORT";
                             NumberVisibility = Visibility.Collapsed;
                             PeriodicVisibility = Visibility.Collapsed;
-                            BeginDate = null;
-                            EndDate = null;
+                            BeginTime = null;
+                            EndTime = null;
                             IsBeginEnable = false;
                             IsEndEnable = false;
                             break;

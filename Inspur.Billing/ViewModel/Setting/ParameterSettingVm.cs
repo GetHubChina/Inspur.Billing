@@ -23,15 +23,20 @@ namespace Inspur.Billing.ViewModel.Setting
         #region 构造函数
         public ParameterSettingVm()
         {
-            //Printer.Instance.PrintPort = PrintPort;
-
             string[] ports = SerialPort.GetPortNames();
             if (ports != null && ports.Count() > 0)
             {
                 SerialPorts = ports.ToList();
+                SelectedPort = SerialPorts[0];
             }
             ParityList = System.Enum.GetNames(typeof(Parity)).ToList();
+            SelectedParity = ParityList[0];
             StopBitsList = Enum.GetNames(typeof(StopBits)).ToList();
+            SelectedStopBits = StopBitsList[1];
+            BaudRates = new List<string> { "115200", "57600", "38400", "19200", "14400", "9600" };
+            SelectedBaudRate = BaudRates[0];
+            DataBitsList = new List<string> { "8", "7", "6", "5" };
+            SelectedDataBits = DataBitsList[0];
         }
         #endregion
 
@@ -64,19 +69,6 @@ namespace Inspur.Billing.ViewModel.Setting
             get { return _sdcUrl; }
             set { Set<string>(ref _sdcUrl, value, "SdcUrl"); }
         }
-        ///// <summary>
-        ///// 获取或设置打印端口
-        ///// </summary>
-        //private string _printPort = "SP-USB1";
-        ///// <summary>
-        ///// 获取或设置打印端口
-        ///// </summary>
-        //public string PrintPort
-        //{
-        //    get { return _printPort; }
-        //    set { Set<string>(ref _printPort, value, "Port"); }
-        //}
-
         /// <summary>
         /// 获取或设置pos软件信息
         /// </summary>
@@ -114,30 +106,63 @@ namespace Inspur.Billing.ViewModel.Setting
             set { Set<bool>(ref _isTaxPayerEnable, value, "IsTaxPayerEnable"); }
         }
 
-        /// <summary>
-        /// 获取或设置
-        /// </summary>
-        private bool _isNetChecked = true;
-        /// <summary>
-        /// 获取或设置
-        /// </summary>
+        ///// <summary>
+        ///// 获取或设置
+        ///// </summary>
+        //private bool _isNetChecked;
+        ///// <summary>
+        ///// 获取或设置
+        ///// </summary>
+        //public bool IsNetChecked
+        //{
+        //    get { return _isNetChecked; }
+        //    set { Set<bool>(ref _isNetChecked, value, "IsNetChecked"); }
+        //}
+        ///// <summary>
+        ///// 获取或设置
+        ///// </summary>
+        //private bool _isSerialChecked = true;
+        ///// <summary>
+        ///// 获取或设置
+        ///// </summary>
+        //public bool IsSerialChecked
+        //{
+        //    get { return _isSerialChecked; }
+        //    set { Set<bool>(ref _isSerialChecked, value, "IsSerialChecked"); }
+        //}
+
+        private bool _isNetChecked;
+
         public bool IsNetChecked
         {
             get { return _isNetChecked; }
-            set { Set<bool>(ref _isNetChecked, value, "IsNetChecked"); }
+            set
+            {
+                if (value != _isNetChecked)
+                {
+                    _isNetChecked = value;
+                    Console.WriteLine("IsNetChecked" + value);
+                    RaisePropertyChanged(() => IsNetChecked);
+                }
+            }
         }
-        /// <summary>
-        /// 获取或设置
-        /// </summary>
-        private bool _isSerialChecked;
-        /// <summary>
-        /// 获取或设置
-        /// </summary>
+        private bool _isSerialChecked = true;
+
         public bool IsSerialChecked
         {
             get { return _isSerialChecked; }
-            set { Set<bool>(ref _isSerialChecked, value, "IsSerialChecked"); }
+            set
+            {
+                if (value != _isSerialChecked)
+                {
+                    _isSerialChecked = value;
+                    Console.WriteLine("IsSerialChecked" + value);
+                    RaisePropertyChanged(() => IsSerialChecked);
+                }
+            }
         }
+
+
 
         /// <summary>
         /// 获取或设置
@@ -180,7 +205,7 @@ namespace Inspur.Billing.ViewModel.Setting
         /// <summary>
         /// 获取或设置波特率集合
         /// </summary>
-        private List<string> _baudRates = new List<string> { "115200", "57600", "38400", "19200", "14400", "9600" };
+        private List<string> _baudRates;
         /// <summary>
         /// 获取或设置波特率集合
         /// </summary>
@@ -228,7 +253,7 @@ namespace Inspur.Billing.ViewModel.Setting
         /// <summary>
         /// 获取或设置数据位集合
         /// </summary>
-        private List<string> _dataBitsList = new List<string> { "8", "7", "6", "5" };
+        private List<string> _dataBitsList;
         /// <summary>
         /// 获取或设置数据位集合
         /// </summary>
@@ -303,39 +328,18 @@ namespace Inspur.Billing.ViewModel.Setting
                         switch (p)
                         {
                             case "Loaded":
-                                LoadTaxpayerInfo();
                                 LoadSDCInfo();
-                                //验证sdc
-                                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-                                {
-                                    //ServiceHelper.CheckStatue();
-                                    //防止请求报错，软件信息为空
-                                    LoadSoftwareInfo();
-                                }));
                                 break;
                             case "SDCTest":
                                 Const.IsNeedMessage = true;
                                 ServiceHelper.CheckStatue();
                                 break;
-                            //case "PrinterPortTest":
-                            //    Printer.Instance.PrintPort = PrintPort;
-                            //    Printer.Instance.PrintTestPaper();
-                            //    break;
                             default:
                                 break;
                         }
                     }
                     catch (Exception ex)
                     {
-                        switch (p)
-                        {
-                            case "Loaded":
-                                LoadSoftwareInfo();
-                                break;
-                            default:
-                                break;
-                        }
-
                         MessageBoxEx.Show(ex.Message, MessageBoxButton.OK);
                     }
                 }, a =>

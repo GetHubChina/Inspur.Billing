@@ -249,18 +249,6 @@ namespace Inspur.Billing.ViewModel.Issue
             get { return _operationModeVis; }
             set { Set<Visibility>(ref _operationModeVis, value, "OperationModeVis"); }
         }
-        /// <summary>
-        /// 获取或设置
-        /// </summary>
-        private string _operationMode;
-        /// <summary>
-        /// 获取或设置
-        /// </summary>
-        public string OperationMode
-        {
-            get { return _operationMode; }
-            set { Set<string>(ref _operationMode, value, "OperationMode"); }
-        }
         #endregion
 
         #region 命令
@@ -472,6 +460,10 @@ namespace Inspur.Billing.ViewModel.Issue
                         Messenger.Default.Send<string>(null, "ClosePrintView");
                         //清空数据
                         ActualPay = 0;
+                        InvoiceCode = "";
+                        InvoiceNumber = "";
+                        FiscalCode = "";
+                        TerminalID = "";
                     }
                     catch (Exception ex)
                     {
@@ -528,12 +520,10 @@ namespace Inspur.Billing.ViewModel.Issue
                 OperationModeVis = Visibility.Visible;
                 if (Const.Locator.OperationModeVm.IsTest)
                 {
-                    OperationMode = "Test";
                     signRequest.OperationMode = 1;
                 }
                 if (Const.Locator.OperationModeVm.IsSeperate)
                 {
-                    OperationMode = "Seperate";
                     signRequest.OperationMode = 2;
                 }
             }
@@ -850,7 +840,7 @@ namespace Inspur.Billing.ViewModel.Issue
                 if (!Const.Locator.OperationModeVm.IsNormal)
                 {
                     Printer.Instance.PrintString(0, 0, 0, 0, 0, "\r\n");
-                    Printer.Instance.PrintString(0, 0, 0, 0, 0, string.Format("The current pattern is {0}\r\n", OperationMode));
+                    Printer.Instance.PrintString(0, 0, 0, 0, 0, "This is a testing invoice \r\n");
                 }
 
                 Printer.Instance.CutPaper(1, 5);

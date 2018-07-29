@@ -32,12 +32,12 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <RadioButton GroupName="CommModel" Grid.ColumnSpan="2" Content="By Serial Port" 
-                     IsChecked="{Binding IsNetChecked}" IsEnabled="{Binding IsParameterEnable}"/>
-        <RadioButton GroupName="CommModel" Grid.Column="2" Grid.ColumnSpan="2" Content="By NetWork"
-                     IsChecked="{Binding IsSerialChecked}" IsEnabled="{Binding IsParameterEnable}"/>
+        <RadioButton Grid.ColumnSpan="2" Content="By Serial Port" 
+                     IsChecked="{Binding IsSerialChecked,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsParameterEnable}"/>
+        <RadioButton Grid.Column="2" Grid.ColumnSpan="2" Content="By NetWork"
+                     IsChecked="{Binding IsNetChecked,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsParameterEnable}"/>
 
-        <Grid Grid.Row="1" Grid.ColumnSpan="2" Visibility="{Binding SerialParamVis}">
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition  Width="100"/>
                 <ColumnDefinition Width="*"/>

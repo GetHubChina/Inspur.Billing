@@ -9,11 +9,11 @@
              d:DesignHeight="300" d:DesignWidth="600">
     <Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <RadioButton GroupName="OperationModel" Grid.ColumnSpan="2" Content="Normal Sale" 
+            <RadioButton Grid.ColumnSpan="2" Content="Normal Sale" 
                      IsChecked="{Binding IsNormal}" IsEnabled="{Binding IsParameterEnable}"/>
-            <RadioButton GroupName="OperationModel" Grid.Column="2" Grid.ColumnSpan="2" Content="Test"
+            <RadioButton Grid.Column="2" Grid.ColumnSpan="2" Content="Test"
                      IsChecked="{Binding IsTest}" IsEnabled="{Binding IsParameterEnable}" Margin="30,0"/>
-            <RadioButton GroupName="OperationModel" Grid.Column="2" Grid.ColumnSpan="2" Content="Seperate"
+            <RadioButton Grid.Column="2" Grid.ColumnSpan="2" Content="Seperate"
                      IsChecked="{Binding IsSeperate}" IsEnabled="{Binding IsParameterEnable}"/>
         </StackPanel>
     </Grid>

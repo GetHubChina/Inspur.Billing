@@ -181,6 +181,10 @@ namespace Inspur.Billing.Commom
             {
                 throw new Exception("Request can not be null.");
             }
+
+            StopBits ss = (StopBits)Enum.Parse(typeof(StopBits), Const.Locator.ParameterSetting.SelectedStopBits);
+
+
             SerialClient _client = new SerialClient(Const.Locator.ParameterSetting.SelectedPort,
                int.Parse(Const.Locator.ParameterSetting.SelectedBaudRate),
                (Parity)Enum.Parse(typeof(Parity), Const.Locator.ParameterSetting.SelectedParity),
