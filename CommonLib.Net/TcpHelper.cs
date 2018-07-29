@@ -36,7 +36,7 @@ namespace CommonLib.Net
         /// <summary>
         /// 超时时间
         /// </summary>
-        int _timeOut = 30000;
+        int _timeOut = 10000;
 
 
         public TcpHelper()
