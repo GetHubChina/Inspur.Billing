@@ -30,7 +30,7 @@ namespace Inspur.Billing.ViewModel.Issue
             }
             if (string.IsNullOrWhiteSpace(Printer.Instance.PrintPort))
             {
-                Printer.Instance.PrintPort = Const.Locator.ParameterSetting.PrintPort;
+                Printer.Instance.PrintPort = Const.Locator.PrintSettingVm.PrintPort;
             }
         }
 
@@ -240,6 +240,30 @@ namespace Inspur.Billing.ViewModel.Issue
             get { return _isMitTexTual; }
             set { Set<bool>(ref _isMitTexTual, value, "IsMitTexTual"); }
         }
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        private Visibility _operationModeVis;
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        public Visibility OperationModeVis
+        {
+            get { return _operationModeVis; }
+            set { Set<Visibility>(ref _operationModeVis, value, "OperationModeVis"); }
+        }
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        private Visibility _maskVisibility = Visibility.Collapsed;
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        public Visibility MaskVisibility
+        {
+            get { return _maskVisibility; }
+            set { Set<Visibility>(ref _maskVisibility, value, "MaskVisibility"); }
+        }
 
         #endregion
 
@@ -263,8 +287,26 @@ namespace Inspur.Billing.ViewModel.Issue
                         {
                             case "Loaded":
                                 //Const.Locator.Main.IsBusy = true;
+
+                                if (!Const.Locator.Main.IsOnline && Const.Locator.OperationModeVm.IsTest)
+                                {
+                                    MaskVisibility = Visibility.Visible;
+                                    MessageBoxEx.Show("Has been disconnected from SDC, POS can no longer work in test mode, please adjust to normal mode and try again.");
+                                    return;
+                                }
+                                MaskVisibility = Visibility.Collapsed;
+
+                                if (!Const.Locator.OperationModeVm.IsNormal)
+                                {
+                                    OperationModeVis = Visibility.Visible;
+                                }
+                                else
+                                {
+                                    OperationModeVis = Visibility.Collapsed;
+                                }
                                 if (!Const.IsHasGetStatus)
                                 {
+                                    Const.IsNeedMessage = false;
                                     ServiceHelper.CheckStatue();
                                 }
                                 //Const.Locator.Main.IsBusy = false;

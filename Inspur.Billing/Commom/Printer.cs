@@ -645,6 +645,100 @@ namespace Inspur.Billing.Commom
         {
             return POS_Control_SetPrintPosition(m_hPrinter, lefMargin, width);
         }
+
+
+
+
+
+
+        public void PrintLine()
+        {
+            PrintString(0, 0, 0, 0, 0, "————————————————————————\r\n");
+        }
+
+        /// <summary>
+        /// 58pos -  32字符，80-
+        /// </summary>
+        const int PrintCharCount = 47;
+
+        /// <summary>
+        /// 目前在api中没有找到同一行两列的打印方式，先使用此方法
+        /// </summary>
+        /// <param name="leftName"></param>
+        /// <param name="leftValue"></param>
+        /// <param name="rightName"></param>
+        /// <param name="rightValue"></param>
+        public void SetTwoColumnPrint(string leftName, string leftValue, string rightName, string rightValue)
+        {
+            string left = string.Format("{0}:{1}", leftName, leftValue);
+            string right = string.Format("{0}{1}", rightName, rightValue);
+            StringBuilder sb = new StringBuilder();
+            if (left.Length + right.Length < PrintCharCount)
+            {
+                sb.Append(' ', PrintCharCount - left.Length - right.Length);
+            }
+            Printer.Instance.PrintString(0, 1, 0, 0, 0, string.Format("{0}{1}{2}\r\n", left, sb.ToString(), right));
+        }
+
+        public string SetLeftPrint(int totalLength, string content)
+        {
+            StringBuilder result = new StringBuilder();
+            int spaceCount = totalLength - content.Length;
+            if (spaceCount > 0)
+            {
+                result.Append(content);
+                result.Append(' ', spaceCount);
+                return result.ToString();
+            }
+            return content;
+        }
+        public string SetRightPrint(int totalLength, string content)
+        {
+            StringBuilder result = new StringBuilder();
+            int spaceCount = totalLength - content.Length;
+            if (spaceCount > 0)
+            {
+                result.Append(' ', spaceCount);
+                result.Append(content);
+                return result.ToString();
+            }
+            return content;
+        }
+        public string SetCenterPrint(int totalLength, string content)
+        {
+            StringBuilder result = new StringBuilder();
+            int spaceCount = totalLength - content.Length;
+            int marginSpace = (int)(Math.Floor(spaceCount / 2.0));
+            int mode = spaceCount % 2;
+            if (spaceCount > 0)
+            {
+                if (marginSpace > 0)
+                {
+                    if (mode > 0)
+                    {
+                        result.Append(' ', marginSpace + 1);
+                        result.Append(content);
+                        result.Append(' ', marginSpace);
+                    }
+                    else
+                    {
+                        result.Append(' ', marginSpace);
+                        result.Append(content);
+                        result.Append(' ', marginSpace);
+                    }
+                }
+                else
+                {
+                    result.Append(content);
+                    result.Append(" ");
+                }
+            }
+            else
+            {
+                result.Append(content);
+            }
+            return result.ToString();
+        }
         #endregion
     }
 }

@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Inspur.Billing.View.Statistics
+namespace Inspur.Billing.View.Setting
 {
     /// <summary>
-    /// PeriodicReportView.xaml 的交互逻辑
+    /// OperationSettting.xaml 的交互逻辑
     /// </summary>
-    public partial class PeriodicReportView : UserControl
+    public partial class OperationSettting : UserControl
     {
-        public PeriodicReportView()
+        public OperationSettting()
         {
             InitializeComponent();
         }

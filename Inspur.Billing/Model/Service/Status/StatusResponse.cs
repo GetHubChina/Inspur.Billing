@@ -24,7 +24,7 @@ namespace Inspur.Billing.Model.Service.Status
         ///// <summary>
         ///// UID RequestedBy-UID Signed By-Ordinal Number 
         ///// (Example: Signedby SE ORG674J1-ORG674J1-98637,
-        ///// Signed by E-SDC ORG674J1-G8O0PA43-887)
+        ///// Signed by EFD ORG674J1-G8O0PA43-887)
         ///// </summary>
         //public string LastInvoiceNumber { get; set; }
         ///// <summary>

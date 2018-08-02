@@ -141,6 +141,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commom\CommModel.cs" />
     <Compile Include="Commom\Config.cs" />
     <Compile Include="Commom\Const.cs" />
     <Compile Include="Commom\DateTimeHelper.cs" />
@@ -165,6 +166,13 @@
     <Compile Include="Model\Service\Sign\SignRequest.cs" />
     <Compile Include="Model\Service\Sign\SignResponse.cs" />
     <Compile Include="Model\Service\Sign\TaxItem.cs" />
+    <Compile Include="Model\Service\Statistics\PeriodicModel.cs" />
+    <Compile Include="Model\Service\Statistics\ReportRequest.cs" />
+    <Compile Include="Model\Service\Statistics\ReportResponse.cs" />
+    <Compile Include="Model\Service\Statistics\ReportTaxItems.cs" />
+    <Compile Include="Model\Service\Statistics\XReportModel.cs" />
+    <Compile Include="Model\Service\Statistics\ZReport.cs" />
+    <Compile Include="Model\Service\Statistics\ZReportModel.cs" />
     <Compile Include="Model\Service\Status\StatusRequest.cs" />
     <Compile Include="Model\Service\Status\StatusResponse.cs" />
     <Compile Include="Model\TaxCategory.cs" />
@@ -173,11 +181,14 @@
     <Compile Include="ViewModel\Issue\PrintViewModel.cs" />
     <Compile Include="ViewModel\Login\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\Setting\OperationModeVm.cs" />
     <Compile Include="ViewModel\Setting\ParameterSettingVm.cs" />
     <Compile Include="ViewModel\Setting\PinViewModel.cs" />
+    <Compile Include="ViewModel\Setting\PrintSettingVm.cs" />
     <Compile Include="ViewModel\Setting\SoftwareSettingVm.cs" />
     <Compile Include="ViewModel\Setting\SystemTestVm.cs" />
     <Compile Include="ViewModel\Setting\TaxPayerSettingVm.cs" />
+    <Compile Include="ViewModel\Statistics\XZPeriodicVm.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\Issue\AddGood.xaml.cs">
       <DependentUpon>AddGood.xaml</DependentUpon>
@@ -191,11 +202,17 @@
     <Compile Include="View\Login\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Setting\OperationSettting.xaml.cs">
+      <DependentUpon>OperationSettting.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Setting\ParameterSetting.xaml.cs">
       <DependentUpon>ParameterSetting.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Setting\PinView.xaml.cs">
       <DependentUpon>PinView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Setting\PrintSetting.xaml.cs">
+      <DependentUpon>PrintSetting.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Setting\SoftwareSetting.xaml.cs">
       <DependentUpon>SoftwareSetting.xaml</DependentUpon>
@@ -206,17 +223,8 @@
     <Compile Include="View\Setting\TaxPayerSetting.xaml.cs">
       <DependentUpon>TaxPayerSetting.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Statistics\PeriodicReportView.xaml.cs">
-      <DependentUpon>PeriodicReportView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Statistics\XReportView.xaml.cs">
-      <DependentUpon>XReportView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Statistics\XZPeriodicView.xaml.cs">
       <DependentUpon>XZPeriodicView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Statistics\ZReportView.xaml.cs">
-      <DependentUpon>ZReportView.xaml</DependentUpon>
     </Compile>
     <Page Include="View\Issue\AddGood.xaml">
       <SubType>Designer</SubType>
@@ -246,11 +254,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Setting\OperationSettting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Setting\ParameterSetting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Setting\PinView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Setting\PrintSetting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -266,21 +282,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Statistics\PeriodicReportView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Statistics\XReportView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\Statistics\XZPeriodicView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Statistics\ZReportView.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -329,6 +333,14 @@
     <None Include="LinqToDB.Templates\README.md" />
     <None Include="LinqToDB.Templates\T4Model.ttinclude" />
     <None Include="LinqToDB.Templates\Validation.ttinclude" />
+    <Resource Include="Images\System\TestNoraml.png" />
+    <Resource Include="Images\System\TestPressed.png" />
+    <Resource Include="Images\Statistics\ReportNormal.png" />
+    <Resource Include="Images\Statistics\ReportPressed.png" />
+    <Resource Include="Images\System\PrintSetNormal.png" />
+    <Resource Include="Images\System\PrintSetPressed.png" />
+    <Resource Include="Images\System\OperationModeNormal.png" />
+    <Resource Include="Images\System\OperationModePressed.png" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

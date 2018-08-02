@@ -18,6 +18,7 @@ using GalaSoft.MvvmLight.Ioc;
 using Inspur.Billing.ViewModel.Issue;
 using Inspur.Billing.ViewModel.Login;
 using Inspur.Billing.ViewModel.Setting;
+using Inspur.Billing.ViewModel.Statistics;
 
 namespace Inspur.Billing.ViewModel
 {
@@ -54,6 +55,9 @@ namespace Inspur.Billing.ViewModel
             SimpleIoc.Default.Register<ParameterSettingVm>();
             SimpleIoc.Default.Register<SoftwareSettingVm>();
             SimpleIoc.Default.Register<SystemTestVm>();
+            SimpleIoc.Default.Register<XZPeriodicVm>();
+            SimpleIoc.Default.Register<PrintSettingVm>();
+            SimpleIoc.Default.Register<OperationModeVm>();
         }
         public LoginViewModel Login
         {
@@ -116,6 +120,27 @@ namespace Inspur.Billing.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<SystemTestVm>();
+            }
+        }
+        public XZPeriodicVm XZPeriodicVm
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<XZPeriodicVm>();
+            }
+        }
+        public PrintSettingVm PrintSettingVm
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<PrintSettingVm>();
+            }
+        }
+        public OperationModeVm OperationModeVm
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<OperationModeVm>();
             }
         }
         public static void Cleanup()

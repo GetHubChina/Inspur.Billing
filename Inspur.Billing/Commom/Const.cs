@@ -14,7 +14,7 @@ namespace Inspur.Billing.Commom
         /// <summary>
         /// sqlite连接字符串
         /// </summary>
-        public static string ConnectString = "Data Source=" + AppDomain.CurrentDomain.BaseDirectory + "/Billing.db";
+        public static string ConnectString = "Data Source=" + AppDomain.CurrentDomain.BaseDirectory + "Billing.db";
         /// <summary>
         /// 数据库对象
         /// </summary>
@@ -74,5 +74,10 @@ namespace Inspur.Billing.Commom
         /// 是否获取过esdc状态
         /// </summary>
         public static bool IsHasGetStatus { get; set; }
+        /// <summary>
+        /// 是否需要提示信息
+        /// </summary>
+        public static bool IsNeedMessage { get; set; }
+
     }
 }

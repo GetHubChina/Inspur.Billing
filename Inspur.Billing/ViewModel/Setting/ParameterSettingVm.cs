@@ -3,10 +3,12 @@ using DataModels;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Inspur.Billing.Commom;
+using Inspur.Billing.Model;
 using Inspur.TaxModel;
 using LinqToDB;
 using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -21,7 +23,20 @@ namespace Inspur.Billing.ViewModel.Setting
         #region 构造函数
         public ParameterSettingVm()
         {
-            Printer.Instance.PrintPort = PrintPort;
+            string[] ports = SerialPort.GetPortNames();
+            if (ports != null && ports.Count() > 0)
+            {
+                SerialPorts = ports.ToList();
+                SelectedPort = SerialPorts[0];
+            }
+            ParityList = System.Enum.GetNames(typeof(Parity)).ToList();
+            SelectedParity = ParityList[0];
+            StopBitsList = Enum.GetNames(typeof(StopBits)).ToList();
+            SelectedStopBits = StopBitsList[1];
+            BaudRates = new List<string> { "115200", "57600", "38400", "19200", "14400", "9600" };
+            SelectedBaudRate = BaudRates[0];
+            DataBitsList = new List<string> { "8", "7", "6", "5" };
+            SelectedDataBits = DataBitsList[0];
         }
         #endregion
 
@@ -54,19 +69,6 @@ namespace Inspur.Billing.ViewModel.Setting
             get { return _sdcUrl; }
             set { Set<string>(ref _sdcUrl, value, "SdcUrl"); }
         }
-        /// <summary>
-        /// 获取或设置打印端口
-        /// </summary>
-        private string _printPort = "SP-USB1";
-        /// <summary>
-        /// 获取或设置打印端口
-        /// </summary>
-        public string PrintPort
-        {
-            get { return _printPort; }
-            set { Set<string>(ref _printPort, value, "Port"); }
-        }
-
         /// <summary>
         /// 获取或设置pos软件信息
         /// </summary>
@@ -104,6 +106,207 @@ namespace Inspur.Billing.ViewModel.Setting
             set { Set<bool>(ref _isTaxPayerEnable, value, "IsTaxPayerEnable"); }
         }
 
+        ///// <summary>
+        ///// 获取或设置
+        ///// </summary>
+        //private bool _isNetChecked;
+        ///// <summary>
+        ///// 获取或设置
+        ///// </summary>
+        //public bool IsNetChecked
+        //{
+        //    get { return _isNetChecked; }
+        //    set { Set<bool>(ref _isNetChecked, value, "IsNetChecked"); }
+        //}
+        ///// <summary>
+        ///// 获取或设置
+        ///// </summary>
+        //private bool _isSerialChecked = true;
+        ///// <summary>
+        ///// 获取或设置
+        ///// </summary>
+        //public bool IsSerialChecked
+        //{
+        //    get { return _isSerialChecked; }
+        //    set { Set<bool>(ref _isSerialChecked, value, "IsSerialChecked"); }
+        //}
+
+        private bool _isNetChecked;
+
+        public bool IsNetChecked
+        {
+            get { return _isNetChecked; }
+            set
+            {
+                if (value != _isNetChecked)
+                {
+                    _isNetChecked = value;
+                    Console.WriteLine("IsNetChecked" + value);
+                    RaisePropertyChanged(() => IsNetChecked);
+                }
+            }
+        }
+        private bool _isSerialChecked = true;
+
+        public bool IsSerialChecked
+        {
+            get { return _isSerialChecked; }
+            set
+            {
+                if (value != _isSerialChecked)
+                {
+                    _isSerialChecked = value;
+                    Console.WriteLine("IsSerialChecked" + value);
+                    RaisePropertyChanged(() => IsSerialChecked);
+                }
+            }
+        }
+
+
+
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        private List<string> _serialPorts;
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        public List<string> SerialPorts
+        {
+            get { return _serialPorts; }
+            set
+            {
+                if (value != _serialPorts)
+                {
+                    _serialPorts = value;
+                    RaisePropertyChanged(() => this.SerialPorts);
+                }
+            }
+        }
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        private string _selectedPort;
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        public string SelectedPort
+        {
+            get { return _selectedPort; }
+            set
+            {
+                if (value != _selectedPort)
+                {
+                    _selectedPort = value;
+                    RaisePropertyChanged(() => this.SelectedPort);
+                }
+            }
+        }
+        /// <summary>
+        /// 获取或设置波特率集合
+        /// </summary>
+        private List<string> _baudRates;
+        /// <summary>
+        /// 获取或设置波特率集合
+        /// </summary>
+        public List<string> BaudRates
+        {
+            get { return _baudRates; }
+            set { Set<List<string>>(ref _baudRates, value, "BaudRates"); }
+        }
+        /// <summary>
+        /// 获取或设置波特率
+        /// </summary>
+        private string _selectedBaudRate;
+        /// <summary>
+        /// 获取或设置波特率
+        /// </summary>
+        public string SelectedBaudRate
+        {
+            get { return _selectedBaudRate; }
+            set { Set<string>(ref _selectedBaudRate, value, "SelectedBaudRate"); }
+        }
+        /// <summary>
+        /// 获取或设置奇偶校验位
+        /// </summary>
+        private List<string> _parityList;
+        /// <summary>
+        /// 获取或设置奇偶校验位
+        /// </summary>
+        public List<string> ParityList
+        {
+            get { return _parityList; }
+            set { Set<List<string>>(ref _parityList, value, "ParityList"); }
+        }
+        /// <summary>
+        /// 获取或设置选中的奇偶校验位
+        /// </summary>
+        private string _selectedParity;
+        /// <summary>
+        /// 获取或设置选中的奇偶校验位
+        /// </summary>
+        public string SelectedParity
+        {
+            get { return _selectedParity; }
+            set { Set<string>(ref _selectedParity, value, "SelectedParity"); }
+        }
+        /// <summary>
+        /// 获取或设置数据位集合
+        /// </summary>
+        private List<string> _dataBitsList;
+        /// <summary>
+        /// 获取或设置数据位集合
+        /// </summary>
+        public List<string> DataBitsList
+        {
+            get { return _dataBitsList; }
+            set { Set<List<string>>(ref _dataBitsList, value, "DataBitsList"); }
+        }
+        /// <summary>
+        /// 获取或设置选择的数据位
+        /// </summary>
+        private string _selectedDataBits;
+        /// <summary>
+        /// 获取或设置选择的数据位
+        /// </summary>
+        public string SelectedDataBits
+        {
+            get { return _selectedDataBits; }
+            set { Set<string>(ref _selectedDataBits, value, "SelectedDataBits"); }
+        }
+        /// <summary>
+        /// 获取或设置停止位集合
+        /// </summary>
+        private List<string> _stopBitsList;
+        /// <summary>
+        /// 获取或设置停止位集合
+        /// </summary>
+        public List<string> StopBitsList
+        {
+            get { return _stopBitsList; }
+            set { Set<List<string>>(ref _stopBitsList, value, "StopBitsList"); }
+        }
+        /// <summary>
+        /// 获取或设置选择的停止位
+        /// </summary>
+        private string _selectedStopBits;
+        /// <summary>
+        /// 获取或设置选择的停止位
+        /// </summary>
+        public string SelectedStopBits
+        {
+            get { return _selectedStopBits; }
+            set { Set<string>(ref _selectedStopBits, value, "SelectedStopBits"); }
+        }
+
+
+        public Commom.CommModel CommModel
+        {
+            get
+            {
+                return IsSerialChecked ? Commom.CommModel.SerialPort : Commom.CommModel.NetPort;
+            }
+        }
         #endregion
 
         #region 命令
@@ -125,22 +328,11 @@ namespace Inspur.Billing.ViewModel.Setting
                         switch (p)
                         {
                             case "Loaded":
-                                LoadTaxpayerInfo();
                                 LoadSDCInfo();
-                                //验证sdc
-                                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-                                {
-                                    //ServiceHelper.CheckStatue();
-                                    //防止请求报错，软件信息为空
-                                    LoadSoftwareInfo();
-                                }));
                                 break;
                             case "SDCTest":
+                                Const.IsNeedMessage = true;
                                 ServiceHelper.CheckStatue();
-                                break;
-                            case "PrinterPortTest":
-                                Printer.Instance.PrintPort = PrintPort;
-                                Printer.Instance.PrintTestPaper();
                                 break;
                             default:
                                 break;
@@ -148,15 +340,6 @@ namespace Inspur.Billing.ViewModel.Setting
                     }
                     catch (Exception ex)
                     {
-                        switch (p)
-                        {
-                            case "Loaded":
-                                LoadSoftwareInfo();
-                                break;
-                            default:
-                                break;
-                        }
-
                         MessageBoxEx.Show(ex.Message, MessageBoxButton.OK);
                     }
                 }, a =>
@@ -260,13 +443,13 @@ namespace Inspur.Billing.ViewModel.Setting
                 {
                     if (string.IsNullOrEmpty(SdcUrl))
                     {
-                        MessageBoxEx.Show("E-SDC URL can not null.", MessageBoxButton.OK);
+                        MessageBoxEx.Show("EFD URL can not null.", MessageBoxButton.OK);
                         return;
                     }
                     string[] sdc = SdcUrl.Split(':');
                     if (sdc != null && sdc.Count() != 2)
                     {
-                        MessageBoxEx.Show("E-SDC URL is not in the right format.", MessageBoxButton.OK);
+                        MessageBoxEx.Show("EFD URL is not in the right format.", MessageBoxButton.OK);
                         return;
                     }
                     if (string.IsNullOrEmpty(_sdcId))
@@ -291,7 +474,7 @@ namespace Inspur.Billing.ViewModel.Setting
                             SdcPort = sdc[1]
                         });
                         IsParameterEnable = false;
-                        Printer.Instance.PrintPort = PrintPort;
+                        //Printer.Instance.PrintPort = PrintPort;
                     }
                 }, () =>
                 {

@@ -21,6 +21,7 @@ using System.Security.Cryptography;
 using Inspur.Billing.Model.Service.LastSign;
 using System.Net.Sockets;
 using Inspur.Billing.Model;
+using System.IO.Ports;
 
 namespace Inspur.Billing.Commom
 {
@@ -34,30 +35,26 @@ namespace Inspur.Billing.Commom
 
         public static TcpHelper _statusTcpClient = new TcpHelper();
 
-        public static void StatueRequest()
+        public static void StatueRequest(string requestString)
         {
             _statusTcpClient = new TcpHelper();
             if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SdcUrl))
             {
-                MessageBoxEx.Show("E-SDC URL can not be null.", MessageBoxButton.OK);
+                MessageBoxEx.Show("EFD URL can not be null.", MessageBoxButton.OK);
                 return;
             }
             string[] sdc = Const.Locator.ParameterSetting.SdcUrl.Split(':');
             if (sdc != null && sdc.Count() != 2)
             {
-                MessageBoxEx.Show("E-SDC URL is not in the right format.", MessageBoxButton.OK);
+                MessageBoxEx.Show("EFD URL is not in the right format.", MessageBoxButton.OK);
                 return;
             }
             bool isConn = _statusTcpClient.Connect(IPAddress.Parse(sdc[0]), int.Parse(sdc[1]));
             if (!isConn)
             {
-                MessageBoxEx.Show("Failed to connect to E-SDC.", MessageBoxButton.OK);
+                MessageBoxEx.Show("Failed to connect to EFD.", MessageBoxButton.OK);
                 return;
             }
-
-            StatusRequest statusRequest = new StatusRequest() { PosSerialNumber = Config.PosSerialNumber, PosVendor = Config.PosVendor };
-            string requestString = JsonConvert.SerializeObject(statusRequest);
-
             _statusTcpClient.Complated -= _statusTcpClient_Complated;
             _statusTcpClient.Complated += _statusTcpClient_Complated;
             _statusTcpClient.Send(0x01, requestString);
@@ -87,7 +84,7 @@ namespace Inspur.Billing.Commom
                     ShowMessageBegin(e.ErrorMessage);
                     return;
                 }
-                _statusTcpClient.Complated -= _statusTcpClient_Complated;
+                //_statusTcpClient.Complated -= _statusTcpClient_Complated;
                 StatusResponse statusResponse = JsonConvert.DeserializeObject<StatusResponse>(e.Message);
                 if (statusResponse != null)
                 {
@@ -134,17 +131,20 @@ namespace Inspur.Billing.Commom
 
                     if (!statusResponse.isInitialized)
                     {
-                        ShowMessageBegin("E-SDC is not initialized.");
+                        ShowMessageBegin("EFD is not initialized.");
                     }
                     else
                     {
                         if (statusResponse.isLocked)
                         {
-                            ShowMessageBegin("E-SDC is locked.");
+                            ShowMessageBegin("EFD is locked.");
                         }
                         else
                         {
-                            ShowMessageBegin("E-SDC is available");
+                            if (Const.IsNeedMessage)
+                            {
+                                ShowMessageBegin("EFD is available");
+                            }
                         }
                     }
                 }
@@ -153,6 +153,46 @@ namespace Inspur.Billing.Commom
             {
                 ShowMessageBegin(ex.Message);
             }
+        }
+
+        public static void StatueRequestSerial(string request)
+        {
+            if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SelectedPort))
+            {
+                throw new Exception("Port can not be null.");
+            }
+            if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SelectedDataBits))
+            {
+                throw new Exception("DataBits can not be null.");
+            }
+            if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SelectedBaudRate))
+            {
+                throw new Exception("BaudRate can not be null.");
+            }
+            if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SelectedParity))
+            {
+                throw new Exception("Parity can not be null.");
+            }
+            if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SelectedStopBits))
+            {
+                throw new Exception("StopBits can not be null.");
+            }
+            if (string.IsNullOrWhiteSpace(request))
+            {
+                throw new Exception("Request can not be null.");
+            }
+
+            StopBits ss = (StopBits)Enum.Parse(typeof(StopBits), Const.Locator.ParameterSetting.SelectedStopBits);
+
+
+            SerialClient _client = new SerialClient(Const.Locator.ParameterSetting.SelectedPort,
+               int.Parse(Const.Locator.ParameterSetting.SelectedBaudRate),
+               (Parity)Enum.Parse(typeof(Parity), Const.Locator.ParameterSetting.SelectedParity),
+               int.Parse(Const.Locator.ParameterSetting.SelectedDataBits),
+               (StopBits)Enum.Parse(typeof(StopBits), Const.Locator.ParameterSetting.SelectedStopBits));
+            _client.Open();
+            _client.Complated += _statusTcpClient_Complated;
+            _client.Send(0x01, request);
         }
 
         public static void SignRequest(SignRequest request)
@@ -168,13 +208,13 @@ namespace Inspur.Billing.Commom
             {
                 if (string.IsNullOrWhiteSpace(Const.Locator.ParameterSetting.SdcUrl))
                 {
-                    MessageBoxEx.Show("E-SDC URL can not be null.", MessageBoxButton.OK);
+                    MessageBoxEx.Show("EFD URL can not be null.", MessageBoxButton.OK);
                     return;
                 }
                 string[] sdc = Const.Locator.ParameterSetting.SdcUrl.Split(':');
                 if (sdc != null && sdc.Count() != 2)
                 {
-                    MessageBoxEx.Show("E-SDC URL is not in the right format.", MessageBoxButton.OK);
+                    MessageBoxEx.Show("EFD URL is not in the right format.", MessageBoxButton.OK);
                     return;
                 }
                 TcpClient.Connect(IPAddress.Parse(sdc[0]), int.Parse(sdc[1]));
@@ -213,7 +253,20 @@ namespace Inspur.Billing.Commom
             bool result = false;
             try
             {
-                StatueRequest();
+                StatusRequest statusRequest = new StatusRequest() { PosSerialNumber = Config.PosSerialNumber, PosVendor = Config.PosVendor };
+                string requestString = JsonConvert.SerializeObject(statusRequest);
+                switch (Const.Locator.ParameterSetting.CommModel)
+                {
+                    case CommModel.NetPort:
+                        StatueRequest(requestString);
+                        break;
+                    case CommModel.SerialPort:
+                        StatueRequestSerial(requestString);
+                        break;
+                    default:
+                        break;
+                }
+
             }
             catch (SocketException e)
             {

@@ -54,7 +54,7 @@ namespace CommonLib.Net
         /// <summary>
         /// 超时时间
         /// </summary>
-        int _timeOut = 30000;
+        int _timeOut = 10000;
         #endregion
 
         #region 构造函数
@@ -74,8 +74,9 @@ namespace CommonLib.Net
             _serialPort.DataBits = dataBits;
             _serialPort.StopBits = stopBits;
 
-            _serialPort.ReadTimeout = 30000;
-            _serialPort.WriteTimeout = 30000;
+            _serialPort.ReadTimeout = 10000;
+            _serialPort.WriteTimeout = 10000;
+            _serialPort.ReadBufferSize = 1024 * 1024;
             _serialPort.DataReceived += _serialPort_DataReceived;
         }
         #endregion

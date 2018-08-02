@@ -8,9 +8,11 @@
         <ResourceDictionary Source="/ControlLib;component/Styles/ButtonStyle.xaml"/>
         <ResourceDictionary Source="/ControlLib;component/Styles/MenuStyle.xaml"/>
         <ResourceDictionary Source="/ControlLib;component/Styles/TabControlStyle.xaml"/>
+        <ResourceDictionary Source="/ControlLib;component/Styles/RadioButtonStyle.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
     <Style BasedOn="{StaticResource MetroFlatButton}" TargetType="Button"/>
     <Style BasedOn="{StaticResource MetroMenuItem}" TargetType="MenuItem"/>
     <Style BasedOn="{StaticResource MetroMenu}" TargetType="Menu"/>
+    <Style BasedOn="{StaticResource CommonRadioButtonStyle}" TargetType="RadioButton"/>
 </ResourceDictionary>

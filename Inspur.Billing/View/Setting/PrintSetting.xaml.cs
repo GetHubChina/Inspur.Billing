@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Inspur.Billing.View.Statistics
+namespace Inspur.Billing.View.Setting
 {
     /// <summary>
-    /// XReportView.xaml 的交互逻辑
+    /// PrintSetting.xaml 的交互逻辑
     /// </summary>
-    public partial class XReportView : UserControl
+    public partial class PrintSetting : UserControl
     {
-        public XReportView()
+        public PrintSetting()
         {
             InitializeComponent();
         }
