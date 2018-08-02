@@ -118,6 +118,7 @@ namespace CommonLib.Net
             if (!_timeOutObject.WaitOne(_timeOut, false))
             {
                 Close();
+                throw new Exception("Connection timed out.");
             }
         }
         private byte[] Encode(byte id, string message)

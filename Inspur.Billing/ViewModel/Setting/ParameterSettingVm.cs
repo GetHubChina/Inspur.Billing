@@ -6,6 +6,7 @@ using Inspur.Billing.Commom;
 using Inspur.Billing.Model;
 using Inspur.TaxModel;
 using LinqToDB;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO.Ports;
@@ -42,6 +43,10 @@ namespace Inspur.Billing.ViewModel.Setting
 
         #region 字段
         private string _sdcId = null;
+        /// <summary>
+        /// 日志对象
+        /// </summary>
+        Logger _logger = LogManager.GetCurrentClassLogger();
         #endregion
 
         #region 属性
@@ -340,6 +345,7 @@ namespace Inspur.Billing.ViewModel.Setting
                     }
                     catch (Exception ex)
                     {
+                        _logger.Info(ex.Message+ex.StackTrace);
                         MessageBoxEx.Show(ex.Message, MessageBoxButton.OK);
                     }
                 }, a =>

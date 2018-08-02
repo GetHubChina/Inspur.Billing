@@ -9,6 +9,7 @@ using Inspur.Billing.Model.Service.Sign;
 using Inspur.Billing.View.Issue;
 using Inspur.Billing.View.Setting;
 using Inspur.TaxModel;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,6 +23,10 @@ namespace Inspur.Billing.ViewModel.Issue
 {
     public class CreditViewModel : ViewModelBase
     {
+        /// <summary>
+        /// 日志对象
+        /// </summary>
+        Logger _logger = LogManager.GetCurrentClassLogger();
         public CreditViewModel()
         {
             if (Const.Locator != null)
@@ -444,6 +449,7 @@ namespace Inspur.Billing.ViewModel.Issue
                     }
                     catch (Exception ex)
                     {
+                        _logger.Error(ex.Message + ex.StackTrace);
                         MessageBoxEx.Show(ex.Message);
                     }
                 }, a =>

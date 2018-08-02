@@ -214,6 +214,7 @@ namespace Inspur.Billing.ViewModel.Setting
                     }
                     catch (Exception ex)
                     {
+                        _logger.Info(ex.Message + ex.StackTrace);
                         MessageBoxEx.Show(ex.Message, MessageBoxButton.OK);
                     }
                     finally

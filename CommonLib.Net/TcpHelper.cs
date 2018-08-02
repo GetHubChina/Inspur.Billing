@@ -54,6 +54,7 @@ namespace CommonLib.Net
                 if (!_timeOutObject.WaitOne(_timeOut, false))
                 {
                     CloseSocket();
+                    throw new Exception("Connection timed out.");
                 }
             }
             return _isConn;
@@ -94,6 +95,7 @@ namespace CommonLib.Net
             if (!_timeOutObject.WaitOne(_timeOut, false))
             {
                 CloseSocket();
+                throw new Exception("Connection timed out.");
             }
         }
         /// <summary>
