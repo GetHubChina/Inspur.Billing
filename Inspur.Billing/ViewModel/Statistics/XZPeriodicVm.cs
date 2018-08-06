@@ -385,8 +385,8 @@ namespace Inspur.Billing.ViewModel.Statistics
                                 break;
                         }
                         Printer.Instance.PrintString(0, 1, 0, 0, 0, string.Format("DATE TIME:{0}\r\n", CurrentTime));
-                        Printer.Instance.SetAlign(0);
-                        Printer.Instance.PrintString(0, 1, 0, 0, 0, Title);
+                        Printer.Instance.SetAlign(1);
+                        Printer.Instance.PrintString(0, 1, 0, 0, 0, string.Format("{0}\r\n", Title));
                         switch (ReportType)
                         {
                             case "0":
@@ -394,11 +394,13 @@ namespace Inspur.Billing.ViewModel.Statistics
                             case "1":
                                 break;
                             case "2":
+                                Printer.Instance.SetAlign(0);
                                 Printer.Instance.PrintString(0, 1, 0, 0, 0, string.Format("BETWEEN {0} AND {1}\r\n", BeginDate, EndDate));
                                 break;
                             default:
                                 break;
                         }
+                        Printer.Instance.SetAlign(0);
                         Printer.Instance.PrintLine();
 
                         Printer.Instance.SetTwoColumnPrint("FISCAL RECEIPT QTY", "", "", InvoiceQuantity.ToString());
