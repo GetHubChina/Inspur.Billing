@@ -509,7 +509,7 @@ namespace Inspur.Billing.Commom
             return true;
         }
         /// <summary>
-        /// 设置对齐方式
+        /// 设置对齐方式 为 0 时左对齐， 为 1 时居中， 为 2 时右对齐
         /// </summary>
         /// <param name="align"></param>
         /// <returns></returns>
