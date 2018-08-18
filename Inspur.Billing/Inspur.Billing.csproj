@@ -171,7 +171,6 @@
     <Compile Include="Model\Service\Statistics\ReportResponse.cs" />
     <Compile Include="Model\Service\Statistics\ReportTaxItems.cs" />
     <Compile Include="Model\Service\Statistics\XReportModel.cs" />
-    <Compile Include="Model\Service\Statistics\ZReport.cs" />
     <Compile Include="Model\Service\Statistics\ZReportModel.cs" />
     <Compile Include="Model\Service\Status\StatusRequest.cs" />
     <Compile Include="Model\Service\Status\StatusResponse.cs" />

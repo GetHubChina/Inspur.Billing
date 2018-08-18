@@ -410,7 +410,7 @@ namespace Inspur.Billing.ViewModel.Statistics
                             foreach (var item in TaxItems)
                             {
                                 Printer.Instance.PrintString(0, 1, 0, 0, 0, string.Format("{0}{1}{2}\r\n",
-                                                                                Printer.Instance.SetLeftPrint(6, item.TaxLable),
+                                                                                Printer.Instance.SetLeftPrint(6, item.TaxLabel),
                                                                                 Printer.Instance.SetCenterPrint(29, item.TaxName),
                                                                                 Printer.Instance.SetRightPrint(12, (item.TaxRate).ToString())));
 
@@ -521,14 +521,14 @@ namespace Inspur.Billing.ViewModel.Statistics
                 {
                     case 0:
                         CurrentTime = response.X.CurrentTime;
-                        TotalSlaes = response.X.TotalSlaes;
+                        TotalSlaes = response.X.TotalSales;
                         TotalTax = response.X.TotalTax;
                         TaxItems = response.X.TaxItems;
                         InvoiceQuantity = response.X.InvoiceQuantity;
                         break;
                     case 1:
                         CurrentTime = response.Z.CurrentTime;
-                        TotalSlaes = response.Z.TotalSlaes;
+                        TotalSlaes = response.Z.TotalSales;
                         TotalTax = response.Z.TotalTax;
                         TaxItems = response.Z.TaxItems;
                         InvoiceQuantity = response.Z.InvoiceQuantity;
@@ -539,7 +539,7 @@ namespace Inspur.Billing.ViewModel.Statistics
                         break;
                     case 2:
                         CurrentTime = response.Periodic.CurrentTime;
-                        TotalSlaes = response.Periodic.TotalSlaes;
+                        TotalSlaes = response.Periodic.TotalSales;
                         TotalTax = response.Periodic.TotalTax;
                         TaxItems = response.Periodic.TaxItems;
                         InvoiceQuantity = response.Periodic.InvoiceQuantity;

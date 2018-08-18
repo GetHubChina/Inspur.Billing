@@ -8,7 +8,7 @@ namespace Inspur.Billing.Model.Service.Statistics
 {
     public class ReportTaxItems
     {
-        public string TaxLable { get; set; }
+        public string TaxLabel { get; set; }
         public string TaxName { get; set; }
         public double TaxRate { get; set; }
         public double TaxAmount { get; set; }
