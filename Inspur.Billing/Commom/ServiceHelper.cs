@@ -91,12 +91,12 @@ namespace Inspur.Billing.Commom
                     //
                     Const.IsHasGetStatus = true;
                     //保存软件信息--此处处理未分开（每次都保存），正式使用的时候请
-                    var info = (from a in Const.dB.PosInfo
-                                select a).FirstOrDefault();
-                    if (info != null)
-                    {
-                        Const.dB.Update<PosInfo>(new PosInfo { Id = info.Id, CompanyName = statusResponse.Manufacture, Desc = statusResponse.Model, Version = statusResponse.SoftwareVersion, IssueDate = info.IssueDate });
-                    }
+                    //var info = (from a in Const.dB.PosInfo
+                    //            select a).FirstOrDefault();
+                    //if (info != null)
+                    //{
+                    //    Const.dB.Update<PosInfo>(new PosInfo { Id = info.Id, CompanyName = statusResponse.Manufacture, Desc = statusResponse.Model, Version = statusResponse.SoftwareVersion, IssueDate = info.IssueDate });
+                    //}
                     //记录税种信息
                     if (statusResponse.TaxInfo != null && statusResponse.TaxInfo.Count > 0)
                     {
@@ -253,7 +253,31 @@ namespace Inspur.Billing.Commom
             bool result = false;
             try
             {
-                StatusRequest statusRequest = new StatusRequest() { PosSerialNumber = Config.PosSerialNumber, PosVendor = Config.PosVendor };
+                string number = "";
+                string vendor = "";
+                string model = "";
+                string softVersion = "";
+                if (Const.Locator.Main.PosInfo == null)
+                {
+                    number = Config.PosSerialNumber;
+                    vendor = Config.PosVendor;
+                    model = "POS-100";
+                    softVersion = "1.024";
+                }
+                else
+                {
+                    number = Const.Locator.Main.PosInfo.Id.ToString();
+                    vendor = Const.Locator.Main.PosInfo.CompanyName;
+                    model = Const.Locator.Main.PosInfo.Desc;
+                    softVersion = Const.Locator.Main.PosInfo.Version;
+                }
+                StatusRequest statusRequest = new StatusRequest()
+                {
+                    PosSerialNumber = number,
+                    PosVendor = vendor,
+                    PosModel = model,
+                    PosSoftVersion = softVersion
+                };
                 string requestString = JsonConvert.SerializeObject(statusRequest);
                 switch (Const.Locator.ParameterSetting.CommModel)
                 {

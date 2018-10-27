@@ -706,6 +706,7 @@ namespace Inspur.Billing.ViewModel.Issue
                 invoiceAbbreviation.TaxpayerAddress = signResponse.Addreess;//sdc取值
                 //invoiceAbbreviation.TaxpayerDistrit = signResponse.District;//sdc取值
                 invoiceAbbreviation.InvoiceNumber = signResponse.InvoiceNumber;//sdc取值
+                invoiceAbbreviation.InvoiceCode = signResponse.InvoiceCode;//sdc取值
                 invoiceAbbreviation.IssueDate = request.IssueTime;//sdc取值
                 invoiceAbbreviation.VerificationUrl = signResponse.VerificationUrl;
             }

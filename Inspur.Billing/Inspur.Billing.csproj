@@ -162,6 +162,7 @@
     <Compile Include="Model\Service\LastSign\LastSignRequest.cs" />
     <Compile Include="Model\Service\Pin\PinRequest.cs" />
     <Compile Include="Model\Service\Pin\PinResponse.cs" />
+    <Compile Include="Model\Service\Sign\InvoiceInfo.cs" />
     <Compile Include="Model\Service\Sign\SignGoodItem.cs" />
     <Compile Include="Model\Service\Sign\SignRequest.cs" />
     <Compile Include="Model\Service\Sign\SignResponse.cs" />
@@ -177,6 +178,7 @@
     <Compile Include="Model\TaxCategory.cs" />
     <Compile Include="Model\TaxInfo.cs" />
     <Compile Include="ViewModel\Issue\CreditViewModel.cs" />
+    <Compile Include="ViewModel\Issue\InvalidCreditViewModel.cs" />
     <Compile Include="ViewModel\Issue\PrintViewModel.cs" />
     <Compile Include="ViewModel\Login\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -194,6 +196,9 @@
     </Compile>
     <Compile Include="View\Issue\CreditView.xaml.cs">
       <DependentUpon>CreditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Issue\InvalidCreditView.xaml.cs">
+      <DependentUpon>InvalidCreditView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Issue\PrintView.xaml.cs">
       <DependentUpon>PrintView.xaml</DependentUpon>
@@ -230,6 +235,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Issue\CreditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Issue\InvalidCreditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -340,6 +349,8 @@
     <Resource Include="Images\System\PrintSetPressed.png" />
     <Resource Include="Images\System\OperationModeNormal.png" />
     <Resource Include="Images\System\OperationModePressed.png" />
+    <Resource Include="Images\Issuing\CreditNormal.png" />
+    <Resource Include="Images\Issuing\CreditPressed.png" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

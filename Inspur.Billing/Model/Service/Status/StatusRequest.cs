@@ -11,5 +11,7 @@ namespace Inspur.Billing.Model.Service.Status
         //public string GS { get; set; }
         public string PosSerialNumber { get; set; }
         public string PosVendor { get; set; }
+        public string PosModel { get; set; }
+        public string PosSoftVersion { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 using CommonLib.Net;
 using ControlLib.Controls.Dialogs;
+using DataModels;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Inspur.Billing.Commom;
@@ -45,6 +46,7 @@ namespace Inspur.Billing.ViewModel
             timer.Elapsed += Timer_Elapsed;
             timer.AutoReset = true;
             timer.Start();
+            LoadPosInfo();
         }
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
@@ -182,7 +184,10 @@ namespace Inspur.Billing.ViewModel
         {
             get { return _isOnline; }
         }
-
+        /// <summary>
+        /// pos –≈œ¢
+        /// </summary>
+        public PosInfo PosInfo { get; set; }
         #endregion
 
         #region √¸¡Ó
@@ -248,6 +253,15 @@ namespace Inspur.Billing.ViewModel
             if (sdcInfoes != null && sdcInfoes.Count() > 0)
             {
                 Const.Locator.ParameterSetting.SdcUrl = string.Format("{0}:{1}", sdcInfoes[0].SdcIp, sdcInfoes[0].SdcPort);
+            }
+        }
+        private void LoadPosInfo()
+        {
+            var posInfo = (from a in Const.dB.PosInfo
+                           select a).ToList();
+            if (posInfo != null && posInfo.Count > 0)
+            {
+                PosInfo = posInfo[0];
             }
         }
         #endregion

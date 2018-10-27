@@ -58,6 +58,7 @@ namespace Inspur.Billing.ViewModel
             SimpleIoc.Default.Register<XZPeriodicVm>();
             SimpleIoc.Default.Register<PrintSettingVm>();
             SimpleIoc.Default.Register<OperationModeVm>();
+            SimpleIoc.Default.Register<InvalidCreditViewModel>();
         }
         public LoginViewModel Login
         {
@@ -141,6 +142,13 @@ namespace Inspur.Billing.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<OperationModeVm>();
+            }
+        }
+        public InvalidCreditViewModel InvalidCreditVm
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<InvalidCreditViewModel>();
             }
         }
         public static void Cleanup()

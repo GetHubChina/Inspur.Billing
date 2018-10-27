@@ -169,6 +169,9 @@
                                 <controls:ImageRadioButton GroupName="navigation" NormalImage="/Inspur.Billing;component/Images/Issuing/IssuNormal.png" Width="202" Height="37"
                                                    MouseOverImage="/Inspur.Billing;component/Images/Issuing/issuePressed.png" Command="{Binding NavigationCommand}" 
                                                    CommandParameter="/Inspur.Billing;component/View/Issue/CreditView.xaml"/>
+                                <controls:ImageRadioButton GroupName="navigation" NormalImage="/Inspur.Billing;component/Images/Issuing/CreditNormal.png" Width="202" Height="37"
+                                                   MouseOverImage="/Inspur.Billing;component/Images/Issuing/CreditPressed.png" Command="{Binding NavigationCommand}" 
+                                                   CommandParameter="/Inspur.Billing;component/View/Issue/InvalidCreditView.xaml"/>
                             </StackPanel>
                         </Expander>
                         <Expander IsExpanded="{Binding IsSelected,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=TreeViewItem}}" Style="{DynamicResource LeftExpanderStyle}">
