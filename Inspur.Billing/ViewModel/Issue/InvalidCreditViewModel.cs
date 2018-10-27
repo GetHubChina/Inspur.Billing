@@ -258,8 +258,8 @@ namespace Inspur.Billing.ViewModel.Issue
                 BuyerTaxAccountName = "",
                 BuyerAddress = info.BuyerAddress,
                 BuyerTel = info.BuyerTel,
-                OriginalInvoiceCode = "",
-                OriginalInvoiceNumber = ""
+                OriginalInvoiceCode = info.InvoiceCode,
+                OriginalInvoiceNumber = info.InvoiceNumber
             };
 
             signRequest.TransactionType = 1;
