@@ -24,13 +24,15 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="IssueTime:" Style="{StaticResource H_R_M10_ContentTbkStyle}" />
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Issue Date:" Style="{StaticResource H_R_M10_ContentTbkStyle}" />
                 <DatePicker Grid.Column="1" VerticalAlignment="Center" SelectedDate="{Binding IssueTime}" IsEnabled="{Binding IsBeginEnable}" Language="en-US" />
-                <TextBlock Grid.Row="0" Grid.Column="2" Text="InvoiceCode:" Style="{StaticResource H_R_M10_ContentTbkStyle}" />
-                <TextBox Grid.Row="0" Grid.Column="4" Text="{Binding InvoiceCode}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center"/>
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="InvoiceNumber:" Style="{StaticResource H_R_M10_ContentTbkStyle}" />
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding InvoiceNumber}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="0" Grid.Column="2" Text="Invoice Code:" Style="{StaticResource H_R_M10_ContentTbkStyle}" />
+                <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding InvoiceCode}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="0" Grid.Column="4" Text="Invoice Number:" Style="{StaticResource H_R_M10_ContentTbkStyle}" />
+                <TextBox Grid.Row="0" Grid.Column="5" Text="{Binding InvoiceNumber}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center"/>
             </Grid>
             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,8">
                 <Button Content="Query" Width="100" Grid.Row="1" Grid.Column="3" 
@@ -42,11 +44,11 @@
                           Style="{StaticResource DataGridPrintStyle}" CanUserSortColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="TPIN" Binding="{Binding TPin}" ElementStyle="{StaticResource DataGridColumnLeft}" Width="*"/>
-                    <DataGridTextColumn Header="IssueTime" Binding="{Binding IssueTime}" ElementStyle="{StaticResource DataGridColumnLeft}" Width="*"/>
-                    <DataGridTextColumn Header="TaxpayerName" Binding="{Binding TaxpayerName}" ElementStyle="{StaticResource DataGridColumnLeft}" Width="*"/>
+                    <DataGridTextColumn Header="Issue Date" Binding="{Binding IssueTime}" ElementStyle="{StaticResource DataGridColumnLeft}" Width="*"/>
+                    <DataGridTextColumn Header="Taxpayer Name" Binding="{Binding TaxpayerName}" ElementStyle="{StaticResource DataGridColumnLeft}" Width="*"/>
                     <DataGridTextColumn Header="TerminalID" Binding="{Binding TerminalID}" Width="*"/>
-                    <DataGridTextColumn Header="InvoiceCode" Binding="{Binding InvoiceCode}" Width="*"/>
-                    <DataGridTextColumn Header="InvoiceNumber" Binding="{Binding InvoiceNumber}"
+                    <DataGridTextColumn Header="Invoice Code" Binding="{Binding InvoiceCode}" Width="*"/>
+                    <DataGridTextColumn Header="Invoice Number" Binding="{Binding InvoiceNumber}"
                                              ElementStyle="{StaticResource DataGridColumnRight}" Width="*"/>
                     <DataGridTextColumn Header="Total Amount" Binding="{Binding TotalAmount,StringFormat={}{0:0.00}}" Width="90" IsReadOnly="True"
                                              ElementStyle="{StaticResource DataGridColumnRight}"/>

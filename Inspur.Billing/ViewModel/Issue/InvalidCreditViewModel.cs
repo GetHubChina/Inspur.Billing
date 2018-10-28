@@ -290,28 +290,34 @@ namespace Inspur.Billing.ViewModel.Issue
             }
 
 
-            //signRequest.Items = new List<SignGoodItem>();
-            //SignGoodItem signGoodItem;
-            //int id = 1;
-            //foreach (var item in Credit.Productes)
-            //{
-            //    signGoodItem = new SignGoodItem();
-            //    signGoodItem.GTIN = id;
-            //    signGoodItem.BarCode = item.BarCode;
-            //    id++;
-            //    if (string.IsNullOrWhiteSpace(item.Name))
-            //    {
-            //        MessageBoxEx.Show("Description is required.");
-            //        return;
-            //    }
-            //    signGoodItem.Name = item.Name;
-            //    signGoodItem.Quantity = item.Count;
-            //    signGoodItem.UnitPrice = item.Price;
-            //    signGoodItem.TotalAmount = item.Amount;
-            //    signGoodItem.IsTaxInclusive = true;
-            //    signGoodItem.Labels = new string[1] { item.TaxType.Label };
-            //    signRequest.Items.Add(signGoodItem);
-            //}
+            signRequest.Items = new List<SignGoodItem>();
+            SignGoodItem signGoodItem;
+            int id = 1;
+
+
+            //查询对应的商品
+            var items = from a in Const.dB.InvoiceItems
+                        where a.SalesorderNum == SelectedItem.SalesOrderNum
+                        select a;
+            if (items != null)
+            {
+                List<InvoiceItems> invoiceItems = items.ToList();
+                foreach (var item in invoiceItems)
+                {
+                    signGoodItem = new SignGoodItem();
+                    signGoodItem.GTIN = id;
+                    signGoodItem.BarCode = item.GoodsGin.ToString();
+                    id++;
+                    
+                    signGoodItem.Name = item.GoodsDesc;
+                    signGoodItem.Quantity = -item.GoodsQty.Value;
+                    signGoodItem.UnitPrice = item.GoodsPrice.Value;
+                    signGoodItem.TotalAmount = -item.TotalAmount.Value;
+                    signGoodItem.IsTaxInclusive = true;
+                    signGoodItem.Labels = new string[1] { item.TaxItem };
+                    signRequest.Items.Add(signGoodItem);
+                }
+            }
             switch (Const.Locator.ParameterSetting.CommModel)
             {
                 case CommModel.NetPort:

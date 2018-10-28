@@ -760,6 +760,13 @@ namespace Inspur.Billing.ViewModel.Issue
                 //}
                 //else
                 //{
+
+                if (!Const.Locator.OperationModeVm.IsNormal)
+                {
+                    //Printer.Instance.PrintString(0, 0, 0, 0, 0, "\r\n");
+                    Printer.Instance.PrintString(0, 0, 0, 0, 0, "This is a testing invoice \r\n");
+                }
+
                 //打印自定义的表样
                 Printer.Instance.SetAlign(1);
                 Printer.Instance.PrintString(0, 1, 0, 0, 0, string.Format("Order Number:{0}\r\n{1}\r\n", Credit.OrderNumber, CurrentTime));
@@ -838,11 +845,7 @@ namespace Inspur.Billing.ViewModel.Issue
                 Printer.Instance.PrintString(0, 0, 0, 0, 0, "Thank You & Please Come Again \r\n");
 
 
-                if (!Const.Locator.OperationModeVm.IsNormal)
-                {
-                    Printer.Instance.PrintString(0, 0, 0, 0, 0, "\r\n");
-                    Printer.Instance.PrintString(0, 0, 0, 0, 0, "This is a testing invoice \r\n");
-                }
+                
 
                 Printer.Instance.CutPaper(1, 5);
                 //}
