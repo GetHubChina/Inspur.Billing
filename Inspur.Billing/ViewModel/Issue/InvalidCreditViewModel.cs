@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO.Ports;
 using System.Linq;
 using System.Net;
@@ -144,9 +145,10 @@ namespace Inspur.Billing.ViewModel.Issue
                                                 InvoiceCode = item.InvoiceCode,
                                                 InvoiceNumber = item.InvoiceNumber,
                                                 TotalAmount = item.TotalAmount,
-                                                CreditFlag = item.CreditFlag == "1" ? "Credit" : "Normal",
+                                                CreditFlag = item.TransactionType == 1 ? "Credit" : "Normal",
                                                 BuyerTPIN = item.BuyerTin,
                                                 BuyerName = item.BuyerName,
+                                                Cashier = item.CashierId.ToString(),
                                             };
                                             InvoiceList.Add(info);
                                         }
@@ -156,6 +158,7 @@ namespace Inspur.Billing.ViewModel.Issue
                                     IssueTime = null;
                                     InvoiceCode = "";
                                     InvoiceNumber = "";
+                                    InvoiceList.Clear();
                                     break;
                                 default:
                                     break;
@@ -186,22 +189,16 @@ namespace Inspur.Billing.ViewModel.Issue
                     return false;
                 }
             }
-            DateTime dt;
-            DateTime.TryParse(issueDate, out dt);
-            if (DateTime.TryParse(issueDate, out dt))
+            if (IssueTime == null)
             {
-                if (IssueTime == null)
+                return true;
+            }
+            else
+            {
+                DateTime dt= DateTime.ParseExact(issueDate, "yyyyMMddHHmmss", new CultureInfo("zh-CN", true));
+                if (dt.ToString("yyyyMMdd") == IssueTime.Value.ToString("yyyyMMdd"))
                 {
                     return true;
-                }
-                else
-                {
-                    if (dt.Year == IssueTime.Value.Year &&
-                        dt.Month == IssueTime.Value.Month &&
-                        dt.Day == IssueTime.Value.Day)
-                    {
-                        return true;
-                    }
                 }
             }
             return false;
@@ -246,48 +243,48 @@ namespace Inspur.Billing.ViewModel.Issue
         #region 方法
         private void Sign(InvoiceInfo info)
         {
+            var cashier = (from a in Const.dB.Cashiers
+                           where a.CashierId == long.Parse(info.Cashier)
+                           select a).ToList();
+
             signRequest = new SignRequest
             {
                 PosSerialNumber = Const.Locator.Main.PosInfo.Id.ToString(),
+                PosVendor = Const.Locator.Main.PosInfo.CompanyName,
+                PosModel = Const.Locator.Main.PosInfo.Desc,
+                PosSoftVersion = Const.Locator.Main.PosInfo.Version,
                 IssueTime = info.IssueTime,
-                SaleType = 0,
+
                 LocalPurchaseOrder = "1000582782",
-                Cashier = info.Cashier,
-                BuyerTPIN = info.BuyerTPIN,
-                BuyerName = info.BuyerName,
+                Cashier = (cashier != null && cashier.Count > 0) ? cashier[0].Name : info.Cashier,
+                BuyerTPIN = string.IsNullOrWhiteSpace(info.BuyerTPIN) ? "" : info.BuyerTPIN,
+                BuyerName = string.IsNullOrWhiteSpace(info.BuyerName) ? "" : info.BuyerName,
                 BuyerTaxAccountName = "",
-                BuyerAddress = info.BuyerAddress,
-                BuyerTel = info.BuyerTel,
+                BuyerAddress = string.IsNullOrWhiteSpace(info.BuyerAddress) ? "" : info.BuyerAddress,
+                BuyerTel = string.IsNullOrWhiteSpace(info.BuyerTel) ? "" : info.BuyerTel,
+
+                TransactionType = 1,
+                PaymentMode = info.PaymentMode,
+                SaleType = info.SaleType,
                 OriginalInvoiceCode = info.InvoiceCode,
                 OriginalInvoiceNumber = info.InvoiceNumber
             };
 
-            signRequest.TransactionType = 1;
-            //if (int.TryParse(Credit.SelectedPaymentType.Code, out paymentCode))
+            //if (!Const.Locator.OperationModeVm.IsNormal)
             //{
-            //    signRequest.PaymentMode = paymentCode;
+            //    if (Const.Locator.OperationModeVm.IsTest)
+            //    {
+            //        signRequest.OperationMode = 1;
+            //    }
+            //    if (Const.Locator.OperationModeVm.IsSeperate)
+            //    {
+            //        signRequest.OperationMode = 2;
+            //    }
             //}
             //else
             //{
-            //    MessageBoxEx.Show("PaymentMode is not number.");
-            //    return;
+            //    signRequest.OperationMode = 0;
             //}
-
-            if (!Const.Locator.OperationModeVm.IsNormal)
-            {
-                if (Const.Locator.OperationModeVm.IsTest)
-                {
-                    signRequest.OperationMode = 1;
-                }
-                if (Const.Locator.OperationModeVm.IsSeperate)
-                {
-                    signRequest.OperationMode = 2;
-                }
-            }
-            else
-            {
-                signRequest.OperationMode = 0;
-            }
 
 
             signRequest.Items = new List<SignGoodItem>();
@@ -308,13 +305,13 @@ namespace Inspur.Billing.ViewModel.Issue
                     signGoodItem.GTIN = id;
                     signGoodItem.BarCode = item.GoodsGin.ToString();
                     id++;
-                    
+
                     signGoodItem.Name = item.GoodsDesc;
                     signGoodItem.Quantity = -item.GoodsQty.Value;
                     signGoodItem.UnitPrice = item.GoodsPrice.Value;
                     signGoodItem.TotalAmount = -item.TotalAmount.Value;
                     signGoodItem.IsTaxInclusive = true;
-                    signGoodItem.Labels = new string[1] { item.TaxItem };
+                    signGoodItem.Labels = new string[1] { string.IsNullOrWhiteSpace(item.TaxItem) ? "" : item.TaxItem };
                     signRequest.Items.Add(signGoodItem);
                 }
             }
@@ -426,7 +423,7 @@ namespace Inspur.Billing.ViewModel.Issue
                                        select a).ToList();
                         if (invoice != null && invoice.Count > 0)
                         {
-                            invoice[0].CreditFlag = "1";
+                            invoice[0].TransactionType = 1;
                         }
                         Const.dB.Update<InvoiceAbbreviation>(invoice[0]);
                     }

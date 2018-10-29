@@ -218,8 +218,14 @@ namespace DataModels
         public double? TenderAmount { get; set; } // double
         [Column("change"), Nullable]
         public double? Change { get; set; } // double
-        [Column("credit_flag"), Nullable]
-        public string CreditFlag { get; set; } // varchar(1)
+        //[Column("credit_flag"), Nullable]
+        //public string CreditFlag { get; set; } // varchar(1)
+        [Column("transaction_type"), PrimaryKey, NotNull]
+        public long TransactionType { get; set; } // integer
+        [Column("payment_mode"), PrimaryKey, NotNull]
+        public long PaymentMode { get; set; } // integer
+        [Column("sale_type"), PrimaryKey, NotNull]
+        public long SaleType { get; set; } // integer
     }
 
     [Table("invoice_items")]

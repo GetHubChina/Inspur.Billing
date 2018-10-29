@@ -112,5 +112,9 @@ namespace Inspur.Billing.Model.Service.Sign
         public string BuyerAddress { get; set; }
         public string BuyerTel { get; set; }
         public string SalesOrderNum { get; set; }
+
+        public int TransactionType { get; set; }
+        public int PaymentMode { get; set; }
+        public int SaleType { get; set; }
     }
 }

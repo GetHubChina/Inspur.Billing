@@ -60,9 +60,13 @@ namespace Inspur.Billing.Model.Service.Sign
         ///// Base64 encoded MD5 hash of the request data
         ///// </summary>
         //public string Hash{ get; set; }
-        public int OperationMode { get; set; }
+        //public int OperationMode { get; set; }
 
         public string PosSerialNumber { get; set; }
+        public string PosVendor { get; set; }
+        public string PosModel { get; set; }
+        public string PosSoftVersion { get; set; }
+
         public string IssueTime { get; set; }
         public int TransactionType { get; set; }
         public int PaymentMode { get; set; }

@@ -22,8 +22,8 @@
             <ComboBox ItemsSource="{Binding CmdList}" SelectedItem="{Binding Cmd}" SelectedIndex="0" VerticalContentAlignment="Center" 
                       Width="80" Margin="10,0,0,0"/>
         </StackPanel>
-        <TextBox Grid.Row="1" Text="{Binding Request}" Margin="10"/>
+        <TextBox Grid.Row="1" Text="{Binding Request}" Margin="10" TextWrapping="Wrap"/>
         <TextBlock Grid.Row="2" Text="Response:" Style="{StaticResource M_10_ContentTbkStyle}"/>
-        <TextBox Grid.Row="3" Text="{Binding Response}" Margin="10"/>
+        <TextBox Grid.Row="3" Text="{Binding Response}" Margin="10" TextWrapping="Wrap"/>
     </Grid>
 </UserControl>

@@ -479,7 +479,10 @@ namespace Inspur.Billing.ViewModel.Issue
         {
             signRequest = new SignRequest
             {
-                PosSerialNumber = Config.PosSerialNumber,
+                PosSerialNumber = Const.Locator.Main.PosInfo.Id.ToString(),
+                PosVendor = Const.Locator.Main.PosInfo.CompanyName,
+                PosModel = Const.Locator.Main.PosInfo.Desc,
+                PosSoftVersion = Const.Locator.Main.PosInfo.Version,
                 IssueTime = DateTime.Now.ToString("yyyyMMddHHmmss"),
                 SaleType = 0,
                 LocalPurchaseOrder = "1000582782",
@@ -518,19 +521,19 @@ namespace Inspur.Billing.ViewModel.Issue
             if (!Const.Locator.OperationModeVm.IsNormal)
             {
                 OperationModeVis = Visibility.Visible;
-                if (Const.Locator.OperationModeVm.IsTest)
-                {
-                    signRequest.OperationMode = 1;
-                }
-                if (Const.Locator.OperationModeVm.IsSeperate)
-                {
-                    signRequest.OperationMode = 2;
-                }
+                //if (Const.Locator.OperationModeVm.IsTest)
+                //{
+                //    signRequest.OperationMode = 1;
+                //}
+                //if (Const.Locator.OperationModeVm.IsSeperate)
+                //{
+                //    signRequest.OperationMode = 2;
+                //}
             }
             else
             {
                 OperationModeVis = Visibility.Collapsed;
-                signRequest.OperationMode = 0;
+                //signRequest.OperationMode = 0;
             }
 
 
@@ -682,6 +685,9 @@ namespace Inspur.Billing.ViewModel.Issue
                 TenderAmount = ActualPay,
                 Change = Change,
                 QrcodePath = "",
+                TransactionType = request.TransactionType,
+                SaleType = request.SaleType,
+                PaymentMode = request.PaymentMode,
             };
             if (Credit != null)
             {
@@ -730,7 +736,7 @@ namespace Inspur.Billing.ViewModel.Issue
                     invoiceItem.TotalAmount = item.Price * item.Count;
 
                     invoiceItem.TaxtypeId = item.TaxType.Id;
-                    invoiceItem.TaxItem = item.TaxType.Name;
+                    invoiceItem.TaxItem = item.TaxType.Label;
                     invoiceItem.TaxRate = item.TaxType.Rate;
                     invoiceItem.TaxAmount = TaxCalculation.Calculation(item.TaxInclusive, item.TaxType.CalculationMode, item.Price, item.Count, item.TaxType.Rate, item.TaxType.FixTaxAmount);
 
@@ -845,7 +851,7 @@ namespace Inspur.Billing.ViewModel.Issue
                 Printer.Instance.PrintString(0, 0, 0, 0, 0, "Thank You & Please Come Again \r\n");
 
 
-                
+
 
                 Printer.Instance.CutPaper(1, 5);
                 //}
