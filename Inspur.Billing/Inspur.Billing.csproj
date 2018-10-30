@@ -149,6 +149,7 @@
     <Compile Include="Commom\Printer.cs" />
     <Compile Include="Commom\ServiceHelper.cs" />
     <Compile Include="Commom\TaxCalculation.cs" />
+    <Compile Include="Converter\TransactionTypeConverter.cs" />
     <Compile Include="LinqToDB.Templates\CopyMe.SQLite1.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

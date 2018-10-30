@@ -113,7 +113,19 @@ namespace Inspur.Billing.Model.Service.Sign
         public string BuyerTel { get; set; }
         public string SalesOrderNum { get; set; }
 
-        public int TransactionType { get; set; }
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        private string _transactionType;
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        public string TransactionType
+        {
+            get { return _transactionType; }
+            set { Set<string>(ref _transactionType, value, "TransactionType"); }
+        }
+
         public int PaymentMode { get; set; }
         public int SaleType { get; set; }
     }
