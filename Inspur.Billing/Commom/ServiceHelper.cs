@@ -104,9 +104,9 @@ namespace Inspur.Billing.Commom
                         long id = 1;
                         foreach (var item in statusResponse.TaxInfo)
                         {
-                            if (item.Category != null && item.Category.Count > 0)
+                            if (item.TaxCategory != null && item.TaxCategory.Count > 0)
                             {
-                                foreach (var itm in item.Category)
+                                foreach (var itm in item.TaxCategory)
                                 {
                                     Const.dB.Insert<CodeTaxtype>(new CodeTaxtype
                                     {
@@ -126,6 +126,7 @@ namespace Inspur.Billing.Commom
                             }
                         }
                     }
+                    
                     //记录monitor信息
 
 
