@@ -23,7 +23,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <TextBlock Visibility="{Binding OperationModeVis}" Style="{StaticResource H_C_ContentTbkStyle}" VerticalAlignment="Top" FontSize="16" Foreground="Red"><Run Text="POS is in test mode"/></TextBlock>
+                <TextBlock Visibility="{Binding OperationModeVis}" Style="{StaticResource H_C_ContentTbkStyle}" VerticalAlignment="Top" FontSize="16" Foreground="Red"><Run Text="EFD is in Testing Mode"/></TextBlock>
                 <TextBlock Style="{StaticResource BaseContentTbkStyle}" VerticalAlignment="Center" Margin="20,0,0,0" FontSize="18"><Run Text="Order Number:"/><Run Text="{Binding OrderNumber}"/></TextBlock>
                 <!--<Button Width="100" Height="30" Content="Copy" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,180,0"
                              Command="{Binding Command}" CommandParameter="OrderNumberCopy"/>-->
