@@ -5,8 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Inspur.Billing.View.Issue"
              mc:Ignorable="d" 
+             xmlns:converter="clr-namespace:Inspur.Billing.Converter"
              DataContext="{Binding Path=InvalidCreditVm, Source={StaticResource Locator}}"
              d:DesignHeight="600" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converter:TransactionTypeConverter x:Key="TransactionTypeConverter"/>
+    </UserControl.Resources>
     <Border Background="White">
         <Grid Margin="10,20">
             <Grid.RowDefinitions>
@@ -60,7 +64,8 @@
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                     <Button Content="Credit" Grid.Row="1" Grid.Column="3" 
                                             Command="{Binding DataContext.InvalidCommand,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=DataGrid}}"
-                                            CommandParameter="Invalid"/>
+                                            CommandParameter="Invalid"
+                                            IsEnabled="{Binding TransactionType,Converter={StaticResource TransactionTypeConverter}}"/>
                                     <!--<Button Content="Detail" Grid.Row="1" Grid.Column="3" Margin="20,0,0,0" 
                                             Command="{Binding DataContext.InvalidCommand,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=DataGrid}}"
                                             CommandParameter="Detail"/>-->
