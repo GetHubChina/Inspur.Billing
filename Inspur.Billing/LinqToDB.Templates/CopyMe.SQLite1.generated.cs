@@ -220,11 +220,11 @@ namespace DataModels
         public double? Change { get; set; } // double
         //[Column("credit_flag"), Nullable]
         //public string CreditFlag { get; set; } // varchar(1)
-        [Column("transaction_type"), PrimaryKey, NotNull]
+        [Column("transaction_type"), NotNull]
         public long TransactionType { get; set; } // integer
-        [Column("payment_mode"), PrimaryKey, NotNull]
+        [Column("payment_mode"), NotNull]
         public long PaymentMode { get; set; } // integer
-        [Column("sale_type"), PrimaryKey, NotNull]
+        [Column("sale_type"), NotNull]
         public long SaleType { get; set; } // integer
     }
 

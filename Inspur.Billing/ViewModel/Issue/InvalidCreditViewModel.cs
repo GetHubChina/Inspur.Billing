@@ -149,6 +149,7 @@ namespace Inspur.Billing.ViewModel.Issue
                                                 BuyerTPIN = item.BuyerTin,
                                                 BuyerName = item.BuyerName,
                                                 Cashier = item.CashierId.ToString(),
+                                                TransactionType = item.TransactionType.ToString()
                                             };
                                             InvoiceList.Add(info);
                                         }
@@ -195,7 +196,7 @@ namespace Inspur.Billing.ViewModel.Issue
             }
             else
             {
-                DateTime dt= DateTime.ParseExact(issueDate, "yyyyMMddHHmmss", new CultureInfo("zh-CN", true));
+                DateTime dt = DateTime.ParseExact(issueDate, "yyyyMMddHHmmss", new CultureInfo("zh-CN", true));
                 if (dt.ToString("yyyyMMdd") == IssueTime.Value.ToString("yyyyMMdd"))
                 {
                     return true;
@@ -427,6 +428,7 @@ namespace Inspur.Billing.ViewModel.Issue
                         }
                         Const.dB.Update<InvoiceAbbreviation>(invoice[0]);
                     }
+                    MessageBoxEx.Show("Successful refund.", MessageBoxButton.OK);
                 }
             }
             catch (Exception ex)

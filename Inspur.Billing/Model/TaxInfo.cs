@@ -12,6 +12,6 @@ namespace Inspur.Billing.Model
     public class TaxInfo
     {
         public string TaxTpye { get; set; }
-        public List<TaxCategory> Category { get; set; }
+        public List<TaxCategory> TaxCategory { get; set; }
     }
 }
