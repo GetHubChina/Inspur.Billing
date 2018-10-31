@@ -160,6 +160,7 @@ namespace Inspur.Billing.ViewModel.Setting
                                 if (posInfoes != null && posInfoes.Count() > 0)
                                 {
                                     PosInfo info = posInfoes[0];
+                                    info.SerialNumber = PosInfo.SerialNumber;
                                     info.CompanyName = PosInfo.CompanyName;
                                     info.Desc = PosInfo.Desc;
                                     info.Version = PosInfo.Version;
@@ -169,12 +170,15 @@ namespace Inspur.Billing.ViewModel.Setting
                                 else
                                 {
                                     PosInfo info = new PosInfo();
+                                    info.SerialNumber = PosInfo.SerialNumber;
                                     info.CompanyName = PosInfo.CompanyName;
                                     info.Desc = PosInfo.Desc;
                                     info.Version = PosInfo.Version;
                                     info.IssueDate = PosInfo.IssueDate;
                                     Const.dB.Insert<PosInfo>(info);
                                 }
+                                //更新主界面的pos信息
+                                Const.Locator.Main.LoadPosInfo();
                                 break;
                             case "SoftwareCancel":
                                 //重新查询一次
@@ -204,7 +208,7 @@ namespace Inspur.Billing.ViewModel.Setting
                 }));
             }
         }
-        
+
         #endregion
 
         #region 方法

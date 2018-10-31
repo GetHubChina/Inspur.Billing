@@ -583,6 +583,7 @@ namespace Inspur.Billing.ViewModel.Issue
                     ErrorInfo erroInfo = JsonConvert.DeserializeObject<ErrorInfo>(e.Message);
                     if (erroInfo != null)
                     {
+                        signResponse = new Model.Service.Sign.SignResponse();
                         MessageBoxEx.Show(erroInfo.Description, MessageBoxButton.OK);
                         return;
                     }

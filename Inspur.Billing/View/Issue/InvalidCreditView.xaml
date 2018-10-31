@@ -64,8 +64,14 @@
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                     <Button Content="Credit" Grid.Row="1" Grid.Column="3" 
                                             Command="{Binding DataContext.InvalidCommand,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=DataGrid}}"
-                                            CommandParameter="Invalid"
-                                            IsEnabled="{Binding TransactionType,Converter={StaticResource TransactionTypeConverter}}"/>
+                                            CommandParameter="Invalid">
+                                        <Button.IsEnabled>
+                                            <MultiBinding Converter="{StaticResource TransactionTypeConverter}">
+                                                <Binding Path="TransactionType"/>
+                                                <Binding Path="InvoiceCode"/>
+                                            </MultiBinding>
+                                        </Button.IsEnabled>
+                                    </Button>
                                     <!--<Button Content="Detail" Grid.Row="1" Grid.Column="3" Margin="20,0,0,0" 
                                             Command="{Binding DataContext.InvalidCommand,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=DataGrid}}"
                                             CommandParameter="Detail"/>-->

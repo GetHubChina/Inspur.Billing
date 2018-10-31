@@ -138,16 +138,16 @@ namespace Inspur.Billing.ViewModel.Issue
                                             info = new InvoiceInfo
                                             {
                                                 SalesOrderNum = item.SalesorderNum,
-                                                TPin = item.TaxpayerTin,
-                                                IssueTime = item.IssueDate,
-                                                TaxpayerName = item.TaxpayerName,
-                                                TerminalID = item.TerminalId,
-                                                InvoiceCode = item.InvoiceCode,
-                                                InvoiceNumber = item.InvoiceNumber,
+                                                TPin = CoverterNull(item.TaxpayerTin),
+                                                IssueTime = CoverterNull(item.IssueDate),
+                                                TaxpayerName = CoverterNull(item.TaxpayerName),
+                                                TerminalID = CoverterNull(item.TerminalId),
+                                                InvoiceCode = CoverterNull(item.InvoiceCode),
+                                                InvoiceNumber = CoverterNull(item.InvoiceNumber),
                                                 TotalAmount = item.TotalAmount,
                                                 CreditFlag = item.TransactionType == 1 ? "Credit" : "Normal",
-                                                BuyerTPIN = item.BuyerTin,
-                                                BuyerName = item.BuyerName,
+                                                BuyerTPIN = CoverterNull(item.BuyerTin),
+                                                BuyerName = CoverterNull(item.BuyerName),
                                                 Cashier = item.CashierId.ToString(),
                                                 TransactionType = item.TransactionType.ToString()
                                             };
@@ -177,6 +177,10 @@ namespace Inspur.Billing.ViewModel.Issue
             }
         }
 
+        private string CoverterNull(string value)
+        {
+            return string.IsNullOrWhiteSpace(value) ? "" : value;
+        }
         private bool IsIssueDate(string issueDate)
         {
             if (string.IsNullOrWhiteSpace(issueDate))
