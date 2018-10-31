@@ -107,7 +107,18 @@ namespace Inspur.Billing.ViewModel.Setting
             get { return _isTaxPayerEnable; }
             set { Set<bool>(ref _isTaxPayerEnable, value, "IsTaxPayerEnable"); }
         }
-
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        private bool _isCanEdit = false;
+        /// <summary>
+        /// 获取或设置
+        /// </summary>
+        public bool IsCanEdit
+        {
+            get { return _isCanEdit; }
+            set { Set<bool>(ref _isCanEdit, value, "IsCanEdit"); }
+        }
         #endregion
 
         #region 命令
@@ -139,7 +150,36 @@ namespace Inspur.Billing.ViewModel.Setting
                                     LoadSoftwareInfo();
                                 }));
                                 break;
+                            case "SoftwareEdit":
+                                IsCanEdit = true;
+                                break;
+                            case "SoftwareSave":
+                                IsCanEdit = false;
+                                var posInfoes = (from a in Const.dB.PosInfo
+                                                 select a).ToList();
+                                if (posInfoes != null && posInfoes.Count() > 0)
+                                {
+                                    PosInfo info = posInfoes[0];
+                                    info.CompanyName = PosInfo.CompanyName;
+                                    info.Desc = PosInfo.Desc;
+                                    info.Version = PosInfo.Version;
+                                    info.IssueDate = PosInfo.IssueDate;
+                                    Const.dB.Update<PosInfo>(info);
+                                }
+                                else
+                                {
+                                    PosInfo info = new PosInfo();
+                                    info.CompanyName = PosInfo.CompanyName;
+                                    info.Desc = PosInfo.Desc;
+                                    info.Version = PosInfo.Version;
+                                    info.IssueDate = PosInfo.IssueDate;
+                                    Const.dB.Insert<PosInfo>(info);
+                                }
+                                break;
                             case "SoftwareCancel":
+                                //重新查询一次
+                                LoadSoftwareInfo();
+                                IsCanEdit = false;
                                 break;
                             default:
                                 break;
