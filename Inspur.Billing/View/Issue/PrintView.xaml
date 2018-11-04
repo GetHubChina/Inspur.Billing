@@ -6,9 +6,13 @@
         xmlns:local="clr-namespace:Inspur.Billing.View.Issue"
         xmlns:date="clr-namespace:System;assembly=mscorlib"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:conveter="clr-namespace:Inspur.Billing.Converter"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="Print" Height="700" Width="550"
         DataContext="{Binding Path=Print, Source={StaticResource Locator}}">
+    <Window.Resources>
+        <conveter:SpaceConverterVisibility x:Key="SpaceConverterVisibility"/>
+    </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding Command}" CommandParameter="Loaded"/>
@@ -42,6 +46,8 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <TextBlock Visibility="{Binding OperationModeVis}" Style="{StaticResource H_C_ContentTbkStyle}" VerticalAlignment="Top" FontSize="16" Foreground="Red"><Run Text="This is a testing invoice"/></TextBlock>
+                <Image Grid.Row="0" Source="/Inspur.Billing;component/Images/mrlogo.png" Width="100" HorizontalAlignment="Left" 
+                       Visibility="{Binding InvoiceCode,Converter={StaticResource SpaceConverterVisibility}}"/>
                 <TextBlock Style="{StaticResource H_C_TitleTbkStyle}" Margin="0,30,0,0"><Run Text="Order Number: "/><Run Text="{Binding Credit.OrderNumber}"/></TextBlock>
                 <TextBlock Grid.Row="1" Text="{Binding CurrentTime}" Style="{StaticResource H_C_ContentTbkStyle}"/>
                 <Grid Grid.Row="2" Margin="10,0">
@@ -56,7 +62,7 @@
                     </Grid.RowDefinitions>
                     <TextBlock Style="{StaticResource BaseContentTbkStyle}"><Run Text="POSID:"/><Run Text="{Binding Credit.PosNumber}"/></TextBlock>
                     <TextBlock Style="{StaticResource H_R_ContentTbkStyle}"><Run Text="Cashier:"/><Run Text="{Binding Credit.Cashier}"/></TextBlock>
-                    <TextBlock Grid.Row="1" Text="Buyer TIN:" Style="{StaticResource BaseContentTbkStyle}"/>
+                    <TextBlock Grid.Row="1" Text="Buyer TAN:" Style="{StaticResource BaseContentTbkStyle}"/>
                     <TextBlock Grid.Row="1" Text="{Binding Credit.Buyer.Tin}" Style="{StaticResource H_R_ContentTbkStyle}"/>
                     <TextBlock Grid.Row="2" Text="Buyer Name:" Style="{StaticResource BaseContentTbkStyle}"/>
                     <TextBlock Grid.Row="2" Text="{Binding Credit.Buyer.Name}" Style="{StaticResource H_R_ContentTbkStyle}"/>
@@ -142,7 +148,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Text="TPIN:" Style="{StaticResource BaseContentTbkStyle}"/>
+                    <TextBlock Grid.Row="0" Text="TAN:" Style="{StaticResource BaseContentTbkStyle}"/>
                     <TextBlock Grid.Row="0" Text="{Binding TaxPayerInfo.Tin}" Style="{StaticResource H_R_ContentTbkStyle}"/>
                     <TextBlock Grid.Row="1" Text="Name:" Style="{StaticResource BaseContentTbkStyle}"/>
                     <TextBlock Grid.Row="1" Text="{Binding TaxPayerInfo.Name}" Style="{StaticResource H_R_ContentTbkStyle}"/>
@@ -157,7 +163,8 @@
                 </Grid>
                 <Line Grid.Row="11" Style="{StaticResource DotLineStyle}" Margin="0,10"/>
                 <Image Grid.Row="12" Source="{Binding QrPath}" Width="200" Margin="0,10"/>
-                <TextBlock Grid.Row="13" Text="Dear sir madam,please keep the invoice properly so as to refunds &amp; replaces" TextWrapping="Wrap" Style="{StaticResource BaseContentTbkStyle}"/>
+                <TextBlock Grid.Row="13" Text="Dear sir/madam, please keep this invoice propely for refunds &amp; replacements" TextWrapping="Wrap" 
+                           Style="{StaticResource BaseContentTbkStyle}" Visibility="{Binding InvoiceCode,Converter={StaticResource SpaceConverterVisibility}}"/>
                 <TextBlock Grid.Row="14" Text="Thank You &amp; Please Come Again" Style="{StaticResource H_C_ContentTbkStyle}" Margin="0,10,0,0"/>
 
             </Grid>

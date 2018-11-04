@@ -112,6 +112,7 @@ namespace Inspur.Billing.ViewModel.Statistics
                         default:
                             break;
                     }
+                    Clear();
                     RaisePropertyChanged(() => this.ReportType);
                 }
             }
@@ -424,6 +425,7 @@ namespace Inspur.Billing.ViewModel.Statistics
 
                         Printer.Instance.CutPaper(1, 5);
                         //}
+                        Clear();
                     });
                 }, () =>
                 {
@@ -518,6 +520,13 @@ namespace Inspur.Billing.ViewModel.Statistics
             }
             try
             {
+                if (e.Message.Contains("ErroCode"))
+                {
+                    ErrorInfo erroInfo = JsonConvert.DeserializeObject<ErrorInfo>(e.Message);
+                    MessageBoxEx.Show(erroInfo.Description, MessageBoxButton.OK);
+                    return;
+                }
+
                 ReportResponse response = JsonConvert.DeserializeObject<ReportResponse>(e.Message);
                 switch (response.ReportType)
                 {
@@ -613,6 +622,20 @@ namespace Inspur.Billing.ViewModel.Statistics
             {
                 _logger.Error(ex.Message);
             }
+        }
+
+
+        private void Clear()
+        {
+            CurrentTime = "";
+            TotalSlaes = 0;
+            TotalTax = 0;
+            TaxItems = new List<ReportTaxItems>();
+            InvoiceQuantity = 0;
+
+            ReportNumber = "";
+            BeginDate = "";
+            EndDate = "";
         }
         #endregion
     }

@@ -145,7 +145,6 @@ namespace Inspur.Billing.ViewModel.Issue
                                                 InvoiceCode = CoverterNull(item.InvoiceCode),
                                                 InvoiceNumber = CoverterNull(item.InvoiceNumber),
                                                 TotalAmount = item.TotalAmount,
-                                                CreditFlag = item.TransactionType == 1 ? "Credit" : "Normal",
                                                 BuyerTPIN = CoverterNull(item.BuyerTin),
                                                 BuyerName = CoverterNull(item.BuyerName),
                                                 Cashier = item.CashierId.ToString(),
@@ -422,7 +421,7 @@ namespace Inspur.Billing.ViewModel.Issue
                     //更新退款状态
                     if (SelectedItem != null)
                     {
-                        SelectedItem.CreditFlag = "Credit";
+                        SelectedItem.TransactionType = "1";
                         var invoice = (from a in Const.dB.InvoiceAbbreviation
                                        where a.SalesorderNum == SelectedItem.SalesOrderNum
                                        select a).ToList();

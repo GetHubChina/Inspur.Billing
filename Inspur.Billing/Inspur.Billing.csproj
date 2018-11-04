@@ -149,6 +149,8 @@
     <Compile Include="Commom\Printer.cs" />
     <Compile Include="Commom\ServiceHelper.cs" />
     <Compile Include="Commom\TaxCalculation.cs" />
+    <Compile Include="Converter\SpaceConverterVisibility.cs" />
+    <Compile Include="Converter\TransactionTextConveter.cs" />
     <Compile Include="Converter\TransactionTypeConverter.cs" />
     <Compile Include="LinqToDB.Templates\CopyMe.SQLite1.generated.cs">
       <AutoGen>True</AutoGen>
@@ -352,6 +354,7 @@
     <Resource Include="Images\System\OperationModePressed.png" />
     <Resource Include="Images\Issuing\CreditNormal.png" />
     <Resource Include="Images\Issuing\CreditPressed.png" />
+    <Resource Include="Images\mrlogo.png" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -690,6 +690,15 @@ namespace Inspur.Billing.ViewModel.Issue
                 SaleType = request.SaleType,
                 PaymentMode = request.PaymentMode,
             };
+            if (Const.Locator.OperationModeVm.IsTest)
+            {
+                invoiceAbbreviation.TransactionType = 4;
+            }
+            else if (Const.Locator.OperationModeVm.IsSeperate)
+            {
+                invoiceAbbreviation.TransactionType = 5;
+            }
+
             if (Credit != null)
             {
                 invoiceAbbreviation.SalesorderNum = Credit.OrderNumber;
@@ -780,7 +789,7 @@ namespace Inspur.Billing.ViewModel.Issue
 
                 Printer.Instance.SetAlign(0);
                 Printer.Instance.SetTwoColumnPrint("POSID", Credit.PosNumber, "Cashier:", Credit.Cashier);
-                Printer.Instance.SetTwoColumnPrint("Buyer TIN", "", "", Credit.Buyer.Tin);
+                Printer.Instance.SetTwoColumnPrint("Buyer TAN", "", "", Credit.Buyer.Tin);
                 Printer.Instance.SetTwoColumnPrint("Buyer Name", "", "", Credit.Buyer.Name);
                 Printer.Instance.SetTwoColumnPrint("Buyer Address", "", "", Credit.Buyer.Address);
                 Printer.Instance.SetTwoColumnPrint("Buyer Tel", "", "", Credit.Buyer.TelPhone);
@@ -833,7 +842,7 @@ namespace Inspur.Billing.ViewModel.Issue
                 Printer.Instance.SetTwoColumnPrint("Change", "", "", Change.ToString("0.00"));
                 Printer.Instance.PrintLine();
 
-                Printer.Instance.SetTwoColumnPrint("TPIN", "", "", TaxPayerInfo.Tin);
+                Printer.Instance.SetTwoColumnPrint("TAN", "", "", TaxPayerInfo.Tin);
                 Printer.Instance.SetTwoColumnPrint("Name", "", "", TaxPayerInfo.Name);
                 Printer.Instance.SetTwoColumnPrint("Address", "", "", TaxPayerInfo.Address);
                 Printer.Instance.SetTwoColumnPrint("Tel", "", "", TaxPayerInfo.Telphone);
@@ -847,7 +856,10 @@ namespace Inspur.Billing.ViewModel.Issue
                     Printer.Instance.PrintTwoDimensionalBarcodeA(signResponse.VerificationUrl);
                 }
                 Printer.Instance.SetAlign(0);
-                Printer.Instance.PrintString(0, 0, 0, 0, 0, "Dear sir madam,please keep the invoice properly so as to refunds & replaces \r\n\r\n");
+                if (!string.IsNullOrWhiteSpace(InvoiceCode))
+                {
+                    Printer.Instance.PrintString(0, 0, 0, 0, 0, "Dear sir/madam, please keep this invoice propely for refunds & replacements \r\n\r\n");
+                }
                 Printer.Instance.SetAlign(1);
                 Printer.Instance.PrintString(0, 0, 0, 0, 0, "Thank You & Please Come Again \r\n");
 

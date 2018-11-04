@@ -125,7 +125,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Text="Buyer TIN:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
+                    <TextBlock Grid.Row="0" Text="Buyer TAN:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
                     <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Buyer.Tin}" Style="{StaticResource M_3_P_3_TbStyle}" VerticalAlignment="Center">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="LostFocus">

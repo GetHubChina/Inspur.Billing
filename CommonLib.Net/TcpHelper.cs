@@ -59,7 +59,23 @@ namespace CommonLib.Net
             }
             return _isConn;
         }
-
+        public bool Connect(IPAddress iPAddress, int port, bool isCloseSocket)
+        {
+            if (!_socket.Connected)
+            {
+                IPEndPoint point = new IPEndPoint(iPAddress, port);
+                _socket.BeginConnect(point, new AsyncCallback(ConnectComplate), _socket);
+                if (!_timeOutObject.WaitOne(_timeOut, false))
+                {
+                    if (isCloseSocket)
+                    {
+                        CloseSocket();
+                    }
+                    throw new Exception("Connection timed out.");
+                }
+            }
+            return _isConn;
+        }
         private void ConnectComplate(IAsyncResult ar)
         {
             try
@@ -166,6 +182,7 @@ namespace CommonLib.Net
         }
         public void CloseSocket()
         {
+            _isConn = false;
             _socket.Close();
             _logger.Info("关闭Socket");
             _socket = null;

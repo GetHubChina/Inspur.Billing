@@ -81,6 +81,18 @@ namespace CommonLib.Net
         }
         #endregion
 
+        #region 属性
+
+        public bool IsOpen
+        {
+            get
+            {
+                return _serialPort.IsOpen;
+            }
+        }
+
+        #endregion
+
         #region 方法
         /// <summary>
         /// 打开串口

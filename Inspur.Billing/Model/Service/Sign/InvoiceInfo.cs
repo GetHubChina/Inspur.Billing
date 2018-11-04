@@ -93,18 +93,6 @@ namespace Inspur.Billing.Model.Service.Sign
             get { return _totalAmount; }
             set { Set<double?>(ref _totalAmount, value, "TotalAmount"); }
         }
-        /// <summary>
-        /// 获取或设置
-        /// </summary>
-        private string _creditFlag;
-        /// <summary>
-        /// 获取或设置
-        /// </summary>
-        public string CreditFlag
-        {
-            get { return _creditFlag; }
-            set { Set<string>(ref _creditFlag, value, "CreditFlag"); }
-        }
 
         public string Cashier { get; set; }
         public string BuyerTPIN { get; set; }

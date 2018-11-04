@@ -10,6 +10,7 @@
              d:DesignHeight="600" d:DesignWidth="800">
     <UserControl.Resources>
         <converter:TransactionTypeConverter x:Key="TransactionTypeConverter"/>
+        <converter:TransactionTextConveter x:Key="TransactionTextConveter"/>
     </UserControl.Resources>
     <Border Background="White">
         <Grid Margin="10,20">
@@ -47,17 +48,17 @@
             <DataGrid Grid.Row="2" ItemsSource="{Binding InvoiceList}" SelectedItem="{Binding SelectedItem}"
                           Style="{StaticResource DataGridPrintStyle}" CanUserSortColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="TPIN" Binding="{Binding TPin}" ElementStyle="{StaticResource DataGridColumnLeft}" Width="*"/>
+                    <DataGridTextColumn Header="TAN" Binding="{Binding TPin}" ElementStyle="{StaticResource DataGridColumnLeft}" Width="*"/>
                     <DataGridTextColumn Header="Issue Date" Binding="{Binding IssueTime}" ElementStyle="{StaticResource DataGridColumnLeft}" Width="*"/>
                     <DataGridTextColumn Header="Taxpayer Name" Binding="{Binding TaxpayerName}" ElementStyle="{StaticResource DataGridColumnLeft}" Width="*"/>
                     <DataGridTextColumn Header="TerminalID" Binding="{Binding TerminalID}" Width="*"/>
-                    <DataGridTextColumn Header="Invoice Code" Binding="{Binding InvoiceCode}" Width="*"/>
+                    <DataGridTextColumn Header="Invoice Code" Binding="{Binding InvoiceCode}" ElementStyle="{StaticResource DataGridColumnLeft}" Width="*"/>
                     <DataGridTextColumn Header="Invoice Number" Binding="{Binding InvoiceNumber}"
-                                             ElementStyle="{StaticResource DataGridColumnRight}" Width="*"/>
+                                             ElementStyle="{StaticResource DataGridColumnLeft}" Width="*"/>
                     <DataGridTextColumn Header="Total Amount" Binding="{Binding TotalAmount,StringFormat={}{0:0.00}}" Width="90" IsReadOnly="True"
                                              ElementStyle="{StaticResource DataGridColumnRight}"/>
-                    <DataGridTextColumn Header="Status" Binding="{Binding CreditFlag}" Width="60" IsReadOnly="True"
-                                             ElementStyle="{StaticResource DataGridColumnRight}"/>
+                    <DataGridTextColumn Header="Status" Binding="{Binding TransactionType,Converter={StaticResource TransactionTextConveter}}" Width="60" IsReadOnly="True"
+                                             ElementStyle="{StaticResource DataGridColumnLeft}"/>
                     <DataGridTemplateColumn Header="Operation" Width="80">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
