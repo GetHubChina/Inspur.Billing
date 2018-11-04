@@ -255,7 +255,7 @@ namespace Inspur.Billing.ViewModel
                 Const.Locator.ParameterSetting.SdcUrl = string.Format("{0}:{1}", sdcInfoes[0].SdcIp, sdcInfoes[0].SdcPort);
             }
         }
-        private void LoadPosInfo()
+        public void LoadPosInfo()
         {
             var posInfo = (from a in Const.dB.PosInfo
                            select a).ToList();

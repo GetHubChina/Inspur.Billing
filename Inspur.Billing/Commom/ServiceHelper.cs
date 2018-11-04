@@ -267,7 +267,7 @@ namespace Inspur.Billing.Commom
                 }
                 else
                 {
-                    number = Const.Locator.Main.PosInfo.Id.ToString();
+                    number = Const.Locator.Main.PosInfo.SerialNumber.ToString();
                     vendor = Const.Locator.Main.PosInfo.CompanyName;
                     model = Const.Locator.Main.PosInfo.Desc;
                     softVersion = Const.Locator.Main.PosInfo.Version;

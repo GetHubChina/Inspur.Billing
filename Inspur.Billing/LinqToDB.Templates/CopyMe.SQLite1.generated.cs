@@ -277,6 +277,8 @@ namespace DataModels
     {
         [Column("id"), PrimaryKey, NotNull]
         public long Id { get; set; } // integer
+        [Column("serial_number"), NotNull]
+        public string SerialNumber { get; set; } // integer
         [Column("version"), Nullable]
         public string Version { get; set; } // varchar(100)
         [Column("issue_date"), Nullable]

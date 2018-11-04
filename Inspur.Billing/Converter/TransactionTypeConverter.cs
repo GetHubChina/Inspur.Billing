@@ -7,28 +7,24 @@ using System.Threading.Tasks;
 
 namespace Inspur.Billing.Converter
 {
-    public class TransactionTypeConverter : System.Windows.Data.IValueConverter
+    public class TransactionTypeConverter : System.Windows.Data.IMultiValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            bool result = false;
-            if (value != null)
+            if (values != null)
             {
-                switch (value.ToString())
+                if (values.Count() == 2)
                 {
-                    case "0":
-                        result = true;
-                        break;
-                    case "1":
-                        break;
-                    default:
-                        break;
+                    if (values[0].ToString() == "0" && !string.IsNullOrWhiteSpace(values[1].ToString()))
+                    {
+                        return true;
+                    }
                 }
             }
-            return result;
+            return false;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

@@ -23,17 +23,27 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Make:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
-        <TextBlock Grid.Column="1" Text="{Binding PosInfo.CompanyName}" Style="{StaticResource BaseContentTbkStyle}"/>
-        <TextBlock Grid.Row="1" Text="Model:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
-        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding PosInfo.Desc}" Style="{StaticResource BaseContentTbkStyle}"/>
-        <TextBlock Grid.Row="2" Text="Software Version:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
-        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding PosInfo.Version}" Style="{StaticResource BaseContentTbkStyle}"/>
-        <TextBlock Grid.Row="3" Text="Release Time:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
-        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding PosInfo.IssueDate,StringFormat={}{0:yyyy-MM-dd}}" Style="{StaticResource BaseContentTbkStyle}"/>
-        <Button Grid.Row="4" Grid.ColumnSpan="2" Width="100" Height="30" Content="Cancel" VerticalAlignment="Center"
-                             Command="{Binding Command}" CommandParameter="SoftwareCancel" Visibility="Collapsed"/>
+        <TextBlock Text="PosSN:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
+        <TextBox Grid.Column="1" Text="{Binding PosInfo.SerialNumber}" IsEnabled="{Binding IsCanEdit}" Style="{StaticResource M_3_P_3_TbStyle}"/>
+        <TextBlock Grid.Row="1" Text="Vendor:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding PosInfo.CompanyName}" IsEnabled="{Binding IsCanEdit}" Style="{StaticResource M_3_P_3_TbStyle}"/>
+        <TextBlock Grid.Row="2" Text="Model:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding PosInfo.Desc}" IsEnabled="{Binding IsCanEdit}" Style="{StaticResource M_3_P_3_TbStyle}"/>
+        <TextBlock Grid.Row="3" Text="Software Version:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding PosInfo.Version}" IsEnabled="{Binding IsCanEdit}" Style="{StaticResource M_3_P_3_TbStyle}"/>
+        <TextBlock Grid.Row="4" Text="Release Date:" Style="{StaticResource H_R_M10_ContentTbkStyle}"/>
+        <DatePicker Grid.Row="4" Grid.Column="1" SelectedDate="{Binding PosInfo.IssueDate}" Language="en-US"
+                    IsEnabled="{Binding IsCanEdit}" VerticalAlignment="Center"/>
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal" Margin="0,60,0,0">
+            <Button Width="100" Content="Edit" 
+                    Command="{Binding Command}" CommandParameter="SoftwareEdit"/>
+            <Button Width="100" Content="Save"  Margin="30,0"
+                    Command="{Binding Command}" CommandParameter="SoftwareSave"/>
+            <Button Width="100" Content="Cancel" 
+                    Command="{Binding Command}" CommandParameter="SoftwareCancel"/>
+        </StackPanel>
     </Grid>
 </UserControl>

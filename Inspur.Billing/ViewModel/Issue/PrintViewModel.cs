@@ -479,7 +479,7 @@ namespace Inspur.Billing.ViewModel.Issue
         {
             signRequest = new SignRequest
             {
-                PosSerialNumber = Const.Locator.Main.PosInfo.Id.ToString(),
+                PosSerialNumber = Const.Locator.Main.PosInfo.SerialNumber.ToString(),
                 PosVendor = Const.Locator.Main.PosInfo.CompanyName,
                 PosModel = Const.Locator.Main.PosInfo.Desc,
                 PosSoftVersion = Const.Locator.Main.PosInfo.Version,
@@ -583,6 +583,7 @@ namespace Inspur.Billing.ViewModel.Issue
                     ErrorInfo erroInfo = JsonConvert.DeserializeObject<ErrorInfo>(e.Message);
                     if (erroInfo != null)
                     {
+                        signResponse = new Model.Service.Sign.SignResponse();
                         MessageBoxEx.Show(erroInfo.Description, MessageBoxButton.OK);
                         return;
                     }
